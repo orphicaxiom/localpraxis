@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Island Key Properties - Owner Portal</title>
+	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap">
+		<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap">
+	</noscript>
+	<style>
+		:root {
+			--warm-white: #FDFAF5;
+			--cream: #F5F0E8;
+			--ink: #1C1917;
+			--ink-mid: #57534E;
+			--ink-light: #A8A29E;
+			--terracotta: #C2603D;
+			--rule: #DDD6CC;
+			--success: #2D7A3E;
+			--warning: #D4A017;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		html, body {
+			height: 100%;
+			width: 100%;
+		}
+
+		body {
+			font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+			background-color: var(--warm-white);
+			color: var(--ink);
+			line-height: 1.5;
+			overflow: hidden;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			font-family: 'Instrument Serif', Georgia, serif;
+		}
+
+		/* Noise grain overlay */
+		body::before {
+			content: '';
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise' /%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.018'/%3E%3C/svg%3E");
+			pointer-events: none;
+			z-index: 9999;
+		}
+
+		::selection {
+			background-color: var(--terracotta);
+			color: var(--warm-white);
+		}
+
+		/* Layout */
+		.container {
+			display: flex;
+			height: 100vh;
+			overflow: hidden;
+		}
+
+		.sidebar {
+			width: 220px;
+			background-color: var(--cream);
+			border-right: 1px solid var(--rule);
+			display: flex;
+			flex-direction: column;
+			overflow-y: auto;
+			position: fixed;
+			height: 100vh;
+			left: 0;
+			top: 0;
+			z-index: 100;
+		}
+
+		.sidebar-header {
+			padding: 2rem 1.5rem 1.5rem;
+			border-bottom: 1px solid var(--rule);
+		}
+
+		.brand-name {
+			font-family: 'Instrument Serif', Georgia, serif;
+			font-size: 1.1rem;
+			font-weight: 600;
+			color: var(--ink);
+			margin-bottom: 0.25rem;
+			line-height: 1.2;
+		}
+
+		.brand-subtitle {
+			font-size: 0.65rem;
+			color: var(--ink-light);
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			font-weight: 500;
+		}
+
+		.sidebar-user {
+			padding: 1rem 1.5rem;
+			border-bottom: 1px solid var(--rule);
+			font-size: 0.75rem;
+		}
+
+		.sidebar-user-label {
+			color: var(--ink-light);
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			font-weight: 500;
+			margin-bottom: 0.5rem;
+			display: block;
+			font-size: 0.65rem;
+		}
+
+		.sidebar-user-name {
+			color: var(--ink);
+			font-weight: 500;
+			font-size: 0.9rem;
+		}
+
+		.sidebar-nav {
+			flex: 1;
+			padding: 1.5rem 0;
+		}
+
+		.nav-item {
+			display: flex;
+			align-items: center;
+			padding: 0.875rem 1.5rem;
+			color: var(--ink-mid);
+			text-decoration: none;
+			font-size: 0.9rem;
+			cursor: pointer;
+			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+			border-left: 3px solid transparent;
+			margin: 0 0.75rem;
+			border-radius: 0 4px 4px 0;
+		}
+
+		.nav-item:hover {
+			color: var(--ink);
+			background-color: rgba(194, 96, 61, 0.08);
+		}
+
+		.nav-item.active {
+			color: var(--terracotta);
+			background-color: rgba(194, 96, 61, 0.12);
+			border-left-color: var(--terracotta);
+			font-weight: 600;
+		}
+
+		.sidebar-footer {
+			padding: 1.5rem;
+			border-top: 1px solid var(--rule);
+			text-align: center;
+		}
+
+		.sidebar-footer a {
+			font-size: 0.7rem;
+			color: var(--ink-light);
+			text-decoration: none;
+			transition: color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.sidebar-footer a:hover {
+			color: var(--terracotta);
+		}
+
+		.main {
+			margin-left: 220px;
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+		}
+
+		.content {
+			flex: 1;
+			overflow-y: auto;
+			background-color: var(--warm-white);
+			padding: 3.5rem 4rem;
+		}
+
+		/* Greeting and Date */
+		.view-header {
+			margin-bottom: 2rem;
+		}
+
+		.greeting {
+			font-family: 'Instrument Serif', Georgia, serif;
+			font-size: 1.75rem;
+			color: var(--ink);
+			margin-bottom: 0.5rem;
+		}
+
+		.current-date {
+			font-size: 0.875rem;
+			color: var(--ink-light);
+		}
+
+		/* Property Selector */
+		.property-selector {
+			margin-bottom: 2.5rem;
+		}
+
+		.property-selector-label {
+			display: block;
+			font-size: 0.7rem;
+			color: var(--ink-light);
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			font-weight: 500;
+			margin-bottom: 0.75rem;
+		}
+
+		.select-wrapper {
+			position: relative;
+			width: fit-content;
+		}
+
+		select {
+			appearance: none;
+			background-color: var(--cream);
+			border: 1px solid var(--rule);
+			color: var(--ink);
+			padding: 0.75rem 2rem 0.75rem 0.875rem;
+			font-family: 'Satoshi', sans-serif;
+			font-size: 0.95rem;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		select:hover {
+			border-color: var(--ink-light);
+		}
+
+		select:focus {
+			outline: none;
+			border-color: var(--terracotta);
+			box-shadow: 0 0 0 3px rgba(194, 96, 61, 0.1);
+		}
+
+		.select-wrapper::after {
+			content: '▼';
+			position: absolute;
+			right: 0.75rem;
+			top: 50%;
+			transform: translateY(-50%);
+			pointer-events: none;
+			color: var(--ink-light);
+			font-size: 0.6rem;
+		}
+
+		/* Stats Grid */
+		.stats-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 2rem;
+			margin-bottom: 3rem;
+		}
+
+		.stat-card {
+			padding: 1.5rem;
+			background-color: var(--warm-white);
+			border-top: 2px solid var(--rule);
+		}
+
+		.stat-label {
+			font-size: 0.7rem;
+			color: var(--ink-light);
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			font-weight: 500;
+			margin-bottom: 0.75rem;
+		}
+
+		.stat-value {
+			font-family: 'Instrument Serif', Georgia, serif;
+			font-size: 2.5rem;
+			color: var(--ink);
+			font-weight: 600;
+			line-height: 1;
+		}
+
+		/* Two Column Layout */
+		.dashboard-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 3rem;
+		}
+
+		.section-title {
+			font-family: 'Instrument Serif', Georgia, serif;
+			font-size: 1.25rem;
+			color: var(--ink);
+			margin-bottom: 1.5rem;
+		}
+
+		/* Bookings Table / List */
+		.bookings-table {
+			width: 100%;
+			border-collapse: collapse;
+			background-color: var(--warm-white);
+		}
+
+		.bookings-table thead {
+			border-bottom: 1px solid var(--rule);
+		}
+
+		.bookings-table th {
+			text-align: left;
+			padding: 1rem;
+			font-size: 0.7rem;
+			color: var(--ink-light);
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			font-weight: 500;
+			background-color: transparent;
+		}
+
+		.bookings-table td {
+			padding: 1rem;
+			border-bottom: 1px solid var(--rule);
+			font-size: 0.95rem;
+		}
+
+		.bookings-table tbody tr {
+			transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+			cursor: pointer;
+		}
+
+		.bookings-table tbody tr:hover {
+			background-color: rgba(194, 96, 61, 0.04);
+		}
+
+		.booking-guest {
+			font-weight: 500;
+			color: var(--ink);
+		}
+
+		.booking-property {
+			color: var(--ink-mid);
+		}
+
+		.booking-status {
+			display: inline-block;
+			padding: 0.375rem 0.75rem;
+			border-radius: 4px;
+			font-size: 0.8rem;
+			font-weight: 500;
+		}
+
+		.status-confirmed {
+			background-color: rgba(45, 122, 62, 0.15);
+			color: var(--success);
+		}
+
+		.status-checked-in {
+			background-color: rgba(212, 160, 23, 0.15);
+			color: var(--warning);
+		}
+
+		.status-completed {
+			background-color: rgba(45, 122, 62, 0.15);
+			color: var(--success);
+		}
+
+		.status-cancelled {
+			background-color: rgba(194, 96, 61, 0.15);
+			color: var(--terracotta);
+		}
+
+		/* Activity Feed */
+		.activity-feed {
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+		}
+
+		.activity-item {
+			padding: 1.25rem;
+			border-top: 1px solid var(--rule);
+			cursor: pointer;
+			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.activity-item:hover {
+			background-color: rgba(194, 96, 61, 0.04);
+		}
+
+		.activity-title {
+			font-weight: 600;
+			color: var(--ink);
+			margin-bottom: 0.5rem;
+		}
+
+		.activity-text {
+			font-size: 0.9rem;
+			color: var(--ink-mid);
+			margin-bottom: 0.5rem;
+		}
+
+		.activity-time {
+			font-size: 0.8rem;
+			color: var(--ink-light);
+		}
+
+		/* Buttons */
+		button {
+			font-family: 'Satoshi', sans-serif;
+			border: none;
+			border-radius: 4px;
+			padding: 0.75rem 1.5rem;
+			font-size: 0.95rem;
+			font-weight: 500;
+			cursor: pointer;
+			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.btn-primary {
+			background-color: var(--terracotta);
+			color: var(--warm-white);
+		}
+
+		.btn-primary:hover {
+			background-color: #a84c31;
+		}
+
+		.btn-secondary {
+			background-color: transparent;
+			border: 1px solid var(--rule);
+			color: var(--ink);
+		}
+
+		.btn-secondary:hover {
+			border-color: var(--ink);
+			background-color: rgba(0, 0, 0, 0.02);
+		}
+
+		/* Modals */
+		.modal {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+			z-index: 1000;
+			align-items: center;
+			justify-content: center;
+			backdrop-filter: blur(2px);
+		}
+
+		.modal.active {
+			display: flex;
+		}
+
+		.modal-content {
+			background-color: var(--warm-white);
+			border-radius: 8px;
+			padding: 2rem;
+			max-width: 600px;
+			width: 90%;
+			max-height: 85vh;
+			overflow-y: auto;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+		}
+
+		.modal-header {
+			margin-bottom: 1.5rem;
+		}
+
+		.modal-title {
+			font-family: 'Instrument Serif', Georgia, serif;
+			font-size: 1.5rem;
+			color: var(--ink);
+		}
+
+		.close-btn {
+			float: right;
+			background: none;
+			border: none;
+			font-size: 1.5rem;
+			color: var(--ink-light);
+			cursor: pointer;
+			padding: 0;
+			margin: -0.5rem 0 0 0;
+		}
+
+		.close-btn:hover {
+			color: var(--ink);
+		}
+
+		/* Form Elements */
+		input, textarea {
+			font-family: 'Satoshi', sans-serif;
+			width: 100%;
+			padding: 0.75rem;
+			border: 1px solid var(--rule);
+			border-radius: 4px;
+			font-size: 0.95rem;
+			color: var(--ink);
+			margin-bottom: 1rem;
+			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		input:focus, textarea:focus {
+			outline: none;
+			border-color: var(--terracotta);
+			box-shadow: 0 0 0 3px rgba(194, 96, 61, 0.1);
+		}
+
+		textarea {
+			resize: vertical;
+			min-height: 120px;
+		}
+
+		.form-group {
+			margin-bottom: 1.5rem;
+		}
+
+		.form-label {
+			display: block;
+			font-size: 0.7rem;
+			color: var(--ink-light);
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			font-weight: 500;
+			margin-bottom: 0.75rem;
+		}
+
+		/* Tabs */
+		.tabs {
+			display: flex;
+			gap: 0;
+			margin-bottom: 2rem;
+			border-bottom: 1px solid var(--rule);
+		}
+
+		.tab {
+			padding: 1rem 1.5rem;
+			background: none;
+			border: none;
+			border-bottom: 2px solid transparent;
+			color: var(--ink-light);
+			cursor: pointer;
+			font-size: 0.95rem;
+			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.tab:hover {
+			color: var(--ink);
+		}
+
+		.tab.active {
+			color: var(--terracotta);
+			border-bottom-color: var(--terracotta);
+		}
+
+		/* Calendar / Occupancy */
+		.occupancy-bar {
+			display: flex;
+			height: 24px;
+			border-radius: 3px;
+			overflow: hidden;
+			margin: 0.75rem 0;
+			gap: 1px;
+			background-color: var(--rule);
+		}
+
+		.occupancy-segment {
+			flex: 1;
+			background-color: var(--success);
+			position: relative;
+			cursor: help;
+		}
+
+		.occupancy-segment.open {
+			background-color: var(--rule);
+		}
+
+		/* Financial Charts */
+		.revenue-chart {
+			display: flex;
+			align-items: flex-end;
+			gap: 1.5rem;
+			height: 200px;
+			margin: 2rem 0;
+		}
+
+		.chart-bar {
+			flex: 1;
+			background-color: var(--cream);
+			border: 1px solid var(--rule);
+			border-radius: 4px;
+			position: relative;
+			display: flex;
+			align-items: flex-end;
+			padding: 0.5rem;
+		}
+
+		.chart-bar-fill {
+			width: 100%;
+			background-color: var(--terracotta);
+			border-radius: 3px;
+		}
+
+		.chart-bar-label {
+			position: absolute;
+			bottom: -1.75rem;
+			left: 0;
+			right: 0;
+			text-align: center;
+			font-size: 0.8rem;
+			color: var(--ink-mid);
+		}
+
+		.chart-bar-value {
+			position: absolute;
+			top: -1.75rem;
+			left: 0;
+			right: 0;
+			text-align: center;
+			font-family: 'Instrument Serif', Georgia, serif;
+			font-size: 1rem;
+			color: var(--ink);
+			font-weight: 600;
+		}
+
+		/* Maintenance Cards */
+		.maintenance-card {
+			border: 1px solid var(--rule);
+			border-radius: 6px;
+			padding: 1.5rem;
+			margin-bottom: 1.5rem;
+			cursor: pointer;
+			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.maintenance-card:hover {
+			border-color: var(--terracotta);
+			background-color: rgba(194, 96, 61, 0.04);
+		}
+
+		.maintenance-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: start;
+			margin-bottom: 1rem;
+		}
+
+		.maintenance-title {
+			font-weight: 600;
+			color: var(--ink);
+			margin-bottom: 0.5rem;
+		}
+
+		.maintenance-status {
+			display: inline-block;
+			padding: 0.375rem 0.75rem;
+			border-radius: 4px;
+			font-size: 0.8rem;
+			font-weight: 500;
+		}
+
+		.status-open {
+			background-color: rgba(212, 160, 23, 0.15);
+			color: var(--warning);
+		}
+
+		.status-in-progress {
+			background-color: rgba(212, 160, 23, 0.15);
+			color: var(--warning);
+		}
+
+		.status-completed {
+			background-color: rgba(45, 122, 62, 0.15);
+			color: var(--success);
+		}
+
+		.maintenance-property {
+			color: var(--ink-mid);
+			font-size: 0.9rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.maintenance-date {
+			font-size: 0.85rem;
+			color: var(--ink-light);
+		}
+
+		.maintenance-priority {
+			display: inline-block;
+			margin-left: 0.75rem;
+			padding: 0.25rem 0.625rem;
+			background-color: rgba(194, 96, 61, 0.1);
+			color: var(--terracotta);
+			border-radius: 3px;
+			font-size: 0.75rem;
+			font-weight: 500;
+		}
+
+		/* Messages */
+		.messages-container {
+			display: grid;
+			grid-template-columns: 300px 1fr;
+			gap: 2rem;
+			height: calc(100vh - 200px);
+		}
+
+		.messages-list {
+			border-right: 1px solid var(--rule);
+			overflow-y: auto;
+			padding-right: 1.5rem;
+		}
+
+		.message-thread {
+			padding: 1rem;
+			border-radius: 6px;
+			margin-bottom: 1rem;
+			cursor: pointer;
+			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+			background-color: var(--cream);
+		}
+
+		.message-thread:hover {
+			background-color: rgba(194, 96, 61, 0.1);
+		}
+
+		.message-thread.active {
+			background-color: rgba(194, 96, 61, 0.15);
+		}
+
+		.message-thread-title {
+			font-weight: 600;
+			color: var(--ink);
+			margin-bottom: 0.5rem;
+		}
+
+		.message-thread-preview {
+			font-size: 0.85rem;
+			color: var(--ink-mid);
+			margin-bottom: 0.5rem;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.message-thread-date {
+			font-size: 0.75rem;
+			color: var(--ink-light);
+		}
+
+		.messages-conversation {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.conversation-header {
+			margin-bottom: 1.5rem;
+			border-bottom: 1px solid var(--rule);
+			padding-bottom: 1.5rem;
+		}
+
+		.conversation-title {
+			font-family: 'Instrument Serif', Georgia, serif;
+			font-size: 1.25rem;
+			color: var(--ink);
+		}
+
+		.conversation-messages {
+			flex: 1;
+			overflow-y: auto;
+			margin-bottom: 1.5rem;
+			display: flex;
+			flex-direction: column;
+			gap: 1.25rem;
+		}
+
+		.message {
+			display: flex;
+			gap: 1rem;
+		}
+
+		.message.owner {
+			justify-content: flex-end;
+		}
+
+		.message-bubble {
+			max-width: 70%;
+			padding: 1rem;
+			border-radius: 6px;
+			background-color: var(--cream);
+			color: var(--ink);
+		}
+
+		.message.owner .message-bubble {
+			background-color: var(--terracotta);
+			color: var(--warm-white);
+		}
+
+		.message-author {
+			font-size: 0.8rem;
+			color: var(--ink-light);
+			margin-bottom: 0.25rem;
+		}
+
+		.message-text {
+			font-size: 0.95rem;
+			line-height: 1.5;
+		}
+
+		.message-time {
+			font-size: 0.75rem;
+			color: var(--ink-light);
+			margin-top: 0.5rem;
+		}
+
+		.compose-area {
+			border-top: 1px solid var(--rule);
+			padding-top: 1.5rem;
+		}
+
+		.compose-input {
+			width: 100%;
+			padding: 0.75rem;
+			border: 1px solid var(--rule);
+			border-radius: 4px;
+			font-family: 'Satoshi', sans-serif;
+			font-size: 0.95rem;
+			resize: vertical;
+			min-height: 80px;
+			margin-bottom: 1rem;
+		}
+
+		.compose-button {
+			background-color: var(--terracotta);
+			color: var(--warm-white);
+			width: 100%;
+		}
+
+		/* Confirmation Message */
+		.confirmation {
+			display: none;
+			position: fixed;
+			bottom: 2rem;
+			right: 2rem;
+			background-color: var(--success);
+			color: var(--warm-white);
+			padding: 1rem 1.5rem;
+			border-radius: 6px;
+			z-index: 2000;
+			animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.confirmation.show {
+			display: block;
+		}
+
+		@keyframes slideIn {
+			from {
+				transform: translateX(100%);
+				opacity: 0;
+			}
+			to {
+				transform: translateX(0);
+				opacity: 1;
+			}
+		}
+
+		/* Expense Table */
+		.expense-table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		.expense-table thead {
+			border-bottom: 1px solid var(--rule);
+		}
+
+		.expense-table th {
+			text-align: left;
+			padding: 1rem;
+			font-size: 0.7rem;
+			color: var(--ink-light);
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			font-weight: 500;
+		}
+
+		.expense-table td {
+			padding: 1rem;
+			border-bottom: 1px solid var(--rule);
+			font-size: 0.95rem;
+		}
+
+		.expense-category {
+			font-weight: 500;
+			color: var(--ink);
+		}
+
+		.expense-amount {
+			text-align: right;
+			color: var(--terracotta);
+		}
+
+		/* Hidden Views */
+		.view {
+			display: none;
+		}
+
+		.view.active {
+			display: block;
+		}
+
+		/* Bookings View Specific */
+		.month-selector {
+			margin-bottom: 2rem;
+		}
+
+		.property-tabs {
+			display: flex;
+			gap: 1rem;
+			margin-bottom: 2rem;
+		}
+
+		.property-tab {
+			padding: 0.75rem 1.5rem;
+			background-color: transparent;
+			border: 1px solid var(--rule);
+			color: var(--ink);
+			cursor: pointer;
+			border-radius: 4px;
+			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.property-tab:hover {
+			border-color: var(--terracotta);
+		}
+
+		.property-tab.active {
+			background-color: var(--terracotta);
+			color: var(--warm-white);
+			border-color: var(--terracotta);
+		}
+
+		.property-booking-section {
+			margin-bottom: 3rem;
+			padding-bottom: 2rem;
+			border-bottom: 1px solid var(--rule);
+		}
+
+		.property-booking-section:last-child {
+			border-bottom: none;
+		}
+
+		/* Responsive */
+		@media (max-width: 1200px) {
+			.stats-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.dashboard-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.messages-container {
+				grid-template-columns: 1fr;
+			}
+
+			.messages-list {
+				border-right: none;
+				border-bottom: 1px solid var(--rule);
+				padding-right: 0;
+				padding-bottom: 1.5rem;
+				max-height: 200px;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.sidebar {
+				width: 100%;
+				height: auto;
+				position: relative;
+				border-right: none;
+				border-bottom: 1px solid var(--rule);
+			}
+
+			.main {
+				margin-left: 0;
+			}
+
+			.content {
+				padding: 2rem 1.5rem;
+			}
+
+			.stats-grid {
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1rem;
+			}
+
+			.stat-value {
+				font-size: 1.75rem;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<!-- Sidebar -->
+		<div class="sidebar">
+			<div class="sidebar-header">
+				<div class="brand-name">Island Key Properties</div>
+				<div class="brand-subtitle">Owner Portal</div>
+			</div>
+
+			<div class="sidebar-user">
+				<label class="sidebar-user-label">Logged in as</label>
+				<div class="sidebar-user-name">Sarah Mitchell</div>
+			</div>
+
+			<nav class="sidebar-nav">
+				<a class="nav-item active" data-view="overview">Overview</a>
+				<a class="nav-item" data-view="bookings">Bookings</a>
+				<a class="nav-item" data-view="financials">Financials</a>
+				<a class="nav-item" data-view="maintenance">Maintenance</a>
+				<a class="nav-item" data-view="messages">Messages</a>
+			</nav>
+
+			<div class="sidebar-footer">
+				<a href="https://localpraxis.com" target="_blank">Built by Local Praxis</a>
+			</div>
+		</div>
+
+		<!-- Main Content -->
+		<div class="main">
+			<div class="content">
+
+				<!-- Overview View -->
+				<div class="view active" id="overview-view">
+					<div class="view-header">
+						<h1 class="greeting">Good morning, Sarah.</h1>
+						<div class="current-date" id="current-date"></div>
+					</div>
+
+					<div class="property-selector">
+						<label class="property-selector-label">Filter by property</label>
+						<div class="select-wrapper">
+							<select id="property-filter">
+								<option value="all">All Properties</option>
+								<option value="pelicans-rest">Pelican's Rest</option>
+								<option value="sandpiper">The Sandpiper</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="stats-grid">
+						<div class="stat-card">
+							<div class="stat-label">Occupancy Rate</div>
+							<div class="stat-value" id="occupancy-rate">78</div>
+							<div style="font-size: 0.85rem; color: var(--ink-light); margin-top: 0.5rem;">% this month</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-label">Revenue MTD</div>
+							<div class="stat-value" id="revenue-mtd">8,420</div>
+							<div style="font-size: 0.85rem; color: var(--ink-light); margin-top: 0.5rem;">$</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-label">Upcoming Check-ins</div>
+							<div class="stat-value" id="upcoming-checkins">3</div>
+							<div style="font-size: 0.85rem; color: var(--ink-light); margin-top: 0.5rem;">next 7 days</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-label">Open Maintenance</div>
+							<div class="stat-value" id="open-maintenance">2</div>
+							<div style="font-size: 0.85rem; color: var(--ink-light); margin-top: 0.5rem;">requests</div>
+						</div>
+					</div>
+
+					<div class="dashboard-grid">
+						<div>
+							<h2 class="section-title">Upcoming Bookings</h2>
+							<table class="bookings-table">
+								<thead>
+									<tr>
+										<th>Guest</th>
+										<th>Property</th>
+										<th>Check-in</th>
+										<th>Nights</th>
+										<th>Amount</th>
+									</tr>
+								</thead>
+								<tbody id="upcoming-bookings-body">
+									<!-- Populated by JS -->
+								</tbody>
+							</table>
+						</div>
+
+						<div>
+							<h2 class="section-title">Recent Activity</h2>
+							<div class="activity-feed" id="activity-feed">
+								<!-- Populated by JS -->
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Bookings View -->
+				<div class="view" id="bookings-view">
+					<div class="view-header">
+						<h1 class="greeting">Bookings</h1>
+					</div>
+
+					<div class="month-selector">
+						<label class="property-selector-label">Select month</label>
+						<div class="select-wrapper">
+							<select id="month-filter">
+								<option value="2025-03">March 2026</option>
+								<option value="2026-04" selected>April 2026</option>
+								<option value="2026-05">May 2026</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="property-tabs">
+						<button class="property-tab active" data-property="all">All Properties</button>
+						<button class="property-tab" data-property="pelicans-rest">Pelican's Rest</button>
+						<button class="property-tab" data-property="sandpiper">The Sandpiper</button>
+					</div>
+
+					<div id="bookings-content">
+						<!-- Populated by JS -->
+					</div>
+				</div>
+
+				<!-- Financials View -->
+				<div class="view" id="financials-view">
+					<div class="view-header">
+						<h1 class="greeting">Financials</h1>
+					</div>
+
+					<div style="margin-bottom: 2rem;">
+						<label class="property-selector-label">Period</label>
+						<div class="select-wrapper">
+							<select id="financial-period">
+								<option value="month">This Month</option>
+								<option value="last-month">Last Month</option>
+								<option value="quarter">This Quarter</option>
+								<option value="ytd">Year to Date</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
+						<div class="stat-card">
+							<div class="stat-label">Gross Revenue</div>
+							<div class="stat-value" id="gross-revenue">8,420</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-label">Management Fee</div>
+							<div class="stat-value" id="mgmt-fee" style="color: var(--terracotta);">-1,684</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-label">Expenses</div>
+							<div class="stat-value" id="expenses" style="color: var(--terracotta);">-1,230</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-label">Net Income</div>
+							<div class="stat-value" id="net-income" style="color: var(--success);">5,506</div>
+						</div>
+					</div>
+
+					<div style="margin-bottom: 3rem;">
+						<h2 class="section-title">Revenue by Property</h2>
+						<div class="revenue-chart">
+							<div class="chart-bar">
+								<div class="chart-bar-value">$5,600</div>
+								<div class="chart-bar-fill" style="height: 66%;"></div>
+								<div class="chart-bar-label">Pelican's Rest</div>
+							</div>
+							<div class="chart-bar">
+								<div class="chart-bar-value">$2,820</div>
+								<div class="chart-bar-fill" style="height: 34%;"></div>
+								<div class="chart-bar-label">The Sandpiper</div>
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+							<h2 class="section-title" style="margin-bottom: 0;">Expenses</h2>
+							<button class="btn-primary" id="download-statement">Download Statement</button>
+						</div>
+						<table class="expense-table">
+							<thead>
+								<tr>
+									<th>Description</th>
+									<th>Property</th>
+									<th>Date</th>
+									<th style="text-align: right;">Amount</th>
+								</tr>
+							</thead>
+							<tbody id="expenses-body">
+								<!-- Populated by JS -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- Maintenance View -->
+				<div class="view" id="maintenance-view">
+					<div class="view-header">
+						<h1 class="greeting">Maintenance</h1>
+					</div>
+
+					<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+						<div>
+							<label class="property-selector-label">Filter by status</label>
+							<div class="tabs">
+								<button class="tab active" data-filter="all">All</button>
+								<button class="tab" data-filter="open">Open</button>
+								<button class="tab" data-filter="in-progress">In Progress</button>
+								<button class="tab" data-filter="completed">Completed</button>
+							</div>
+						</div>
+						<button class="btn-primary" id="report-issue-btn">Report Issue</button>
+					</div>
+
+					<div id="maintenance-content">
+						<!-- Populated by JS -->
+					</div>
+				</div>
+
+				<!-- Messages View -->
+				<div class="view" id="messages-view">
+					<div class="view-header">
+						<h1 class="greeting">Messages</h1>
+					</div>
+
+					<div class="messages-container">
+						<div class="messages-list" id="messages-list">
+							<!-- Populated by JS -->
+						</div>
+						<div class="messages-conversation" id="conversation-area">
+							<div style="color: var(--ink-light); text-align: center; padding: 2rem;">Select a message to view</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Modals -->
+	<div id="booking-detail-modal" class="modal">
+		<div class="modal-content">
+			<button class="close-btn">&times;</button>
+			<div class="modal-header">
+				<h2 class="modal-title" id="modal-booking-title">Booking Details</h2>
+			</div>
+			<div id="modal-booking-body">
+				<!-- Populated by JS -->
+			</div>
+		</div>
+	</div>
+
+	<div id="maintenance-detail-modal" class="modal">
+		<div class="modal-content">
+			<button class="close-btn">&times;</button>
+			<div class="modal-header">
+				<h2 class="modal-title">Maintenance Request</h2>
+			</div>
+			<div id="modal-maintenance-body">
+				<!-- Populated by JS -->
+			</div>
+		</div>
+	</div>
+
+	<div id="report-issue-modal" class="modal">
+		<div class="modal-content">
+			<button class="close-btn">&times;</button>
+			<div class="modal-header">
+				<h2 class="modal-title">Report Issue</h2>
+			</div>
+			<form id="report-issue-form">
+				<div class="form-group">
+					<label class="form-label">Property</label>
+					<select>
+						<option>Pelican's Rest</option>
+						<option>The Sandpiper</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="form-label">Description</label>
+					<textarea placeholder="Describe the issue..." required></textarea>
+				</div>
+				<div class="form-group">
+					<label class="form-label">Priority</label>
+					<select>
+						<option>Low</option>
+						<option selected>Medium</option>
+						<option>High</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="form-label">Photo (optional)</label>
+					<input type="file" accept="image/*">
+				</div>
+				<button type="submit" class="btn-primary" style="width: 100%;">Submit Report</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- Confirmation Message -->
+	<div class="confirmation" id="confirmation"></div>
+
+	<script>
+		// Data
+		const properties = {
+			'pelicans-rest': { name: "Pelican's Rest", type: '3BR/2BA beachfront condo', address: 'Unit 204, Mustang Island Condos' },
+			'sandpiper': { name: 'The Sandpiper', type: '2BR/1BA cottage', address: '118 Station St' }
+		};
+
+		const bookings = [
+			{ id: 1, guest: 'Mike & Sarah Chen', property: 'pelicans-rest', checkIn: '2026-04-01', checkOut: '2026-04-05', nights: 4, guests: 4, total: 1680, status: 'checked-in', platform: 'Airbnb' },
+			{ id: 2, guest: 'Laura Simmons', property: 'pelicans-rest', checkIn: '2026-04-08', checkOut: '2026-04-11', nights: 3, guests: 2, total: 1260, status: 'confirmed', platform: 'VRBO' },
+			{ id: 3, guest: 'The Garza Family', property: 'pelicans-rest', checkIn: '2026-04-15', checkOut: '2026-04-20', nights: 5, guests: 6, total: 2100, status: 'confirmed', platform: 'Direct' },
+			{ id: 4, guest: 'James Whitaker', property: 'pelicans-rest', checkIn: '2026-04-24', checkOut: '2026-04-27', nights: 3, guests: 2, total: 1260, status: 'confirmed', platform: 'Airbnb' },
+			{ id: 5, guest: 'Rebecca Torres', property: 'sandpiper', checkIn: '2026-04-01', checkOut: '2026-04-04', nights: 3, guests: 3, total: 840, status: 'checked-in', platform: 'Direct' },
+			{ id: 6, guest: 'Kyle & Amy Park', property: 'sandpiper', checkIn: '2026-04-06', checkOut: '2026-04-10', nights: 4, guests: 2, total: 1120, status: 'confirmed', platform: 'Airbnb' },
+			{ id: 7, guest: 'Daniel Marsh', property: 'sandpiper', checkIn: '2026-04-12', checkOut: '2026-04-14', nights: 2, guests: 1, total: 560, status: 'confirmed', platform: 'VRBO' },
+			{ id: 8, guest: 'Emily Ross', property: 'sandpiper', checkIn: '2026-04-18', checkOut: '2026-04-21', nights: 3, guests: 4, total: 840, status: 'confirmed', platform: 'Airbnb' },
+			{ id: 9, guest: 'The Newman Family', property: 'sandpiper', checkIn: '2026-04-25', checkOut: '2026-04-30', nights: 5, guests: 5, total: 1400, status: 'confirmed', platform: 'Direct' }
+		];
+
+		const maintenance = [
+			{ id: 1, property: 'pelicans-rest', title: 'Dishwasher not draining properly', reported: '2026-04-01', status: 'open', priority: 'medium', reporter: 'Mike Chen (guest)' },
+			{ id: 2, property: 'sandpiper', title: 'Deck railing loose on south side', reported: '2026-03-28', status: 'in-progress', priority: 'high', assigned: 'Gulf Coast Handyman' },
+			{ id: 3, property: 'pelicans-rest', title: 'Replaced bathroom exhaust fan', reported: '2026-03-25', status: 'completed', priority: 'medium', completed: '2026-03-25', cost: 180 },
+			{ id: 4, property: 'sandpiper', title: 'Fixed leaking kitchen faucet', reported: '2026-03-20', status: 'completed', priority: 'medium', completed: '2026-03-20', cost: 95 },
+			{ id: 5, property: 'pelicans-rest', title: 'Deep clean after spring break guests', reported: '2026-03-15', status: 'completed', priority: 'low', completed: '2026-03-15', cost: 275 }
+		];
+
+		const expenses = [
+			{ description: 'Cleaning fee', property: 'pelicans-rest', date: '2026-04-01', amount: 175 },
+			{ description: 'Cleaning fee', property: 'sandpiper', date: '2026-04-01', amount: 125 },
+			{ description: 'Pool maintenance', property: 'pelicans-rest', date: '2026-04-01', amount: 85 },
+			{ description: 'Pest control', property: 'both', date: '2026-03-28', amount: 150 },
+			{ description: 'Replaced AC filter', property: 'pelicans-rest', date: '2026-03-30', amount: 45 },
+			{ description: 'Wi-Fi service', property: 'both', date: '2026-04-01', amount: 120 },
+			{ description: 'Lawn care', property: 'sandpiper', date: '2026-03-29', amount: 65 },
+			{ description: 'Insurance premium', property: 'both', date: '2026-04-01', amount: 465 }
+		];
+
+		const messages = [
+			{ id: 1, title: 'April Bookings Update', preview: 'The Garza family asked about early check-in on the 15th. Can we accommodate 1pm instead of 3pm.', date: '2026-04-01', threads: [
+				{ author: 'Island Key Team', text: 'Hi Sarah. We have an inquiry about the April bookings.', time: '9:45 AM', owner: false },
+				{ author: 'Sarah Mitchell', text: 'Let me know what it is.', time: '10:15 AM', owner: true },
+				{ author: 'Island Key Team', text: 'The Garza family asked about early check-in on the 15th. Can we accommodate 1pm instead of 3pm.', time: '10:20 AM', owner: false }
+			] },
+			{ id: 2, title: 'Dishwasher Issue - Pelican\'s Rest', preview: 'I\'ve called Reliable Appliance. They can come out tomorrow morning.', date: '2026-04-01', threads: [
+				{ author: 'Island Key Team', text: 'Got a report from Mike Chen about the dishwasher not draining. We\'re looking into it.', time: '9:00 AM', owner: false },
+				{ author: 'Sarah Mitchell', text: 'Thanks for the quick response.', time: '9:30 AM', owner: true },
+				{ author: 'Island Key Team', text: 'I\'ve called Reliable Appliance. They can come out tomorrow morning.', time: '10:00 AM', owner: false }
+			] },
+			{ id: 3, title: 'Q1 Owner Statement', preview: 'Your Q1 statement is ready. Net income was $14,820 across both properties. Let me know if you have questions.', date: '2026-03-31', threads: [
+				{ author: 'Island Key Team', text: 'Your Q1 statement is ready.', time: '2:00 PM', owner: false },
+				{ author: 'Island Key Team', text: 'Net income was $14,820 across both properties. Let me know if you have questions.', time: '2:05 PM', owner: false }
+			] },
+			{ id: 4, title: 'Spring Break Recap', preview: 'Both properties made it through spring break in good shape. Minor scuff on the Sandpiper\'s front door, already touched up.', date: '2026-03-22', threads: [
+				{ author: 'Island Key Team', text: 'Both properties made it through spring break in good shape.', time: '11:00 AM', owner: false },
+				{ author: 'Island Key Team', text: 'Minor scuff on the Sandpiper\'s front door, already touched up.', time: '11:05 AM', owner: false }
+			] }
+		];
+
+		const activities = [
+			{ type: 'booking', title: 'Booking Confirmed', text: 'Mike & Sarah Chen confirmed for Pelican\'s Rest, Apr 1-5', time: '1 hour ago' },
+			{ type: 'payment', title: 'Payment Received', text: '$1,680 from Airbnb for Pelican\'s Rest', time: '2 hours ago' },
+			{ type: 'maintenance', title: 'Maintenance Update', text: 'Deck railing repair in progress at The Sandpiper', time: '4 hours ago' },
+			{ type: 'booking', title: 'Check-in', text: 'Rebecca Torres checked in to The Sandpiper', time: '6 hours ago' },
+			{ type: 'message', title: 'New Message', text: 'Island Key team sent you an update on April bookings', time: 'Yesterday' }
+		];
+
+		// Current state
+		let currentView = 'overview';
+		let currentProperty = 'all';
+		let currentMonth = '2026-04';
+		let selectedMessage = null;
+
+		// Utilities
+		function formatDate(dateStr) {
+			const date = new Date(dateStr + 'T00:00:00');
+			return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+		}
+
+		function formatFullDate(dateStr) {
+			const date = new Date(dateStr + 'T00:00:00');
+			return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+		}
+
+		function getPropertyName(propId) {
+			return properties[propId]?.name || 'Unknown Property';
+		}
+
+		function filterBookingsByProperty(bookings, propId) {
+			if (propId === 'all') return bookings;
+			return bookings.filter(b => b.property === propId);
+		}
+
+		function filterBookingsByMonth(bookings, month) {
+			return bookings.filter(b => b.checkIn.startsWith(month));
+		}
+
+		function showConfirmation(message) {
+			const conf = document.getElementById('confirmation');
+			conf.textContent = message;
+			conf.classList.add('show');
+			setTimeout(() => conf.classList.remove('show'), 3000);
+		}
+
+		function openModal(modalId) {
+			document.getElementById(modalId).classList.add('active');
+		}
+
+		function closeModal(modalId) {
+			document.getElementById(modalId).classList.remove('active');
+		}
+
+		// Initialize date
+		function initDate() {
+			const date = new Date(2026, 3, 1); // April 1, 2026
+			document.getElementById('current-date').textContent = formatFullDate('2026-04-01');
+		}
+
+		// Overview rendering
+		function renderOverview() {
+			const filtered = filterBookingsByProperty(bookings.filter(b => b.checkIn.startsWith('2026-04')), currentProperty);
+			const sorted = filtered.sort((a, b) => new Date(a.checkIn) - new Date(b.checkIn)).slice(0, 5);
+
+			const tbody = document.getElementById('upcoming-bookings-body');
+			tbody.innerHTML = sorted.map(b => `
+				<tr class="booking-row" data-booking-id="${b.id}">
+					<td class="booking-guest">${b.guest}</td>
+					<td class="booking-property">${getPropertyName(b.property)}</td>
+					<td>${formatDate(b.checkIn)}</td>
+					<td>${b.nights}</td>
+					<td>$${b.total.toLocaleString()}</td>
+				</tr>
+			`).join('');
+
+			const feed = document.getElementById('activity-feed');
+			feed.innerHTML = activities.map(a => `
+				<div class="activity-item">
+					<div class="activity-title">${a.title}</div>
+					<div class="activity-text">${a.text}</div>
+					<div class="activity-time">${a.time}</div>
+				</div>
+			`).join('');
+
+			document.querySelectorAll('.booking-row').forEach(row => {
+				row.addEventListener('click', () => {
+					const id = row.dataset.bookingId;
+					const booking = bookings.find(b => b.id == id);
+					if (booking) showBookingDetail(booking);
+				});
+			});
+
+			document.querySelectorAll('.activity-item').forEach(item => {
+				item.addEventListener('click', () => {
+					const text = item.querySelector('.activity-text').textContent;
+					if (text.includes('Booking') || text.includes('Check-in')) {
+						switchView('bookings');
+					} else if (text.includes('Maintenance')) {
+						switchView('maintenance');
+					} else if (text.includes('Message')) {
+						switchView('messages');
+					}
+				});
+			});
+
+			updateStats();
+		}
+
+		function updateStats() {
+			const filtered = filterBookingsByProperty(bookings, currentProperty).filter(b => b.checkIn.startsWith('2026-04'));
+			const totalDays = 30; // April
+			const bookedDays = new Set();
+			filtered.forEach(b => {
+				const start = parseInt(b.checkIn.split('-')[2]);
+				const end = parseInt(b.checkOut.split('-')[2]);
+				for (let d = start; d < end; d++) {
+					bookedDays.add(d);
+				}
+			});
+
+			const occupancy = Math.round((bookedDays.size / totalDays) * 100);
+			const revenue = filtered.reduce((sum, b) => sum + b.total, 0);
+			const checkins = filtered.filter(b => new Date(b.checkIn) <= new Date('2026-04-08')).length;
+			const openMaint = maintenance.filter(m => m.status === 'open').length;
+
+			document.getElementById('occupancy-rate').textContent = occupancy;
+			document.getElementById('revenue-mtd').textContent = revenue.toLocaleString();
+			document.getElementById('upcoming-checkins').textContent = checkins;
+			document.getElementById('open-maintenance').textContent = openMaint;
+		}
+
+		function showBookingDetail(booking) {
+			const modal = document.getElementById('booking-detail-modal');
+			document.getElementById('modal-booking-title').textContent = `${booking.guest} - ${getPropertyName(booking.property)}`;
+
+			const body = document.getElementById('modal-booking-body');
+			body.innerHTML = `
+				<div style="margin-bottom: 1.5rem;">
+					<div class="form-label">Guest</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">${booking.guest}</p>
+
+					<div class="form-label">Property</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">${getPropertyName(booking.property)}</p>
+
+					<div class="form-label">Dates</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">${formatFullDate(booking.checkIn)} to ${formatFullDate(booking.checkOut)}</p>
+
+					<div class="form-label">Guests</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">${booking.guests} ${booking.guests === 1 ? 'person' : 'people'}</p>
+
+					<div class="form-label">Total</div>
+					<p style="color: var(--ink); margin-bottom: 1rem; font-family: 'Instrument Serif'; font-size: 1.25rem; font-weight: 600;">$${booking.total.toLocaleString()}</p>
+
+					<div class="form-label">Status</div>
+					<div style="margin-bottom: 1rem;">
+						<span class="booking-status status-${booking.status.replace(' ', '-').toLowerCase()}">${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}</span>
+					</div>
+
+					<div class="form-label">Platform</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">${booking.platform}</p>
+
+					<div class="form-label">Payment Status</div>
+					<p style="color: var(--success); margin-bottom: 0;">Paid</p>
+				</div>
+			`;
+
+			openModal('booking-detail-modal');
+		}
+
+		// Bookings view rendering
+		function renderBookings() {
+			const filtered = filterBookingsByMonth(bookings, currentMonth);
+
+			let html = '';
+
+			if (currentProperty === 'all') {
+				['pelicans-rest', 'sandpiper'].forEach(propId => {
+					const propBookings = filtered.filter(b => b.property === propId);
+					html += renderPropertySection(propId, propBookings);
+				});
+			} else {
+				const propBookings = filtered.filter(b => b.property === currentProperty);
+				html += renderPropertySection(currentProperty, propBookings);
+			}
+
+			document.getElementById('bookings-content').innerHTML = html;
+
+			document.querySelectorAll('.booking-row').forEach(row => {
+				row.addEventListener('click', () => {
+					const id = row.dataset.bookingId;
+					const booking = bookings.find(b => b.id == id);
+					if (booking) showBookingDetail(booking);
+				});
+			});
+		}
+
+		function renderPropertySection(propId, propBookings) {
+			const propName = getPropertyName(propId);
+			const occupancyHtml = generateOccupancyBar(propBookings);
+
+			const bookingRows = propBookings.map(b => `
+				<tr class="booking-row" data-booking-id="${b.id}">
+					<td class="booking-guest">${b.guest}</td>
+					<td class="booking-property">${getPropertyName(b.property)}</td>
+					<td>${formatDate(b.checkIn)}</td>
+					<td>${formatDate(b.checkOut)}</td>
+					<td>${b.nights}</td>
+					<td>${b.guests}</td>
+					<td>$${b.total.toLocaleString()}</td>
+					<td><span class="booking-status status-${b.status.replace(' ', '-').toLowerCase()}">${b.status.charAt(0).toUpperCase() + b.status.slice(1)}</span></td>
+				</tr>
+			`).join('');
+
+			return `
+				<div class="property-booking-section">
+					<h3 style="font-family: 'Instrument Serif'; font-size: 1.1rem; color: var(--ink); margin-bottom: 1rem;">${propName}</h3>
+					<div style="margin-bottom: 1.5rem;">
+						<div style="font-size: 0.75rem; color: var(--ink-light); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500;">April Occupancy</div>
+						${occupancyHtml}
+					</div>
+					<table class="bookings-table">
+						<thead>
+							<tr>
+								<th>Guest</th>
+								<th>Property</th>
+								<th>Check-in</th>
+								<th>Check-out</th>
+								<th>Nights</th>
+								<th>Guests</th>
+								<th>Total</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>${bookingRows || '<tr><td colspan="8" style="text-align: center; padding: 2rem; color: var(--ink-light);">No bookings</td></tr>'}</tbody>
+					</table>
+				</div>
+			`;
+		}
+
+		function generateOccupancyBar(propBookings) {
+			let html = '<div class="occupancy-bar">';
+			for (let day = 1; day <= 30; day++) {
+				const isBooked = propBookings.some(b => {
+					const start = parseInt(b.checkIn.split('-')[2]);
+					const end = parseInt(b.checkOut.split('-')[2]);
+					return day >= start && day < end;
+				});
+				html += `<div class="occupancy-segment ${isBooked ? '' : 'open'}" title="April ${day}"></div>`;
+			}
+			html += '</div>';
+			return html;
+		}
+
+		// Financials rendering
+		function renderFinancials() {
+			document.getElementById('gross-revenue').textContent = '8,420';
+			document.getElementById('mgmt-fee').textContent = '-1,684';
+			document.getElementById('expenses').textContent = '-1,230';
+			document.getElementById('net-income').textContent = '5,506';
+
+			const tbody = document.getElementById('expenses-body');
+			tbody.innerHTML = expenses.map(e => `
+				<tr>
+					<td class="expense-category">${e.description}</td>
+					<td>${e.property === 'both' ? 'Both' : getPropertyName(e.property)}</td>
+					<td>${formatDate(e.date)}</td>
+					<td class="expense-amount">$${e.amount.toLocaleString()}</td>
+				</tr>
+			`).join('');
+		}
+
+		// Maintenance rendering
+		function renderMaintenance() {
+			let filtered = maintenance;
+			const activeTab = document.querySelector('.tab.active')?.dataset.filter || 'all';
+
+			if (activeTab !== 'all') {
+				filtered = filtered.filter(m => m.status === activeTab);
+			}
+
+			const html = filtered.map(m => `
+				<div class="maintenance-card" data-maintenance-id="${m.id}">
+					<div class="maintenance-header">
+						<div>
+							<div class="maintenance-title">${m.title}</div>
+							<div class="maintenance-property">${getPropertyName(m.property)}</div>
+						</div>
+						<span class="maintenance-status status-${m.status.replace('-', '-')}">${m.status.charAt(0).toUpperCase() + m.status.slice(1)}</span>
+					</div>
+					<div class="maintenance-date">
+						Reported ${formatFullDate(m.reported)}
+						${m.priority ? `<span class="maintenance-priority">${m.priority.toUpperCase()}</span>` : ''}
+					</div>
+				</div>
+			`).join('');
+
+			document.getElementById('maintenance-content').innerHTML = html || '<p style="color: var(--ink-light);">No maintenance requests</p>';
+
+			document.querySelectorAll('.maintenance-card').forEach(card => {
+				card.addEventListener('click', () => {
+					const id = card.dataset.maintenanceId;
+					const m = maintenance.find(x => x.id == id);
+					if (m) showMaintenanceDetail(m);
+				});
+			});
+		}
+
+		function showMaintenanceDetail(m) {
+			const modal = document.getElementById('maintenance-detail-modal');
+			const body = document.getElementById('modal-maintenance-body');
+
+			let detailHtml = `
+				<div style="margin-bottom: 1.5rem;">
+					<div class="form-label">Property</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">${getPropertyName(m.property)}</p>
+
+					<div class="form-label">Issue</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">${m.title}</p>
+
+					<div class="form-label">Reported</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">${formatFullDate(m.reported)}</p>
+
+					<div class="form-label">Status</div>
+					<div style="margin-bottom: 1rem;">
+						<span class="maintenance-status status-${m.status}">${m.status.charAt(0).toUpperCase() + m.status.slice(1)}</span>
+					</div>
+
+					<div class="form-label">Priority</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">${m.priority.charAt(0).toUpperCase() + m.priority.slice(1)}</p>
+			`;
+
+			if (m.reporter) {
+				detailHtml += `
+					<div class="form-label">Reported By</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">${m.reporter}</p>
+				`;
+			}
+
+			if (m.assigned) {
+				detailHtml += `
+					<div class="form-label">Assigned To</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">${m.assigned}</p>
+				`;
+			}
+
+			if (m.cost) {
+				detailHtml += `
+					<div class="form-label">Cost</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">$${m.cost.toLocaleString()}</p>
+				`;
+			}
+
+			if (m.completed) {
+				detailHtml += `
+					<div class="form-label">Completed</div>
+					<p style="color: var(--ink); margin-bottom: 1rem;">${formatFullDate(m.completed)}</p>
+				`;
+			}
+
+			detailHtml += '</div>';
+
+			body.innerHTML = detailHtml;
+			openModal('maintenance-detail-modal');
+		}
+
+		// Messages rendering
+		function renderMessages() {
+			const listHtml = messages.map(m => `
+				<div class="message-thread ${selectedMessage === m.id ? 'active' : ''}" data-message-id="${m.id}">
+					<div class="message-thread-title">${m.title}</div>
+					<div class="message-thread-preview">${m.preview}</div>
+					<div class="message-thread-date">${m.date}</div>
+				</div>
+			`).join('');
+
+			document.getElementById('messages-list').innerHTML = listHtml;
+
+			if (selectedMessage === null && messages.length > 0) {
+				selectedMessage = messages[0].id;
+				renderConversation(messages[0]);
+			} else if (selectedMessage) {
+				const msg = messages.find(m => m.id === selectedMessage);
+				if (msg) renderConversation(msg);
+			}
+
+			document.querySelectorAll('.message-thread').forEach(thread => {
+				thread.addEventListener('click', () => {
+					selectedMessage = parseInt(thread.dataset.messageId);
+					renderMessages();
+				});
+			});
+		}
+
+		function renderConversation(msg) {
+			const conversationArea = document.getElementById('conversation-area');
+
+			const messagesHtml = msg.threads.map(t => `
+				<div class="message ${t.owner ? 'owner' : ''}">
+					<div class="message-bubble">
+						<div class="message-author">${t.author}</div>
+						<div class="message-text">${t.text}</div>
+						<div class="message-time">${t.time}</div>
+					</div>
+				</div>
+			`).join('');
+
+			conversationArea.innerHTML = `
+				<div class="conversation-header">
+					<h3 class="conversation-title">${msg.title}</h3>
+				</div>
+				<div class="conversation-messages">${messagesHtml}</div>
+				<div class="compose-area">
+					<textarea class="compose-input" placeholder="Type your message..."></textarea>
+					<button class="compose-button" id="send-btn">Send Message</button>
+				</div>
+			`;
+
+			document.getElementById('send-btn').addEventListener('click', () => {
+				const textarea = document.querySelector('.compose-input');
+				if (textarea.value.trim()) {
+					msg.threads.push({
+						author: 'Sarah Mitchell',
+						text: textarea.value,
+						time: 'Just now',
+						owner: true
+					});
+					textarea.value = '';
+					renderConversation(msg);
+					showConfirmation('Message sent');
+				}
+			});
+		}
+
+		// View switching
+		function switchView(view) {
+			document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+			document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+			document.getElementById(`${view}-view`).classList.add('active');
+			document.querySelector(`[data-view="${view}"]`).classList.add('active');
+			currentView = view;
+
+			if (view === 'overview') renderOverview();
+			else if (view === 'bookings') renderBookings();
+			else if (view === 'financials') renderFinancials();
+			else if (view === 'maintenance') renderMaintenance();
+			else if (view === 'messages') renderMessages();
+		}
+
+		// Event listeners
+		document.querySelectorAll('.nav-item').forEach(item => {
+			item.addEventListener('click', () => switchView(item.dataset.view));
+		});
+
+		document.getElementById('property-filter').addEventListener('change', (e) => {
+			currentProperty = e.target.value;
+			renderOverview();
+		});
+
+		document.getElementById('month-filter').addEventListener('change', (e) => {
+			currentMonth = e.target.value;
+			renderBookings();
+		});
+
+		document.getElementById('financial-period').addEventListener('change', () => {
+			// Period selector would update numbers in production
+		});
+
+		document.querySelectorAll('.property-tab').forEach(tab => {
+			tab.addEventListener('click', (e) => {
+				document.querySelectorAll('.property-tab').forEach(t => t.classList.remove('active'));
+				e.target.classList.add('active');
+				currentProperty = e.target.dataset.property;
+				renderBookings();
+			});
+		});
+
+		document.querySelectorAll('.tab').forEach(tab => {
+			tab.addEventListener('click', (e) => {
+				document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+				e.target.classList.add('active');
+				renderMaintenance();
+			});
+		});
+
+		document.getElementById('download-statement').addEventListener('click', () => {
+			showConfirmation('Statement downloaded');
+		});
+
+		document.getElementById('report-issue-btn').addEventListener('click', () => {
+			openModal('report-issue-modal');
+		});
+
+		document.getElementById('report-issue-form').addEventListener('submit', (e) => {
+			e.preventDefault();
+			closeModal('report-issue-modal');
+			showConfirmation('Issue reported successfully');
+			document.getElementById('report-issue-form').reset();
+		});
+
+		document.querySelectorAll('.close-btn').forEach(btn => {
+			btn.addEventListener('click', (e) => {
+				e.target.closest('.modal').classList.remove('active');
+			});
+		});
+
+		document.querySelectorAll('.modal').forEach(modal => {
+			modal.addEventListener('click', (e) => {
+				if (e.target === modal) modal.classList.remove('active');
+			});
+		});
+
+		// Initialize
+		initDate();
+		renderOverview();
+	</script>
+</body>
+</html>

@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salt Line Supply - POS & Inventory</title>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --warm-white: #FDFAF5;
+      --cream: #F5F0E8;
+      --ink: #1C1917;
+      --ink-mid: #57534E;
+      --ink-light: #A8A29E;
+      --terracotta: #C2603D;
+      --rule: #DDD6CC;
+      --success: #2D7A3E;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--ink);
+      background: var(--warm-white);
+    }
+
+    ::selection {
+      background-color: var(--terracotta);
+      color: var(--warm-white);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.018'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.018;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: var(--cream);
+      border-right: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      z-index: 100;
+    }
+
+    .sidebar-brand {
+      padding: 2rem 1.5rem 1.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .sidebar-brand h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 1.5rem 0;
+      overflow-y: auto;
+    }
+
+    .nav-item {
+      padding: 0.875rem 1.5rem;
+      cursor: pointer;
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      transition: all 0.2s var(--ease);
+      border-left: 2px solid transparent;
+    }
+
+    .nav-item:hover {
+      background: rgba(198, 96, 61, 0.05);
+      color: var(--ink);
+    }
+
+    .nav-item.active {
+      background: rgba(198, 96, 61, 0.1);
+      color: var(--terracotta);
+      border-left-color: var(--terracotta);
+    }
+
+    .sidebar-footer {
+      padding: 1.5rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.75rem;
+      text-align: center;
+    }
+
+    .sidebar-footer a {
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s var(--ease);
+    }
+
+    .sidebar-footer a:hover {
+      color: var(--terracotta);
+    }
+
+    .main {
+      margin-left: 220px;
+      flex: 1;
+      background: var(--warm-white);
+      overflow-y: auto;
+      padding: 3.5rem 4rem;
+    }
+
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    .view-header {
+      margin-bottom: 3rem;
+    }
+
+    .view-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .view-subtitle {
+      font-size: 0.9rem;
+      color: var(--ink-light);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--warm-white);
+      border-top: 1px solid var(--rule);
+      padding: 2rem 0;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+      color: var(--ink-light);
+      margin-bottom: 1rem;
+    }
+
+    .stat-value {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2.8rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .content-row {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .content-section {
+      background: var(--warm-white);
+    }
+
+    .section-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    thead {
+      border-bottom: 1px solid var(--rule);
+    }
+
+    th {
+      text-align: left;
+      padding: 1rem 0;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+      color: var(--ink-light);
+    }
+
+    td {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--rule);
+      color: var(--ink);
+    }
+
+    tbody tr {
+      cursor: pointer;
+      transition: background-color 0.15s var(--ease);
+    }
+
+    tbody tr:hover {
+      background-color: rgba(198, 96, 61, 0.03);
+    }
+
+    .controls-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--rule);
+      background: var(--warm-white);
+      font-family: 'Satoshi', sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      border-radius: 4px;
+      transition: border-color 0.2s var(--ease);
+    }
+
+    .search-input::placeholder {
+      color: var(--ink-light);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--terracotta);
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      font-family: 'Satoshi', sans-serif;
+      font-size: 0.95rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s var(--ease);
+      border: none;
+      font-weight: 500;
+    }
+
+    .btn-primary {
+      background: var(--terracotta);
+      color: var(--warm-white);
+    }
+
+    .btn-primary:hover {
+      background: #B3522F;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--ink-light);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(198, 96, 61, 0.05);
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+    }
+
+    .btn-small {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .filter-tab {
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: 'Satoshi', sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      transition: all 0.2s var(--ease);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+
+    .filter-tab:hover {
+      color: var(--ink);
+    }
+
+    .filter-tab.active {
+      color: var(--terracotta);
+      border-bottom-color: var(--terracotta);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: var(--warm-white);
+      border: 1px solid var(--rule);
+      padding: 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s var(--ease);
+    }
+
+    .product-card:hover {
+      border-color: var(--terracotta);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .product-name {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .product-sku {
+      font-size: 0.75rem;
+      color: var(--ink-light);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      color: var(--ink);
+    }
+
+    .product-stock {
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      margin-bottom: 0.75rem;
+    }
+
+    .product-stock.low {
+      color: var(--terracotta);
+      font-weight: 500;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--warm-white);
+      border-radius: 8px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      position: relative;
+    }
+
+    .modal-large {
+      max-width: 800px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1rem;
+    }
+
+    .modal-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--ink-light);
+      transition: color 0.2s var(--ease);
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      color: var(--ink);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+      color: var(--ink-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--rule);
+      background: var(--warm-white);
+      font-family: 'Satoshi', sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      border-radius: 4px;
+      transition: border-color 0.2s var(--ease);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--terracotta);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .cart-item {
+      background: var(--cream);
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .cart-item-price {
+      font-size: 0.9rem;
+      color: var(--ink-light);
+    }
+
+    .cart-item-qty {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--rule);
+      background: var(--warm-white);
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 0.9rem;
+    }
+
+    .qty-btn:hover {
+      background: var(--rule);
+    }
+
+    .qty-input {
+      width: 40px;
+      text-align: center;
+      border: 1px solid var(--rule);
+      padding: 0.25rem;
+      border-radius: 3px;
+    }
+
+    .cart-remove {
+      background: none;
+      border: none;
+      color: var(--terracotta);
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-left: 1rem;
+    }
+
+    .summary-box {
+      background: var(--cream);
+      padding: 1.5rem;
+      border-radius: 4px;
+      border-top: 1px solid var(--rule);
+      margin-top: 1.5rem;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .summary-line.total {
+      font-size: 1.4rem;
+      font-weight: 500;
+      border-top: 1px solid var(--rule);
+      padding-top: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .toggle-switch {
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+      background: var(--ink-light);
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s var(--ease);
+    }
+
+    .toggle-switch.on {
+      background: var(--success);
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: left 0.3s var(--ease);
+    }
+
+    .toggle-switch.on::after {
+      left: 22px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .sidebar-brand {
+        padding: 1rem 1.5rem;
+        border-right: 1px solid var(--rule);
+        border-bottom: none;
+      }
+
+      .sidebar-nav {
+        display: flex;
+        flex: 1;
+        padding: 0;
+        overflow-y: visible;
+      }
+
+      .nav-item {
+        padding: 1rem 1rem;
+        white-space: nowrap;
+      }
+
+      .sidebar-footer {
+        display: none;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 2rem;
+      }
+
+      .content-row {
+        grid-template-columns: 1fr;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+
+      .filter-tabs {
+        overflow-x: auto;
+      }
+
+      .modal {
+        width: 95%;
+      }
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+    }
+
+    .badge-active {
+      background: rgba(45, 122, 62, 0.1);
+      color: var(--success);
+    }
+
+    .badge-inactive {
+      background: rgba(168, 162, 158, 0.1);
+      color: var(--ink-light);
+    }
+
+    .badge-ordered {
+      background: rgba(198, 96, 61, 0.1);
+      color: var(--terracotta);
+    }
+
+    .badge-shipped {
+      background: rgba(198, 96, 61, 0.15);
+      color: var(--terracotta);
+    }
+
+    .badge-delivered {
+      background: rgba(45, 122, 62, 0.1);
+      color: var(--success);
+    }
+
+    .settings-section {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .settings-section:last-child {
+      border-bottom: none;
+    }
+
+    .settings-section-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--ink);
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .setting-label {
+      font-size: 0.95rem;
+    }
+
+    .low-stock {
+      color: var(--terracotta);
+      font-weight: 500;
+    }
+
+    .success-message {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      background: var(--success);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 4px;
+      z-index: 300;
+      animation: slideIn 0.3s var(--ease) forwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .line-items {
+      background: var(--cream);
+      padding: 1.5rem;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+    }
+
+    .line-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .line-item:last-child {
+      border-bottom: none;
+    }
+
+    .line-item-qty {
+      color: var(--ink-light);
+      margin-right: 1rem;
+    }
+
+    .line-item-name {
+      flex: 1;
+    }
+
+    .line-item-price {
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-brand">
+        <h1>Salt Line Supply</h1>
+      </div>
+      <div class="sidebar-nav">
+        <div class="nav-item active" data-view="dashboard">Dashboard</div>
+        <div class="nav-item" data-view="products">Products</div>
+        <div class="nav-item" data-view="sales">Sales</div>
+        <div class="nav-item" data-view="orders">Orders</div>
+        <div class="nav-item" data-view="settings">Settings</div>
+      </div>
+      <div class="sidebar-footer">
+        <a href="https://localpraxis.com" target="_blank">Built by Local Praxis</a>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="view active" id="dashboard-view">
+        <div class="view-header">
+          <h1 class="view-title">Salt Line Supply</h1>
+          <p class="view-subtitle" id="dashboard-date"></p>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Today's Sales</div>
+            <div class="stat-value">$1,847</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Items Sold</div>
+            <div class="stat-value">23</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Low Stock Alerts</div>
+            <div class="stat-value">4</div>
+          </div>
+        </div>
+
+        <div class="content-row">
+          <div class="content-section">
+            <h2 class="section-title">Recent Sales</h2>
+            <div class="table-wrapper">
+              <table id="recent-sales-table">
+                <thead>
+                  <tr>
+                    <th>Time</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Payment</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <h2 class="section-title">Top Sellers</h2>
+            <div class="table-wrapper">
+              <table id="top-sellers-table">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Units</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="view" id="products-view">
+        <div class="view-header">
+          <h1 class="view-title">Products</h1>
+          <p class="view-subtitle">Manage your inventory</p>
+        </div>
+
+        <div class="controls-bar">
+          <input type="text" class="search-input" id="product-search" placeholder="Search products...">
+          <button class="btn btn-primary" id="add-product-btn">Add Product</button>
+        </div>
+
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-category="all">All</button>
+          <button class="filter-tab" data-category="rods-reels">Rods &amp; Reels</button>
+          <button class="filter-tab" data-category="tackle">Tackle</button>
+          <button class="filter-tab" data-category="bait">Bait</button>
+          <button class="filter-tab" data-category="apparel">Apparel</button>
+          <button class="filter-tab" data-category="accessories">Accessories</button>
+        </div>
+
+        <div class="product-grid" id="products-grid"></div>
+      </div>
+
+      <div class="view" id="sales-view">
+        <div class="view-header">
+          <h1 class="view-title">Sales</h1>
+          <p class="view-subtitle">Transaction history and point of sale</p>
+        </div>
+
+        <div class="controls-bar">
+          <select class="form-select" id="date-filter" style="max-width: 200px;">
+            <option value="today">Today</option>
+            <option value="week">This Week</option>
+            <option value="month">This Month</option>
+            <option value="custom">Custom Date</option>
+          </select>
+          <button class="btn btn-primary" id="new-sale-btn">New Sale</button>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Total Revenue</div>
+            <div class="stat-value" id="revenue-stat">$1,847</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Transactions</div>
+            <div class="stat-value" id="transaction-stat">8</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Average Sale</div>
+            <div class="stat-value" id="average-stat">$230.88</div>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <div class="table-wrapper">
+            <table id="sales-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Time</th>
+                  <th>Items</th>
+                  <th>Subtotal</th>
+                  <th>Tax</th>
+                  <th>Total</th>
+                  <th>Payment</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="view" id="orders-view">
+        <div class="view-header">
+          <h1 class="view-title">Orders</h1>
+          <p class="view-subtitle">Supplier and incoming stock</p>
+        </div>
+
+        <div class="controls-bar">
+          <button class="btn btn-primary" id="new-order-btn">New Order</button>
+        </div>
+
+        <div class="content-section">
+          <div class="table-wrapper">
+            <table id="orders-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Supplier</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Order Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="view" id="settings-view">
+        <div class="view-header">
+          <h1 class="view-title">Settings</h1>
+          <p class="view-subtitle">Store configuration and preferences</p>
+        </div>
+
+        <div class="settings-section">
+          <h3 class="settings-section-title">Store Information</h3>
+          <div class="form-group">
+            <label class="form-label">Store Name</label>
+            <input type="text" class="form-input" value="Salt Line Supply" id="store-name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-input" value="302 E Avenue G, Port Aransas, TX 78373" id="store-address">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tax Rate (%)</label>
+            <input type="number" class="form-input" value="8.25" step="0.01" id="tax-rate">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Low Stock Threshold</label>
+            <input type="number" class="form-input" value="5" id="low-stock-threshold">
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3 class="settings-section-title">Receipt</h3>
+          <div class="form-group">
+            <label class="form-label">Receipt Header Text</label>
+            <textarea class="form-textarea" rows="3" id="receipt-header">Thank you for your business.
+Part of the Port Aransas fishing community since 2008.</textarea>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3 class="settings-section-title">Business Hours</h3>
+          <div class="form-group">
+            <label class="form-label">Monday to Friday</label>
+            <input type="text" class="form-input" value="6:00 AM - 6:00 PM" id="hours-weekday">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Saturday to Sunday</label>
+            <input type="text" class="form-input" value="6:00 AM - 8:00 PM" id="hours-weekend">
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3 class="settings-section-title">Notifications</h3>
+          <div class="setting-item">
+            <span class="setting-label">Email Receipts</span>
+            <div class="toggle-switch" id="email-receipts" data-setting="emailReceipts"></div>
+          </div>
+          <div class="setting-item">
+            <span class="setting-label">Low Stock Alerts</span>
+            <div class="toggle-switch on" id="low-stock-alerts" data-setting="lowStockAlerts"></div>
+          </div>
+          <div class="setting-item">
+            <span class="setting-label">Daily Sales Report</span>
+            <div class="toggle-switch on" id="daily-sales-report" data-setting="dailySalesReport"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="product-detail-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="product-detail-name">Product Details</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div id="product-detail-content"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="product-form-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="product-form-title">Add Product</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <form id="product-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Product Name</label>
+            <input type="text" class="form-input" name="name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">SKU</label>
+            <input type="text" class="form-input" name="sku" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select class="form-select" name="category" required>
+              <option value="">Select Category</option>
+              <option value="rods-reels">Rods &amp; Reels</option>
+              <option value="tackle">Tackle</option>
+              <option value="bait">Bait</option>
+              <option value="apparel">Apparel</option>
+              <option value="accessories">Accessories</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price ($)</label>
+            <input type="number" class="form-input" name="price" step="0.01" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Stock Quantity</label>
+            <input type="number" class="form-input" name="stock" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select class="form-select" name="status">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-textarea" name="description" rows="3"></textarea>
+        </div>
+        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+          <button type="submit" class="btn btn-primary">Save Product</button>
+          <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="sale-detail-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Transaction Details</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div id="sale-detail-content"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="new-sale-modal">
+    <div class="modal modal-large">
+      <div class="modal-header">
+        <h2 class="modal-title">New Sale</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+          <div class="form-group">
+            <label class="form-label">Search Products</label>
+            <input type="text" class="form-input" id="pos-search" placeholder="Search...">
+          </div>
+          <div id="pos-product-list" style="max-height: 400px; overflow-y: auto;"></div>
+        </div>
+        <div>
+          <h3 style="font-family: 'Instrument Serif', serif; margin-bottom: 1rem;">Cart</h3>
+          <div id="pos-cart" style="min-height: 200px; max-height: 400px; overflow-y: auto;"></div>
+          <div class="summary-box">
+            <div class="summary-line">
+              <span>Subtotal</span>
+              <span id="pos-subtotal">$0.00</span>
+            </div>
+            <div class="summary-line">
+              <span>Tax (8.25%)</span>
+              <span id="pos-tax">$0.00</span>
+            </div>
+            <div class="summary-line total">
+              <span>Total</span>
+              <span id="pos-total">$0.00</span>
+            </div>
+            <div class="form-group" style="margin-top: 1.5rem;">
+              <label class="form-label">Payment Method</label>
+              <select class="form-select" id="pos-payment">
+                <option value="card">Card</option>
+                <option value="cash">Cash</option>
+                <option value="tab">Tab</option>
+              </select>
+            </div>
+            <button type="button" class="btn btn-primary" id="complete-sale-btn" style="width: 100%; margin-top: 1rem;">Complete Sale</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="new-order-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">New Supplier Order</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <form id="order-form">
+        <div class="form-group">
+          <label class="form-label">Supplier</label>
+          <select class="form-select" name="supplier" required>
+            <option value="">Select Supplier</option>
+            <option value="berkley">Berkley / Pure Fishing</option>
+            <option value="shimano">Shimano</option>
+            <option value="penn">Penn Fishing</option>
+            <option value="costa">Costa Sunglasses</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description / Items</label>
+          <textarea class="form-textarea" name="description" rows="4" placeholder="List items being ordered..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Order Total ($)</label>
+          <input type="number" class="form-input" name="total" step="0.01" required>
+        </div>
+        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+          <button type="submit" class="btn btn-primary">Create Order</button>
+          <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const store = {
+      products: [
+        { id: 1, name: 'Penn Battle III Spinning Combo', sku: 'ROD-001', category: 'rods-reels', price: 189.99, stock: 8, status: 'active', description: 'Durable saltwater spinning combo' },
+        { id: 2, name: 'Shimano Stradic FL 3000', sku: 'REL-001', category: 'rods-reels', price: 199.99, stock: 4, status: 'active', description: 'High-speed reel for inshore' },
+        { id: 3, name: 'Berkley Gulp Alive Shrimp 3"', sku: 'BAI-001', category: 'bait', price: 8.99, stock: 45, status: 'active', description: 'Scented artificial bait' },
+        { id: 4, name: 'DOA Shrimp Lure', sku: 'TAC-001', category: 'tackle', price: 5.49, stock: 62, status: 'active', description: 'Realistic shrimp pattern' },
+        { id: 5, name: 'MirrOlure Catch 2000', sku: 'TAC-002', category: 'tackle', price: 7.99, stock: 28, status: 'active', description: 'Classic top water lure' },
+        { id: 6, name: 'Mustad Circle Hooks 5/0 (25pk)', sku: 'TAC-003', category: 'tackle', price: 12.99, stock: 34, status: 'active', description: 'Circle hook set' },
+        { id: 7, name: 'Yo-Zuri Crystal Minnow', sku: 'TAC-004', category: 'tackle', price: 9.99, stock: 19, status: 'active', description: 'Translucent minnow imitation' },
+        { id: 8, name: 'Live Shrimp (per quart)', sku: 'BAI-002', category: 'bait', price: 12.00, stock: 15, status: 'active', description: 'Fresh live shrimp' },
+        { id: 9, name: 'Frozen Mullet (pack of 6)', sku: 'BAI-003', category: 'bait', price: 6.99, stock: 22, status: 'active', description: 'Premium frozen mullet' },
+        { id: 10, name: 'Salt Line Logo Tee', sku: 'APP-001', category: 'apparel', price: 28.00, stock: 18, status: 'active', description: 'Comfortable cotton t-shirt' },
+        { id: 11, name: 'Salt Line Trucker Hat', sku: 'APP-002', category: 'apparel', price: 24.00, stock: 12, status: 'active', description: 'Classic trucker cap' },
+        { id: 12, name: 'Costa Del Mar Fantail Pro', sku: 'ACC-001', category: 'accessories', price: 269.00, stock: 3, status: 'active', description: 'Premium polarized sunglasses' },
+        { id: 13, name: 'Yeti Rambler 26oz', sku: 'ACC-002', category: 'accessories', price: 35.00, stock: 9, status: 'active', description: 'Insulated beverage container' },
+        { id: 14, name: 'Simms Solarflex Hoody', sku: 'APP-003', category: 'apparel', price: 69.95, stock: 2, status: 'active', description: 'UV-protective hoodie' },
+        { id: 15, name: 'Plano Tackle Box 3700', sku: 'ACC-003', category: 'accessories', price: 24.99, stock: 7, status: 'active', description: 'Compartmentalized storage' },
+        { id: 16, name: '50lb Braided Line (300yd)', sku: 'TAC-005', category: 'tackle', price: 29.99, stock: 11, status: 'active', description: 'High-strength fishing line' }
+      ],
+      sales: [
+        { id: 1001, time: '7:12 AM', items: 3, subtotal: 22.97, tax: 1.89, total: 24.86, payment: 'card', lineItems: [{ name: 'Berkley Gulp Alive Shrimp 3"', qty: 2, price: 8.99 }, { name: 'DOA Shrimp Lure', qty: 1, price: 5.49 }] },
+        { id: 1002, time: '8:45 AM', items: 1, subtotal: 189.99, tax: 15.67, total: 205.66, payment: 'card', lineItems: [{ name: 'Penn Battle III Spinning Combo', qty: 1, price: 189.99 }] },
+        { id: 1003, time: '9:20 AM', items: 5, subtotal: 40.95, tax: 3.38, total: 44.33, payment: 'cash', lineItems: [{ name: 'Mustad Circle Hooks 5/0 (25pk)', qty: 1, price: 12.99 }, { name: 'Yo-Zuri Crystal Minnow', qty: 1, price: 9.99 }, { name: 'Frozen Mullet (pack of 6)', qty: 2, price: 6.99 }, { name: 'DOA Shrimp Lure', qty: 1, price: 5.49 }] },
+        { id: 1004, time: '10:05 AM', items: 2, subtotal: 52.00, tax: 4.29, total: 56.29, payment: 'card', lineItems: [{ name: 'Salt Line Logo Tee', qty: 1, price: 28.00 }, { name: 'Salt Line Trucker Hat', qty: 1, price: 24.00 }] },
+        { id: 1005, time: '11:30 AM', items: 1, subtotal: 12.00, tax: 0.99, total: 12.99, payment: 'cash', lineItems: [{ name: 'Live Shrimp (per quart)', qty: 1, price: 12.00 }] },
+        { id: 1006, time: '12:15 PM', items: 4, subtotal: 319.96, tax: 26.39, total: 346.35, payment: 'card', lineItems: [{ name: 'Shimano Stradic FL 3000', qty: 1, price: 199.99 }, { name: '50lb Braided Line (300yd)', qty: 1, price: 29.99 }, { name: 'Plano Tackle Box 3700', qty: 1, price: 24.99 }] },
+        { id: 1007, time: '1:40 PM', items: 2, subtotal: 34.95, tax: 2.88, total: 37.83, payment: 'cash', lineItems: [{ name: 'Berkley Gulp Alive Shrimp 3"', qty: 3, price: 8.99 }, { name: 'Mustad Circle Hooks 5/0 (25pk)', qty: 1, price: 12.99 }] },
+        { id: 1008, time: '2:55 PM', items: 1, subtotal: 35.00, tax: 2.89, total: 37.89, payment: 'card', lineItems: [{ name: 'Yeti Rambler 26oz', qty: 1, price: 35.00 }] }
+      ],
+      orders: [
+        { id: 'PO-2026-041', supplier: 'Berkley / Pure Fishing', description: '6 items', total: 342.00, orderDate: 'Apr 1', status: 'ordered' },
+        { id: 'PO-2026-038', supplier: 'Shimano', description: '3 items', total: 1200.00, orderDate: 'Mar 28', status: 'shipped', eta: 'Apr 3' },
+        { id: 'PO-2026-035', supplier: 'Costa Sunglasses', description: '5 items', total: 672.50, orderDate: 'Mar 25', status: 'delivered' }
+      ],
+      settings: {
+        storeName: 'Salt Line Supply',
+        storeAddress: '302 E Avenue G, Port Aransas, TX 78373',
+        taxRate: 8.25,
+        lowStockThreshold: 5,
+        receiptHeader: 'Thank you for your business.\nPart of the Port Aransas fishing community since 2008.',
+        hoursWeekday: '6:00 AM - 6:00 PM',
+        hoursWeekend: '6:00 AM - 8:00 PM',
+        emailReceipts: false,
+        lowStockAlerts: true,
+        dailySalesReport: true
+      },
+      pos: {
+        cart: [],
+        nextOrderId: 'PO-2026-042'
+      }
+    };
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const view = this.dataset.view;
+        showView(view);
+      });
+    });
+
+    function showView(viewName) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById(viewName + '-view').classList.add('active');
+
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
+
+      if (viewName === 'dashboard') {
+        renderDashboard();
+      } else if (viewName === 'products') {
+        renderProducts();
+      } else if (viewName === 'sales') {
+        renderSalesView();
+      } else if (viewName === 'orders') {
+        renderOrders();
+      }
+    }
+
+    function renderDashboard() {
+      const today = new Date();
+      document.getElementById('dashboard-date').textContent = today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+      const tbody = document.querySelector('#recent-sales-table tbody');
+      tbody.innerHTML = '';
+      store.sales.slice(-8).forEach(sale => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${sale.time}</td>
+          <td>${sale.items}</td>
+          <td>$${sale.total.toFixed(2)}</td>
+          <td>${capitalize(sale.payment)}</td>
+        `;
+        row.addEventListener('click', () => showSaleDetail(sale));
+        tbody.appendChild(row);
+      });
+
+      const topSellersTbody = document.querySelector('#top-sellers-table tbody');
+      topSellersTbody.innerHTML = '';
+      const productSales = {};
+      store.sales.forEach(sale => {
+        sale.lineItems.forEach(item => {
+          productSales[item.name] = (productSales[item.name] || 0) + (item.qty || 1);
+        });
+      });
+      Object.entries(productSales)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .forEach(([name, units]) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `<td>${name}</td><td>${units}</td>`;
+          topSellersTbody.appendChild(row);
+        });
+    }
+
+    let currentCategory = 'all';
+    let currentSearch = '';
+
+    document.getElementById('product-search').addEventListener('input', (e) => {
+      currentSearch = e.target.value.toLowerCase();
+      renderProducts();
+    });
+
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        currentCategory = this.dataset.category;
+        renderProducts();
+      });
+    });
+
+    function renderProducts() {
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = '';
+
+      let filtered = store.products;
+      if (currentCategory !== 'all') {
+        filtered = filtered.filter(p => p.category === currentCategory);
+      }
+      if (currentSearch) {
+        filtered = filtered.filter(p => p.name.toLowerCase().includes(currentSearch) || p.sku.toLowerCase().includes(currentSearch));
+      }
+
+      filtered.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        const isLow = product.stock <= store.settings.lowStockThreshold;
+        card.innerHTML = `
+          <div class="product-name">${product.name}</div>
+          <div class="product-sku">${product.sku}</div>
+          <div class="product-price">$${product.price.toFixed(2)}</div>
+          <div class="product-stock ${isLow ? 'low' : ''}">Stock: ${product.stock}</div>
+          <span class="badge ${product.status === 'active' ? 'badge-active' : 'badge-inactive'}">${capitalize(product.status)}</span>
+        `;
+        card.addEventListener('click', () => showProductDetail(product));
+        grid.appendChild(card);
+      });
+    }
+
+    function showProductDetail(product) {
+      const content = document.getElementById('product-detail-content');
+      content.innerHTML = `
+        <div class="form-group">
+          <label class="form-label">Product Name</label>
+          <input type="text" class="form-input" value="${product.name}" readonly>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">SKU</label>
+            <input type="text" class="form-input" value="${product.sku}" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <input type="text" class="form-input" value="${capitalize(product.category)}" readonly>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Price</label>
+            <input type="text" class="form-input" value="$${product.price.toFixed(2)}" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Stock</label>
+            <input type="text" class="form-input" value="${product.stock}" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-textarea" readonly rows="3">${product.description}</textarea>
+        </div>
+        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+          <button class="btn btn-primary" onclick="openProductForm(${product.id})">Edit Product</button>
+          <button class="btn btn-secondary modal-close">Close</button>
+        </div>
+      `;
+      document.getElementById('product-detail-modal').classList.add('active');
+    }
+
+    function openProductForm(productId) {
+      document.getElementById('product-detail-modal').classList.remove('active');
+      const product = productId ? store.products.find(p => p.id === productId) : null;
+      const form = document.getElementById('product-form');
+
+      if (product) {
+        document.getElementById('product-form-title').textContent = 'Edit Product';
+        form.querySelector('[name="name"]').value = product.name;
+        form.querySelector('[name="sku"]').value = product.sku;
+        form.querySelector('[name="category"]').value = product.category;
+        form.querySelector('[name="price"]').value = product.price;
+        form.querySelector('[name="stock"]').value = product.stock;
+        form.querySelector('[name="status"]').value = product.status;
+        form.querySelector('[name="description"]').value = product.description;
+        form.dataset.productId = product.id;
+      } else {
+        document.getElementById('product-form-title').textContent = 'Add Product';
+        form.reset();
+        delete form.dataset.productId;
+      }
+
+      document.getElementById('product-form-modal').classList.add('active');
+    }
+
+    document.getElementById('add-product-btn').addEventListener('click', () => openProductForm(null));
+
+    document.getElementById('product-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const productId = form.dataset.productId ? parseInt(form.dataset.productId) : null;
+
+      const data = {
+        name: form.querySelector('[name="name"]').value,
+        sku: form.querySelector('[name="sku"]').value,
+        category: form.querySelector('[name="category"]').value,
+        price: parseFloat(form.querySelector('[name="price"]').value),
+        stock: parseInt(form.querySelector('[name="stock"]').value),
+        status: form.querySelector('[name="status"]').value,
+        description: form.querySelector('[name="description"]').value
+      };
+
+      if (productId) {
+        const product = store.products.find(p => p.id === productId);
+        Object.assign(product, data);
+      } else {
+        const newId = Math.max(...store.products.map(p => p.id), 0) + 1;
+        store.products.push({ id: newId, ...data });
+      }
+
+      showSuccess('Product saved successfully');
+      document.getElementById('product-form-modal').classList.remove('active');
+      renderProducts();
+    });
+
+    function renderSalesView() {
+      const tbody = document.querySelector('#sales-table tbody');
+      tbody.innerHTML = '';
+      store.sales.forEach(sale => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${sale.id}</td>
+          <td>${sale.time}</td>
+          <td>${sale.items}</td>
+          <td>$${sale.subtotal.toFixed(2)}</td>
+          <td>$${sale.tax.toFixed(2)}</td>
+          <td>$${sale.total.toFixed(2)}</td>
+          <td>${capitalize(sale.payment)}</td>
+        `;
+        row.addEventListener('click', () => showSaleDetail(sale));
+        tbody.appendChild(row);
+      });
+    }
+
+    function showSaleDetail(sale) {
+      const content = document.getElementById('sale-detail-content');
+      let lineItemsHtml = '<div class="line-items">';
+      sale.lineItems.forEach(item => {
+        lineItemsHtml += `
+          <div class="line-item">
+            <div class="line-item-qty">${item.qty || 1}x</div>
+            <div class="line-item-name">${item.name}</div>
+            <div class="line-item-price">$${((item.qty || 1) * item.price).toFixed(2)}</div>
+          </div>
+        `;
+      });
+      lineItemsHtml += '</div>';
+
+      content.innerHTML = `
+        ${lineItemsHtml}
+        <div class="summary-box">
+          <div class="summary-line">
+            <span>Subtotal</span>
+            <span>$${sale.subtotal.toFixed(2)}</span>
+          </div>
+          <div class="summary-line">
+            <span>Tax</span>
+            <span>$${sale.tax.toFixed(2)}</span>
+          </div>
+          <div class="summary-line total">
+            <span>Total</span>
+            <span>$${sale.total.toFixed(2)}</span>
+          </div>
+          <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--rule);">
+            <div class="form-label">Payment Method</div>
+            <div style="font-size: 0.95rem;">${capitalize(sale.payment)}</div>
+          </div>
+        </div>
+        <button class="btn btn-secondary modal-close" style="margin-top: 1.5rem; width: 100%;">Close</button>
+      `;
+      document.getElementById('sale-detail-modal').classList.add('active');
+    }
+
+    document.getElementById('new-sale-btn').addEventListener('click', () => {
+      store.pos.cart = [];
+      renderPOSModal();
+      document.getElementById('new-sale-modal').classList.add('active');
+    });
+
+    function renderPOSModal() {
+      const productList = document.getElementById('pos-product-list');
+      productList.innerHTML = '';
+      const search = document.getElementById('pos-search').value.toLowerCase();
+
+      const filtered = store.products.filter(p =>
+        p.name.toLowerCase().includes(search) || p.sku.toLowerCase().includes(search)
+      );
+
+      filtered.forEach(product => {
+        const div = document.createElement('div');
+        div.style.cssText = 'padding: 0.75rem 0; border-bottom: 1px solid var(--rule); cursor: pointer;';
+        div.innerHTML = `
+          <div style="font-weight: 500; margin-bottom: 0.25rem;">${product.name}</div>
+          <div style="font-size: 0.85rem; color: var(--ink-light);">$${product.price.toFixed(2)} - Stock: ${product.stock}</div>
+        `;
+        div.addEventListener('click', () => addToCart(product));
+        productList.appendChild(div);
+      });
+    }
+
+    function addToCart(product) {
+      const existing = store.pos.cart.find(item => item.id === product.id);
+      if (existing) {
+        if (existing.qty < product.stock) {
+          existing.qty++;
+        }
+      } else {
+        store.pos.cart.push({ ...product, qty: 1 });
+      }
+      renderCart();
+    }
+
+    function renderCart() {
+      const cart = document.getElementById('pos-cart');
+      cart.innerHTML = '';
+
+      store.pos.cart.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price">$${item.price.toFixed(2)} each</div>
+          </div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="updateCartQty(${item.id}, -1)">−</button>
+            <input type="number" class="qty-input" value="${item.qty}" onchange="updateCartQtyDirect(${item.id}, this.value)">
+            <button class="qty-btn" onclick="updateCartQty(${item.id}, 1)">+</button>
+            <button class="cart-remove" onclick="removeFromCart(${item.id})">Remove</button>
+          </div>
+        `;
+        cart.appendChild(div);
+      });
+
+      updateTotals();
+    }
+
+    window.updateCartQty = function(productId, delta) {
+      const item = store.pos.cart.find(i => i.id === productId);
+      if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) {
+          removeFromCart(productId);
+        } else if (item.qty > item.stock) {
+          item.qty = item.stock;
+        }
+        renderCart();
+      }
+    };
+
+    window.updateCartQtyDirect = function(productId, value) {
+      const item = store.pos.cart.find(i => i.id === productId);
+      if (item) {
+        item.qty = Math.min(Math.max(parseInt(value) || 1, 1), item.stock);
+        renderCart();
+      }
+    };
+
+    window.removeFromCart = function(productId) {
+      store.pos.cart = store.pos.cart.filter(i => i.id !== productId);
+      renderCart();
+    };
+
+    function updateTotals() {
+      const subtotal = store.pos.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const tax = subtotal * (store.settings.taxRate / 100);
+      const total = subtotal + tax;
+
+      document.getElementById('pos-subtotal').textContent = '$' + subtotal.toFixed(2);
+      document.getElementById('pos-tax').textContent = '$' + tax.toFixed(2);
+      document.getElementById('pos-total').textContent = '$' + total.toFixed(2);
+    }
+
+    document.getElementById('pos-search').addEventListener('input', renderPOSModal);
+
+    document.getElementById('complete-sale-btn').addEventListener('click', () => {
+      if (store.pos.cart.length === 0) {
+        alert('Cart is empty');
+        return;
+      }
+
+      const subtotal = store.pos.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const tax = subtotal * (store.settings.taxRate / 100);
+      const total = subtotal + tax;
+
+      const newSale = {
+        id: 1000 + store.sales.length + 1,
+        time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+        items: store.pos.cart.reduce((sum, item) => sum + item.qty, 0),
+        subtotal: parseFloat(subtotal.toFixed(2)),
+        tax: parseFloat(tax.toFixed(2)),
+        total: parseFloat(total.toFixed(2)),
+        payment: document.getElementById('pos-payment').value,
+        lineItems: store.pos.cart.map(item => ({
+          name: item.name,
+          qty: item.qty,
+          price: item.price
+        }))
+      };
+
+      store.sales.push(newSale);
+      showSuccess('Sale completed successfully');
+      document.getElementById('new-sale-modal').classList.remove('active');
+      store.pos.cart = [];
+      renderSalesView();
+    });
+
+    function renderOrders() {
+      const tbody = document.querySelector('#orders-table tbody');
+      tbody.innerHTML = '';
+      store.orders.forEach(order => {
+        const row = document.createElement('tr');
+        const statusBadge = `<span class="badge badge-${order.status}">${capitalize(order.status)}</span>`;
+        row.innerHTML = `
+          <td>${order.id}</td>
+          <td>${order.supplier}</td>
+          <td>${order.description}</td>
+          <td>$${order.total.toFixed(2)}</td>
+          <td>${order.orderDate}</td>
+          <td>${statusBadge}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    document.getElementById('new-order-btn').addEventListener('click', () => {
+      document.getElementById('order-form').reset();
+      document.getElementById('new-order-modal').classList.add('active');
+    });
+
+    document.getElementById('order-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.target;
+
+      const newOrder = {
+        id: store.pos.nextOrderId,
+        supplier: form.querySelector('[name="supplier"]').options[form.querySelector('[name="supplier"]').selectedIndex].text,
+        description: form.querySelector('[name="description"]').value,
+        total: parseFloat(form.querySelector('[name="total"]').value),
+        orderDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        status: 'ordered'
+      };
+
+      store.orders.push(newOrder);
+      const num = parseInt(store.pos.nextOrderId.split('-')[2]) + 1;
+      store.pos.nextOrderId = `PO-2026-${String(num).padStart(3, '0')}`;
+
+      showSuccess('Order created successfully');
+      document.getElementById('new-order-modal').classList.remove('active');
+      renderOrders();
+    });
+
+    document.querySelectorAll('.toggle-switch').forEach(toggle => {
+      toggle.addEventListener('click', function() {
+        this.classList.toggle('on');
+        const setting = this.dataset.setting;
+        store.settings[setting] = this.classList.contains('on');
+      });
+    });
+
+    document.querySelectorAll('.modal-close').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.target.closest('.modal-overlay').classList.remove('active');
+      });
+    });
+
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.classList.remove('active');
+        }
+      });
+    });
+
+    function capitalize(str) {
+      return str.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    }
+
+    function showSuccess(message) {
+      const div = document.createElement('div');
+      div.className = 'success-message';
+      div.textContent = message;
+      document.body.appendChild(div);
+      setTimeout(() => div.remove(), 3000);
+    }
+
+    renderDashboard();
+  </script>
+</body>
+</html>

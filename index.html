@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Praxis - Custom Software for Local Businesses</title>
+  <meta name="description" content="I build custom software that replaces overpriced SaaS. Booking systems, inventory tools, client portals. You own it forever.">
+
+  <!-- Font Preload -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  </noscript>
+
+  <style>
+    :root {
+      --warm-white: #FDFAF5;
+      --cream: #F5F0E8;
+      --ink: #1C1917;
+      --ink-mid: #57534E;
+      --ink-light: #A8A29E;
+      --terracotta: #C2603D;
+      --rule: #DDD6CC;
+
+      --font-serif: 'Instrument Serif', serif;
+      --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--warm-white);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* Noise Overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="4" seed="1"/></filter><rect width="256" height="256" fill="%231C1917" filter="url(%23n)"/></svg>');
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Selection */
+    ::selection {
+      background-color: var(--terracotta);
+      color: var(--warm-white);
+    }
+
+    /* Scroll Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUpSmall {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      animation: fadeInUp 1s var(--ease) forwards;
+      opacity: 0;
+    }
+
+    .reveal-stagger-1 { animation-delay: 0.1s; }
+    .reveal-stagger-2 { animation-delay: 0.2s; }
+    .reveal-stagger-3 { animation-delay: 0.3s; }
+
+    /* Container */
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(253, 250, 245, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+      padding: 1.5rem 0;
+    }
+
+    .nav-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 3rem;
+    }
+
+    nav a {
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s var(--ease);
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--terracotta);
+      transition: width 0.3s var(--ease);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 8rem 0 6rem;
+      animation: fadeInUp 1s var(--ease);
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      margin-bottom: 2rem;
+      max-width: 90%;
+    }
+
+    .hero .subtitle {
+      font-size: 1.15rem;
+      color: var(--ink-mid);
+      margin-bottom: 2.5rem;
+      max-width: 65%;
+      line-height: 1.8;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: var(--terracotta);
+      color: var(--warm-white);
+      padding: 0.875rem 1.75rem;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 5px;
+      transition: all 0.3s var(--ease);
+      font-size: 0.95rem;
+      border: 1px solid var(--terracotta);
+      cursor: pointer;
+    }
+
+    .cta-button:hover {
+      background-color: transparent;
+      color: var(--terracotta);
+    }
+
+    .cta-button-outline {
+      background-color: transparent;
+      color: var(--terracotta);
+      border: 1px solid var(--terracotta);
+    }
+
+    .cta-button-outline:hover {
+      background-color: var(--terracotta);
+      color: var(--warm-white);
+    }
+
+    /* Sections */
+    section {
+      padding: 8rem 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    section h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      margin-bottom: 3.5rem;
+      max-width: 80%;
+    }
+
+    section p {
+      margin-bottom: 1.5rem;
+    }
+
+    section p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    /* What I Build */
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .capability-card {
+      background-color: var(--cream);
+      padding: 2rem;
+      border-radius: 6px;
+      border: 1px solid var(--rule);
+      transition: all 0.3s var(--ease);
+    }
+
+    .capability-card:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+      border-color: var(--terracotta);
+    }
+
+    .capability-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--ink);
+    }
+
+    .capability-card p {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      margin-bottom: 0;
+    }
+
+    /* Portfolio Section */
+    .portfolio-intro {
+      color: var(--ink-mid);
+      font-size: 1.05rem;
+      margin-bottom: 3rem;
+      max-width: 70%;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .portfolio-card {
+      background-color: var(--cream);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 2.5rem;
+      transition: all 0.3s var(--ease);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .portfolio-card:nth-child(2) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .portfolio-card:nth-child(2) .portfolio-content {
+      order: 2;
+    }
+
+    .portfolio-card:nth-child(2) .portfolio-visual {
+      order: 1;
+    }
+
+    .portfolio-card:hover {
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+      border-color: var(--terracotta);
+      transform: translateY(-4px);
+    }
+
+    .portfolio-content h3 {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .portfolio-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .portfolio-description {
+      color: var(--ink-mid);
+      margin-bottom: 1.75rem;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .portfolio-visual {
+      background-color: var(--warm-white);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-light);
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .demo-link {
+      display: inline-block;
+      color: var(--terracotta);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s var(--ease);
+      position: relative;
+    }
+
+    .demo-link::after {
+      content: ' →';
+      position: relative;
+      left: 0;
+      transition: left 0.3s var(--ease);
+    }
+
+    .demo-link:hover::after {
+      left: 4px;
+    }
+
+    /* How It Works */
+    .how-it-works-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    .step {
+      position: relative;
+    }
+
+    .step-number {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--rule);
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .step h3 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .step p {
+      color: var(--ink-mid);
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    /* About Section */
+    .about-content {
+      max-width: 70%;
+    }
+
+    .about-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .about-content p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    /* Contact Section */
+    .contact-content {
+      max-width: 70%;
+    }
+
+    .contact-heading {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      margin-bottom: 2.5rem;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .contact-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      font-weight: 500;
+    }
+
+    .contact-value {
+      font-size: 1.15rem;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.3s var(--ease);
+    }
+
+    .contact-value:hover {
+      color: var(--terracotta);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--cream);
+      border-top: 1px solid var(--rule);
+      padding: 3rem 0;
+      margin-top: 8rem;
+    }
+
+    .footer-content {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .footer-left {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--ink);
+    }
+
+    .footer-right {
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--ink-light);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 1.5rem;
+      }
+
+      nav ul {
+        gap: 1.5rem;
+      }
+
+      nav a {
+        font-size: 0.85rem;
+      }
+
+      .container {
+        padding: 0 1.5rem;
+      }
+
+      .hero {
+        padding: 4rem 0 3rem;
+      }
+
+      .hero h1 {
+        max-width: 100%;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero .subtitle {
+        max-width: 100%;
+      }
+
+      section {
+        padding: 4rem 0;
+      }
+
+      section h2 {
+        max-width: 100%;
+        margin-bottom: 2rem;
+      }
+
+      .capabilities-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .portfolio-card {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.75rem;
+      }
+
+      .portfolio-card:nth-child(2) {
+        grid-template-columns: 1fr;
+      }
+
+      .portfolio-card:nth-child(2) .portfolio-content {
+        order: 0;
+      }
+
+      .portfolio-card:nth-child(2) .portfolio-visual {
+        order: 0;
+      }
+
+      .how-it-works-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .about-content {
+        max-width: 100%;
+      }
+
+      .contact-content {
+        max-width: 100%;
+      }
+
+      .portfolio-intro {
+        max-width: 100%;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: left;
+      }
+
+      .footer-right {
+        text-align: left;
+      }
+    }
+
+    /* Lazy Load Animation for Cards */
+    .reveal-card {
+      animation: fadeInUpSmall 0.8s var(--ease) forwards;
+      opacity: 0;
+    }
+
+    .reveal-card.reveal-stagger-1 { animation-delay: 0.1s; }
+    .reveal-card.reveal-stagger-2 { animation-delay: 0.2s; }
+    .reveal-card.reveal-stagger-3 { animation-delay: 0.3s; }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">Local Praxis</div>
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>I build the software your business actually needs.</h1>
+      <p class="subtitle">Stop paying for overpriced SaaS subscriptions that do too much and cost too much. I build custom software tailored to how you work. You own it forever.</p>
+      <a href="#contact" class="cta-button">Let's talk</a>
+    </div>
+  </section>
+
+  <!-- What I Build -->
+  <section id="build">
+    <div class="container">
+      <h2>What I build</h2>
+      <div class="capabilities-grid">
+        <div class="capability-card reveal-card reveal-stagger-1">
+          <h3>Booking Systems</h3>
+          <p>Calendar, scheduling, reminders. Customers book online. You manage with a dashboard.</p>
+        </div>
+        <div class="capability-card reveal-card reveal-stagger-2">
+          <h3>Inventory & POS</h3>
+          <p>Track stock, manage orders, process payments. Everything you need in one place.</p>
+        </div>
+        <div class="capability-card reveal-card reveal-stagger-3">
+          <h3>Client Portals</h3>
+          <p>Let clients see project status, download files, or update their information themselves.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio / Work -->
+  <section id="work">
+    <div class="container">
+      <h2>Recent work</h2>
+      <p class="portfolio-intro">These are real projects I've built for local businesses. Click through to see them in action.</p>
+
+      <div class="portfolio-grid">
+        <!-- Redfish Run Charters -->
+        <div class="portfolio-card reveal-card reveal-stagger-1">
+          <div class="portfolio-content">
+            <div class="portfolio-label">Booking System</div>
+            <h3>Redfish Run Charters</h3>
+            <p class="portfolio-description">Fishing charters need bookings, waivers, and captain scheduling. This system handles it all. Customers see available dates, book with a credit card, and get confirmation emails. The captain has a dashboard to manage the day.</p>
+            <a class='demo-link' href='/demos/booking'>View demo</a>
+          </div>
+          <div class="portfolio-visual">
+            <span>Booking interface preview</span>
+          </div>
+        </div>
+
+        <!-- Salt Line Supply -->
+        <div class="portfolio-card reveal-card reveal-stagger-2">
+          <div class="portfolio-content">
+            <div class="portfolio-label">Inventory & POS</div>
+            <h3>Salt Line Supply</h3>
+            <p class="portfolio-description">Local supply shop needed a way to track inventory across multiple locations, ring up sales, and see what's moving. Built a POS system with real-time stock tracking. Now they know what to reorder without guessing.</p>
+            <a class='demo-link' href='/demos/inventory'>View demo</a>
+          </div>
+          <div class="portfolio-visual">
+            <span>Inventory management preview</span>
+          </div>
+        </div>
+
+        <!-- Island Key Properties -->
+        <div class="portfolio-card reveal-card reveal-stagger-3">
+          <div class="portfolio-content">
+            <div class="portfolio-label">Client Portal</div>
+            <h3>Island Key Properties</h3>
+            <p class="portfolio-description">Property management company was drowning in emails. Tenants now log in to pay rent, submit maintenance requests, and see lease documents. Property manager has a dashboard to track everything without 500 emails.</p>
+            <a class='demo-link' href='/demos/portal'>View demo</a>
+          </div>
+          <div class="portfolio-visual">
+            <span>Portal interface preview</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="process">
+    <div class="container">
+      <h2>How it works</h2>
+
+      <div class="how-it-works-grid">
+        <div class="step reveal-card reveal-stagger-1">
+          <div class="step-number">1</div>
+          <h3>We talk</h3>
+          <p>Tell me what your business does. What takes time. What costs money. What frustrates you. I listen.</p>
+        </div>
+
+        <div class="step reveal-card reveal-stagger-2">
+          <div class="step-number">2</div>
+          <h3>I build it</h3>
+          <p>You get a system that's built for exactly how you work. Not how some SaaS company thinks you should work. You own it.</p>
+        </div>
+
+        <div class="step reveal-card reveal-stagger-3">
+          <div class="step-number">3</div>
+          <h3>Low monthly fee</h3>
+          <p>No subscriptions per user. No surprise billing. One low monthly fee for maintenance and updates. That's it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <h2>About me</h2>
+      <div class="about-content">
+        <p>I'm from Port A. My dad built the IT infrastructure for Pflugerville ISD, the school district where my parents worked. I grew up watching him solve problems with technology.</p>
+
+        <p>I left to work at Apple, Meta, and GoDaddy. Built big systems for millions of users. But I missed the people here. The businesses that built this place.</p>
+
+        <p>So I came back. Now I build custom software for the people and businesses that matter to me. Not for a venture fund. Not for an IPO. For you. For a reasonable fee. You own the code. You own your data. You own your future.</p>
+
+        <p>I live in Port A. You'll find me on the ferry, at Hoover's, or working on a project that solves a real problem.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-content">
+        <h2>Let's build something</h2>
+        <p>If you've got a business problem that costs you time or money, let's talk about fixing it.</p>
+
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="contact-label">Phone</span>
+            <a href="tel:+13613322725" class="contact-value">(361) 332-2725</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Email</span>
+            <a href="mailto:JamesAndrewJohnson555@gmail.com" class="contact-value">JamesAndrewJohnson555@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">Local Praxis. Port Aransas, Texas.</div>
+      <div class="footer-right">&copy; 2026 James Johnson. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll reveals
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = getComputedStyle(entry.target).animation;
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all reveal elements
+    document.querySelectorAll('.reveal-card').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
+    // Update active nav link based on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+    window.addEventListener('scroll', () => {
+      let currentSection = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.pageYOffset >= sectionTop - 200) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').slice(1) === currentSection) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

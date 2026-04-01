@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redfish Run Charters - Admin Dashboard</title>
+
+    <!-- Preload fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <style>
+        :root {
+            --warm-white: #FDFAF5;
+            --cream: #F5F0E8;
+            --ink: #1C1917;
+            --ink-mid: #57534E;
+            --ink-light: #A8A29E;
+            --terracotta: #C2603D;
+            --rule: #DDD6CC;
+            --success: #2D7A3E;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
+            background: var(--warm-white);
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Noise overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /><feColorMatrix type="saturate" values="0" /></filter><rect width="100" height="100" filter="url(%23n)" /></svg>');
+            opacity: 0.018;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Selection color */
+        ::selection {
+            background: var(--terracotta);
+            color: var(--warm-white);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background: var(--cream);
+            border-right: 1px solid var(--rule);
+            padding: 2.5rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar h1 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: clamp(1.8rem, 3vw, 2rem);
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .sidebar .tagline {
+            font-size: 0.75rem;
+            color: var(--ink-light);
+            margin-bottom: 2rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .nav-menu {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: var(--ink-mid);
+            transition: all 0.2s var(--ease);
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(194, 96, 61, 0.08);
+            color: var(--terracotta);
+        }
+
+        .nav-item.active {
+            background: var(--terracotta);
+            color: var(--warm-white);
+            border-left: 3px solid var(--terracotta);
+        }
+
+        .sidebar-footer {
+            padding-top: 2rem;
+            border-top: 1px solid var(--rule);
+            margin-top: auto;
+        }
+
+        .sidebar-footer a {
+            font-size: 0.7rem;
+            color: var(--ink-light);
+            text-decoration: none;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: color 0.2s var(--ease);
+        }
+
+        .sidebar-footer a:hover {
+            color: var(--terracotta);
+        }
+
+        /* Main content area */
+        .main {
+            margin-left: 220px;
+            flex: 1;
+            background: var(--warm-white);
+            padding: 4rem 3.5rem;
+            min-height: 100vh;
+        }
+
+        .header {
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .header p {
+            color: var(--ink-light);
+            font-size: 0.95rem;
+        }
+
+        /* View sections */
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        /* Stats section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            border-top: 1px solid var(--rule);
+            padding-top: 1.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--ink-light);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: clamp(2.4rem, 4vw, 3.2rem);
+            line-height: 1;
+            color: var(--ink);
+        }
+
+        /* Layout grid for dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        /* Manifest section */
+        .section-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 1.4rem;
+            margin: 2rem 0 1.5rem 0;
+            line-height: 1.1;
+        }
+
+        .manifest-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .manifest-table thead {
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .manifest-table th {
+            text-align: left;
+            padding: 0.75rem 0;
+            font-size: 0.7rem;
+            color: var(--ink-light);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 500;
+        }
+
+        .manifest-table tbody tr {
+            border-bottom: 1px solid var(--rule);
+            cursor: pointer;
+            transition: background 0.2s var(--ease);
+        }
+
+        .manifest-table tbody tr:hover {
+            background: rgba(194, 96, 61, 0.04);
+        }
+
+        .manifest-table td {
+            padding: 1rem 0;
+            font-size: 0.95rem;
+            color: var(--ink);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+
+        .status-checked-in {
+            background: rgba(45, 122, 62, 0.1);
+            color: var(--success);
+        }
+
+        .status-confirmed {
+            background: rgba(194, 96, 61, 0.1);
+            color: var(--terracotta);
+        }
+
+        .status-pending {
+            background: rgba(168, 162, 158, 0.1);
+            color: var(--ink-mid);
+        }
+
+        .status-completed {
+            background: rgba(45, 122, 62, 0.1);
+            color: var(--success);
+        }
+
+        /* Revenue chart */
+        .chart-container {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--cream);
+            border-radius: 3px 3px 0 0;
+            cursor: pointer;
+            transition: background 0.2s var(--ease);
+            position: relative;
+            min-height: 20px;
+        }
+
+        .chart-bar:hover {
+            background: var(--terracotta);
+        }
+
+        .chart-bar-label {
+            font-size: 0.75rem;
+            text-align: center;
+            color: var(--ink-mid);
+            margin-top: 0.5rem;
+            position: absolute;
+            bottom: -1.5rem;
+            left: 0;
+            right: 0;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.25rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: 'Satoshi', system-ui, sans-serif;
+            font-weight: 500;
+            transition: all 0.2s var(--ease);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--terracotta);
+            color: var(--warm-white);
+        }
+
+        .btn-primary:hover {
+            background: #A04E31;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--terracotta);
+            border: 1px solid var(--terracotta);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(194, 96, 61, 0.08);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 0.875rem;
+            font-size: 0.85rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Trips view */
+        .trips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .trip-card {
+            background: var(--cream);
+            border: 1px solid var(--rule);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.2s var(--ease);
+        }
+
+        .trip-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .trip-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .trip-name {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .trip-price {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 2rem;
+            color: var(--terracotta);
+            line-height: 1;
+        }
+
+        .trip-details {
+            margin: 1.5rem 0;
+        }
+
+        .trip-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--rule);
+            font-size: 0.95rem;
+        }
+
+        .trip-detail-label {
+            color: var(--ink-light);
+            font-weight: 500;
+        }
+
+        .trip-includes {
+            margin: 1.5rem 0;
+        }
+
+        .trip-includes-title {
+            font-size: 0.7rem;
+            color: var(--ink-light);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .trip-includes-list {
+            list-style: none;
+        }
+
+        .trip-includes-list li {
+            font-size: 0.9rem;
+            padding: 0.25rem 0;
+            color: var(--ink-mid);
+        }
+
+        .trip-description {
+            font-size: 0.95rem;
+            color: var(--ink-mid);
+            font-style: italic;
+            margin: 1.5rem 0;
+        }
+
+        .trip-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--rule);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .toggle-switch input {
+            appearance: none;
+            width: 48px;
+            height: 28px;
+            background: var(--rule);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.2s var(--ease);
+            outline: none;
+        }
+
+        .toggle-switch input:checked {
+            background: var(--success);
+        }
+
+        .toggle-switch input::before {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            left: 2px;
+            transition: left 0.2s var(--ease);
+        }
+
+        .toggle-switch input:checked::before {
+            left: 22px;
+        }
+
+        /* Widget view */
+        .widget-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .widget-preview {
+            background: var(--cream);
+            border: 1px solid var(--rule);
+            border-radius: 12px;
+            padding: 2.5rem;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .widget-step {
+            display: none;
+        }
+
+        .widget-step.active {
+            display: block;
+        }
+
+        .widget-step-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .widget-trips {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .widget-trip-option {
+            background: var(--warm-white);
+            border: 2px solid var(--rule);
+            border-radius: 6px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s var(--ease);
+        }
+
+        .widget-trip-option:hover {
+            border-color: var(--terracotta);
+            background: rgba(194, 96, 61, 0.04);
+        }
+
+        .widget-trip-option.selected {
+            border-color: var(--terracotta);
+            background: rgba(194, 96, 61, 0.08);
+        }
+
+        .widget-trip-name {
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .widget-trip-meta {
+            font-size: 0.85rem;
+            color: var(--ink-light);
+            margin-top: 0.25rem;
+        }
+
+        .widget-date-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+
+        .widget-date-btn {
+            aspect-ratio: 1;
+            background: var(--warm-white);
+            border: 1px solid var(--rule);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s var(--ease);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .widget-date-btn:hover {
+            border-color: var(--terracotta);
+        }
+
+        .widget-date-btn.selected {
+            background: var(--terracotta);
+            color: var(--warm-white);
+            border-color: var(--terracotta);
+        }
+
+        .widget-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: 0.85rem;
+            color: var(--ink-light);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            padding: 0.75rem;
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            font-family: 'Satoshi', system-ui, sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.2s var(--ease);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--terracotta);
+            background: rgba(194, 96, 61, 0.02);
+        }
+
+        .widget-confirmation {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .checkmark {
+            width: 60px;
+            height: 60px;
+            background: rgba(45, 122, 62, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+        }
+
+        .widget-confirmation-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .widget-confirmation-text {
+            font-size: 0.95rem;
+            color: var(--ink-mid);
+            margin: 1rem 0;
+        }
+
+        .widget-confirmation-details {
+            background: var(--warm-white);
+            border: 1px solid var(--rule);
+            border-radius: 6px;
+            padding: 1rem;
+            text-align: left;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .confirmation-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+        }
+
+        .widget-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: auto;
+        }
+
+        .widget-info {
+            margin-top: 2rem;
+        }
+
+        .widget-info-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .code-block {
+            background: var(--ink);
+            color: var(--warm-white);
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Monaco', monospace;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            padding: 0.5rem 0.875rem;
+            background: var(--terracotta);
+            color: var(--warm-white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s var(--ease);
+        }
+
+        .copy-btn:hover {
+            background: #A04E31;
+        }
+
+        .copy-btn.copied {
+            background: var(--success);
+        }
+
+        .widget-settings {
+            margin-top: 1.5rem;
+        }
+
+        .settings-label {
+            font-size: 0.7rem;
+            color: var(--ink-light);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .settings-list {
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--ink-mid);
+        }
+
+        .settings-list li {
+            padding: 0.5rem 0;
+        }
+
+        /* Calendar view */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .calendar-date-range {
+            font-size: 0.95rem;
+            color: var(--ink-mid);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--ink-light);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 500;
+            padding: 1rem 0;
+        }
+
+        .calendar-slot {
+            border: 1px solid var(--rule);
+            border-radius: 6px;
+            min-height: 80px;
+            padding: 0.75rem;
+            background: var(--cream);
+            position: relative;
+        }
+
+        .calendar-time {
+            font-size: 0.75rem;
+            color: var(--ink-light);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .calendar-event {
+            background: var(--terracotta);
+            color: var(--warm-white);
+            padding: 0.5rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s var(--ease);
+        }
+
+        .calendar-event:hover {
+            background: #A04E31;
+            box-shadow: 0 2px 8px rgba(194, 96, 61, 0.3);
+        }
+
+        /* Bookings view */
+        .bookings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--rule);
+            background: var(--cream);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s var(--ease);
+            color: var(--ink-mid);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--terracotta);
+            color: var(--terracotta);
+        }
+
+        .filter-btn.active {
+            background: var(--terracotta);
+            color: var(--warm-white);
+            border-color: var(--terracotta);
+        }
+
+        .bookings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        .bookings-table thead {
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .bookings-table th {
+            text-align: left;
+            padding: 1rem 0;
+            font-size: 0.7rem;
+            color: var(--ink-light);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 500;
+        }
+
+        .bookings-table tbody tr {
+            border-bottom: 1px solid var(--rule);
+            cursor: pointer;
+            transition: background 0.2s var(--ease);
+        }
+
+        .bookings-table tbody tr:hover {
+            background: rgba(194, 96, 61, 0.04);
+        }
+
+        .bookings-table td {
+            padding: 1.25rem 0;
+            font-size: 0.95rem;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--warm-white);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            font-size: 0.9rem;
+            color: var(--ink-light);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--ink-light);
+            transition: color 0.2s var(--ease);
+        }
+
+        .modal-close:hover {
+            color: var(--ink);
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .success-message {
+            background: rgba(45, 122, 62, 0.1);
+            border: 1px solid rgba(45, 122, 62, 0.3);
+            color: var(--success);
+            padding: 0.875rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 960px) {
+            .sidebar {
+                width: 60px;
+                padding: 1.5rem 0.75rem;
+            }
+
+            .sidebar h1 {
+                font-size: 1rem;
+            }
+
+            .sidebar .tagline {
+                display: none;
+            }
+
+            .nav-item {
+                padding: 0.75rem;
+                text-align: center;
+            }
+
+            .sidebar-footer {
+                display: none;
+            }
+
+            .main {
+                margin-left: 60px;
+                padding: 2.5rem 1.5rem;
+            }
+
+            .dashboard-grid,
+            .widget-container {
+                grid-template-columns: 1fr;
+            }
+
+            .trips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .widget-date-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .bookings-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h1>Redfish Run</h1>
+        <p class="tagline">Port Aransas, TX</p>
+        <div class="nav-menu">
+            <div class="nav-item active" data-view="dashboard">Dashboard</div>
+            <div class="nav-item" data-view="trips">Trips</div>
+            <div class="nav-item" data-view="calendar">Calendar</div>
+            <div class="nav-item" data-view="bookings">Bookings</div>
+            <div class="nav-item" data-view="widget">Widget</div>
+        </div>
+        <div class="sidebar-footer">
+            <a href="https://localpraxis.com" target="_blank">Built by Local Praxis</a>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main">
+        <!-- Dashboard View -->
+        <div class="view active" id="dashboard">
+            <div class="header">
+                <h1>Dashboard</h1>
+                <p>Good morning. Here's what's happening today.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Today's Revenue</div>
+                    <div class="stat-value">$2,100</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Bookings</div>
+                    <div class="stat-value">3</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Guests</div>
+                    <div class="stat-value">9</div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div>
+                    <h2 class="section-title">Today's Manifest</h2>
+                    <table class="manifest-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Trip</th>
+                                <th>Guest</th>
+                                <th>Party</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="manifest-body">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <h2 class="section-title">Revenue This Week</h2>
+                    <div class="chart-container" id="revenue-chart">
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Upcoming Bookings</h2>
+            <table class="manifest-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Guest</th>
+                        <th>Trip</th>
+                        <th>Party</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="upcoming-body">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Trips View -->
+        <div class="view" id="trips">
+            <div class="header">
+                <h1>Trips</h1>
+                <p>Manage your trip offerings and availability.</p>
+            </div>
+
+            <div class="trips-grid" id="trips-grid">
+            </div>
+        </div>
+
+        <!-- Calendar View -->
+        <div class="view" id="calendar">
+            <div class="header">
+                <h1>Calendar</h1>
+                <p>View and manage bookings by week.</p>
+            </div>
+
+            <div class="calendar-header">
+                <div>
+                    <p class="calendar-date-range" id="calendar-range">Week of April 1, 2026</p>
+                </div>
+                <div class="calendar-nav">
+                    <button class="btn btn-secondary btn-sm" id="calendar-prev">Prev</button>
+                    <button class="btn btn-secondary btn-sm" id="calendar-today">Today</button>
+                    <button class="btn btn-secondary btn-sm" id="calendar-next">Next</button>
+                </div>
+            </div>
+
+            <div class="calendar-grid" id="calendar-grid">
+            </div>
+        </div>
+
+        <!-- Bookings View -->
+        <div class="view" id="bookings">
+            <div class="header">
+                <h1>Bookings</h1>
+                <p>Manage all reservations and guest information.</p>
+            </div>
+
+            <div class="bookings-header">
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="pending">Pending</button>
+                    <button class="filter-btn" data-filter="confirmed">Confirmed</button>
+                    <button class="filter-btn" data-filter="checked-in">Checked In</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                </div>
+                <button class="btn btn-primary" id="new-booking-btn">New Booking</button>
+            </div>
+
+            <table class="bookings-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Guest</th>
+                        <th>Trip</th>
+                        <th>Party</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="bookings-body">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Widget View -->
+        <div class="view" id="widget">
+            <div class="header">
+                <h1>Widget</h1>
+                <p>Preview the customer-facing booking widget.</p>
+            </div>
+
+            <div class="widget-container">
+                <div class="widget-preview">
+                    <!-- Step 1: Select Trip -->
+                    <div class="widget-step active" data-step="1">
+                        <h3 class="widget-step-title">Select a Trip</h3>
+                        <div class="widget-trips" id="widget-trips">
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Pick Date -->
+                    <div class="widget-step" data-step="2">
+                        <h3 class="widget-step-title">Pick a Date</h3>
+                        <div class="widget-date-grid" id="widget-dates">
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Guest Info -->
+                    <div class="widget-step" data-step="3">
+                        <h3 class="widget-step-title">Your Information</h3>
+                        <form class="widget-form" id="widget-form">
+                            <div class="form-group">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-input" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" placeholder="your@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-input" placeholder="(555) 000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Party Size</label>
+                                <input type="number" class="form-input" min="1" value="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Special Requests</label>
+                                <input type="text" class="form-input" placeholder="Any special requests...">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 4: Confirmation -->
+                    <div class="widget-step" data-step="4">
+                        <div class="widget-confirmation">
+                            <div class="checkmark">✓</div>
+                            <h3 class="widget-confirmation-title">Booking Confirmed</h3>
+                            <p class="widget-confirmation-text">Your reservation has been recorded.</p>
+                            <div class="widget-confirmation-details">
+                                <div class="confirmation-detail">
+                                    <span>Trip:</span>
+                                    <strong id="confirm-trip">Half Day Inshore</strong>
+                                </div>
+                                <div class="confirmation-detail">
+                                    <span>Date:</span>
+                                    <strong id="confirm-date">Apr 01, 2026</strong>
+                                </div>
+                                <div class="confirmation-detail">
+                                    <span>Party Size:</span>
+                                    <strong id="confirm-party">1</strong>
+                                </div>
+                                <div class="confirmation-detail">
+                                    <span>Total:</span>
+                                    <strong id="confirm-total">$450</strong>
+                                </div>
+                            </div>
+                            <p class="widget-confirmation-text">You'll receive a confirmation email shortly.</p>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="widget-actions">
+                        <button class="btn btn-secondary btn-sm" id="widget-prev" style="display:none;">Back</button>
+                        <button class="btn btn-primary btn-sm" id="widget-next">Next</button>
+                        <button class="btn btn-secondary btn-sm" id="widget-reset" style="display:none;">Reset</button>
+                    </div>
+                </div>
+
+                <div class="widget-info">
+                    <div>
+                        <h3 class="widget-info-title">Embed Code</h3>
+                        <div class="code-block">
+&lt;iframe src="https://redfish-run.com/widget" width="100%" height="600"&gt;&lt;/iframe&gt;
+                            <button class="copy-btn" data-copy="iframe">Copy</button>
+                        </div>
+                    </div>
+
+                    <div class="widget-settings">
+                        <div class="settings-label">Widget Settings</div>
+                        <ul class="settings-list">
+                            <li>✓ Allow date selection</li>
+                            <li>✓ Show trip descriptions</li>
+                            <li>✓ Collect guest info</li>
+                            <li>✓ Send confirmation email</li>
+                            <li>✓ Real-time availability</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="booking-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('booking-modal')">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">New Booking</h2>
+                <p class="modal-subtitle" id="modal-subtitle">Create a new reservation</p>
+            </div>
+
+            <div class="modal-content" id="modal-content">
+                <div class="form-group">
+                    <label class="form-label">Trip</label>
+                    <select class="form-input" id="modal-trip">
+                        <option value="">Select a trip</option>
+                        <option value="Half Day Inshore">Half Day Inshore</option>
+                        <option value="Full Day Offshore">Full Day Offshore</option>
+                        <option value="Sunset Cruise">Sunset Cruise</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-input" id="modal-date" min="2026-04-01">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Time</label>
+                    <input type="text" class="form-input" id="modal-time" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Guest Name</label>
+                    <input type="text" class="form-input" id="modal-name" placeholder="Full name">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="modal-email" placeholder="Email address">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" class="form-input" id="modal-phone" placeholder="Phone number">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Party Size</label>
+                    <input type="number" class="form-input" id="modal-party" min="1" value="1">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <input type="text" class="form-input" id="modal-notes" placeholder="Special requests...">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('booking-modal')">Cancel</button>
+                <button class="btn btn-primary" id="modal-submit">Create Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="detail-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('detail-modal')">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="detail-title">Booking Details</h2>
+            </div>
+
+            <div class="modal-content" id="detail-content">
+                <div id="detail-success-message" class="success-message" style="display:none;"></div>
+
+                <div class="form-group">
+                    <label class="form-label">Guest Name</label>
+                    <div style="font-size: 0.95rem; padding: 0.75rem 0;" id="detail-name"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <div style="font-size: 0.95rem; padding: 0.75rem 0;" id="detail-email"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <div style="font-size: 0.95rem; padding: 0.75rem 0;" id="detail-phone"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Trip</label>
+                    <div style="font-size: 0.95rem; padding: 0.75rem 0;" id="detail-trip"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date & Time</label>
+                    <div style="font-size: 0.95rem; padding: 0.75rem 0;" id="detail-datetime"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Party Size</label>
+                    <div style="font-size: 0.95rem; padding: 0.75rem 0;" id="detail-party"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Amount</label>
+                    <div style="font-size: 0.95rem; padding: 0.75rem 0; font-weight: 600; color: var(--terracotta);" id="detail-amount"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <div style="font-size: 0.95rem; padding: 0.75rem 0;" id="detail-status"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <div style="font-size: 0.95rem; padding: 0.75rem 0;" id="detail-notes"></div>
+                </div>
+            </div>
+
+            <div class="modal-actions" id="detail-actions">
+                <button class="btn btn-secondary" onclick="closeModal('detail-modal')">Close</button>
+                <button class="btn btn-primary" id="detail-checkin">Check In</button>
+                <button class="btn btn-secondary" id="detail-reminder">Send Reminder</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let bookingData = [
+            { id:1, guest:'Marcus Webb', trip:'Half Day Inshore', date:'Apr 1, 2026', time:'6:00am', party:3, amt:450, status:'checked-in', phone:'(512) 555-0147', email:'marcus.webb@email.com', note:'First time fishing. Bringing his two sons, ages 12 and 14. Wants to target redfish.' },
+            { id:2, guest:'David Herrera', trip:'Full Day Offshore', date:'Apr 1, 2026', time:'6:00am', party:4, amt:950, status:'confirmed', phone:'(361) 555-0283', email:'dherrera@email.com', note:'Repeat customer. Third trip this year. Wants to hit the deep rigs for kingfish.' },
+            { id:3, guest:'Anna Kelley', trip:'Sunset Cruise', date:'Apr 1, 2026', time:'5:30pm', party:2, amt:300, status:'pending', phone:'(210) 555-0391', email:'anna.k@email.com', note:'Anniversary trip. Bringing a bottle of wine. Asked about dolphin sightings.' },
+            { id:4, guest:'Rachel Nguyen', trip:'Half Day Inshore', date:'Apr 2, 2026', time:'6:00am', party:2, amt:450, status:'confirmed', phone:'(713) 555-0412', email:'rnguyen@email.com', note:'' },
+            { id:5, guest:'Tom Briggs', trip:'Full Day Offshore', date:'Apr 4, 2026', time:'6:00am', party:4, amt:950, status:'confirmed', phone:'(281) 555-0528', email:'tbriggs@email.com', note:'Corporate group. Building a team outing. Wants a cooler of beer on board.' },
+            { id:6, guest:'Lisa Contreras', trip:'Half Day Inshore', date:'Apr 5, 2026', time:'6:00am', party:3, amt:450, status:'confirmed', phone:'(361) 555-0619', email:'lisa.c@email.com', note:'Staying at Island Moorings. Needs directions to the wharf.' },
+            { id:7, guest:'Jake Moreno', trip:'Sunset Cruise', date:'Apr 5, 2026', time:'5:30pm', party:5, amt:300, status:'pending', phone:'(956) 555-0734', email:'jmoreno@email.com', note:'Bachelorette party. Might bring decorations for the boat.' },
+            { id:8, guest:'Chris Daley', trip:'Full Day Offshore', date:'Apr 6, 2026', time:'6:00am', party:2, amt:950, status:'confirmed', phone:'(512) 555-0845', email:'cdaley@email.com', note:'' },
+            { id:9, guest:'Maria Santos', trip:'Half Day Inshore', date:'Mar 28, 2026', time:'6:00am', party:4, amt:450, status:'completed', phone:'(361) 555-0156', email:'msantos@email.com', note:'Caught two reds and a trout.' },
+            { id:10, guest:'Paul Kim', trip:'Full Day Offshore', date:'Mar 29, 2026', time:'6:00am', party:3, amt:950, status:'completed', phone:'(832) 555-0267', email:'pkim@email.com', note:'Rough seas. Cut the trip short. Offered a credit for next time.' },
+        ];
+
+        const trips = [
+            { name: 'Half Day Inshore', price: 450, duration: '4 hours', capacity: 4, departure: '6:00am', includes: ['Rods', 'Tackle', 'Bait', 'Fish cleaning'], description: 'Target redfish, speckled trout, and flounder in the bay.' },
+            { name: 'Full Day Offshore', price: 950, duration: '8 hours', capacity: 4, departure: '6:00am', includes: ['Rods', 'Tackle', 'Bait', 'Fish cleaning', 'Lunch'], description: 'Hunt kingfish, snapper, cobia, and mahi in deep waters.' },
+            { name: 'Sunset Cruise', price: 300, duration: '2 hours', capacity: 6, departure: '5:30pm', includes: ['Scenic tour', 'BYOB welcome'], description: 'Perfect for couples and small groups. Beautiful views through the channel.' },
+        ];
+
+        const tripTimes = { 'Half Day Inshore': '6:00am', 'Full Day Offshore': '6:00am', 'Sunset Cruise': '5:30pm' };
+        const tripPrices = { 'Half Day Inshore': 450, 'Full Day Offshore': 950, 'Sunset Cruise': 300 };
+        const chartData = [
+            { day:'Mon', val:950 }, { day:'Tue', val:450 }, { day:'Wed', val:1400 },
+            { day:'Thu', val:300 }, { day:'Fri', val:0 }, { day:'Sat', val:0 }, { day:'Sun', val:0 }
+        ];
+
+        let currentWeekStart = new Date(2026, 3, 1);
+        let widgetState = { step: 1, trip: null, date: null, name: '', email: '', phone: '', party: 1, notes: '' };
+
+        function formatDate(date) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function parseDate(dateStr) {
+            const parts = dateStr.match(/(\w+)\s(\d+),\s(\d+)/);
+            if (parts) {
+                const months = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
+                return new Date(parts[3], months[parts[1]], parts[2]);
+            }
+            return null;
+        }
+
+        function getMonday(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            return new Date(d.setDate(diff));
+        }
+
+        function getWeekRange(mondayDate) {
+            const monday = new Date(mondayDate);
+            const sunday = new Date(monday);
+            sunday.setDate(sunday.getDate() + 6);
+            return { start: monday, end: sunday };
+        }
+
+        function dateToString(date) {
+            const d = new Date(date);
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${d.getFullYear()}-${month}-${day}`;
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const viewName = item.getAttribute('data-view');
+                switchView(viewName);
+            });
+        });
+
+        function switchView(viewName) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(viewName).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
+
+            if (viewName === 'calendar') renderCalendar();
+            else if (viewName === 'trips') renderTrips();
+            else if (viewName === 'bookings') renderBookings();
+            else if (viewName === 'widget') renderWidget();
+            else if (viewName === 'dashboard') renderDashboard();
+        }
+
+        function renderDashboard() {
+            renderManifest();
+            renderChart();
+            renderUpcoming();
+        }
+
+        function renderManifest() {
+            const today = 'Apr 1, 2026';
+            const todayBookings = bookingData.filter(b => b.date === today);
+            let html = '';
+            todayBookings.forEach(b => {
+                html += `<tr onclick="openDetailModal(${b.id})"><td>${b.time}</td><td>${b.trip}</td><td>${b.guest}</td><td>${b.party}</td><td><span class="status-badge status-${b.status}">${b.status}</span></td></tr>`;
+            });
+            document.getElementById('manifest-body').innerHTML = html;
+        }
+
+        function renderChart() {
+            const maxVal = Math.max(...chartData.map(d => d.val));
+            let html = '';
+            chartData.forEach(d => {
+                const height = maxVal > 0 ? (d.val / maxVal) * 150 : 0;
+                html += `<div style="flex: 1; display: flex; flex-direction: column;"><div class="chart-bar" style="height: ${height}px;" title="$${d.val}"></div><div class="chart-bar-label">${d.day}</div></div>`;
+            });
+            document.getElementById('revenue-chart').innerHTML = html;
+        }
+
+        function renderUpcoming() {
+            const upcoming = bookingData.filter(b => parseDate(b.date) >= parseDate('Apr 1, 2026')).sort((a, b) => parseDate(a.date) - parseDate(b.date));
+            let html = '';
+            upcoming.slice(0, 5).forEach(b => {
+                html += `<tr onclick="openDetailModal(${b.id})"><td>${b.date}</td><td>${b.guest}</td><td>${b.trip}</td><td>${b.party}</td><td>$${b.amt}</td></tr>`;
+            });
+            document.getElementById('upcoming-body').innerHTML = html;
+        }
+
+        function renderTrips() {
+            let html = '';
+            trips.forEach(trip => {
+                html += `<div class="trip-card"><div class="trip-header"><div class="trip-name">${trip.name}</div><div class="trip-price">$${trip.price}</div></div><div class="trip-details"><div class="trip-detail-row"><span class="trip-detail-label">Duration</span><span>${trip.duration}</span></div><div class="trip-detail-row"><span class="trip-detail-label">Capacity</span><span>Up to ${trip.capacity} anglers</span></div><div class="trip-detail-row"><span class="trip-detail-label">Departure</span><span>${trip.departure}</span></div></div><div class="trip-includes"><div class="trip-includes-title">What's Included</div><ul class="trip-includes-list">${trip.includes.map(inc => `<li>${inc}</li>`).join('')}</ul></div><p class="trip-description">${trip.description}</p><div class="trip-actions"><button class="btn btn-secondary btn-sm">Edit Trip</button><label class="toggle-switch"><input type="checkbox" checked><span style="font-size: 0.85rem; color: var(--ink-mid);">Available</span></label></div></div>`;
+            });
+            document.getElementById('trips-grid').innerHTML = html;
+        }
+
+        function renderCalendar() {
+            const weekStart = getMonday(currentWeekStart);
+            const { start, end } = getWeekRange(weekStart);
+            document.getElementById('calendar-range').textContent = `Week of ${formatDate(start)}`;
+            const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const times = ['5:00am', '6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00pm', '2:00pm', '3:00pm', '4:00pm', '5:00pm', '6:00pm'];
+            let html = '';
+            for (let i = 0; i < 7; i++) {
+                const day = new Date(start);
+                day.setDate(day.getDate() + i);
+                html += `<div class="calendar-day-header">${dayNames[day.getDay()]} ${day.getDate()}</div>`;
+            }
+            times.forEach(time => {
+                for (let dayOffset = 0; dayOffset < 7; dayOffset++) {
+                    const slotDate = new Date(start);
+                    slotDate.setDate(slotDate.getDate() + dayOffset);
+                    const dateStr = formatDate(slotDate);
+                    html += `<div class="calendar-slot"><div class="calendar-time">${time}</div>`;
+                    const dayEvents = bookingData.filter(b => b.date === dateStr && b.time === time);
+                    dayEvents.forEach(event => {
+                        html += `<div class="calendar-event" onclick="openDetailModal(${event.id})">${event.guest.split(' ')[0]}</div>`;
+                    });
+                    html += `</div>`;
+                }
+            });
+            document.getElementById('calendar-grid').innerHTML = html;
+        }
+
+        document.getElementById('calendar-prev').addEventListener('click', () => {
+            currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+            renderCalendar();
+        });
+
+        document.getElementById('calendar-next').addEventListener('click', () => {
+            currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+            renderCalendar();
+        });
+
+        document.getElementById('calendar-today').addEventListener('click', () => {
+            currentWeekStart = new Date(2026, 3, 1);
+            renderCalendar();
+        });
+
+        let currentFilter = 'all';
+
+        function renderBookings() {
+            const filtered = currentFilter === 'all' ? bookingData : bookingData.filter(b => b.status === currentFilter);
+            let html = '';
+            filtered.forEach(b => {
+                html += `<tr onclick="openDetailModal(${b.id})"><td>${b.date}</td><td>${b.guest}</td><td>${b.trip}</td><td>${b.party}</td><td>$${b.amt}</td><td><span class="status-badge status-${b.status}">${b.status}</span></td></tr>`;
+            });
+            document.getElementById('bookings-body').innerHTML = html;
+        }
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.getAttribute('data-filter');
+                renderBookings();
+            });
+        });
+
+        document.getElementById('new-booking-btn').addEventListener('click', () => {
+            document.getElementById('modal-title').textContent = 'New Booking';
+            document.getElementById('modal-subtitle').textContent = 'Create a new reservation';
+            document.getElementById('modal-content').style.display = 'flex';
+            document.getElementById('detail-content').style.display = 'none';
+            document.getElementById('modal-trip').value = '';
+            document.getElementById('modal-date').value = '';
+            document.getElementById('modal-time').value = '';
+            document.getElementById('modal-name').value = '';
+            document.getElementById('modal-email').value = '';
+            document.getElementById('modal-phone').value = '';
+            document.getElementById('modal-party').value = '1';
+            document.getElementById('modal-notes').value = '';
+            document.getElementById('booking-modal').classList.add('active');
+        });
+
+        document.getElementById('modal-trip').addEventListener('change', (e) => {
+            const trip = e.target.value;
+            document.getElementById('modal-time').value = tripTimes[trip] || '';
+        });
+
+        document.getElementById('modal-submit').addEventListener('click', () => {
+            const trip = document.getElementById('modal-trip').value;
+            const date = document.getElementById('modal-date').value;
+            const name = document.getElementById('modal-name').value;
+            const email = document.getElementById('modal-email').value;
+            const phone = document.getElementById('modal-phone').value;
+            const party = parseInt(document.getElementById('modal-party').value);
+            const notes = document.getElementById('modal-notes').value;
+
+            if (!trip || !date || !name || !email) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const dateObj = new Date(date + 'T00:00:00');
+            const formattedDate = formatDate(dateObj);
+
+            const newBooking = {
+                id: Math.max(...bookingData.map(b => b.id)) + 1,
+                guest: name, trip, date: formattedDate, time: tripTimes[trip], party, amt: tripPrices[trip],
+                status: 'pending', phone, email, note: notes
+            };
+
+            bookingData.push(newBooking);
+            closeModal('booking-modal');
+            renderBookings();
+            alert('Booking created successfully.');
+        });
+
+        let currentDetailId = null;
+
+        function openDetailModal(bookingId) {
+            currentDetailId = bookingId;
+            const booking = bookingData.find(b => b.id === bookingId);
+            if (!booking) return;
+
+            document.getElementById('modal-content').style.display = 'none';
+            document.getElementById('detail-content').style.display = 'flex';
+            document.getElementById('detail-success-message').style.display = 'none';
+
+            document.getElementById('detail-name').textContent = booking.guest;
+            document.getElementById('detail-email').textContent = booking.email;
+            document.getElementById('detail-phone').textContent = booking.phone;
+            document.getElementById('detail-trip').textContent = booking.trip;
+            document.getElementById('detail-datetime').textContent = `${booking.date} at ${booking.time}`;
+            document.getElementById('detail-party').textContent = `${booking.party} ${booking.party === 1 ? 'guest' : 'guests'}`;
+            document.getElementById('detail-amount').textContent = `$${booking.amt}`;
+            document.getElementById('detail-status').innerHTML = `<span class="status-badge status-${booking.status}">${booking.status}</span>`;
+            document.getElementById('detail-notes').textContent = booking.note || '(no notes)';
+
+            const checkinBtn = document.getElementById('detail-checkin');
+            if (booking.status === 'checked-in' || booking.status === 'completed') {
+                checkinBtn.disabled = true;
+                checkinBtn.style.opacity = '0.5';
+            } else {
+                checkinBtn.disabled = false;
+                checkinBtn.style.opacity = '1';
+                checkinBtn.onclick = () => checkinBooking(bookingId);
+            }
+
+            document.getElementById('detail-reminder').onclick = () => sendReminder(bookingId);
+            document.getElementById('detail-modal').classList.add('active');
+        }
+
+        function checkinBooking(bookingId) {
+            const booking = bookingData.find(b => b.id === bookingId);
+            if (booking && booking.status !== 'checked-in') {
+                booking.status = 'checked-in';
+                document.getElementById('detail-status').innerHTML = `<span class="status-badge status-checked-in">checked-in</span>`;
+                const msg = document.getElementById('detail-success-message');
+                msg.textContent = 'Guest checked in successfully.';
+                msg.style.display = 'block';
+                document.getElementById('detail-checkin').disabled = true;
+                document.getElementById('detail-checkin').style.opacity = '0.5';
+                renderBookings();
+            }
+        }
+
+        function sendReminder(bookingId) {
+            const msg = document.getElementById('detail-success-message');
+            msg.textContent = 'Reminder email sent to the guest.';
+            msg.style.display = 'block';
+        }
+
+        function renderWidget() {
+            renderWidgetTrips();
+            renderWidgetDates();
+            setupWidgetNavigation();
+        }
+
+        function renderWidgetTrips() {
+            let html = '';
+            trips.forEach(trip => {
+                html += `<div class="widget-trip-option" onclick="selectWidgetTrip('${trip.name}')"><div class="widget-trip-name">${trip.name}</div><div class="widget-trip-meta">$${trip.price} • ${trip.duration}</div></div>`;
+            });
+            document.getElementById('widget-trips').innerHTML = html;
+        }
+
+        function renderWidgetDates() {
+            const today = new Date(2026, 3, 1);
+            let html = '';
+            for (let i = 0; i < 16; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() + i);
+                const dateNum = date.getDate();
+                html += `<button class="widget-date-btn" onclick="selectWidgetDate('${dateToString(date)}', this)">${dateNum}</button>`;
+            }
+            document.getElementById('widget-dates').innerHTML = html;
+        }
+
+        function selectWidgetTrip(tripName) {
+            widgetState.trip = tripName;
+            document.querySelectorAll('.widget-trip-option').forEach(el => el.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+        }
+
+        function selectWidgetDate(dateStr, btn) {
+            widgetState.date = dateStr;
+            document.querySelectorAll('.widget-date-btn').forEach(el => el.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        function setupWidgetNavigation() {
+            const nextBtn = document.getElementById('widget-next');
+            const prevBtn = document.getElementById('widget-prev');
+            const resetBtn = document.getElementById('widget-reset');
+
+            nextBtn.onclick = () => {
+                if (widgetState.step === 1) {
+                    if (!widgetState.trip) { alert('Please select a trip'); return; }
+                    widgetState.step = 2;
+                } else if (widgetState.step === 2) {
+                    if (!widgetState.date) { alert('Please select a date'); return; }
+                    widgetState.step = 3;
+                } else if (widgetState.step === 3) {
+                    const form = document.getElementById('widget-form');
+                    const inputs = form.querySelectorAll('input[required]');
+                    for (let input of inputs) {
+                        if (!input.value) { alert('Please fill in all required fields'); return; }
+                    }
+                    widgetState.step = 4;
+                    updateConfirmation();
+                }
+                updateWidgetStep();
+            };
+
+            prevBtn.onclick = () => {
+                if (widgetState.step > 1) {
+                    widgetState.step--;
+                    updateWidgetStep();
+                }
+            };
+
+            resetBtn.onclick = () => {
+                widgetState = { step: 1, trip: null, date: null, name: '', email: '', phone: '', party: 1, notes: '' };
+                document.getElementById('widget-form').reset();
+                renderWidgetTrips();
+                renderWidgetDates();
+                setupWidgetNavigation();
+                updateWidgetStep();
+            };
+        }
+
+        function updateWidgetStep() {
+            document.querySelectorAll('.widget-step').forEach(el => el.classList.remove('active'));
+            document.querySelector(`[data-step="${widgetState.step}"]`).classList.add('active');
+
+            const nextBtn = document.getElementById('widget-next');
+            const prevBtn = document.getElementById('widget-prev');
+            const resetBtn = document.getElementById('widget-reset');
+
+            if (widgetState.step === 1) {
+                prevBtn.style.display = 'none';
+                resetBtn.style.display = 'none';
+                nextBtn.textContent = 'Next';
+            } else if (widgetState.step === 4) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                resetBtn.style.display = 'inline-flex';
+            } else {
+                prevBtn.style.display = 'inline-flex';
+                resetBtn.style.display = 'none';
+                nextBtn.style.display = 'inline-flex';
+                nextBtn.textContent = 'Next';
+            }
+        }
+
+        function updateConfirmation() {
+            const trip = trips.find(t => t.name === widgetState.trip);
+            const dateObj = new Date(widgetState.date);
+
+            document.getElementById('confirm-trip').textContent = widgetState.trip;
+            document.getElementById('confirm-date').textContent = formatDate(dateObj);
+
+            const form = document.getElementById('widget-form');
+            widgetState.party = form.querySelector('input[type="number"]').value;
+
+            document.getElementById('confirm-party').textContent = widgetState.party;
+            document.getElementById('confirm-total').textContent = `$${trip.price}`;
+        }
+
+        document.querySelector('.copy-btn').addEventListener('click', (e) => {
+            const code = '<iframe src="https://redfish-run.com/widget" width="100%" height="600"></iframe>';
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = e.target;
+                btn.classList.add('copied');
+                btn.textContent = 'Copied';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.textContent = 'Copy';
+                }, 2000);
+            });
+        });
+
+        renderDashboard();
+    </script>
+</body>
+</html>
