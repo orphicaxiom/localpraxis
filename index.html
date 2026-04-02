@@ -3,18 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Local Praxis - Custom Software for Local Businesses</title>
-  <meta name="description" content="I build custom software that replaces overpriced SaaS. Booking systems, inventory tools, client portals. You own it forever.">
+  <title>Local Praxis — Custom Software for Local Businesses | Port Aransas, TX</title>
+  <meta name="description" content="Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, and client portals — built for you, owned by you forever.">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23C2603D'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Local Praxis - Custom Software for Local Businesses">
-  <meta property="og:description" content="I build custom software that replaces overpriced SaaS. Booking systems, inventory tools, client portals. You own it forever.">
+  <meta property="og:title" content="Local Praxis — Custom Software for Local Businesses | Port Aransas, TX">
+  <meta property="og:description" content="Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, and client portals — built for you, owned by you forever.">
   <meta property="og:url" content="https://localpraxis.com">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Local Praxis">
+  <meta property="og:image" content="/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Local Praxis — Custom Software for Local Businesses | Port Aransas, TX">
+  <meta name="twitter:description" content="Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, and client portals — built for you, owned by you forever.">
+  <meta name="twitter:image" content="/og-image.png">
 
   <!-- Font Preload -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -24,6 +29,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
   </noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Local Praxis",
+    "founder": { "@type": "Person", "name": "James Johnson" },
+    "serviceType": "SoftwareDevelopment",
+    "description": "Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, client portals. You own it forever.",
+    "url": "https://localpraxis.com",
+    "telephone": "+13613322725",
+    "email": "JamesAndrewJohnson555@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Port Aransas",
+      "addressRegion": "TX",
+      "postalCode": "78373",
+      "addressCountry": "US"
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Port Aransas", "addressRegion": "TX" },
+      { "@type": "City", "name": "Rockport", "addressRegion": "TX" },
+      { "@type": "City", "name": "Corpus Christi", "addressRegion": "TX" },
+      { "@type": "Place", "name": "Coastal Bend", "addressRegion": "TX" }
+    ],
+    "priceRange": "$$",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Software Development Services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Booking Systems" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Inventory Management" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Client Portals" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom Software Development" } }
+      ]
+    }
+  }
+  </script>
 
   <style>
     :root {
@@ -152,7 +195,7 @@
     nav ul {
       list-style: none;
       display: flex;
-      gap: 3rem;
+      gap: 2rem;
     }
 
     nav a {
@@ -176,6 +219,14 @@
     }
 
     nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a.active {
+      color: var(--terracotta);
+    }
+
+    nav a.active::after {
       width: 100%;
     }
 
@@ -488,34 +539,117 @@
       margin-bottom: 0;
     }
 
-    /* Contact Section */
+    /* Contact Form */
     .contact-content {
       max-width: 70%;
     }
 
-    .contact-heading {
-      font-family: var(--font-serif);
-      font-size: 2rem;
-      margin-bottom: 2.5rem;
+    .contact-form-wrap {
+      background-color: var(--cream);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .contact-form-lead {
+      color: var(--ink-mid);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      font-weight: 500;
+    }
+
+    .form-label .required-mark {
+      color: var(--terracotta);
+      margin-left: 2px;
+    }
+
+    .form-input,
+    .form-textarea {
+      background-color: var(--warm-white);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.975rem;
       color: var(--ink);
-      line-height: 1.3;
+      width: 100%;
+      transition: border-color 0.2s var(--ease);
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--ink-light);
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--terracotta);
+      outline-color: rgba(194, 96, 61, 0.2);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 130px;
+      line-height: 1.65;
+    }
+
+    .form-submit-row {
+      margin-top: 1.75rem;
+    }
+
+    .contact-direct {
+      border-top: 1px solid var(--rule);
+      padding-top: 2rem;
+    }
+
+    .contact-direct-heading {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
     }
 
     .contact-info {
       display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      margin-top: 2rem;
+      flex-direction: row;
+      gap: 3rem;
     }
 
     .contact-item {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.25rem;
     }
 
     .contact-label {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--ink-light);
@@ -523,14 +657,96 @@
     }
 
     .contact-value {
-      font-size: 1.15rem;
-      color: var(--ink);
+      font-size: 0.975rem;
+      color: var(--ink-mid);
       text-decoration: none;
       transition: color 0.3s var(--ease);
     }
 
     .contact-value:hover {
       color: var(--terracotta);
+    }
+
+    /* FAQ */
+    #faq {
+      background-color: var(--cream);
+    }
+
+    .faq-intro {
+      font-size: 1.05rem;
+      color: var(--ink-mid);
+      max-width: 62%;
+      line-height: 1.8;
+      margin-bottom: 3.5rem;
+      margin-top: -1.5rem;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--rule);
+    }
+
+    .faq-list details {
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .faq-list details summary {
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+      padding: 1.6rem 2rem 1.6rem 0;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      transition: color 0.25s var(--ease);
+      user-select: none;
+    }
+
+    .faq-list details summary::-webkit-details-marker { display: none; }
+
+    .faq-list details summary::after {
+      content: '+';
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--terracotta);
+      flex-shrink: 0;
+      line-height: 1;
+      transition: transform 0.3s var(--ease);
+      opacity: 0.75;
+    }
+
+    .faq-list details[open] summary::after {
+      transform: rotate(45deg);
+      opacity: 1;
+    }
+
+    .faq-list details summary:hover { color: var(--terracotta); }
+    .faq-list details summary:hover::after { opacity: 1; }
+
+    .faq-answer {
+      padding: 0 3rem 1.75rem 0;
+      color: var(--ink-mid);
+      font-size: 1rem;
+      line-height: 1.85;
+      max-width: 75ch;
+    }
+
+    .faq-answer p + p { margin-top: 1rem; }
+    .faq-answer strong { color: var(--ink); font-weight: 600; }
+
+    @media (max-width: 680px) {
+      .faq-intro { max-width: 100%; }
+      .faq-list details summary { font-size: 0.975rem; padding: 1.4rem 1.75rem 1.4rem 0; }
+      .faq-answer { padding-right: 1.75rem; max-width: 100%; }
+      .contact-content { max-width: 100%; }
+      .contact-form-wrap { padding: 1.75rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-info { flex-direction: column; gap: 1.25rem; }
     }
 
     /* Footer */
@@ -756,7 +972,10 @@
     <div class="nav-container">
       <a href="/" class="logo" style="text-decoration:none;">Local Praxis</a>
       <ul>
-        <li><a href="#work">Work</a></li>
+        <li><a href="#build">What I Build</a></li>
+        <li><a href="#work">Demos</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#faq">FAQ</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -797,7 +1016,7 @@
   <section id="work">
     <div class="container">
       <h2>Live demos</h2>
-      <p class="portfolio-intro">These are working demos that show what I can build for businesses like yours. The business names are fictional — the software is real. Click any card to try it yourself.</p>
+      <p class="portfolio-intro">These are working demos that show what I can build for businesses like yours. The business names are fictional — the software is real. Click any card to try it yourself. <em>Best viewed on desktop.</em></p>
 
       <div class="portfolio-grid">
         <!-- Redfish Run Charters -->
@@ -882,27 +1101,76 @@
     </div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="testimonials-section" aria-label="Client testimonials">
+  <!-- FAQ -->
+  <section id="faq">
     <div class="container">
-        <p class="section-label">From the clients</p>
-        <div class="testimonials-grid">
-            <blockquote class="testimonial-card">
-                <p class="testimonial-text">"Add your client quote here — what changed for their business, what they no longer have to deal with."</p>
-                <footer class="testimonial-attribution">
-                    <span class="testimonial-name">Client Name</span>
-                    <span class="testimonial-business">Business Name, Port Aransas</span>
-                </footer>
-            </blockquote>
-            <blockquote class="testimonial-card">
-                <p class="testimonial-text">"Add your second client quote here. Specific outcomes work best — time saved, cost eliminated, problem solved."</p>
-                <footer class="testimonial-attribution">
-                    <span class="testimonial-name">Client Name</span>
-                    <span class="testimonial-business">Business Name, Port Aransas</span>
-                </footer>
-            </blockquote>
-        </div>
-        <!-- Replace placeholder quotes with real client testimonials before publishing -->
+      <h2>Common questions.</h2>
+      <p class="faq-intro">Straight answers about how this works, what it costs, and what you actually get.</p>
+
+      <div class="faq-list">
+        <details>
+          <summary>How long does a project take to build?</summary>
+          <div class="faq-answer">
+            <p>Most projects take <strong>4 to 8 weeks</strong> from kickoff to launch. A focused booking system or client portal sits closer to 4 weeks. Something with inventory tracking, reporting, and staff roles might run 6 to 8 weeks. Before I write a line of code, we spend a week mapping out exactly how your business works — that upfront time is what keeps the build from dragging on.</p>
+            <p>I'll give you a realistic timeline in writing before we start, and I stick to it.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What does the monthly fee cover?</summary>
+          <div class="faq-answer">
+            <p>The <strong>$150–$400/month</strong> fee covers hosting, ongoing maintenance, security updates, backups, and routine changes to the software as your needs evolve. If something breaks — for any reason — I fix it, no extra charge. It also means you have a direct line to me when questions come up.</p>
+            <p>The rate depends on the complexity of what was built. We'll agree on a number before the project starts — no surprises.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What if I decide to stop paying — do I lose my software?</summary>
+          <div class="faq-answer">
+            <p><strong>No. The code is yours outright.</strong> You own it from day one. If you ever stop the monthly fee, you keep everything — the source code, the database, all of it. You can take it to any developer in the world to host or maintain.</p>
+            <p>The monthly fee is for the ongoing service, not a subscription that locks you out. I have no interest in holding anyone hostage to a recurring bill.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Do I need any technical knowledge to use it?</summary>
+          <div class="faq-answer">
+            <p>None. That's the whole point — the software is designed around the way you actually work, not around how a generic platform assumes you work. If you can use email, you can use what I build.</p>
+            <p>Before launch I'll walk you through everything in person or over a screen share, and put together a simple reference guide tailored to your setup.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Will my employees be able to learn it?</summary>
+          <div class="faq-answer">
+            <p>Yes — usually faster than learning something off-the-shelf. Because the software matches your existing workflow, there's no mental translation required. Staff aren't learning a foreign system; they're doing the same job they already know, just with better tools.</p>
+            <p>I can build in role-based access so employees only see what's relevant to their job, which keeps things simpler for everyone.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Who handles hosting?</summary>
+          <div class="faq-answer">
+            <p><strong>I do — it's included in the monthly fee.</strong> You don't need to set up an account anywhere, manage a server, or deal with a hosting company. I handle infrastructure, uptime, SSL, and backups. Your job is to run your business.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What if I need changes or new features later?</summary>
+          <div class="faq-answer">
+            <p>Routine changes — tweaking a form, adjusting a workflow, adding a field — are covered under the monthly fee. Most of these I can turn around within a few days.</p>
+            <p>Larger additions, like a completely new module or a major integration, are scoped and quoted separately. I'll always tell you upfront what's routine and what isn't — no ambiguity.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>How is this different from Mindbody, Square, or Jobber?</summary>
+          <div class="faq-answer">
+            <p>Those platforms are built for the average business in your industry — which means they fit no one perfectly. You end up working around the software rather than the software working for you. And you're paying forever for a tool you'll never own, with features you'll never use crowding out the ones you need.</p>
+            <p><strong>What I build is shaped entirely around your operation.</strong> Your terminology, your pricing, your workflow. No feature bloat, no per-seat pricing that scales against you, no vendor who can change the terms next year. After the build, costs are fixed and predictable — and the software is yours.</p>
+          </div>
+        </details>
+      </div>
     </div>
   </section>
 
@@ -928,19 +1196,56 @@
   <section id="contact">
     <div class="container">
       <div class="contact-content">
-        <h2>Let's build something</h2>
-        <p>If you've got a business problem that costs you time or money, let's talk about fixing it.</p>
 
-        <div class="contact-info">
-          <div class="contact-item">
-            <span class="contact-label">Phone</span>
-            <a href="tel:+13613322725" class="contact-value">(361) 332-2725</a>
-          </div>
-          <div class="contact-item">
-            <span class="contact-label">Email</span>
-            <a href="mailto:JamesAndrewJohnson555@gmail.com" class="contact-value">JamesAndrewJohnson555@gmail.com</a>
+        <div class="contact-form-wrap">
+          <h2>Let's build something</h2>
+          <p class="contact-form-lead">Tell me what's costing you time or money. I'll reach back out within one business day.</p>
+
+          <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="contact">
+            <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="contact-name">Name<span class="required-mark" aria-hidden="true">*</span></label>
+                <input class="form-input" type="text" id="contact-name" name="name" autocomplete="name" required placeholder="Your name">
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="contact-business">Business name<span class="required-mark" aria-hidden="true">*</span></label>
+                <input class="form-input" type="text" id="contact-business" name="business" autocomplete="organization" required placeholder="Your business">
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="contact-phone">Phone <span style="font-style:italic;text-transform:none;letter-spacing:0;font-size:0.7rem;">(optional)</span></label>
+              <input class="form-input" type="tel" id="contact-phone" name="phone" autocomplete="tel" placeholder="(361) 000-0000">
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="contact-message">What do you need help with?<span class="required-mark" aria-hidden="true">*</span></label>
+              <textarea class="form-textarea" id="contact-message" name="message" required placeholder="Describe the problem you're trying to solve — doesn't need to be technical"></textarea>
+            </div>
+
+            <div class="form-submit-row">
+              <button type="submit" class="cta-button">Send message</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="contact-direct">
+          <p class="contact-direct-heading">Prefer to reach out directly?</p>
+          <div class="contact-info">
+            <div class="contact-item">
+              <span class="contact-label">Phone</span>
+              <a href="tel:+13613322725" class="contact-value">(361) 332-2725</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">Email</span>
+              <a href="mailto:JamesAndrewJohnson555@gmail.com" class="contact-value">JamesAndrewJohnson555@gmail.com</a>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
