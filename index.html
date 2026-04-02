@@ -989,9 +989,10 @@
           <h2>Let's build something</h2>
           <p class="contact-form-lead">Tell me what's costing you time or money. I'll reach back out within one business day.</p>
 
-          <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
-            <input type="hidden" name="form-name" value="contact">
-            <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+          <form name="contact" method="POST" action="https://formsubmit.co/JamesAndrewJohnson555@gmail.com" novalidate>
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="text" name="_honey" style="display:none;">
 
             <div class="form-row">
               <div class="form-field">
@@ -1081,7 +1082,7 @@
       observer.observe(el);
     });
 
-    // Contact form, Netlify Forms via fetch
+    // Contact form via FormSubmit.co
     const contactForm = document.querySelector('form[name="contact"]');
     if (contactForm) {
       contactForm.addEventListener('submit', async function(e) {
@@ -1102,11 +1103,12 @@
         btn.textContent = 'Sending…';
 
         try {
-          await fetch('/', {
+          const res = await fetch('https://formsubmit.co/ajax/JamesAndrewJohnson555@gmail.com', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(new FormData(contactForm)).toString()
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ name, business, phone: contactForm.querySelector('#contact-phone').value, message })
           });
+          if (!res.ok) throw new Error();
           const wrap = contactForm.closest('.contact-form-wrap');
           wrap.innerHTML = `
             <h2 style="font-family:var(--font-serif);font-size:clamp(2rem,4vw,3.2rem);line-height:1.2;letter-spacing:-0.015em;margin-bottom:1.5rem;">Message sent.</h2>

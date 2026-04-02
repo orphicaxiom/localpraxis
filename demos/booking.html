@@ -292,6 +292,11 @@
 
         .chart-bar:hover {
             background: var(--terracotta);
+            cursor: pointer;
+        }
+
+        .chart-bar.selected {
+            background: var(--steel-blue);
         }
 
         .chart-bar-label {
@@ -299,6 +304,47 @@
             text-align: center;
             color: var(--ink-mid);
             margin-top: 0.5rem;
+        }
+
+        .chart-detail {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--warm-white);
+            border: 1px solid var(--sand);
+            border-radius: 6px;
+        }
+
+        .chart-detail-title {
+            font-family: var(--serif);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: var(--ink);
+        }
+
+        .chart-detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--sand);
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .chart-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .chart-detail-row:hover {
+            background: var(--sand);
+            margin: 0 -1rem;
+            padding: 0.5rem 1rem;
+        }
+
+        .chart-detail-empty {
+            color: var(--ink-mid);
+            font-size: 0.85rem;
+            font-style: italic;
         }
 
         /* Buttons */
@@ -1273,6 +1319,7 @@
                     <h2 class="section-title">Revenue This Week</h2>
                     <div class="chart-container" id="revenue-chart">
                     </div>
+                    <div id="chart-detail"></div>
                 </div>
             </div>
 
@@ -1746,14 +1793,50 @@
             document.getElementById('manifest-body').innerHTML = html;
         }
 
+        function getWeekDates() {
+            const monday = getMonday(currentWeekStart);
+            const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+            return days.map((day, i) => {
+                const d = new Date(monday);
+                d.setDate(d.getDate() + i);
+                return { day, date: formatDate(d) };
+            });
+        }
+
         function renderChart() {
-            const maxVal = Math.max(...chartData.map(d => d.val));
+            const weekDates = getWeekDates();
+            const computed = weekDates.map(wd => {
+                const dayBookings = bookingData.filter(b => b.date === wd.date);
+                return { day: wd.day, date: wd.date, val: dayBookings.reduce((sum, b) => sum + b.amt, 0) };
+            });
+            const maxVal = Math.max(...computed.map(d => d.val));
             let html = '';
-            chartData.forEach(d => {
+            computed.forEach((d, i) => {
                 const height = maxVal > 0 ? Math.max((d.val / maxVal) * 160, d.val > 0 ? 4 : 0) : 0;
-                html += `<div class="chart-col"><div class="chart-bar" style="height: ${height}px;" title="$${d.val}"></div><div class="chart-bar-label">${d.day}</div></div>`;
+                html += `<div class="chart-col" onclick="showChartDay('${d.date}', ${i})" style="cursor:pointer;"><div class="chart-bar" style="height: ${height}px;" title="$${d.val}"></div><div class="chart-bar-label">${d.day}</div></div>`;
             });
             document.getElementById('revenue-chart').innerHTML = html;
+            document.getElementById('chart-detail').innerHTML = '';
+        }
+
+        function showChartDay(date, barIndex) {
+            document.querySelectorAll('.chart-bar').forEach((b, i) => {
+                b.classList.toggle('selected', i === barIndex);
+            });
+            const dayBookings = bookingData.filter(b => b.date === date);
+            let html = '<div class="chart-detail">';
+            html += `<div class="chart-detail-title">${date}</div>`;
+            if (dayBookings.length === 0) {
+                html += '<div class="chart-detail-empty">No bookings this day.</div>';
+            } else {
+                dayBookings.forEach(b => {
+                    html += `<div class="chart-detail-row" onclick="openDetailModal(${b.id})"><span>${b.time} — ${b.guest} · ${b.trip} (${b.party})</span><span>$${b.amt}</span></div>`;
+                });
+                const total = dayBookings.reduce((sum, b) => sum + b.amt, 0);
+                html += `<div style="text-align:right; font-weight:600; padding-top:0.5rem; font-size:0.85rem;">Total: $${total.toLocaleString()}</div>`;
+            }
+            html += '</div>';
+            document.getElementById('chart-detail').innerHTML = html;
         }
 
         function renderUpcoming() {
