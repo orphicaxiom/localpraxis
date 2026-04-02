@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Salt Line Supply - POS & Inventory</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23#1E5FB5'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%231E5FB5'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23fff'>LP</text></svg>">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <style>
     * {
@@ -15,40 +15,38 @@
     }
 
     :root {
-      --warm-white: #FDFAF5;
-      --cream: #F5F0E8;
+      --bg: #F3F4F6;
+      --surface: #FFFFFF;
+      --surface-alt: #F9FAFB;
       --ink: #1C1917;
       --ink-mid: #57534E;
-      --ink-light: #A8A29E;
-      --terracotta: #1E5FB5;
-      --rule: #DDD6CC;
-      --success: #2D7A3E;
+      --ink-light: #9CA3AF;
+      --primary: #1E5FB5;
+      --primary-hover: #1A4F96;
+      --primary-subtle: rgba(30, 95, 181, 0.08);
+      --primary-border: rgba(30, 95, 181, 0.2);
+      --rule: #E5E7EB;
+      --success: #16A34A;
+      --success-bg: rgba(22, 163, 74, 0.1);
+      --warning: #F59E0B;
+      --warning-bg: rgba(245, 158, 11, 0.1);
+      --danger: #DC2626;
+      --danger-bg: rgba(220, 38, 38, 0.1);
+      --info: #2563EB;
+      --info-bg: rgba(37, 99, 235, 0.1);
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     html, body {
       height: 100%;
-      font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: var(--ink);
-      background: var(--warm-white);
+      background: var(--bg);
     }
 
     ::selection {
-      background-color: var(--terracotta);
-      color: var(--warm-white);
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.018'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.018;
+      background-color: var(--primary);
+      color: #fff;
     }
 
     .container {
@@ -58,7 +56,7 @@
 
     .sidebar {
       width: 220px;
-      background: var(--cream);
+      background: var(--surface);
       border-right: 1px solid var(--rule);
       display: flex;
       flex-direction: column;
@@ -98,31 +96,24 @@
     }
 
     .nav-item:hover {
-      background: rgba(198, 96, 61, 0.05);
+      background: var(--primary-subtle);
       color: var(--ink);
     }
 
     .nav-item.active {
-      background: rgba(198, 96, 61, 0.1);
-      color: var(--terracotta);
-      border-left-color: var(--terracotta);
+      background: var(--primary-subtle);
+      color: var(--primary);
+      border-left-color: var(--primary);
+      font-weight: 500;
     }
-
-    /* Sidebar LP card */
-
-
-
-
-
-
-
 
     .main {
       margin-left: 220px;
       flex: 1;
-      background: var(--warm-white);
+      background: var(--bg);
       overflow-y: auto;
       padding: 3.5rem 4rem;
+      padding-bottom: 56px;
     }
 
     .view {
@@ -152,15 +143,16 @@
 
     .stats-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
       margin-bottom: 3rem;
     }
 
     .stat-card {
-      background: var(--warm-white);
-      border-top: 1px solid var(--rule);
-      padding: 2rem 0;
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid var(--rule);
     }
 
     .stat-label {
@@ -169,26 +161,63 @@
       letter-spacing: 0.12em;
       font-weight: 500;
       color: var(--ink-light);
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .stat-value {
-      font-family: 'Instrument Serif', serif;
-      font-size: 2.8rem;
-      font-weight: 400;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
       color: var(--ink);
       letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .stat-card.accent-danger .stat-value {
+      color: var(--danger);
+    }
+
+    .stat-card.accent-success .stat-value {
+      color: var(--success);
+    }
+
+    .stat-card.accent-success {
+      border-color: rgba(22, 163, 74, 0.3);
+    }
+
+    .stat-card.accent-danger {
+      border-color: rgba(220, 38, 38, 0.2);
+    }
+
+    .alert-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--danger);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
     }
 
     .content-row {
       display: grid;
       grid-template-columns: 1.4fr 1fr;
-      gap: 3rem;
+      gap: 2rem;
       margin-bottom: 3rem;
     }
 
     .content-section {
-      background: var(--warm-white);
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid var(--rule);
     }
 
     .section-title {
@@ -216,7 +245,7 @@
 
     th {
       text-align: left;
-      padding: 1rem 0;
+      padding: 1rem 0.5rem;
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -225,7 +254,7 @@
     }
 
     td {
-      padding: 1.25rem 0;
+      padding: 1rem 0.5rem;
       border-bottom: 1px solid var(--rule);
       color: var(--ink);
     }
@@ -236,7 +265,7 @@
     }
 
     tbody tr:hover {
-      background-color: rgba(198, 96, 61, 0.03);
+      background-color: var(--primary-subtle);
     }
 
     .controls-bar {
@@ -252,11 +281,11 @@
       min-width: 200px;
       padding: 0.75rem 1rem;
       border: 1px solid var(--rule);
-      background: var(--warm-white);
-      font-family: 'Satoshi', sans-serif;
+      background: var(--surface);
+      font-family: 'Satoshi', 'Inter', sans-serif;
       font-size: 0.95rem;
       color: var(--ink);
-      border-radius: 4px;
+      border-radius: 6px;
       transition: border-color 0.2s var(--ease);
     }
 
@@ -266,14 +295,15 @@
 
     .search-input:focus {
       outline: none;
-      border-color: var(--terracotta);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-subtle);
     }
 
     .btn {
       padding: 0.75rem 1.5rem;
-      font-family: 'Satoshi', sans-serif;
+      font-family: 'Satoshi', 'Inter', sans-serif;
       font-size: 0.95rem;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
       transition: all 0.2s var(--ease);
       border: none;
@@ -281,30 +311,48 @@
     }
 
     .btn-primary {
-      background: var(--terracotta);
-      color: var(--warm-white);
+      background: var(--primary);
+      color: #fff;
     }
 
     .btn-primary:hover {
-      background: #B3522F;
+      background: var(--primary-hover);
       transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(30, 95, 181, 0.3);
     }
 
     .btn-secondary {
       background: transparent;
       color: var(--ink);
-      border: 1px solid var(--ink-light);
+      border: 1px solid var(--rule);
     }
 
     .btn-secondary:hover {
-      background: rgba(198, 96, 61, 0.05);
-      border-color: var(--terracotta);
-      color: var(--terracotta);
+      background: var(--primary-subtle);
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
     .btn-small {
       padding: 0.5rem 1rem;
       font-size: 0.85rem;
+    }
+
+    .btn-new-sale {
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(30, 95, 181, 0.35);
+      letter-spacing: 0.01em;
+    }
+
+    .btn-new-sale:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30, 95, 181, 0.4);
     }
 
     .filter-tabs {
@@ -319,7 +367,7 @@
       cursor: pointer;
       border: none;
       background: none;
-      font-family: 'Satoshi', sans-serif;
+      font-family: 'Satoshi', 'Inter', sans-serif;
       font-size: 0.95rem;
       color: var(--ink-light);
       transition: all 0.2s var(--ease);
@@ -332,10 +380,11 @@
     }
 
     .filter-tab.active {
-      color: var(--terracotta);
-      border-bottom-color: var(--terracotta);
+      color: var(--primary);
+      border-bottom-color: var(--primary);
     }
 
+    /* Product Grid */
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -343,60 +392,149 @@
     }
 
     .product-card {
-      background: var(--warm-white);
+      background: var(--surface);
       border: 1px solid var(--rule);
-      padding: 1.5rem;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s var(--ease);
+      overflow: hidden;
     }
 
     .product-card:hover {
-      border-color: var(--terracotta);
+      border-color: var(--primary);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 140px;
+      background: var(--surface-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .product-image svg {
+      opacity: 0.3;
+    }
+
+    .product-card-body {
+      padding: 1.25rem;
     }
 
     .product-name {
-      font-family: 'Instrument Serif', serif;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.35rem;
       line-height: 1.3;
     }
 
     .product-sku {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--ink-light);
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
     .product-price {
-      font-size: 1.3rem;
-      font-weight: 500;
-      margin-bottom: 0.75rem;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
       color: var(--ink);
     }
 
     .product-stock {
+      font-family: 'Inter', -apple-system, sans-serif;
       font-size: 0.85rem;
-      color: var(--ink-mid);
+      font-weight: 600;
       margin-bottom: 0.75rem;
     }
 
-    .product-stock.low {
-      color: var(--terracotta);
-      font-weight: 500;
+    .stock-high { color: var(--success); }
+    .stock-medium { color: var(--warning); }
+    .stock-low { color: var(--danger); }
+
+    /* Chart */
+    .chart-container {
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid var(--rule);
+      margin-bottom: 3rem;
     }
 
+    .chart-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+    }
+
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      height: 180px;
+      padding-top: 1rem;
+    }
+
+    .bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .bar-value {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ink-mid);
+    }
+
+    .bar {
+      width: 100%;
+      max-width: 48px;
+      border-radius: 4px 4px 0 0;
+      background: var(--primary);
+      transition: height 0.5s var(--ease);
+      min-height: 4px;
+      position: relative;
+    }
+
+    .bar.today {
+      background: var(--primary);
+      box-shadow: 0 2px 8px rgba(30, 95, 181, 0.3);
+    }
+
+    .bar.past {
+      background: rgba(30, 95, 181, 0.35);
+    }
+
+    .bar-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--ink-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Modals */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(2px);
       z-index: 200;
       display: none;
       align-items: center;
@@ -408,14 +546,14 @@
     }
 
     .modal {
-      background: var(--warm-white);
-      border-radius: 8px;
+      background: var(--surface);
+      border-radius: 12px;
       padding: 2rem;
       width: 90%;
       max-width: 600px;
       max-height: 90vh;
       overflow-y: auto;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
       position: relative;
     }
 
@@ -452,10 +590,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      border-radius: 6px;
     }
 
     .modal-close:hover {
       color: var(--ink);
+      background: var(--surface-alt);
     }
 
     .form-group {
@@ -478,19 +618,20 @@
       width: 100%;
       padding: 0.75rem 1rem;
       border: 1px solid var(--rule);
-      background: var(--warm-white);
-      font-family: 'Satoshi', sans-serif;
+      background: var(--surface);
+      font-family: 'Satoshi', 'Inter', sans-serif;
       font-size: 0.95rem;
       color: var(--ink);
-      border-radius: 4px;
-      transition: border-color 0.2s var(--ease);
+      border-radius: 6px;
+      transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
     }
 
     .form-input:focus,
     .form-select:focus,
     .form-textarea:focus {
       outline: none;
-      border-color: var(--terracotta);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-subtle);
     }
 
     .form-row {
@@ -499,14 +640,23 @@
       gap: 1.5rem;
     }
 
+    .margin-hint {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      color: var(--success);
+      font-weight: 500;
+      margin-top: 0.35rem;
+    }
+
     .cart-item {
-      background: var(--cream);
+      background: var(--surface-alt);
       padding: 1rem;
-      border-radius: 4px;
-      margin-bottom: 1rem;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border: 1px solid var(--rule);
     }
 
     .cart-item-info {
@@ -533,14 +683,16 @@
       width: 28px;
       height: 28px;
       border: 1px solid var(--rule);
-      background: var(--warm-white);
+      background: var(--surface);
       cursor: pointer;
-      border-radius: 3px;
+      border-radius: 4px;
       font-size: 0.9rem;
+      transition: all 0.15s var(--ease);
     }
 
     .qty-btn:hover {
-      background: var(--rule);
+      background: var(--primary-subtle);
+      border-color: var(--primary);
     }
 
     .qty-input {
@@ -548,23 +700,25 @@
       text-align: center;
       border: 1px solid var(--rule);
       padding: 0.25rem;
-      border-radius: 3px;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
     }
 
     .cart-remove {
       background: none;
       border: none;
-      color: var(--terracotta);
+      color: var(--danger);
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       margin-left: 1rem;
+      font-weight: 500;
     }
 
     .summary-box {
-      background: var(--cream);
+      background: var(--surface-alt);
       padding: 1.5rem;
-      border-radius: 4px;
-      border-top: 1px solid var(--rule);
+      border-radius: 6px;
+      border: 1px solid var(--rule);
       margin-top: 1.5rem;
     }
 
@@ -575,54 +729,351 @@
       font-size: 0.95rem;
     }
 
+    .summary-line span:last-child {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
     .summary-line.total {
       font-size: 1.4rem;
-      font-weight: 500;
+      font-weight: 600;
       border-top: 1px solid var(--rule);
       padding-top: 0.75rem;
       margin-top: 0.75rem;
     }
 
+    /* iOS-style Toggle */
     .toggle-switch {
       display: inline-block;
-      width: 44px;
-      height: 24px;
-      background: var(--ink-light);
-      border-radius: 12px;
+      width: 50px;
+      height: 28px;
+      background: #D1D5DB;
+      border-radius: 14px;
       cursor: pointer;
       position: relative;
       transition: background 0.3s var(--ease);
+      flex-shrink: 0;
     }
 
     .toggle-switch.on {
-      background: var(--success);
+      background: #34C759;
     }
 
     .toggle-switch::after {
       content: '';
       position: absolute;
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       background: white;
       border-radius: 50%;
-      top: 2px;
-      left: 2px;
-      transition: left 0.3s var(--ease);
+      top: 3px;
+      left: 3px;
+      transition: transform 0.3s var(--ease);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
 
     .toggle-switch.on::after {
-      left: 22px;
+      transform: translateX(22px);
     }
 
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+
+    .badge-active {
+      background: var(--success-bg);
+      color: var(--success);
+    }
+
+    .badge-inactive {
+      background: rgba(156, 163, 175, 0.15);
+      color: var(--ink-light);
+    }
+
+    .badge-ordered {
+      background: var(--warning-bg);
+      color: #B45309;
+    }
+
+    .badge-shipped {
+      background: var(--info-bg);
+      color: var(--info);
+    }
+
+    .badge-delivered {
+      background: var(--success-bg);
+      color: var(--success);
+    }
+
+    /* Supplier Avatar */
+    .supplier-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .supplier-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    /* Receipt Icon */
+    .receipt-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--ink-light);
+      padding: 0.35rem;
+      border-radius: 4px;
+      transition: all 0.15s var(--ease);
+      display: flex;
+      align-items: center;
+    }
+
+    .receipt-btn:hover {
+      color: var(--primary);
+      background: var(--primary-subtle);
+    }
+
+    /* Settings */
+    .settings-section {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .settings-section:last-child {
+      border-bottom: none;
+    }
+
+    .settings-section-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--ink);
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .setting-label {
+      font-size: 0.95rem;
+    }
+
+    .setting-sublabel {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      margin-top: 0.2rem;
+    }
+
+    .device-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .device-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .device-dot.connected { background: var(--success); }
+    .device-dot.disconnected { background: var(--ink-light); }
+
+    .device-status.connected { color: var(--success); }
+    .device-status.disconnected { color: var(--ink-light); }
+
+    .low-stock {
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    .success-message {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      background: var(--success);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      z-index: 300;
+      font-weight: 500;
+      box-shadow: 0 4px 14px rgba(22, 163, 74, 0.3);
+      animation: slideIn 0.3s var(--ease) forwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .line-items {
+      background: var(--surface-alt);
+      padding: 1.5rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--rule);
+    }
+
+    .line-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .line-item:last-child {
+      border-bottom: none;
+    }
+
+    .line-item-qty {
+      color: var(--ink-light);
+      margin-right: 1rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .line-item-name {
+      flex: 1;
+    }
+
+    .line-item-price {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
+    .demo-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--surface);
+      border-left: 3px solid var(--primary);
+      padding: 1rem 1.5rem;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      color: var(--ink-mid);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .demo-banner button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--ink-light);
+      padding: 0 0 0 1rem;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: color 0.2s var(--ease);
+    }
+
+    .demo-banner button:hover {
+      color: var(--ink);
+    }
+
+    .demo-footer-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--primary);
+      color: #fff;
+      padding: 0.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+      z-index: 200;
+    }
+
+    .demo-footer-cta a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s var(--ease);
+    }
+
+    .demo-footer-cta a:hover {
+      opacity: 0.85;
+    }
+
+    /* POS Product Grid in New Sale modal */
+    .pos-product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 0.75rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .pos-product-tile {
+      background: var(--surface-alt);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 0.75rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s var(--ease);
+    }
+
+    .pos-product-tile:hover {
+      border-color: var(--primary);
+      background: var(--primary-subtle);
+    }
+
+    .pos-product-tile .tile-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+
+    .pos-product-tile .tile-price {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* Hamburger / Mobile */
     .hamburger-btn {
       display: none;
       position: fixed;
       top: 1rem;
       left: 1rem;
       z-index: 300;
-      background: var(--cream);
+      background: var(--surface);
       border: 1px solid var(--rule);
-      border-radius: 4px;
+      border-radius: 6px;
       width: 40px;
       height: 40px;
       font-size: 1.2rem;
@@ -634,7 +1085,7 @@
     }
 
     .hamburger-btn:hover {
-      background: var(--rule);
+      background: var(--surface-alt);
     }
 
     .sidebar-close-btn {
@@ -712,203 +1163,27 @@
       .modal {
         width: 95%;
       }
-    }
 
-    .badge {
-      display: inline-block;
-      padding: 0.35rem 0.75rem;
-      border-radius: 3px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 500;
-    }
-
-    .badge-active {
-      background: rgba(45, 122, 62, 0.1);
-      color: var(--success);
-    }
-
-    .badge-inactive {
-      background: rgba(168, 162, 158, 0.1);
-      color: var(--ink-light);
-    }
-
-    .badge-ordered {
-      background: rgba(198, 96, 61, 0.1);
-      color: var(--terracotta);
-    }
-
-    .badge-shipped {
-      background: rgba(198, 96, 61, 0.15);
-      color: var(--terracotta);
-    }
-
-    .badge-delivered {
-      background: rgba(45, 122, 62, 0.1);
-      color: var(--success);
-    }
-
-    .settings-section {
-      margin-bottom: 3rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .settings-section:last-child {
-      border-bottom: none;
-    }
-
-    .settings-section-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-      color: var(--ink);
-    }
-
-    .setting-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .setting-label {
-      font-size: 0.95rem;
-    }
-
-    .low-stock {
-      color: var(--terracotta);
-      font-weight: 500;
-    }
-
-    .success-message {
-      position: fixed;
-      top: 2rem;
-      right: 2rem;
-      background: var(--success);
-      color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 4px;
-      z-index: 300;
-      animation: slideIn 0.3s var(--ease) forwards;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(400px);
-        opacity: 0;
+      .bar-chart {
+        height: 140px;
       }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    .line-items {
-      background: var(--cream);
-      padding: 1.5rem;
-      border-radius: 4px;
-      margin-bottom: 1.5rem;
-    }
-
-    .line-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .line-item:last-child {
-      border-bottom: none;
-    }
-
-    .line-item-qty {
-      color: var(--ink-light);
-      margin-right: 1rem;
-    }
-
-    .line-item-name {
-      flex: 1;
-    }
-
-    .line-item-price {
-      font-weight: 500;
-    }
-
-    .demo-banner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--cream);
-      border-left: 3px solid var(--terracotta);
-      padding: 1rem 1.5rem;
-      font-size: 0.9rem;
-      margin-bottom: 2rem;
-      color: var(--ink-mid);
-    }
-
-    .demo-banner button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      color: var(--ink-light);
-      padding: 0 0 0 1rem;
-      line-height: 1;
-      flex-shrink: 0;
-      transition: color 0.2s var(--ease);
-    }
-
-    .demo-banner button:hover {
-      color: var(--ink);
-    }
-
-    .demo-footer-cta {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--terracotta);
-      color: var(--warm-white);
-      padding: 0.75rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.875rem;
-      z-index: 200;
-    }
-
-    .demo-footer-cta a {
-      color: var(--warm-white);
-      text-decoration: none;
-      font-weight: 500;
-      transition: opacity 0.2s var(--ease);
-    }
-
-    .demo-footer-cta a:hover {
-      opacity: 0.85;
-    }
-
-    .main {
-      padding-bottom: 56px;
     }
   </style>
 </head>
 <body>
-  <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu">☰</button>
+  <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu">&#9776;</button>
   <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
 
   <div class="container">
     <div class="sidebar" id="sidebar">
       <div class="sidebar-brand">
         <h1>Salt Line Supply</h1>
-        <button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close menu">✕</button>
+        <button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close menu">&#10005;</button>
       </div>
       <div class="sidebar-nav">
         <div class="nav-item active" data-view="dashboard" role="button" tabindex="0">Dashboard</div>
         <div class="nav-item" data-view="products" role="button" tabindex="0">Products</div>
-        <div class="nav-item" data-view="sales" role="button" tabindex="0">Sales</div>
+        <div class="nav-item" data-view="sales" role="button" tabindex="0">Sales History</div>
         <div class="nav-item" data-view="orders" role="button" tabindex="0">Orders</div>
         <div class="nav-item" data-view="settings" role="button" tabindex="0">Settings</div>
       </div>
@@ -916,10 +1191,11 @@
 
     <div class="main">
       <div class="demo-banner" id="demo-banner">
-        <span>Interactive demo — explore Products, Sales, Orders, and Settings using the sidebar</span>
-        <button onclick="document.getElementById('demo-banner').style.display='none'" aria-label="Dismiss">✕</button>
+        <span>Interactive demo &mdash; explore Products, Sales, Orders, and Settings using the sidebar</span>
+        <button onclick="document.getElementById('demo-banner').style.display='none'" aria-label="Dismiss">&#10005;</button>
       </div>
 
+      <!-- ===== DASHBOARD ===== -->
       <div class="view active" id="dashboard-view">
         <div class="view-header">
           <h1 class="view-title">Salt Line Supply</h1>
@@ -935,10 +1211,20 @@
             <div class="stat-label">Items Sold</div>
             <div class="stat-value">23</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-label">Low Stock Alerts</div>
+          <div class="stat-card accent-danger">
+            <div class="stat-label">Low Stock Alerts <span class="alert-dot"></span></div>
             <div class="stat-value">4</div>
           </div>
+          <div class="stat-card accent-success">
+            <div class="stat-label">Processing Fees Saved</div>
+            <div class="stat-value">$55.96</div>
+            <div style="font-size: 0.78rem; color: var(--success); margin-top: 0.35rem; font-weight: 500;">vs. 2.9% + $0.30/txn</div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <h2 class="chart-title">Sales &mdash; Last 7 Days</h2>
+          <div class="bar-chart" id="sales-chart"></div>
         </div>
 
         <div class="content-row">
@@ -976,6 +1262,7 @@
         </div>
       </div>
 
+      <!-- ===== PRODUCTS ===== -->
       <div class="view" id="products-view">
         <div class="view-header">
           <h1 class="view-title">Products</h1>
@@ -999,10 +1286,11 @@
         <div class="product-grid" id="products-grid"></div>
       </div>
 
+      <!-- ===== SALES HISTORY ===== -->
       <div class="view" id="sales-view">
         <div class="view-header">
-          <h1 class="view-title">Sales</h1>
-          <p class="view-subtitle">Transaction history and point of sale</p>
+          <h1 class="view-title">Sales History</h1>
+          <p class="view-subtitle">Transaction records and point of sale</p>
         </div>
 
         <div class="controls-bar">
@@ -1012,7 +1300,8 @@
             <option value="month">This Month</option>
             <option value="custom">Custom Date</option>
           </select>
-          <button class="btn btn-primary" id="new-sale-btn">New Sale</button>
+          <div style="flex:1;"></div>
+          <button class="btn btn-new-sale" id="new-sale-btn">+ New Sale</button>
         </div>
 
         <div class="stats-row">
@@ -1042,6 +1331,7 @@
                   <th>Tax</th>
                   <th>Total</th>
                   <th>Payment</th>
+                  <th style="width:40px;"></th>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -1050,6 +1340,7 @@
         </div>
       </div>
 
+      <!-- ===== ORDERS ===== -->
       <div class="view" id="orders-view">
         <div class="view-header">
           <h1 class="view-title">Orders</h1>
@@ -1079,6 +1370,7 @@
         </div>
       </div>
 
+      <!-- ===== SETTINGS ===== -->
       <div class="view" id="settings-view">
         <div class="view-header">
           <h1 class="view-title">Settings</h1>
@@ -1142,6 +1434,40 @@ Part of the Port Aransas fishing community since 2008.</textarea>
           </div>
         </div>
 
+        <div class="settings-section">
+          <h3 class="settings-section-title">Hardware &amp; Devices</h3>
+          <div class="setting-item">
+            <div>
+              <div class="setting-label">Barcode Scanner</div>
+              <div class="setting-sublabel">USB HID &mdash; Symbol LS2208</div>
+            </div>
+            <div class="device-status connected">
+              <span class="device-dot connected"></span>
+              Connected
+            </div>
+          </div>
+          <div class="setting-item">
+            <div>
+              <div class="setting-label">Receipt Printer</div>
+              <div class="setting-sublabel">Epson TM-T20III</div>
+            </div>
+            <div class="device-status disconnected">
+              <span class="device-dot disconnected"></span>
+              Not Configured
+            </div>
+          </div>
+          <div class="setting-item">
+            <div>
+              <div class="setting-label">Cash Drawer</div>
+              <div class="setting-sublabel">APG Vasario &mdash; Printer Driven</div>
+            </div>
+            <div class="device-status connected">
+              <span class="device-dot connected"></span>
+              Connected
+            </div>
+          </div>
+        </div>
+
         <div style="margin-top: 2rem;">
           <button class="btn btn-primary" id="save-settings-btn">Save Settings</button>
         </div>
@@ -1149,6 +1475,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
     </div>
   </div>
 
+  <!-- Receipt Modal -->
   <div class="modal-overlay" id="receipt-modal">
     <div class="modal" style="max-width: 420px;">
       <div class="modal-header">
@@ -1162,6 +1489,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
     </div>
   </div>
 
+  <!-- Product Detail Modal -->
   <div class="modal-overlay" id="product-detail-modal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="product-detail-name">
       <div class="modal-header">
@@ -1172,6 +1500,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
     </div>
   </div>
 
+  <!-- Product Form Modal -->
   <div class="modal-overlay" id="product-form-modal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="product-form-title">
       <div class="modal-header">
@@ -1202,15 +1531,21 @@ Part of the Port Aransas fishing community since 2008.</textarea>
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label" for="product-form-price">Price ($)</label>
+            <label class="form-label" for="product-form-price">Retail Price ($)</label>
             <input type="number" class="form-input" name="price" id="product-form-price" step="0.01" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
+            <label class="form-label" for="product-form-cost">Unit Cost ($)</label>
+            <input type="number" class="form-input" name="cost" id="product-form-cost" step="0.01">
+          </div>
+          <div class="form-group">
             <label class="form-label" for="product-form-stock">Stock Quantity</label>
             <input type="number" class="form-input" name="stock" id="product-form-stock" required>
           </div>
+        </div>
+        <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="product-form-status">Status</label>
             <select class="form-select" name="status" id="product-form-status">
@@ -1218,6 +1553,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
               <option value="inactive">Inactive</option>
             </select>
           </div>
+          <div></div>
         </div>
         <div class="form-group">
           <label class="form-label" for="product-form-description">Description</label>
@@ -1231,6 +1567,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
     </div>
   </div>
 
+  <!-- Sale Detail Modal -->
   <div class="modal-overlay" id="sale-detail-modal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="sale-detail-title">
       <div class="modal-header">
@@ -1241,6 +1578,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
     </div>
   </div>
 
+  <!-- New Sale Modal -->
   <div class="modal-overlay" id="new-sale-modal">
     <div class="modal modal-large" role="dialog" aria-modal="true" aria-labelledby="new-sale-title">
       <div class="modal-header">
@@ -1251,9 +1589,9 @@ Part of the Port Aransas fishing community since 2008.</textarea>
         <div>
           <div class="form-group">
             <label class="form-label" for="pos-search">Search Products</label>
-            <input type="text" class="form-input" id="pos-search" placeholder="Search...">
+            <input type="text" class="form-input" id="pos-search" placeholder="Search or scan barcode...">
           </div>
-          <div id="pos-product-list" style="max-height: 400px; overflow-y: auto;"></div>
+          <div class="pos-product-grid" id="pos-product-list"></div>
         </div>
         <div>
           <h3 style="font-family: 'Instrument Serif', serif; margin-bottom: 1rem;">Cart</h3>
@@ -1279,13 +1617,14 @@ Part of the Port Aransas fishing community since 2008.</textarea>
                 <option value="tab">Tab</option>
               </select>
             </div>
-            <button type="button" class="btn btn-primary" id="complete-sale-btn" style="width: 100%; margin-top: 1rem;">Complete Sale</button>
+            <button type="button" class="btn btn-new-sale" id="complete-sale-btn" style="width: 100%; margin-top: 1rem;">Complete Sale</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- New Order Modal -->
   <div class="modal-overlay" id="new-order-modal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="new-order-title">
       <div class="modal-header">
@@ -1320,6 +1659,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
     </div>
   </div>
 
+  <!-- Order Detail Modal -->
   <div class="modal-overlay" id="order-detail-modal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="order-detail-title">
       <div class="modal-header">
@@ -1332,28 +1672,46 @@ Part of the Port Aransas fishing community since 2008.</textarea>
 
   <div class="demo-footer-cta">
     <span>Like what you see?</span>
-    <a href="https://localpraxis.com#contact" target="_blank">Get one for your business →</a>
+    <a href="https://localpraxis.com#contact" target="_blank">Get one for your business &rarr;</a>
   </div>
 
   <script>
+    // Category icon SVGs for product image placeholders
+    const categoryIcons = {
+      'rods-reels': '<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 36L36 12M36 12V20M36 12H28" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="34" r="4" stroke="currentColor" stroke-width="2"/></svg>',
+      'tackle': '<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 8V20M24 20C24 24 20 28 16 28C12 28 10 32 14 36C18 40 24 36 24 32V20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      'bait': '<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="24" cy="24" rx="12" ry="8" stroke="currentColor" stroke-width="2"/><path d="M36 24C38 22 40 24 38 26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="22" r="1.5" fill="currentColor"/></svg>',
+      'apparel': '<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 12L12 18V22L16 20V36H32V20L36 22V18L30 12H18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 12C18 12 20 16 24 16C28 16 30 12 30 12" stroke="currentColor" stroke-width="2"/></svg>',
+      'accessories': '<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 24H14L18 20H30L34 24H40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="18" cy="24" r="6" stroke="currentColor" stroke-width="2"/><circle cx="30" cy="24" r="6" stroke="currentColor" stroke-width="2"/></svg>'
+    };
+
+    // Supplier colors for avatars
+    const supplierColors = {
+      'Berkley / Pure Fishing': '#2563EB',
+      'Shimano': '#DC2626',
+      'Penn Fishing': '#F59E0B',
+      'Costa Sunglasses': '#0D9488',
+      'Other': '#6B7280'
+    };
+
     const store = {
       products: [
-        { id: 1, name: 'Penn Battle III Spinning Combo', sku: 'ROD-001', category: 'rods-reels', price: 189.99, stock: 8, status: 'active', description: 'Durable saltwater spinning combo' },
-        { id: 2, name: 'Shimano Stradic FL 3000', sku: 'REL-001', category: 'rods-reels', price: 199.99, stock: 4, status: 'active', description: 'High-speed reel for inshore' },
-        { id: 3, name: 'Berkley Gulp Alive Shrimp 3"', sku: 'BAI-001', category: 'bait', price: 8.99, stock: 45, status: 'active', description: 'Scented artificial bait' },
-        { id: 4, name: 'DOA Shrimp Lure', sku: 'TAC-001', category: 'tackle', price: 5.49, stock: 62, status: 'active', description: 'Realistic shrimp pattern' },
-        { id: 5, name: 'MirrOlure Catch 2000', sku: 'TAC-002', category: 'tackle', price: 7.99, stock: 28, status: 'active', description: 'Classic top water lure' },
-        { id: 6, name: 'Mustad Circle Hooks 5/0 (25pk)', sku: 'TAC-003', category: 'tackle', price: 12.99, stock: 34, status: 'active', description: 'Circle hook set' },
-        { id: 7, name: 'Yo-Zuri Crystal Minnow', sku: 'TAC-004', category: 'tackle', price: 9.99, stock: 19, status: 'active', description: 'Translucent minnow imitation' },
-        { id: 8, name: 'Live Shrimp (per quart)', sku: 'BAI-002', category: 'bait', price: 12.00, stock: 15, status: 'active', description: 'Fresh live shrimp' },
-        { id: 9, name: 'Frozen Mullet (pack of 6)', sku: 'BAI-003', category: 'bait', price: 6.99, stock: 22, status: 'active', description: 'Premium frozen mullet' },
-        { id: 10, name: 'Salt Line Logo Tee', sku: 'APP-001', category: 'apparel', price: 28.00, stock: 18, status: 'active', description: 'Comfortable cotton t-shirt' },
-        { id: 11, name: 'Salt Line Trucker Hat', sku: 'APP-002', category: 'apparel', price: 24.00, stock: 12, status: 'active', description: 'Classic trucker cap' },
-        { id: 12, name: 'Costa Del Mar Fantail Pro', sku: 'ACC-001', category: 'accessories', price: 269.00, stock: 3, status: 'active', description: 'Premium polarized sunglasses' },
-        { id: 13, name: 'Yeti Rambler 26oz', sku: 'ACC-002', category: 'accessories', price: 35.00, stock: 9, status: 'active', description: 'Insulated beverage container' },
-        { id: 14, name: 'Simms Solarflex Hoody', sku: 'APP-003', category: 'apparel', price: 69.95, stock: 2, status: 'active', description: 'UV-protective hoodie' },
-        { id: 15, name: 'Plano Tackle Box 3700', sku: 'ACC-003', category: 'accessories', price: 24.99, stock: 7, status: 'active', description: 'Compartmentalized storage' },
-        { id: 16, name: '50lb Braided Line (300yd)', sku: 'TAC-005', category: 'tackle', price: 29.99, stock: 11, status: 'active', description: 'High-strength fishing line' }
+        { id: 1, name: 'Penn Battle III Spinning Combo', sku: 'ROD-001', category: 'rods-reels', price: 189.99, cost: 94.99, stock: 8, status: 'active', description: 'Durable saltwater spinning combo' },
+        { id: 2, name: 'Shimano Stradic FL 3000', sku: 'REL-001', category: 'rods-reels', price: 199.99, cost: 109.99, stock: 4, status: 'active', description: 'High-speed reel for inshore' },
+        { id: 3, name: 'Berkley Gulp Alive Shrimp 3"', sku: 'BAI-001', category: 'bait', price: 8.99, cost: 4.49, stock: 45, status: 'active', description: 'Scented artificial bait' },
+        { id: 4, name: 'DOA Shrimp Lure', sku: 'TAC-001', category: 'tackle', price: 5.49, cost: 2.74, stock: 62, status: 'active', description: 'Realistic shrimp pattern' },
+        { id: 5, name: 'MirrOlure Catch 2000', sku: 'TAC-002', category: 'tackle', price: 7.99, cost: 3.99, stock: 28, status: 'active', description: 'Classic top water lure' },
+        { id: 6, name: 'Mustad Circle Hooks 5/0 (25pk)', sku: 'TAC-003', category: 'tackle', price: 12.99, cost: 6.49, stock: 34, status: 'active', description: 'Circle hook set' },
+        { id: 7, name: 'Yo-Zuri Crystal Minnow', sku: 'TAC-004', category: 'tackle', price: 9.99, cost: 4.99, stock: 19, status: 'active', description: 'Translucent minnow imitation' },
+        { id: 8, name: 'Live Shrimp (per quart)', sku: 'BAI-002', category: 'bait', price: 12.00, cost: 6.00, stock: 15, status: 'active', description: 'Fresh live shrimp' },
+        { id: 9, name: 'Frozen Mullet (pack of 6)', sku: 'BAI-003', category: 'bait', price: 6.99, cost: 3.49, stock: 22, status: 'active', description: 'Premium frozen mullet' },
+        { id: 10, name: 'Salt Line Logo Tee', sku: 'APP-001', category: 'apparel', price: 28.00, cost: 11.50, stock: 18, status: 'active', description: 'Comfortable cotton t-shirt' },
+        { id: 11, name: 'Salt Line Trucker Hat', sku: 'APP-002', category: 'apparel', price: 24.00, cost: 9.60, stock: 12, status: 'active', description: 'Classic trucker cap' },
+        { id: 12, name: 'Costa Del Mar Fantail Pro', sku: 'ACC-001', category: 'accessories', price: 269.00, cost: 134.50, stock: 3, status: 'active', description: 'Premium polarized sunglasses' },
+        { id: 13, name: 'Yeti Rambler 26oz', sku: 'ACC-002', category: 'accessories', price: 35.00, cost: 17.50, stock: 9, status: 'active', description: 'Insulated beverage container' },
+        { id: 14, name: 'Simms Solarflex Hoody', sku: 'APP-003', category: 'apparel', price: 69.95, cost: 34.97, stock: 2, status: 'active', description: 'UV-protective hoodie' },
+        { id: 15, name: 'Plano Tackle Box 3700', sku: 'ACC-003', category: 'accessories', price: 24.99, cost: 12.49, stock: 7, status: 'active', description: 'Compartmentalized storage' },
+        { id: 16, name: '50lb Braided Line (300yd)', sku: 'TAC-005', category: 'tackle', price: 29.99, cost: 14.99, stock: 11, status: 'active', description: 'High-strength fishing line' }
       ],
       sales: [
         { id: 1001, time: '7:12 AM', items: 3, subtotal: 22.97, tax: 1.89, total: 24.86, payment: 'card', lineItems: [{ name: 'Berkley Gulp Alive Shrimp 3"', qty: 2, price: 8.99 }, { name: 'DOA Shrimp Lure', qty: 1, price: 5.49 }] },
@@ -1388,14 +1746,22 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       }
     };
 
+    // 7-day sales data for chart
+    const weekSales = [
+      { day: 'Thu', amount: 1245 },
+      { day: 'Fri', amount: 2103 },
+      { day: 'Sat', amount: 2540 },
+      { day: 'Sun', amount: 1892 },
+      { day: 'Mon', amount: 967 },
+      { day: 'Tue', amount: 1567 },
+      { day: 'Wed', amount: 1847 }
+    ];
+
+    // Navigation
     document.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('click', function() {
-        const view = this.dataset.view;
-        showView(view);
+        showView(this.dataset.view);
       });
-    });
-
-    document.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); }
       });
@@ -1404,39 +1770,36 @@ Part of the Port Aransas fishing community since 2008.</textarea>
     function showView(viewName) {
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
       document.getElementById(viewName + '-view').classList.add('active');
-
       document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
       document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
 
-      if (viewName === 'dashboard') {
-        renderDashboard();
-      } else if (viewName === 'products') {
-        renderProducts();
-      } else if (viewName === 'sales') {
-        renderSalesView();
-      } else if (viewName === 'orders') {
-        renderOrders();
-      }
+      if (viewName === 'dashboard') renderDashboard();
+      else if (viewName === 'products') renderProducts();
+      else if (viewName === 'sales') renderSalesView();
+      else if (viewName === 'orders') renderOrders();
     }
 
+    // ===== DASHBOARD =====
     function renderDashboard() {
       const today = new Date();
       document.getElementById('dashboard-date').textContent = today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
 
+      // Recent sales table
       const tbody = document.querySelector('#recent-sales-table tbody');
       tbody.innerHTML = '';
       store.sales.slice(-8).forEach(sale => {
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${sale.time}</td>
-          <td>${sale.items}</td>
-          <td>$${sale.total.toFixed(2)}</td>
+          <td style="font-family:'Inter',sans-serif;font-weight:600;">${sale.items}</td>
+          <td style="font-family:'Inter',sans-serif;font-weight:600;">$${sale.total.toFixed(2)}</td>
           <td>${capitalize(sale.payment)}</td>
         `;
         row.addEventListener('click', () => showSaleDetail(sale));
         tbody.appendChild(row);
       });
 
+      // Top sellers
       const topSellersTbody = document.querySelector('#top-sellers-table tbody');
       topSellersTbody.innerHTML = '';
       const productSales = {};
@@ -1450,11 +1813,35 @@ Part of the Port Aransas fishing community since 2008.</textarea>
         .slice(0, 5)
         .forEach(([name, units]) => {
           const row = document.createElement('tr');
-          row.innerHTML = `<td>${name}</td><td>${units}</td>`;
+          row.innerHTML = `<td>${name}</td><td style="font-family:'Inter',sans-serif;font-weight:600;">${units}</td>`;
           topSellersTbody.appendChild(row);
         });
+
+      // Render bar chart
+      renderChart();
     }
 
+    function renderChart() {
+      const chart = document.getElementById('sales-chart');
+      chart.innerHTML = '';
+      const maxAmount = Math.max(...weekSales.map(d => d.amount));
+      const isToday = weekSales.length - 1;
+
+      weekSales.forEach((data, i) => {
+        const group = document.createElement('div');
+        group.className = 'bar-group';
+        const heightPct = (data.amount / maxAmount) * 100;
+        const barClass = i === isToday ? 'today' : 'past';
+        group.innerHTML = `
+          <div class="bar-value">$${data.amount.toLocaleString()}</div>
+          <div class="bar ${barClass}" style="height: ${heightPct}%;"></div>
+          <div class="bar-label">${data.day}</div>
+        `;
+        chart.appendChild(group);
+      });
+    }
+
+    // ===== PRODUCTS =====
     let currentCategory = 'all';
     let currentSearch = '';
 
@@ -1476,6 +1863,12 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       });
     });
 
+    function getStockClass(stock) {
+      if (stock <= store.settings.lowStockThreshold) return 'stock-low';
+      if (stock <= 10) return 'stock-medium';
+      return 'stock-high';
+    }
+
     function renderProducts() {
       const grid = document.getElementById('products-grid');
       grid.innerHTML = '';
@@ -1491,13 +1884,17 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       filtered.forEach(product => {
         const card = document.createElement('div');
         card.className = 'product-card';
-        const isLow = product.stock <= store.settings.lowStockThreshold;
+        const stockClass = getStockClass(product.stock);
+        const icon = categoryIcons[product.category] || categoryIcons['accessories'];
         card.innerHTML = `
-          <div class="product-name">${product.name}</div>
-          <div class="product-sku">${product.sku}</div>
-          <div class="product-price">$${product.price.toFixed(2)}</div>
-          <div class="product-stock ${isLow ? 'low' : ''}">Stock: ${product.stock}</div>
-          <span class="badge ${product.status === 'active' ? 'badge-active' : 'badge-inactive'}">${capitalize(product.status)}</span>
+          <div class="product-image">${icon}</div>
+          <div class="product-card-body">
+            <div class="product-name">${product.name}</div>
+            <div class="product-sku">${product.sku}</div>
+            <div class="product-price">$${product.price.toFixed(2)}</div>
+            <div class="product-stock ${stockClass}">Stock: ${product.stock}</div>
+            <span class="badge ${product.status === 'active' ? 'badge-active' : 'badge-inactive'}">${capitalize(product.status)}</span>
+          </div>
         `;
         card.addEventListener('click', () => showProductDetail(product));
         grid.appendChild(card);
@@ -1505,8 +1902,13 @@ Part of the Port Aransas fishing community since 2008.</textarea>
     }
 
     function showProductDetail(product) {
+      document.getElementById('product-detail-name').textContent = product.name;
       const content = document.getElementById('product-detail-content');
+      const margin = product.cost ? Math.round(((product.price - product.cost) / product.price) * 100) : null;
+      const stockClass = getStockClass(product.stock);
+
       content.innerHTML = `
+        <div class="product-image" style="border-radius:8px;margin-bottom:1.5rem;border:1px solid var(--rule);">${categoryIcons[product.category] || categoryIcons['accessories']}</div>
         <div class="form-group">
           <label class="form-label">Product Name</label>
           <input type="text" class="form-input" value="${product.name}" readonly>
@@ -1523,12 +1925,23 @@ Part of the Port Aransas fishing community since 2008.</textarea>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Price</label>
-            <input type="text" class="form-input" value="$${product.price.toFixed(2)}" readonly>
+            <label class="form-label">Retail Price</label>
+            <input type="text" class="form-input" value="$${product.price.toFixed(2)}" readonly style="font-family:'Inter',sans-serif;font-weight:600;">
           </div>
           <div class="form-group">
+            <label class="form-label">Unit Cost</label>
+            <input type="text" class="form-input" value="${product.cost ? '$' + product.cost.toFixed(2) : '—'}" readonly style="font-family:'Inter',sans-serif;">
+            ${margin !== null ? `<div class="margin-hint">Margin: ${margin}%</div>` : ''}
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
             <label class="form-label">Stock</label>
-            <input type="text" class="form-input" value="${product.stock}" readonly>
+            <input type="text" class="form-input ${stockClass}" value="${product.stock}" readonly style="font-family:'Inter',sans-serif;font-weight:600;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <div style="padding:0.75rem 0;"><span class="badge ${product.status === 'active' ? 'badge-active' : 'badge-inactive'}">${capitalize(product.status)}</span></div>
           </div>
         </div>
         <div class="form-group">
@@ -1557,6 +1970,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
         form.querySelector('[name="sku"]').value = product.sku;
         form.querySelector('[name="category"]').value = product.category;
         form.querySelector('[name="price"]').value = product.price;
+        form.querySelector('[name="cost"]').value = product.cost || '';
         form.querySelector('[name="stock"]').value = product.stock;
         form.querySelector('[name="status"]').value = product.status;
         form.querySelector('[name="description"]').value = product.description;
@@ -1585,6 +1999,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
         sku: form.querySelector('[name="sku"]').value,
         category: form.querySelector('[name="category"]').value,
         price: parseFloat(form.querySelector('[name="price"]').value),
+        cost: parseFloat(form.querySelector('[name="cost"]').value) || 0,
         stock: parseInt(form.querySelector('[name="stock"]').value),
         status: form.querySelector('[name="status"]').value,
         description: form.querySelector('[name="description"]').value
@@ -1603,26 +2018,35 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       renderProducts();
     });
 
+    // ===== SALES =====
     function renderSalesView() {
       const tbody = document.querySelector('#sales-table tbody');
       tbody.innerHTML = '';
       store.sales.forEach(sale => {
         const row = document.createElement('tr');
         row.innerHTML = `
-          <td>${sale.id}</td>
+          <td style="font-family:'Inter',sans-serif;font-weight:500;">${sale.id}</td>
           <td>${sale.time}</td>
-          <td>${sale.items}</td>
-          <td>$${sale.subtotal.toFixed(2)}</td>
-          <td>$${sale.tax.toFixed(2)}</td>
-          <td>$${sale.total.toFixed(2)}</td>
+          <td style="font-family:'Inter',sans-serif;">${sale.items}</td>
+          <td style="font-family:'Inter',sans-serif;">$${sale.subtotal.toFixed(2)}</td>
+          <td style="font-family:'Inter',sans-serif;color:var(--ink-light);">$${sale.tax.toFixed(2)}</td>
+          <td style="font-family:'Inter',sans-serif;font-weight:600;">$${sale.total.toFixed(2)}</td>
           <td>${capitalize(sale.payment)}</td>
+          <td><button class="receipt-btn" onclick="event.stopPropagation(); showSaleDetail(store.sales.find(s=>s.id===${sale.id}))" title="View receipt"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M5 2H13C13.55 2 14 2.45 14 3V15L12 13.5L10 15L9 14L8 15L6 13.5L4 15V3C4 2.45 4.45 2 5 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6H11M7 9H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></td>
         `;
         row.addEventListener('click', () => showSaleDetail(sale));
         tbody.appendChild(row);
       });
+
+      // Update stats
+      const totalRev = store.sales.reduce((sum, s) => sum + s.total, 0);
+      document.getElementById('revenue-stat').textContent = '$' + totalRev.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      document.getElementById('transaction-stat').textContent = store.sales.length;
+      document.getElementById('average-stat').textContent = '$' + (totalRev / store.sales.length).toFixed(2);
     }
 
     function showSaleDetail(sale) {
+      document.getElementById('sale-detail-title').textContent = `Transaction #${sale.id}`;
       const content = document.getElementById('sale-detail-content');
       let lineItemsHtml = '<div class="line-items">';
       sale.lineItems.forEach(item => {
@@ -1664,12 +2088,13 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       if (sdFirst) sdFirst.focus();
     }
 
+    // ===== POS / NEW SALE =====
     document.getElementById('new-sale-btn').addEventListener('click', () => {
       store.pos.cart = [];
       renderPOSModal();
       const nsModal = document.getElementById('new-sale-modal');
       nsModal.classList.add('active');
-      const nsFirst = nsModal.querySelector('button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const nsFirst = nsModal.querySelector('input');
       if (nsFirst) nsFirst.focus();
     });
 
@@ -1679,27 +2104,25 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       const search = document.getElementById('pos-search').value.toLowerCase();
 
       const filtered = store.products.filter(p =>
-        p.name.toLowerCase().includes(search) || p.sku.toLowerCase().includes(search)
+        p.status === 'active' && (p.name.toLowerCase().includes(search) || p.sku.toLowerCase().includes(search))
       );
 
       filtered.forEach(product => {
-        const div = document.createElement('div');
-        div.style.cssText = 'padding: 0.75rem 0; border-bottom: 1px solid var(--rule); cursor: pointer;';
-        div.innerHTML = `
-          <div style="font-weight: 500; margin-bottom: 0.25rem;">${product.name}</div>
-          <div style="font-size: 0.85rem; color: var(--ink-light);">$${product.price.toFixed(2)} - Stock: ${product.stock}</div>
+        const tile = document.createElement('div');
+        tile.className = 'pos-product-tile';
+        tile.innerHTML = `
+          <div class="tile-name">${product.name}</div>
+          <div class="tile-price">$${product.price.toFixed(2)}</div>
         `;
-        div.addEventListener('click', () => addToCart(product));
-        productList.appendChild(div);
+        tile.addEventListener('click', () => addToCart(product));
+        productList.appendChild(tile);
       });
     }
 
     function addToCart(product) {
       const existing = store.pos.cart.find(item => item.id === product.id);
       if (existing) {
-        if (existing.qty < product.stock) {
-          existing.qty++;
-        }
+        if (existing.qty < product.stock) existing.qty++;
       } else {
         store.pos.cart.push({ ...product, qty: 1 });
       }
@@ -1719,7 +2142,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
             <div class="cart-item-price">$${item.price.toFixed(2)} each</div>
           </div>
           <div class="cart-item-qty">
-            <button class="qty-btn" onclick="updateCartQty(${item.id}, -1)">−</button>
+            <button class="qty-btn" onclick="updateCartQty(${item.id}, -1)">&minus;</button>
             <input type="number" class="qty-input" value="${item.qty}" onchange="updateCartQtyDirect(${item.id}, this.value)">
             <button class="qty-btn" onclick="updateCartQty(${item.id}, 1)">+</button>
             <button class="cart-remove" onclick="removeFromCart(${item.id})">Remove</button>
@@ -1735,11 +2158,8 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       const item = store.pos.cart.find(i => i.id === productId);
       if (item) {
         item.qty += delta;
-        if (item.qty <= 0) {
-          removeFromCart(productId);
-        } else if (item.qty > item.stock) {
-          item.qty = item.stock;
-        }
+        if (item.qty <= 0) removeFromCart(productId);
+        else if (item.qty > item.stock) item.qty = item.stock;
         renderCart();
       }
     };
@@ -1787,17 +2207,13 @@ Part of the Port Aransas fishing community since 2008.</textarea>
         tax: parseFloat(tax.toFixed(2)),
         total: parseFloat(total.toFixed(2)),
         payment: document.getElementById('pos-payment').value,
-        lineItems: store.pos.cart.map(item => ({
-          name: item.name,
-          qty: item.qty,
-          price: item.price
-        }))
+        lineItems: store.pos.cart.map(item => ({ name: item.name, qty: item.qty, price: item.price }))
       };
 
       store.sales.push(newSale);
       document.getElementById('new-sale-modal').classList.remove('active');
 
-      // Show receipt modal
+      // Show receipt
       const receiptEl = document.getElementById('receipt-content');
       const now = new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
       receiptEl.innerHTML = `
@@ -1811,14 +2227,14 @@ Part of the Port Aransas fishing community since 2008.</textarea>
             </tr></thead>
             <tbody>${newSale.lineItems.map(li => `
               <tr><td style="padding:0.4rem 0;">${li.name}</td>
-              <td style="text-align:center;padding:0.4rem 0;">${li.qty}</td>
-              <td style="text-align:right;padding:0.4rem 0;">$${(li.price * li.qty).toFixed(2)}</td></tr>
+              <td style="text-align:center;padding:0.4rem 0;font-family:'Inter',sans-serif;">${li.qty}</td>
+              <td style="text-align:right;padding:0.4rem 0;font-family:'Inter',sans-serif;font-weight:600;">$${(li.price * li.qty).toFixed(2)}</td></tr>
             `).join('')}</tbody>
           </table>
           <div style="border-top:1px solid var(--rule);margin-top:0.75rem;padding-top:0.75rem;">
-            <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;"><span>Subtotal</span><span>$${newSale.subtotal.toFixed(2)}</span></div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;color:var(--ink-mid);"><span>Tax (${store.settings.taxRate}%)</span><span>$${newSale.tax.toFixed(2)}</span></div>
-            <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem;border-top:1px solid var(--rule);padding-top:0.5rem;margin-top:0.25rem;"><span>Total</span><span>$${newSale.total.toFixed(2)}</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;"><span>Subtotal</span><span style="font-family:'Inter',sans-serif;">$${newSale.subtotal.toFixed(2)}</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;color:var(--ink-mid);"><span>Tax (${store.settings.taxRate}%)</span><span style="font-family:'Inter',sans-serif;">$${newSale.tax.toFixed(2)}</span></div>
+            <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem;border-top:1px solid var(--rule);padding-top:0.5rem;margin-top:0.25rem;"><span>Total</span><span style="font-family:'Inter',sans-serif;">$${newSale.total.toFixed(2)}</span></div>
           </div>
           <div style="margin-top:0.75rem;color:var(--ink-mid);font-size:0.8rem;">Payment: ${capitalize(newSale.payment)}</div>
         </div>`;
@@ -1839,17 +2255,20 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       renderPOSModal();
     });
 
+    // ===== ORDERS =====
     function renderOrders() {
       const tbody = document.querySelector('#orders-table tbody');
       tbody.innerHTML = '';
       store.orders.forEach(order => {
         const row = document.createElement('tr');
         const statusBadge = `<span class="badge badge-${order.status}">${capitalize(order.status)}</span>`;
+        const color = supplierColors[order.supplier] || supplierColors['Other'];
+        const initial = order.supplier.charAt(0);
         row.innerHTML = `
-          <td>${order.id}</td>
-          <td>${order.supplier}</td>
+          <td style="font-family:'Inter',sans-serif;font-weight:500;">${order.id}</td>
+          <td><div class="supplier-cell"><span class="supplier-avatar" style="background:${color};">${initial}</span>${order.supplier}</div></td>
           <td>${order.description}</td>
-          <td>$${order.total.toFixed(2)}</td>
+          <td style="font-family:'Inter',sans-serif;font-weight:600;">$${order.total.toFixed(2)}</td>
           <td>${order.orderDate}</td>
           <td>${statusBadge}</td>
         `;
@@ -1861,6 +2280,8 @@ Part of the Port Aransas fishing community since 2008.</textarea>
     function showOrderDetail(order) {
       document.getElementById('order-detail-title').textContent = order.id;
       const content = document.getElementById('order-detail-content');
+      const color = supplierColors[order.supplier] || supplierColors['Other'];
+      const initial = order.supplier.charAt(0);
       const etaLine = order.eta ? `
         <div class="form-group">
           <label class="form-label">Estimated Arrival</label>
@@ -1869,7 +2290,10 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       content.innerHTML = `
         <div class="form-group">
           <label class="form-label">Supplier</label>
-          <div style="font-size: 0.95rem; padding: 0.75rem 0;">${order.supplier}</div>
+          <div style="font-size: 0.95rem; padding: 0.75rem 0; display:flex; align-items:center; gap:0.75rem;">
+            <span class="supplier-avatar" style="background:${color};">${initial}</span>
+            ${order.supplier}
+          </div>
         </div>
         <div class="form-row">
           <div class="form-group">
@@ -1904,7 +2328,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       document.getElementById('order-form').reset();
       const noModal = document.getElementById('new-order-modal');
       noModal.classList.add('active');
-      const noFirst = noModal.querySelector('button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const noFirst = noModal.querySelector('select, input, textarea, [tabindex]:not([tabindex="-1"])');
       if (noFirst) noFirst.focus();
     });
 
@@ -1930,11 +2354,12 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       renderOrders();
     });
 
+    // ===== SETTINGS =====
     document.querySelectorAll('.toggle-switch').forEach(toggle => {
       toggle.addEventListener('click', function() {
         this.classList.toggle('on');
         const setting = this.dataset.setting;
-        store.settings[setting] = this.classList.contains('on');
+        if (setting) store.settings[setting] = this.classList.contains('on');
       });
     });
 
@@ -1949,6 +2374,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       showSuccess('Settings saved');
     });
 
+    // ===== MODALS =====
     document.querySelectorAll('.modal-close').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.target.closest('.modal-overlay').classList.remove('active');
@@ -1957,12 +2383,11 @@ Part of the Port Aransas fishing community since 2008.</textarea>
 
     document.querySelectorAll('.modal-overlay').forEach(overlay => {
       overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-          overlay.classList.remove('active');
-        }
+        if (e.target === overlay) overlay.classList.remove('active');
       });
     });
 
+    // ===== UTILS =====
     function capitalize(str) {
       return str.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     }
@@ -1975,17 +2400,16 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       setTimeout(() => div.remove(), 3000);
     }
 
+    // ===== INIT =====
     renderDashboard();
 
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
-        document.querySelectorAll('.modal-overlay.active').forEach(m => {
-          m.classList.remove('active');
-        });
+        document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
       }
     });
 
-    // Mobile hamburger menu
+    // Mobile hamburger
     const sidebar = document.getElementById('sidebar');
     const backdrop = document.getElementById('sidebar-backdrop');
 
@@ -2002,16 +2426,13 @@ Part of the Port Aransas fishing community since 2008.</textarea>
     document.getElementById('sidebar-close-btn').addEventListener('click', closeMobileSidebar);
     backdrop.addEventListener('click', closeMobileSidebar);
 
-    // Close sidebar when a nav item is tapped on mobile
     document.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-          closeMobileSidebar();
-        }
+        if (window.innerWidth <= 768) closeMobileSidebar();
       });
     });
   </script>
 
-    <a class="lp-back" href="https://localpraxis.com">&#8592; localpraxis.com</a>
+  <a class="lp-back" href="https://localpraxis.com" style="position:fixed;top:1rem;right:1rem;z-index:201;font-size:0.8rem;color:var(--ink-light);text-decoration:none;background:var(--surface);padding:0.4rem 0.8rem;border-radius:4px;border:1px solid var(--rule);transition:all 0.2s;">&#8592; localpraxis.com</a>
 </body>
 </html>

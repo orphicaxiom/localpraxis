@@ -376,13 +376,14 @@
         .chart-detail {
             margin-top: 1rem;
             padding: 1rem;
-            background: var(--warm-white);
-            border: 1px solid var(--sand);
-            border-radius: 6px;
+            background: #FFFFFF;
+            border: 1px solid var(--rule);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
         }
 
         .chart-detail-title {
-            font-family: var(--serif);
+            font-family: 'Instrument Serif', Georgia, serif;
             font-size: 1rem;
             margin-bottom: 0.75rem;
             color: var(--ink);
@@ -393,7 +394,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.5rem 0;
-            border-bottom: 1px solid var(--sand);
+            border-bottom: 1px solid var(--rule);
             font-size: 0.85rem;
             cursor: pointer;
         }
@@ -403,9 +404,10 @@
         }
 
         .chart-detail-row:hover {
-            background: var(--sand);
+            background: var(--cream);
             margin: 0 -1rem;
             padding: 0.5rem 1rem;
+            border-radius: 4px;
         }
 
         .chart-detail-empty {
@@ -476,6 +478,8 @@
             padding: 2rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
             transition: all 0.2s var(--ease);
+            display: flex;
+            flex-direction: column;
         }
 
         .trip-card:hover {
@@ -550,8 +554,9 @@
 
         .trip-actions {
             display: flex;
+            align-items: center;
             gap: 0.75rem;
-            margin-top: 1.5rem;
+            margin-top: auto;
             padding-top: 1.5rem;
             border-top: 1px solid var(--rule);
         }
@@ -560,18 +565,20 @@
             position: relative;
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
 
         .toggle-switch input {
             appearance: none;
-            width: 48px;
-            height: 28px;
+            width: 36px;
+            height: 20px;
             background: var(--rule);
-            border-radius: 14px;
+            border-radius: 10px;
             cursor: pointer;
             transition: background 0.2s var(--ease);
             outline: none;
+            position: relative;
+            flex-shrink: 0;
         }
 
         .toggle-switch input:checked {
@@ -581,16 +588,18 @@
         .toggle-switch input::before {
             content: '';
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: white;
+            top: 2px;
             left: 2px;
             transition: left 0.2s var(--ease);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
         }
 
         .toggle-switch input:checked::before {
-            left: 22px;
+            left: 18px;
         }
 
         /* Widget view */
@@ -1577,7 +1586,7 @@
                     <!-- Step 4: Confirmation -->
                     <div class="widget-step" data-step="4">
                         <div class="widget-confirmation">
-                            <div class="checkmark">✓</div>
+                            <div class="checkmark"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
                             <h3 class="widget-confirmation-title">Booking Confirmed</h3>
                             <p class="widget-confirmation-text">Your reservation has been recorded.</p>
                             <div class="widget-confirmation-details">
@@ -2313,6 +2322,15 @@
         });
 
         renderDashboard();
+
+        // Re-render when restored from bfcache (browser back button)
+        window.addEventListener('pageshow', (e) => {
+            if (e.persisted) {
+                const activeView = document.querySelector('.nav-item.active');
+                if (activeView) switchView(activeView.getAttribute('data-view'));
+                else renderDashboard();
+            }
+        });
     </script>
 
     <a class="lp-back" href="https://localpraxis.com">&#8592; localpraxis.com</a>
