@@ -64,7 +64,13 @@
       font-family: var(--font-serif); font-size: 1.25rem;
       font-weight: 500; color: var(--ink); letter-spacing: -0.01em;
     }
-    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul { list-style: none; display: flex; gap: 2rem; align-items: center; }
+    .nav-phone {
+      font-size: 0.875rem; color: var(--ink-mid); text-decoration: none;
+      font-weight: 500; transition: color 0.3s var(--ease); white-space: nowrap;
+    }
+    .nav-phone:hover { color: var(--terracotta); }
+    @media (max-width: 768px) { .nav-phone { display: none; } }
     nav a {
       color: var(--ink); text-decoration: none;
       font-size: 0.95rem; font-weight: 500;
@@ -192,6 +198,18 @@
       .footer-content { grid-template-columns: 1fr; text-align: left; }
       .footer-right { text-align: left; }
     }
+
+    /* Page transitions */
+    @keyframes pageIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pageOut {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-10px); }
+    }
+    body { animation: pageIn 0.45s var(--ease) both; }
+    body.page-leaving { animation: pageOut 0.25s var(--ease) forwards; pointer-events: none; }
   </style>
 </head>
 
@@ -207,6 +225,7 @@
         <li><a href="/faq.html" class="active">FAQ</a></li>
         <li><a href="/#about">About</a></li>
         <li><a href="/#contact">Contact</a></li>
+        <li><a href="tel:+13613322725" class="nav-phone">(361) 332-2725</a></li>
       </ul>
     </div>
   </nav>
@@ -294,5 +313,17 @@
     </div>
   </footer>
 
+  <script>
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && !href.startsWith('#') && !href.startsWith('tel:') && !href.startsWith('mailto:') && !href.startsWith('http')) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          document.body.classList.add('page-leaving');
+          setTimeout(() => { window.location = href; }, 260);
+        });
+      }
+    });
+  </script>
 </body>
 </html>

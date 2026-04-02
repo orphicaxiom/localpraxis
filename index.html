@@ -731,6 +731,18 @@
       }
     }
 
+    /* Page transitions */
+    @keyframes pageIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pageOut {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-10px); }
+    }
+    body { animation: pageIn 0.45s var(--ease) both; }
+    body.page-leaving { animation: pageOut 0.25s var(--ease) forwards; pointer-events: none; }
+
     /* Pricing note */
     .pricing-note {
       color: var(--terracotta);
@@ -1027,6 +1039,20 @@
       <div class="footer-right">&copy; 2026 James Johnson. All rights reserved.</div>
     </div>
   </footer>
+
+  <script>
+    // Page transitions
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && !href.startsWith('#') && !href.startsWith('tel:') && !href.startsWith('mailto:') && !href.startsWith('http')) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          document.body.classList.add('page-leaving');
+          setTimeout(() => { window.location = href; }, 260);
+        });
+      }
+    });
+  </script>
 
   <script>
     // Intersection Observer for scroll reveals
