@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redfish Run Charters - Admin Dashboard</title>
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23#1E5FB5'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232563EB'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>RR</text></svg>">
 
     <!-- Preload fonts -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -13,14 +13,16 @@
 
     <style>
         :root {
-            --warm-white: #FDFAF5;
-            --cream: #F5F0E8;
-            --ink: #1C1917;
-            --ink-mid: #57534E;
-            --ink-light: #A8A29E;
-            --terracotta: #1E5FB5;
-            --rule: #DDD6CC;
-            --success: #2D7A3E;
+            --warm-white: #F8F9FA;
+            --cream: #F3F4F6;
+            --ink: #0F172A;
+            --ink-mid: #64748B;
+            --ink-light: #94A3B8;
+            --terracotta: #2563EB;
+            --terracotta-hover: #1D4ED8;
+            --rule: #E2E8F0;
+            --success: #16A34A;
+            --warning: #D97706;
             --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -110,7 +112,7 @@
         }
 
         .nav-item:hover {
-            background: rgba(30, 95, 181, 0.08);
+            background: rgba(37, 99, 235, 0.08);
             color: var(--terracotta);
         }
 
@@ -164,8 +166,16 @@
         }
 
         .stat-card {
-            border-top: 1px solid var(--rule);
-            padding-top: 1.5rem;
+            background: #FFFFFF;
+            border: 1px solid var(--rule);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.2s var(--ease);
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .stat-label {
@@ -178,10 +188,32 @@
         }
 
         .stat-value {
-            font-family: 'Instrument Serif', Georgia, serif;
+            font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
             font-size: clamp(2.4rem, 4vw, 3.2rem);
+            font-weight: 700;
             line-height: 1;
             color: var(--ink);
+        }
+
+        .stat-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .stat-trend.up {
+            color: var(--success);
+            background: rgba(22, 163, 74, 0.1);
+        }
+
+        .stat-trend.neutral {
+            color: var(--ink-light);
+            background: rgba(148, 163, 184, 0.1);
         }
 
         /* Layout grid for dashboard */
@@ -225,7 +257,7 @@
         }
 
         .manifest-table tbody tr:hover {
-            background: rgba(30, 95, 181, 0.04);
+            background: rgba(37, 99, 235, 0.04);
         }
 
         .manifest-table td {
@@ -237,30 +269,34 @@
         .status-badge {
             display: inline-block;
             padding: 0.25rem 0.75rem;
-            border-radius: 3px;
+            border-radius: 9999px;
             font-size: 0.75rem;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: capitalize;
         }
 
         .status-checked-in {
-            background: rgba(45, 122, 62, 0.1);
-            color: var(--success);
+            background: rgba(22, 163, 74, 0.1);
+            color: #15803D;
+            font-weight: 600;
         }
 
         .status-confirmed {
-            background: rgba(30, 95, 181, 0.1);
-            color: var(--terracotta);
+            background: rgba(37, 99, 235, 0.1);
+            color: #1D4ED8;
+            font-weight: 600;
         }
 
         .status-pending {
-            background: rgba(168, 162, 158, 0.1);
-            color: var(--ink-mid);
+            background: rgba(217, 119, 6, 0.1);
+            color: #B45309;
+            font-weight: 600;
         }
 
         .status-completed {
-            background: rgba(45, 122, 62, 0.1);
-            color: var(--success);
+            background: rgba(22, 163, 74, 0.1);
+            color: #15803D;
+            font-weight: 600;
         }
 
         /* Revenue chart */
@@ -271,6 +307,17 @@
             gap: 0.75rem;
             margin-top: 1rem;
             padding-bottom: 1.5rem;
+            position: relative;
+            background-image: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent calc(25% - 1px),
+                var(--rule) calc(25% - 1px),
+                var(--rule) 25%
+            );
+            background-size: 100% calc(100% - 1.5rem);
+            background-position: top;
+            background-repeat: no-repeat;
         }
 
         .chart-col {
@@ -284,19 +331,39 @@
 
         .chart-bar {
             width: 100%;
-            background: var(--ink-light);
-            border-radius: 3px 3px 0 0;
-            transition: background 0.2s var(--ease);
+            background: linear-gradient(180deg, var(--terracotta) 0%, #3B82F6 100%);
+            border-radius: 6px 6px 0 0;
+            transition: all 0.2s var(--ease);
             min-height: 4px;
+            position: relative;
         }
 
         .chart-bar:hover {
-            background: var(--terracotta);
+            background: linear-gradient(180deg, var(--terracotta-hover) 0%, #2563EB 100%);
             cursor: pointer;
+            transform: scaleY(1.03);
+            transform-origin: bottom;
         }
 
         .chart-bar.selected {
-            background: var(--steel-blue);
+            background: linear-gradient(180deg, var(--terracotta-hover) 0%, #1E40AF 100%);
+            box-shadow: 0 -2px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        .chart-bar[data-amount]:hover::after {
+            content: attr(data-amount);
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--ink);
+            color: #FFFFFF;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            white-space: nowrap;
+            pointer-events: none;
         }
 
         .chart-bar-label {
@@ -369,7 +436,7 @@
         }
 
         .btn-primary:hover {
-            background: #A04E31;
+            background: var(--terracotta-hover);
             transform: translateY(-2px);
         }
 
@@ -380,7 +447,7 @@
         }
 
         .btn-secondary:hover {
-            background: rgba(30, 95, 181, 0.08);
+            background: rgba(37, 99, 235, 0.08);
         }
 
         .btn-sm {
@@ -403,15 +470,16 @@
         }
 
         .trip-card {
-            background: var(--cream);
+            background: #FFFFFF;
             border: 1px solid var(--rule);
             border-radius: 8px;
             padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
             transition: all 0.2s var(--ease);
         }
 
         .trip-card:hover {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
             transform: translateY(-4px);
         }
 
@@ -426,8 +494,9 @@
         }
 
         .trip-price {
-            font-family: 'Instrument Serif', Georgia, serif;
+            font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
             font-size: 2rem;
+            font-weight: 700;
             color: var(--terracotta);
             line-height: 1;
         }
@@ -533,13 +602,14 @@
         }
 
         .widget-preview {
-            background: var(--cream);
+            background: #FFFFFF;
             border: 1px solid var(--rule);
             border-radius: 12px;
             padding: 2.5rem;
             min-height: 500px;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
         }
 
         .widget-step {
@@ -563,22 +633,39 @@
         }
 
         .widget-trip-option {
-            background: var(--warm-white);
+            background: #FFFFFF;
             border: 2px solid var(--rule);
-            border-radius: 6px;
-            padding: 1rem;
+            border-radius: 8px;
+            padding: 1rem 1rem 1rem 1.25rem;
             cursor: pointer;
             transition: all 0.2s var(--ease);
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
         }
 
         .widget-trip-option:hover {
             border-color: var(--terracotta);
-            background: rgba(30, 95, 181, 0.04);
+            background: rgba(37, 99, 235, 0.04);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
         }
 
         .widget-trip-option.selected {
             border-color: var(--terracotta);
-            background: rgba(30, 95, 181, 0.08);
+            background: rgba(37, 99, 235, 0.06);
+            box-shadow: 0 0 0 1px var(--terracotta);
+        }
+
+        .widget-trip-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--terracotta);
         }
 
         .widget-trip-name {
@@ -653,7 +740,7 @@
         .form-input:focus {
             outline: none;
             border-color: var(--terracotta);
-            background: rgba(30, 95, 181, 0.02);
+            background: rgba(37, 99, 235, 0.02);
         }
 
         .widget-confirmation {
@@ -744,7 +831,7 @@
         }
 
         .copy-btn:hover {
-            background: #A04E31;
+            background: var(--terracotta-hover);
         }
 
         .copy-btn.copied {
@@ -810,11 +897,11 @@
         }
 
         .calendar-slot {
-            border: 1px solid var(--rule);
+            border: 1px solid rgba(226, 232, 240, 0.6);
             border-radius: 6px;
             min-height: 80px;
             padding: 0.75rem;
-            background: var(--cream);
+            background: #FFFFFF;
             position: relative;
         }
 
@@ -825,20 +912,38 @@
             font-weight: 500;
         }
 
+        .calendar-slot.now-indicator {
+            border-top: 2px solid #EF4444;
+            position: relative;
+        }
+
+        .calendar-slot.now-indicator::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 8px;
+            height: 8px;
+            background: #EF4444;
+            border-radius: 50%;
+        }
+
         .calendar-event {
-            background: var(--terracotta);
-            color: var(--warm-white);
-            padding: 0.5rem;
-            border-radius: 3px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--terracotta);
+            padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--terracotta);
             font-size: 0.8rem;
+            font-weight: 600;
             margin-bottom: 0.25rem;
             cursor: pointer;
             transition: all 0.2s var(--ease);
         }
 
         .calendar-event:hover {
-            background: #A04E31;
-            box-shadow: 0 2px 8px rgba(30, 95, 181, 0.3);
+            background: rgba(37, 99, 235, 0.18);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
         }
 
         /* Bookings view */
@@ -904,12 +1009,18 @@
         }
 
         .bookings-table tbody tr:hover {
-            background: rgba(30, 95, 181, 0.04);
+            background: rgba(37, 99, 235, 0.04);
         }
 
         .bookings-table td {
             padding: 1.25rem 0;
             font-size: 0.95rem;
+        }
+
+        .bookings-table td:nth-child(2),
+        .manifest-table td:nth-child(3) {
+            font-weight: 600;
+            color: var(--ink);
         }
 
         /* Modal */
@@ -1009,7 +1120,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
-            background: #FDF6EC;
+            background: #EFF6FF;
             border-left: 3px solid var(--terracotta);
             padding: 0.75rem 1rem;
             margin-bottom: 2rem;
@@ -1284,14 +1395,17 @@
                 <div class="stat-card">
                     <div class="stat-label">Today's Revenue</div>
                     <div class="stat-value">$2,100</div>
+                    <div class="stat-trend up"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2.5L10 7H2L6 2.5Z" fill="currentColor"/></svg> 12% vs last week</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Active Bookings</div>
                     <div class="stat-value">3</div>
+                    <div class="stat-trend up"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2.5L10 7H2L6 2.5Z" fill="currentColor"/></svg> 1 new today</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Total Guests</div>
                     <div class="stat-value">9</div>
+                    <div class="stat-trend neutral">This week</div>
                 </div>
             </div>
 
@@ -1508,11 +1622,11 @@
                     <div class="widget-settings">
                         <div class="settings-label">Widget Settings</div>
                         <ul class="settings-list">
-                            <li>✓ Allow date selection</li>
-                            <li>✓ Show trip descriptions</li>
-                            <li>✓ Collect guest info</li>
-                            <li>✓ Send confirmation email</li>
-                            <li>✓ Real-time availability</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Allow date selection</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Show trip descriptions</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Collect guest info</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Send confirmation email</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Real-time availability</li>
                         </ul>
                     </div>
                 </div>
@@ -1808,7 +1922,7 @@
             let html = '';
             computed.forEach((d, i) => {
                 const height = maxVal > 0 ? Math.max((d.val / maxVal) * 160, d.val > 0 ? 4 : 0) : 0;
-                html += `<div class="chart-col" onclick="showChartDay('${d.date}', ${i})" style="cursor:pointer;"><div class="chart-bar" style="height: ${height}px;" title="$${d.val}"></div><div class="chart-bar-label">${d.day}</div></div>`;
+                html += `<div class="chart-col" onclick="showChartDay('${d.date}', ${i})" style="cursor:pointer;"><div class="chart-bar" style="height: ${height}px;" data-amount="$${d.val.toLocaleString()}"></div><div class="chart-bar-label">${d.day}</div></div>`;
             });
             document.getElementById('revenue-chart').innerHTML = html;
             document.getElementById('chart-detail').innerHTML = '';
@@ -1832,6 +1946,7 @@
             }
             html += '</div>';
             document.getElementById('chart-detail').innerHTML = html;
+            document.getElementById('revenue-chart').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function renderUpcoming() {
@@ -1868,10 +1983,11 @@
                     const slotDate = new Date(start);
                     slotDate.setDate(slotDate.getDate() + dayOffset);
                     const dateStr = formatDate(slotDate);
-                    html += `<div class="calendar-slot"><div class="calendar-time">${time}</div>`;
+                    const isNow = dateStr === 'Apr 1, 2026' && time === '10:00am';
+                    html += `<div class="calendar-slot${isNow ? ' now-indicator' : ''}"><div class="calendar-time">${time}</div>`;
                     const dayEvents = bookingData.filter(b => b.date === dateStr && b.time === time);
                     dayEvents.forEach(event => {
-                        html += `<div class="calendar-event" onclick="openDetailModal(${event.id})">${event.guest.split(' ')[0]}</div>`;
+                        html += `<div class="calendar-event" onclick="openDetailModal(${event.id})"><span style="font-size:0.7rem;opacity:0.8;">${event.time}</span> ${event.guest.split(' ')[0]}</div>`;
                     });
                     html += `</div>`;
                 }
@@ -2031,10 +2147,17 @@
             setupWidgetNavigation();
         }
 
+        const tripIcons = {
+            'Half Day Inshore': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16c.6.5 1.2 1 2.5 1C7 17 7 15 9.5 15c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M5.5 12H16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2"/><line x1="12" y1="12" x2="12" y2="15"/></svg>',
+            'Full Day Offshore': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20c.6-.5 1.2-1 2.5-1 2.5 0 2.5 2 5 2s2.5-2 5-2c1.3 0 1.9.5 2.5 1"/><path d="M2 16c.6-.5 1.2-1 2.5-1 2.5 0 2.5 2 5 2s2.5-2 5-2 2.5 2 5 2c1.3 0 1.9-.5 2.5-1"/><path d="M9.5 4L12 2l2.5 2"/><path d="M12 2v10"/><path d="M7 10h10"/></svg>',
+            'Sunset Cruise': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="M16 18a4 4 0 0 0-8 0"/></svg>'
+        };
+
         function renderWidgetTrips() {
             let html = '';
             trips.forEach(trip => {
-                html += `<div class="widget-trip-option" onclick="selectWidgetTrip('${trip.name}')"><div class="widget-trip-name">${trip.name}</div><div class="widget-trip-meta">$${trip.price} • ${trip.duration}</div></div>`;
+                const icon = tripIcons[trip.name] || '';
+                html += `<div class="widget-trip-option" onclick="selectWidgetTrip('${trip.name}')"><div class="widget-trip-icon">${icon}</div><div><div class="widget-trip-name">${trip.name}</div><div class="widget-trip-meta">$${trip.price} &bull; ${trip.duration}</div></div></div>`;
             });
             document.getElementById('widget-trips').innerHTML = html;
         }
