@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redfish Run Charters - Admin Dashboard</title>
 
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23C2603D'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
+
     <!-- Preload fonts -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -1201,11 +1203,11 @@
         <h1>Redfish Run</h1>
         <p class="tagline">Port Aransas, TX</p>
         <div class="nav-menu">
-            <div class="nav-item active" data-view="dashboard">Dashboard</div>
-            <div class="nav-item" data-view="trips">Trips</div>
-            <div class="nav-item" data-view="calendar">Calendar</div>
-            <div class="nav-item" data-view="bookings">Bookings</div>
-            <div class="nav-item" data-view="widget">Widget</div>
+            <div class="nav-item active" data-view="dashboard" role="button" tabindex="0">Dashboard</div>
+            <div class="nav-item" data-view="trips" role="button" tabindex="0">Trips</div>
+            <div class="nav-item" data-view="calendar" role="button" tabindex="0">Calendar</div>
+            <div class="nav-item" data-view="bookings" role="button" tabindex="0">Bookings</div>
+            <div class="nav-item" data-view="widget" role="button" tabindex="0">Widget</div>
         </div>
         <div class="sidebar-footer">
             <a href="https://localpraxis.com" target="_blank">Built by Local Praxis</a>
@@ -1446,7 +1448,7 @@
                     <div>
                         <h3 class="widget-info-title">Embed Code</h3>
                         <div class="code-block">
-&lt;iframe src="https://redfish-run.com/widget" width="100%" height="600"&gt;&lt;/iframe&gt;
+&lt;iframe src="https://your-domain.com/booking-widget" width="100%" height="600"&gt;&lt;/iframe&gt;
                             <button class="copy-btn" data-copy="iframe">Copy</button>
                         </div>
                     </div>
@@ -1474,8 +1476,8 @@
 
     <!-- Modals -->
     <div class="modal-overlay" id="booking-modal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal('booking-modal')">&times;</button>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <button class="modal-close" onclick="closeModal('booking-modal')" aria-label="Close">&times;</button>
             <div class="modal-header">
                 <h2 class="modal-title" id="modal-title">New Booking</h2>
                 <p class="modal-subtitle" id="modal-subtitle">Create a new reservation</p>
@@ -1536,8 +1538,8 @@
     </div>
 
     <div class="modal-overlay" id="detail-modal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal('detail-modal')">&times;</button>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+            <button class="modal-close" onclick="closeModal('detail-modal')" aria-label="Close">&times;</button>
             <div class="modal-header">
                 <h2 class="modal-title" id="detail-title">Booking Details</h2>
             </div>
@@ -1664,9 +1666,32 @@
             return `${d.getFullYear()}-${month}-${day}`;
         }
 
+        let _modalOpener = null;
+
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
+            if (_modalOpener) { _modalOpener.focus(); _modalOpener = null; }
         }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m.id));
+            }
+            if (e.key === 'Tab') {
+                const activeOverlay = document.querySelector('.modal-overlay.active');
+                if (!activeOverlay) return;
+                const modalEl = activeOverlay.querySelector('.modal');
+                const focusable = Array.from(modalEl.querySelectorAll('button, input, select, [tabindex]:not([tabindex="-1"])'));
+                if (!focusable.length) return;
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (e.shiftKey) {
+                    if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+                } else {
+                    if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+                }
+            }
+        });
 
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', e => {
@@ -1678,6 +1703,12 @@
             item.addEventListener('click', () => {
                 const viewName = item.getAttribute('data-view');
                 switchView(viewName);
+            });
+        });
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); }
             });
         });
 
@@ -1705,7 +1736,7 @@
             const todayBookings = bookingData.filter(b => b.date === today);
             let html = '';
             todayBookings.forEach(b => {
-                html += `<tr onclick="openDetailModal(${b.id})"><td>${b.time}</td><td>${b.trip}</td><td>${b.guest}</td><td>${b.party}</td><td><span class="status-badge status-${b.status}">${b.status}</span></td></tr>`;
+                html += `<tr onclick="openDetailModal(${b.id})"><td>${b.time}</td><td>${b.trip}</td><td>${b.guest}</td><td>${b.party}</td><td><span class="status-badge status-${b.status}" role="status">${b.status}</span></td></tr>`;
             });
             document.getElementById('manifest-body').innerHTML = html;
         }
@@ -1786,7 +1817,7 @@
             const filtered = currentFilter === 'all' ? bookingData : bookingData.filter(b => b.status === currentFilter);
             let html = '';
             filtered.forEach(b => {
-                html += `<tr onclick="openDetailModal(${b.id})"><td>${b.date}</td><td>${b.guest}</td><td>${b.trip}</td><td>${b.party}</td><td>$${b.amt}</td><td><span class="status-badge status-${b.status}">${b.status}</span></td></tr>`;
+                html += `<tr onclick="openDetailModal(${b.id})"><td>${b.date}</td><td>${b.guest}</td><td>${b.trip}</td><td>${b.party}</td><td>$${b.amt}</td><td><span class="status-badge status-${b.status}" role="status">${b.status}</span></td></tr>`;
             });
             document.getElementById('bookings-body').innerHTML = html;
         }
@@ -1813,7 +1844,10 @@
             document.getElementById('modal-phone').value = '';
             document.getElementById('modal-party').value = '1';
             document.getElementById('modal-notes').value = '';
+            _modalOpener = document.activeElement;
             document.getElementById('booking-modal').classList.add('active');
+            const focusable = document.querySelector('#booking-modal .modal').querySelectorAll('button, input, select, [tabindex]:not([tabindex="-1"])');
+            if (focusable.length) focusable[0].focus();
         });
 
         document.getElementById('modal-trip').addEventListener('change', (e) => {
@@ -1862,8 +1896,8 @@
             document.getElementById('detail-success-message').style.display = 'none';
 
             document.getElementById('detail-name').textContent = booking.guest;
-            document.getElementById('detail-email').textContent = booking.email;
-            document.getElementById('detail-phone').textContent = booking.phone;
+            document.getElementById('detail-email').innerHTML = `<a href="mailto:${booking.email}" style="color:var(--terracotta);text-decoration:none;">${booking.email}</a>`;
+            document.getElementById('detail-phone').innerHTML = `<a href="tel:${booking.phone.replace(/\D/g,'')}" style="color:var(--terracotta);text-decoration:none;">${booking.phone}</a>`;
             document.getElementById('detail-trip').textContent = booking.trip;
             document.getElementById('detail-datetime').textContent = `${booking.date} at ${booking.time}`;
             document.getElementById('detail-party').textContent = `${booking.party} ${booking.party === 1 ? 'guest' : 'guests'}`;
@@ -1882,7 +1916,10 @@
             }
 
             document.getElementById('detail-reminder').onclick = () => sendReminder(bookingId);
+            _modalOpener = document.activeElement;
             document.getElementById('detail-modal').classList.add('active');
+            const focusable = document.querySelector('#detail-modal .modal').querySelectorAll('button, input, select, [tabindex]:not([tabindex="-1"])');
+            if (focusable.length) focusable[0].focus();
         }
 
         function checkinBooking(bookingId) {
@@ -2023,7 +2060,7 @@
         }
 
         document.querySelector('.copy-btn').addEventListener('click', (e) => {
-            const code = '<iframe src="https://redfish-run.com/widget" width="100%" height="600"></iframe>';
+            const code = '<iframe src="https://your-domain.com/booking-widget" width="100%" height="600"></iframe>';
             navigator.clipboard.writeText(code).then(() => {
                 const btn = e.target;
                 btn.classList.add('copied');

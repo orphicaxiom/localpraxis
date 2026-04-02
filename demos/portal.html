@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Island Key Properties - Owner Portal</title>
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23C2603D'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
 	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<noscript>
@@ -1155,12 +1156,12 @@
 				<div class="sidebar-user-name">Sarah Mitchell</div>
 			</div>
 
-			<nav class="sidebar-nav">
-				<a class="nav-item active" data-view="overview">Overview</a>
-				<a class="nav-item" data-view="bookings">Bookings</a>
-				<a class="nav-item" data-view="financials">Financials</a>
-				<a class="nav-item" data-view="maintenance">Maintenance</a>
-				<a class="nav-item" data-view="messages">Messages</a>
+			<nav class="sidebar-nav" role="navigation" aria-label="Main navigation">
+				<a class="nav-item active" data-view="overview" role="button" tabindex="0">Overview</a>
+				<a class="nav-item" data-view="bookings" role="button" tabindex="0">Bookings</a>
+				<a class="nav-item" data-view="financials" role="button" tabindex="0">Financials</a>
+				<a class="nav-item" data-view="maintenance" role="button" tabindex="0">Maintenance</a>
+				<a class="nav-item" data-view="messages" role="button" tabindex="0">Messages</a>
 			</nav>
 
 			<div class="sidebar-footer">
@@ -1169,7 +1170,7 @@
 		</div>
 
 		<!-- Main Content -->
-		<div class="main" style="padding-bottom: 56px;">
+		<div class="main" role="main" style="padding-bottom: 56px;">
 			<div class="demo-banner" id="demo-banner">
 				<span>Interactive demo — explore Overview, Bookings, Financials, Maintenance, and Messages using the sidebar</span>
 				<button onclick="document.getElementById('demo-banner').style.display='none'" aria-label="Dismiss">✕</button>
@@ -1399,9 +1400,9 @@
 	</div>
 
 	<!-- Modals -->
-	<div id="booking-detail-modal" class="modal">
+	<div id="booking-detail-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-booking-title">
 		<div class="modal-content">
-			<button class="close-btn">&times;</button>
+			<button class="close-btn" aria-label="Close">&times;</button>
 			<div class="modal-header">
 				<h2 class="modal-title" id="modal-booking-title">Booking Details</h2>
 			</div>
@@ -1411,11 +1412,11 @@
 		</div>
 	</div>
 
-	<div id="maintenance-detail-modal" class="modal">
+	<div id="maintenance-detail-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-maintenance-title">
 		<div class="modal-content">
-			<button class="close-btn">&times;</button>
+			<button class="close-btn" aria-label="Close">&times;</button>
 			<div class="modal-header">
-				<h2 class="modal-title">Maintenance Request</h2>
+				<h2 class="modal-title" id="modal-maintenance-title">Maintenance Request</h2>
 			</div>
 			<div id="modal-maintenance-body">
 				<!-- Populated by JS -->
@@ -1423,11 +1424,11 @@
 		</div>
 	</div>
 
-	<div id="report-issue-modal" class="modal">
+	<div id="report-issue-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-report-title">
 		<div class="modal-content">
-			<button class="close-btn">&times;</button>
+			<button class="close-btn" aria-label="Close">&times;</button>
 			<div class="modal-header">
-				<h2 class="modal-title">Report Issue</h2>
+				<h2 class="modal-title" id="modal-report-title">Report Issue</h2>
 			</div>
 			<form id="report-issue-form">
 				<div class="form-group">
@@ -1459,7 +1460,7 @@
 	</div>
 
 	<!-- Confirmation Message -->
-	<div class="confirmation" id="confirmation"></div>
+	<div class="confirmation" id="confirmation" aria-live="polite"></div>
 
 	<!-- Sticky CTA Bar -->
 	<div class="demo-footer-cta">
@@ -1571,12 +1572,19 @@
 			setTimeout(() => conf.classList.remove('show'), 3000);
 		}
 
-		function openModal(modalId) {
-			document.getElementById(modalId).classList.add('active');
+		let modalOpener = null;
+
+		function openModal(modalId, triggerEl) {
+			if (triggerEl) modalOpener = triggerEl;
+			const modalEl = document.getElementById(modalId);
+			modalEl.classList.add('active');
+			const firstFocusable = modalEl.querySelector('button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+			if (firstFocusable) setTimeout(() => firstFocusable.focus(), 50);
 		}
 
 		function closeModal(modalId) {
 			document.getElementById(modalId).classList.remove('active');
+			if (modalOpener) { modalOpener.focus(); modalOpener = null; }
 		}
 
 		// Initialize date
@@ -1603,7 +1611,7 @@
 
 			const feed = document.getElementById('activity-feed');
 			feed.innerHTML = activities.map(a => `
-				<div class="activity-item">
+				<div class="activity-item" role="button" tabindex="0">
 					<div class="activity-title">${a.title}</div>
 					<div class="activity-text">${a.text}</div>
 					<div class="activity-time">${a.time}</div>
@@ -1619,7 +1627,7 @@
 			});
 
 			document.querySelectorAll('.activity-item').forEach(item => {
-				item.addEventListener('click', () => {
+				const handleActivate = () => {
 					const text = item.querySelector('.activity-text').textContent;
 					if (text.includes('Booking') || text.includes('Check-in')) {
 						switchView('bookings');
@@ -1628,6 +1636,10 @@
 					} else if (text.includes('Message')) {
 						switchView('messages');
 					}
+				};
+				item.addEventListener('click', handleActivate);
+				item.addEventListener('keydown', e => {
+					if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleActivate(); }
 				});
 			});
 
@@ -1681,7 +1693,7 @@
 
 					<div class="form-label">Status</div>
 					<div style="margin-bottom: 1rem;">
-						<span class="booking-status status-${booking.status.replace(' ', '-').toLowerCase()}">${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}</span>
+						<span class="booking-status status-${booking.status.replace(' ', '-').toLowerCase()}" role="status">${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}</span>
 					</div>
 
 					<div class="form-label">Platform</div>
@@ -1692,7 +1704,7 @@
 				</div>
 			`;
 
-			openModal('booking-detail-modal');
+			openModal('booking-detail-modal', document.activeElement);
 		}
 
 		// Bookings view rendering
@@ -1735,7 +1747,7 @@
 					<td>${b.nights}</td>
 					<td>${b.guests}</td>
 					<td>$${b.total.toLocaleString()}</td>
-					<td><span class="booking-status status-${b.status.replace(' ', '-').toLowerCase()}">${b.status.charAt(0).toUpperCase() + b.status.slice(1)}</span></td>
+					<td><span class="booking-status status-${b.status.replace(' ', '-').toLowerCase()}" role="status">${b.status.charAt(0).toUpperCase() + b.status.slice(1)}</span></td>
 				</tr>
 			`).join('');
 
@@ -1809,13 +1821,13 @@
 			}
 
 			const html = filtered.map(m => `
-				<div class="maintenance-card" data-maintenance-id="${m.id}">
+				<div class="maintenance-card" data-maintenance-id="${m.id}" role="button" tabindex="0">
 					<div class="maintenance-header">
 						<div>
 							<div class="maintenance-title">${m.title}</div>
 							<div class="maintenance-property">${getPropertyName(m.property)}</div>
 						</div>
-						<span class="maintenance-status status-${m.status.replace('-', '-')}">${m.status.charAt(0).toUpperCase() + m.status.slice(1)}</span>
+						<span class="maintenance-status status-${m.status.replace('-', '-')}" role="status">${m.status.charAt(0).toUpperCase() + m.status.slice(1)}</span>
 					</div>
 					<div class="maintenance-date">
 						Reported ${formatFullDate(m.reported)}
@@ -1827,10 +1839,14 @@
 			document.getElementById('maintenance-content').innerHTML = html || '<p style="color: var(--ink-light);">No maintenance requests</p>';
 
 			document.querySelectorAll('.maintenance-card').forEach(card => {
-				card.addEventListener('click', () => {
+				const handleActivate = () => {
 					const id = card.dataset.maintenanceId;
 					const m = maintenance.find(x => x.id == id);
 					if (m) showMaintenanceDetail(m);
+				};
+				card.addEventListener('click', handleActivate);
+				card.addEventListener('keydown', e => {
+					if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleActivate(); }
 				});
 			});
 		}
@@ -1852,7 +1868,7 @@
 
 					<div class="form-label">Status</div>
 					<div style="margin-bottom: 1rem;">
-						<span class="maintenance-status status-${m.status}">${m.status.charAt(0).toUpperCase() + m.status.slice(1)}</span>
+						<span class="maintenance-status status-${m.status}" role="status">${m.status.charAt(0).toUpperCase() + m.status.slice(1)}</span>
 					</div>
 
 					<div class="form-label">Priority</div>
@@ -1890,13 +1906,13 @@
 			detailHtml += '</div>';
 
 			body.innerHTML = detailHtml;
-			openModal('maintenance-detail-modal');
+			openModal('maintenance-detail-modal', document.activeElement);
 		}
 
 		// Messages rendering
 		function renderMessages() {
 			const listHtml = messages.map(m => `
-				<div class="message-thread ${selectedMessage === m.id ? 'active' : ''}" data-message-id="${m.id}">
+				<div class="message-thread ${selectedMessage === m.id ? 'active' : ''}" data-message-id="${m.id}" role="button" tabindex="0">
 					<div class="message-thread-title">${m.title}</div>
 					<div class="message-thread-preview">${m.preview}</div>
 					<div class="message-thread-date">${m.date}</div>
@@ -1914,9 +1930,13 @@
 			}
 
 			document.querySelectorAll('.message-thread').forEach(thread => {
-				thread.addEventListener('click', () => {
+				const handleActivate = () => {
 					selectedMessage = parseInt(thread.dataset.messageId);
 					renderMessages();
+				};
+				thread.addEventListener('click', handleActivate);
+				thread.addEventListener('keydown', e => {
+					if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleActivate(); }
 				});
 			});
 		}
@@ -1975,6 +1995,23 @@
 			else if (view === 'maintenance') renderMaintenance();
 			else if (view === 'messages') renderMessages();
 		}
+
+		// Keyboard accessibility: nav items
+		document.querySelectorAll('.nav-item').forEach(item => {
+			item.addEventListener('keydown', e => {
+				if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); }
+			});
+		});
+
+		// Escape key closes active modals
+		document.addEventListener('keydown', e => {
+			if (e.key === 'Escape') {
+				document.querySelectorAll('.modal.active').forEach(m => {
+					m.classList.remove('active');
+					if (modalOpener) { modalOpener.focus(); modalOpener = null; }
+				});
+			}
+		});
 
 		// Event listeners
 		document.querySelectorAll('.nav-item').forEach(item => {
@@ -2045,8 +2082,8 @@
 			showConfirmation('Statement downloaded');
 		});
 
-		document.getElementById('report-issue-btn').addEventListener('click', () => {
-			openModal('report-issue-modal');
+		document.getElementById('report-issue-btn').addEventListener('click', (e) => {
+			openModal('report-issue-modal', e.currentTarget);
 		});
 
 		document.getElementById('report-issue-form').addEventListener('submit', (e) => {
@@ -2058,13 +2095,18 @@
 
 		document.querySelectorAll('.close-btn').forEach(btn => {
 			btn.addEventListener('click', (e) => {
-				e.target.closest('.modal').classList.remove('active');
+				const modal = e.target.closest('.modal');
+				modal.classList.remove('active');
+				if (modalOpener) { modalOpener.focus(); modalOpener = null; }
 			});
 		});
 
 		document.querySelectorAll('.modal').forEach(modal => {
 			modal.addEventListener('click', (e) => {
-				if (e.target === modal) modal.classList.remove('active');
+				if (e.target === modal) {
+					modal.classList.remove('active');
+					if (modalOpener) { modalOpener.focus(); modalOpener = null; }
+				}
 			});
 		});
 

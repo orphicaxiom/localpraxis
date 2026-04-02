@@ -6,6 +6,16 @@
   <title>Local Praxis - Custom Software for Local Businesses</title>
   <meta name="description" content="I build custom software that replaces overpriced SaaS. Booking systems, inventory tools, client portals. You own it forever.">
 
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23C2603D'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Local Praxis - Custom Software for Local Businesses">
+  <meta property="og:description" content="I build custom software that replaces overpriced SaaS. Booking systems, inventory tools, client portals. You own it forever.">
+  <meta property="og:url" content="https://localpraxis.com">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Local Praxis">
+
   <!-- Font Preload -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -671,15 +681,80 @@
     .reveal-card.reveal-stagger-2 { animation-delay: 0.2s; }
     .reveal-card.reveal-stagger-3 { animation-delay: 0.3s; }
 
+    /* Skip Link */
+    .skip-link {
+        position: absolute;
+        top: -100%;
+        left: 1rem;
+        background: var(--ink);
+        color: var(--warm-white);
+        padding: 0.5rem 1rem;
+        border-radius: 0 0 4px 4px;
+        font-size: 0.85rem;
+        z-index: 9999;
+        transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* Testimonials */
+    .testimonials-section {
+        padding: 6rem 0;
+        background: var(--cream);
+    }
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+        margin-top: 3rem;
+    }
+    .testimonial-card {
+        background: var(--warm-white);
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        padding: 2rem;
+        margin: 0;
+    }
+    .testimonial-text {
+        font-family: 'Instrument Serif', Georgia, serif;
+        font-size: clamp(1rem, 1.5vw, 1.2rem);
+        line-height: 1.6;
+        color: var(--ink);
+        font-style: italic;
+        margin-bottom: 1.5rem;
+    }
+    .testimonial-attribution {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--rule);
+    }
+    .testimonial-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--ink);
+    }
+    .testimonial-business {
+        font-size: 0.8rem;
+        color: var(--ink-light);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+    @media (max-width: 768px) {
+        .testimonials-grid { grid-template-columns: 1fr; }
+    }
+
   </style>
 </head>
 
 <body>
 
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Navigation -->
-  <nav>
+  <nav role="navigation" aria-label="Main navigation">
     <div class="nav-container">
-      <div class="logo">Local Praxis</div>
+      <a href="/" class="logo" style="text-decoration:none;">Local Praxis</a>
       <ul>
         <li><a href="#work">Work</a></li>
         <li><a href="#about">About</a></li>
@@ -689,7 +764,7 @@
   </nav>
 
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" id="main-content" role="main">
     <div class="container">
       <h1>I build the software your business actually needs.</h1>
       <p class="subtitle">Stop paying for overpriced SaaS subscriptions that do too much and cost too much. I build custom software tailored to how you work. You own it forever.</p>
@@ -804,6 +879,30 @@
           <p class="pricing-note">Most projects run $150–$400/month — less than what you're probably paying now.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section" aria-label="Client testimonials">
+    <div class="container">
+        <p class="section-label">From the clients</p>
+        <div class="testimonials-grid">
+            <blockquote class="testimonial-card">
+                <p class="testimonial-text">"Add your client quote here — what changed for their business, what they no longer have to deal with."</p>
+                <footer class="testimonial-attribution">
+                    <span class="testimonial-name">Client Name</span>
+                    <span class="testimonial-business">Business Name, Port Aransas</span>
+                </footer>
+            </blockquote>
+            <blockquote class="testimonial-card">
+                <p class="testimonial-text">"Add your second client quote here. Specific outcomes work best — time saved, cost eliminated, problem solved."</p>
+                <footer class="testimonial-attribution">
+                    <span class="testimonial-name">Client Name</span>
+                    <span class="testimonial-business">Business Name, Port Aransas</span>
+                </footer>
+            </blockquote>
+        </div>
+        <!-- Replace placeholder quotes with real client testimonials before publishing -->
     </div>
   </section>
 

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Salt Line Supply - POS & Inventory</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23C2603D'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <style>
@@ -913,11 +914,11 @@
         <button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close menu">✕</button>
       </div>
       <div class="sidebar-nav">
-        <div class="nav-item active" data-view="dashboard">Dashboard</div>
-        <div class="nav-item" data-view="products">Products</div>
-        <div class="nav-item" data-view="sales">Sales</div>
-        <div class="nav-item" data-view="orders">Orders</div>
-        <div class="nav-item" data-view="settings">Settings</div>
+        <div class="nav-item active" data-view="dashboard" role="button" tabindex="0">Dashboard</div>
+        <div class="nav-item" data-view="products" role="button" tabindex="0">Products</div>
+        <div class="nav-item" data-view="sales" role="button" tabindex="0">Sales</div>
+        <div class="nav-item" data-view="orders" role="button" tabindex="0">Orders</div>
+        <div class="nav-item" data-view="settings" role="button" tabindex="0">Settings</div>
       </div>
       <div class="sidebar-footer">
         <a href="https://localpraxis.com" target="_blank">Built by Local Praxis</a>
@@ -998,12 +999,12 @@
         </div>
 
         <div class="filter-tabs">
-          <button class="filter-tab active" data-category="all">All</button>
-          <button class="filter-tab" data-category="rods-reels">Rods &amp; Reels</button>
-          <button class="filter-tab" data-category="tackle">Tackle</button>
-          <button class="filter-tab" data-category="bait">Bait</button>
-          <button class="filter-tab" data-category="apparel">Apparel</button>
-          <button class="filter-tab" data-category="accessories">Accessories</button>
+          <button class="filter-tab active" data-category="all" aria-pressed="true">All</button>
+          <button class="filter-tab" data-category="rods-reels" aria-pressed="false">Rods &amp; Reels</button>
+          <button class="filter-tab" data-category="tackle" aria-pressed="false">Tackle</button>
+          <button class="filter-tab" data-category="bait" aria-pressed="false">Bait</button>
+          <button class="filter-tab" data-category="apparel" aria-pressed="false">Apparel</button>
+          <button class="filter-tab" data-category="accessories" aria-pressed="false">Accessories</button>
         </div>
 
         <div class="product-grid" id="products-grid"></div>
@@ -1098,19 +1099,19 @@
         <div class="settings-section">
           <h3 class="settings-section-title">Store Information</h3>
           <div class="form-group">
-            <label class="form-label">Store Name</label>
+            <label class="form-label" for="store-name">Store Name</label>
             <input type="text" class="form-input" value="Salt Line Supply" id="store-name">
           </div>
           <div class="form-group">
-            <label class="form-label">Address</label>
+            <label class="form-label" for="store-address">Address</label>
             <input type="text" class="form-input" value="302 E Avenue G, Port Aransas, TX 78373" id="store-address">
           </div>
           <div class="form-group">
-            <label class="form-label">Tax Rate (%)</label>
+            <label class="form-label" for="tax-rate">Tax Rate (%)</label>
             <input type="number" class="form-input" value="8.25" step="0.01" id="tax-rate">
           </div>
           <div class="form-group">
-            <label class="form-label">Low Stock Threshold</label>
+            <label class="form-label" for="low-stock-threshold">Low Stock Threshold</label>
             <input type="number" class="form-input" value="5" id="low-stock-threshold">
           </div>
         </div>
@@ -1118,7 +1119,7 @@
         <div class="settings-section">
           <h3 class="settings-section-title">Receipt</h3>
           <div class="form-group">
-            <label class="form-label">Receipt Header Text</label>
+            <label class="form-label" for="receipt-header">Receipt Header Text</label>
             <textarea class="form-textarea" rows="3" id="receipt-header">Thank you for your business.
 Part of the Port Aransas fishing community since 2008.</textarea>
           </div>
@@ -1127,11 +1128,11 @@ Part of the Port Aransas fishing community since 2008.</textarea>
         <div class="settings-section">
           <h3 class="settings-section-title">Business Hours</h3>
           <div class="form-group">
-            <label class="form-label">Monday to Friday</label>
+            <label class="form-label" for="hours-weekday">Monday to Friday</label>
             <input type="text" class="form-input" value="6:00 AM - 6:00 PM" id="hours-weekday">
           </div>
           <div class="form-group">
-            <label class="form-label">Saturday to Sunday</label>
+            <label class="form-label" for="hours-weekend">Saturday to Sunday</label>
             <input type="text" class="form-input" value="6:00 AM - 8:00 PM" id="hours-weekend">
           </div>
         </div>
@@ -1151,41 +1152,58 @@ Part of the Port Aransas fishing community since 2008.</textarea>
             <div class="toggle-switch on" id="daily-sales-report" data-setting="dailySalesReport"></div>
           </div>
         </div>
+
+        <div style="margin-top: 2rem;">
+          <button class="btn btn-primary" id="save-settings-btn">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="receipt-modal">
+    <div class="modal" style="max-width: 420px;">
+      <div class="modal-header">
+        <h2 class="modal-title">Sale Receipt</h2>
+        <button class="modal-close" id="receipt-modal-close">&times;</button>
+      </div>
+      <div id="receipt-content"></div>
+      <div style="margin-top: 1.5rem;">
+        <button class="btn btn-primary" id="receipt-new-sale-btn" style="width:100%;">New Sale</button>
       </div>
     </div>
   </div>
 
   <div class="modal-overlay" id="product-detail-modal">
-    <div class="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="product-detail-name">
       <div class="modal-header">
         <h2 class="modal-title" id="product-detail-name">Product Details</h2>
-        <button class="modal-close">&times;</button>
+        <button class="modal-close" aria-label="Close">&times;</button>
       </div>
       <div id="product-detail-content"></div>
     </div>
   </div>
 
   <div class="modal-overlay" id="product-form-modal">
-    <div class="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="product-form-title">
       <div class="modal-header">
         <h2 class="modal-title" id="product-form-title">Add Product</h2>
-        <button class="modal-close">&times;</button>
+        <button class="modal-close" aria-label="Close">&times;</button>
       </div>
       <form id="product-form">
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Product Name</label>
-            <input type="text" class="form-input" name="name" required>
+            <label class="form-label" for="product-form-name">Product Name</label>
+            <input type="text" class="form-input" name="name" id="product-form-name" required>
           </div>
           <div class="form-group">
-            <label class="form-label">SKU</label>
-            <input type="text" class="form-input" name="sku" required>
+            <label class="form-label" for="product-form-sku">SKU</label>
+            <input type="text" class="form-input" name="sku" id="product-form-sku" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Category</label>
-            <select class="form-select" name="category" required>
+            <label class="form-label" for="product-form-category">Category</label>
+            <select class="form-select" name="category" id="product-form-category" required>
               <option value="">Select Category</option>
               <option value="rods-reels">Rods &amp; Reels</option>
               <option value="tackle">Tackle</option>
@@ -1195,26 +1213,26 @@ Part of the Port Aransas fishing community since 2008.</textarea>
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label">Price ($)</label>
-            <input type="number" class="form-input" name="price" step="0.01" required>
+            <label class="form-label" for="product-form-price">Price ($)</label>
+            <input type="number" class="form-input" name="price" id="product-form-price" step="0.01" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Stock Quantity</label>
-            <input type="number" class="form-input" name="stock" required>
+            <label class="form-label" for="product-form-stock">Stock Quantity</label>
+            <input type="number" class="form-input" name="stock" id="product-form-stock" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Status</label>
-            <select class="form-select" name="status">
+            <label class="form-label" for="product-form-status">Status</label>
+            <select class="form-select" name="status" id="product-form-status">
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Description</label>
-          <textarea class="form-textarea" name="description" rows="3"></textarea>
+          <label class="form-label" for="product-form-description">Description</label>
+          <textarea class="form-textarea" name="description" id="product-form-description" rows="3"></textarea>
         </div>
         <div style="display: flex; gap: 1rem; margin-top: 2rem;">
           <button type="submit" class="btn btn-primary">Save Product</button>
@@ -1225,25 +1243,25 @@ Part of the Port Aransas fishing community since 2008.</textarea>
   </div>
 
   <div class="modal-overlay" id="sale-detail-modal">
-    <div class="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="sale-detail-title">
       <div class="modal-header">
-        <h2 class="modal-title">Transaction Details</h2>
-        <button class="modal-close">&times;</button>
+        <h2 class="modal-title" id="sale-detail-title">Transaction Details</h2>
+        <button class="modal-close" aria-label="Close">&times;</button>
       </div>
       <div id="sale-detail-content"></div>
     </div>
   </div>
 
   <div class="modal-overlay" id="new-sale-modal">
-    <div class="modal modal-large">
+    <div class="modal modal-large" role="dialog" aria-modal="true" aria-labelledby="new-sale-title">
       <div class="modal-header">
-        <h2 class="modal-title">New Sale</h2>
-        <button class="modal-close">&times;</button>
+        <h2 class="modal-title" id="new-sale-title">New Sale</h2>
+        <button class="modal-close" aria-label="Close">&times;</button>
       </div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
         <div>
           <div class="form-group">
-            <label class="form-label">Search Products</label>
+            <label class="form-label" for="pos-search">Search Products</label>
             <input type="text" class="form-input" id="pos-search" placeholder="Search...">
           </div>
           <div id="pos-product-list" style="max-height: 400px; overflow-y: auto;"></div>
@@ -1265,7 +1283,7 @@ Part of the Port Aransas fishing community since 2008.</textarea>
               <span id="pos-total">$0.00</span>
             </div>
             <div class="form-group" style="margin-top: 1.5rem;">
-              <label class="form-label">Payment Method</label>
+              <label class="form-label" for="pos-payment">Payment Method</label>
               <select class="form-select" id="pos-payment">
                 <option value="card">Card</option>
                 <option value="cash">Cash</option>
@@ -1280,15 +1298,15 @@ Part of the Port Aransas fishing community since 2008.</textarea>
   </div>
 
   <div class="modal-overlay" id="new-order-modal">
-    <div class="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="new-order-title">
       <div class="modal-header">
-        <h2 class="modal-title">New Supplier Order</h2>
-        <button class="modal-close">&times;</button>
+        <h2 class="modal-title" id="new-order-title">New Supplier Order</h2>
+        <button class="modal-close" aria-label="Close">&times;</button>
       </div>
       <form id="order-form">
         <div class="form-group">
-          <label class="form-label">Supplier</label>
-          <select class="form-select" name="supplier" required>
+          <label class="form-label" for="order-form-supplier">Supplier</label>
+          <select class="form-select" name="supplier" id="order-form-supplier" required>
             <option value="">Select Supplier</option>
             <option value="berkley">Berkley / Pure Fishing</option>
             <option value="shimano">Shimano</option>
@@ -1298,12 +1316,12 @@ Part of the Port Aransas fishing community since 2008.</textarea>
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">Description / Items</label>
-          <textarea class="form-textarea" name="description" rows="4" placeholder="List items being ordered..." required></textarea>
+          <label class="form-label" for="order-form-description">Description / Items</label>
+          <textarea class="form-textarea" name="description" id="order-form-description" rows="4" placeholder="List items being ordered..." required></textarea>
         </div>
         <div class="form-group">
-          <label class="form-label">Order Total ($)</label>
-          <input type="number" class="form-input" name="total" step="0.01" required>
+          <label class="form-label" for="order-form-total">Order Total ($)</label>
+          <input type="number" class="form-input" name="total" id="order-form-total" step="0.01" required>
         </div>
         <div style="display: flex; gap: 1rem; margin-top: 2rem;">
           <button type="submit" class="btn btn-primary">Create Order</button>
@@ -1314,10 +1332,10 @@ Part of the Port Aransas fishing community since 2008.</textarea>
   </div>
 
   <div class="modal-overlay" id="order-detail-modal">
-    <div class="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="order-detail-title">
       <div class="modal-header">
         <h2 class="modal-title" id="order-detail-title">Order Details</h2>
-        <button class="modal-close">&times;</button>
+        <button class="modal-close" aria-label="Close">&times;</button>
       </div>
       <div id="order-detail-content"></div>
     </div>
@@ -1388,6 +1406,12 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       });
     });
 
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); }
+      });
+    });
+
     function showView(viewName) {
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
       document.getElementById(viewName + '-view').classList.add('active');
@@ -1452,8 +1476,12 @@ Part of the Port Aransas fishing community since 2008.</textarea>
 
     document.querySelectorAll('.filter-tab').forEach(tab => {
       tab.addEventListener('click', function() {
-        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.filter-tab').forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-pressed', 'false');
+        });
         this.classList.add('active');
+        this.setAttribute('aria-pressed', 'true');
         currentCategory = this.dataset.category;
         renderProducts();
       });
@@ -1523,7 +1551,10 @@ Part of the Port Aransas fishing community since 2008.</textarea>
           <button class="btn btn-secondary modal-close">Close</button>
         </div>
       `;
-      document.getElementById('product-detail-modal').classList.add('active');
+      const pdModal = document.getElementById('product-detail-modal');
+      pdModal.classList.add('active');
+      const pdFirst = pdModal.querySelector('button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (pdFirst) pdFirst.focus();
     }
 
     function openProductForm(productId) {
@@ -1547,7 +1578,10 @@ Part of the Port Aransas fishing community since 2008.</textarea>
         delete form.dataset.productId;
       }
 
-      document.getElementById('product-form-modal').classList.add('active');
+      const pfModal = document.getElementById('product-form-modal');
+      pfModal.classList.add('active');
+      const pfFirst = pfModal.querySelector('button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (pfFirst) pfFirst.focus();
     }
 
     document.getElementById('add-product-btn').addEventListener('click', () => openProductForm(null));
@@ -1635,13 +1669,19 @@ Part of the Port Aransas fishing community since 2008.</textarea>
         </div>
         <button class="btn btn-secondary modal-close" style="margin-top: 1.5rem; width: 100%;">Close</button>
       `;
-      document.getElementById('sale-detail-modal').classList.add('active');
+      const sdModal = document.getElementById('sale-detail-modal');
+      sdModal.classList.add('active');
+      const sdFirst = sdModal.querySelector('button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (sdFirst) sdFirst.focus();
     }
 
     document.getElementById('new-sale-btn').addEventListener('click', () => {
       store.pos.cart = [];
       renderPOSModal();
-      document.getElementById('new-sale-modal').classList.add('active');
+      const nsModal = document.getElementById('new-sale-modal');
+      nsModal.classList.add('active');
+      const nsFirst = nsModal.querySelector('button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (nsFirst) nsFirst.focus();
     });
 
     function renderPOSModal() {
@@ -1766,10 +1806,48 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       };
 
       store.sales.push(newSale);
-      showSuccess('Sale completed successfully');
       document.getElementById('new-sale-modal').classList.remove('active');
+
+      // Show receipt modal
+      const receiptEl = document.getElementById('receipt-content');
+      const now = new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      receiptEl.innerHTML = `
+        <div style="border-top:1px solid var(--rule);padding-top:1rem;font-size:0.9rem;">
+          <div style="text-align:center;margin-bottom:1rem;color:var(--ink-light);font-size:0.8rem;">${now}</div>
+          <table style="width:100%;border-collapse:collapse;">
+            <thead><tr style="border-bottom:1px solid var(--rule);">
+              <th style="text-align:left;padding:0.4rem 0;font-weight:600;">Item</th>
+              <th style="text-align:center;padding:0.4rem 0;font-weight:600;">Qty</th>
+              <th style="text-align:right;padding:0.4rem 0;font-weight:600;">Price</th>
+            </tr></thead>
+            <tbody>${newSale.lineItems.map(li => `
+              <tr><td style="padding:0.4rem 0;">${li.name}</td>
+              <td style="text-align:center;padding:0.4rem 0;">${li.qty}</td>
+              <td style="text-align:right;padding:0.4rem 0;">$${(li.price * li.qty).toFixed(2)}</td></tr>
+            `).join('')}</tbody>
+          </table>
+          <div style="border-top:1px solid var(--rule);margin-top:0.75rem;padding-top:0.75rem;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;"><span>Subtotal</span><span>$${newSale.subtotal.toFixed(2)}</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;color:var(--ink-mid);"><span>Tax (${store.settings.taxRate}%)</span><span>$${newSale.tax.toFixed(2)}</span></div>
+            <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem;border-top:1px solid var(--rule);padding-top:0.5rem;margin-top:0.25rem;"><span>Total</span><span>$${newSale.total.toFixed(2)}</span></div>
+          </div>
+          <div style="margin-top:0.75rem;color:var(--ink-mid);font-size:0.8rem;">Payment: ${capitalize(newSale.payment)}</div>
+        </div>`;
+      document.getElementById('receipt-modal').classList.add('active');
+
       store.pos.cart = [];
       renderSalesView();
+    });
+
+    document.getElementById('receipt-modal-close').addEventListener('click', () => {
+      document.getElementById('receipt-modal').classList.remove('active');
+    });
+
+    document.getElementById('receipt-new-sale-btn').addEventListener('click', () => {
+      document.getElementById('receipt-modal').classList.remove('active');
+      document.getElementById('new-sale-modal').classList.add('active');
+      store.pos.cart = [];
+      renderPOSModal();
     });
 
     function renderOrders() {
@@ -1827,12 +1905,18 @@ Part of the Port Aransas fishing community since 2008.</textarea>
         </div>
         <button class="btn btn-secondary" style="margin-top: 1.5rem; width: 100%;" onclick="document.getElementById('order-detail-modal').classList.remove('active')">Close</button>
       `;
-      document.getElementById('order-detail-modal').classList.add('active');
+      const odModal = document.getElementById('order-detail-modal');
+      odModal.classList.add('active');
+      const odFirst = odModal.querySelector('button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (odFirst) odFirst.focus();
     }
 
     document.getElementById('new-order-btn').addEventListener('click', () => {
       document.getElementById('order-form').reset();
-      document.getElementById('new-order-modal').classList.add('active');
+      const noModal = document.getElementById('new-order-modal');
+      noModal.classList.add('active');
+      const noFirst = noModal.querySelector('button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (noFirst) noFirst.focus();
     });
 
     document.getElementById('order-form').addEventListener('submit', (e) => {
@@ -1865,6 +1949,17 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       });
     });
 
+    document.getElementById('save-settings-btn').addEventListener('click', () => {
+      store.settings.storeName = document.getElementById('store-name').value;
+      store.settings.storeAddress = document.getElementById('store-address').value;
+      store.settings.taxRate = parseFloat(document.getElementById('tax-rate').value) || store.settings.taxRate;
+      store.settings.lowStockThreshold = parseInt(document.getElementById('low-stock-threshold').value) || store.settings.lowStockThreshold;
+      store.settings.receiptHeader = document.getElementById('receipt-header').value;
+      store.settings.hoursWeekday = document.getElementById('hours-weekday').value;
+      store.settings.hoursWeekend = document.getElementById('hours-weekend').value;
+      showSuccess('Settings saved');
+    });
+
     document.querySelectorAll('.modal-close').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.target.closest('.modal-overlay').classList.remove('active');
@@ -1892,6 +1987,14 @@ Part of the Port Aransas fishing community since 2008.</textarea>
     }
 
     renderDashboard();
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(m => {
+          m.classList.remove('active');
+        });
+      }
+    });
 
     // Mobile hamburger menu
     const sidebar = document.getElementById('sidebar');
