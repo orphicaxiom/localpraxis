@@ -108,21 +108,66 @@
       border-left-color: var(--terracotta);
     }
 
-    .sidebar-footer {
+    /* Sidebar LP card */
+    .lp-sidebar-card {
       padding: 1.5rem;
       border-top: 1px solid var(--rule);
-      font-size: 0.75rem;
-      text-align: center;
+      margin-top: auto;
     }
 
-    .sidebar-footer a {
+    .lp-sidebar-card .lp-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       color: var(--ink-light);
-      text-decoration: none;
-      transition: color 0.2s var(--ease);
+      font-weight: 500;
+      margin-bottom: 0.85rem;
     }
 
-    .sidebar-footer a:hover {
+    .lp-sidebar-card .lp-back-link {
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+      margin-bottom: 0.75rem;
+      transition: color 0.18s var(--ease);
+    }
+
+    .lp-sidebar-card .lp-back-link:hover {
       color: var(--terracotta);
+    }
+
+    .lp-sidebar-card .lp-back-link svg {
+      flex-shrink: 0;
+      transition: transform 0.18s var(--ease);
+    }
+
+    .lp-sidebar-card .lp-back-link:hover svg {
+      transform: translateX(-2px);
+    }
+
+    .lp-sidebar-card .lp-cta-btn {
+      display: block;
+      width: 100%;
+      padding: 0.55em 0.75em;
+      background: var(--terracotta);
+      color: var(--warm-white);
+      font-family: 'Satoshi', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+      transition: opacity 0.18s var(--ease), transform 0.18s var(--ease);
+    }
+
+    .lp-sidebar-card .lp-cta-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
     }
 
     .main {
@@ -901,32 +946,6 @@
     .main {
       padding-bottom: 56px;
     }
-    /* Back to home badge */
-    .lp-back {
-      position: fixed;
-      top: 1.25rem;
-      right: 1.25rem;
-      z-index: 200;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35em;
-      padding: 0.45em 0.9em;
-      background: var(--cream);
-      border: 1px solid var(--rule);
-      border-radius: 100px;
-      font-family: 'Satoshi', system-ui, sans-serif;
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: var(--ink-mid);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: color 0.2s, border-color 0.2s, background 0.2s;
-    }
-    .lp-back:hover {
-      color: var(--terracotta);
-      border-color: var(--terracotta);
-      background: var(--warm-white);
-    }
   </style>
 </head>
 <body>
@@ -946,8 +965,15 @@
         <div class="nav-item" data-view="orders" role="button" tabindex="0">Orders</div>
         <div class="nav-item" data-view="settings" role="button" tabindex="0">Settings</div>
       </div>
-      <div class="sidebar-footer">
-        <a href="https://localpraxis.com" target="_blank">Built by Local Praxis</a>
+      <div class="lp-sidebar-card">
+        <p class="lp-label">Built by Local Praxis</p>
+        <a class="lp-back-link" href="https://localpraxis.com">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          localpraxis.com
+        </a>
+        <a class="lp-cta-btn" href="https://localpraxis.com#contact" target="_blank">Get this for your business</a>
       </div>
     </div>
 
@@ -2048,6 +2074,6 @@ Part of the Port Aransas fishing community since 2008.</textarea>
       });
     });
   </script>
-  <a class="lp-back" href="https://localpraxis.com">&#8592; localpraxis.com</a>
+
 </body>
 </html>
