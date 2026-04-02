@@ -1279,6 +1279,45 @@
       observer.observe(el);
     });
 
+    // Contact form — Netlify Forms via fetch
+    const contactForm = document.querySelector('form[name="contact"]');
+    if (contactForm) {
+      contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const name = contactForm.querySelector('#contact-name').value.trim();
+        const business = contactForm.querySelector('#contact-business').value.trim();
+        const message = contactForm.querySelector('#contact-message').value.trim();
+
+        // Highlight missing required fields
+        [['#contact-name', name], ['#contact-business', business], ['#contact-message', message]].forEach(([sel, val]) => {
+          contactForm.querySelector(sel).style.outline = val ? '' : '2px solid var(--terracotta)';
+        });
+        if (!name || !business || !message) return;
+
+        const btn = contactForm.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        try {
+          await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(new FormData(contactForm)).toString()
+          });
+          const wrap = contactForm.closest('.contact-form-wrap');
+          wrap.innerHTML = `
+            <h2 style="font-family:var(--font-serif);font-size:clamp(2rem,4vw,3.2rem);line-height:1.2;letter-spacing:-0.015em;margin-bottom:1.5rem;">Message sent.</h2>
+            <p style="color:var(--ink-mid);font-size:1.05rem;line-height:1.8;">Thanks, ${name.split(' ')[0]}. I'll reach back out within one business day.</p>
+          `;
+        } catch {
+          btn.disabled = false;
+          btn.textContent = 'Send message';
+          btn.style.outline = '2px solid var(--terracotta)';
+        }
+      });
+    }
+
     // Smooth scroll for nav links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
