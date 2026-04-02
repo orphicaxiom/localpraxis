@@ -326,7 +326,6 @@
     .demo-frame-wrapper {
       width: 1200px;
       height: 800px;
-      transform: scale(0.38);
       transform-origin: top left;
     }
 
@@ -435,7 +434,6 @@
       border-radius: 8px;
       overflow: hidden;
       background: var(--cream);
-      height: 310px; /* clips to visible scaled height: 800px * 0.38 ≈ 304px */
     }
 
     @media (max-width: 768px) {
@@ -826,7 +824,6 @@
       <ul>
         <li><a href="#work">Work</a></li>
         <li><a href="#process">Process</a></li>
-        <li><a href="/faq.html">FAQ</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -1131,8 +1128,24 @@
         const panel = document.getElementById(target);
         panel.classList.add('active');
         panel.hidden = false;
+        scaleFrames();
       });
     });
+
+    // Scale demo iframes to fill their container exactly
+    function scaleFrames() {
+      document.querySelectorAll('.demo-frame-wrapper').forEach(wrapper => {
+        const frame = wrapper.closest('.tab-frame');
+        if (!frame) return;
+        const w = frame.offsetWidth;
+        if (!w) return;
+        const scale = w / 1200;
+        wrapper.style.transform = 'scale(' + scale + ')';
+        frame.style.height = Math.round(800 * scale) + 'px';
+      });
+    }
+    scaleFrames();
+    window.addEventListener('resize', scaleFrames);
   </script>
 
 </body>
