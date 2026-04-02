@@ -303,6 +303,8 @@
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
       align-items: center;
+      position: relative;
+      cursor: pointer;
     }
 
     .portfolio-card:nth-child(2) {
@@ -347,18 +349,34 @@
       line-height: 1.8;
     }
 
+    .card-link-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      border-radius: 6px;
+    }
+
     .portfolio-visual {
       background-color: var(--warm-white);
       border: 1px solid var(--rule);
       border-radius: 4px;
       height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--ink-light);
-      font-size: 0.85rem;
-      text-align: center;
-      padding: 2rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .demo-frame-wrapper {
+      width: 1200px;
+      height: 800px;
+      transform: scale(0.38);
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    .demo-frame-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     .demo-link {
@@ -369,6 +387,7 @@
       font-size: 0.95rem;
       transition: all 0.3s var(--ease);
       position: relative;
+      z-index: 2;
     }
 
     .demo-link::after {
@@ -655,46 +674,55 @@
   <!-- Portfolio / Work -->
   <section id="work">
     <div class="container">
-      <h2>Recent work</h2>
-      <p class="portfolio-intro">These are real projects I've built for local businesses. Click through to see them in action.</p>
+      <h2>Live demos</h2>
+      <p class="portfolio-intro">These are working demos that show what I can build for businesses like yours. The business names are fictional — the software is real. Click any card to try it yourself.</p>
 
       <div class="portfolio-grid">
         <!-- Redfish Run Charters -->
         <div class="portfolio-card reveal-card reveal-stagger-1">
+          <a href="/demos/booking.html" class="card-link-overlay" aria-label="View Redfish Run Charters booking demo"></a>
           <div class="portfolio-content">
             <div class="portfolio-label">Booking System</div>
             <h3>Redfish Run Charters</h3>
             <p class="portfolio-description">Fishing charters need bookings, waivers, and captain scheduling. This system handles it all. Customers see available dates, book with a credit card, and get confirmation emails. The captain has a dashboard to manage the day.</p>
-            <a class='demo-link' href='/demos/booking'>View demo</a>
+            <a class="demo-link" href="/demos/booking.html">View demo</a>
           </div>
           <div class="portfolio-visual">
-            <span>Booking interface preview</span>
+            <div class="demo-frame-wrapper">
+              <iframe src="/demos/booking.html" loading="lazy" title="Booking system demo" scrolling="no" tabindex="-1"></iframe>
+            </div>
           </div>
         </div>
 
         <!-- Salt Line Supply -->
         <div class="portfolio-card reveal-card reveal-stagger-2">
+          <a href="/demos/inventory.html" class="card-link-overlay" aria-label="View Salt Line Supply inventory demo"></a>
           <div class="portfolio-content">
             <div class="portfolio-label">Inventory & POS</div>
             <h3>Salt Line Supply</h3>
             <p class="portfolio-description">Local supply shop needed a way to track inventory across multiple locations, ring up sales, and see what's moving. Built a POS system with real-time stock tracking. Now they know what to reorder without guessing.</p>
-            <a class='demo-link' href='/demos/inventory'>View demo</a>
+            <a class="demo-link" href="/demos/inventory.html">View demo</a>
           </div>
           <div class="portfolio-visual">
-            <span>Inventory management preview</span>
+            <div class="demo-frame-wrapper">
+              <iframe src="/demos/inventory.html" loading="lazy" title="Inventory management demo" scrolling="no" tabindex="-1"></iframe>
+            </div>
           </div>
         </div>
 
         <!-- Island Key Properties -->
         <div class="portfolio-card reveal-card reveal-stagger-3">
+          <a href="/demos/portal.html" class="card-link-overlay" aria-label="View Island Key Properties portal demo"></a>
           <div class="portfolio-content">
             <div class="portfolio-label">Client Portal</div>
             <h3>Island Key Properties</h3>
             <p class="portfolio-description">Property management company was drowning in emails. Tenants now log in to pay rent, submit maintenance requests, and see lease documents. Property manager has a dashboard to track everything without 500 emails.</p>
-            <a class='demo-link' href='/demos/portal'>View demo</a>
+            <a class="demo-link" href="/demos/portal.html">View demo</a>
           </div>
           <div class="portfolio-visual">
-            <span>Portal interface preview</span>
+            <div class="demo-frame-wrapper">
+              <iframe src="/demos/portal.html" loading="lazy" title="Client portal demo" scrolling="no" tabindex="-1"></iframe>
+            </div>
           </div>
         </div>
       </div>
