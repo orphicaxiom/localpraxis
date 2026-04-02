@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Local Praxis — Custom Software for Local Businesses | Port Aransas, TX</title>
-  <meta name="description" content="Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, and client portals — built for you, owned by you forever.">
+  <title>Local Praxis: Custom Software for Local Businesses | Port Aransas, TX</title>
+  <meta name="description" content="Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, and client portals, built for you and owned by you forever.">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23C2603D'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Local Praxis — Custom Software for Local Businesses | Port Aransas, TX">
-  <meta property="og:description" content="Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, and client portals — built for you, owned by you forever.">
+  <meta property="og:title" content="Local Praxis: Custom Software for Local Businesses | Port Aransas, TX">
+  <meta property="og:description" content="Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, and client portals, built for you and owned by you forever.">
   <meta property="og:url" content="https://localpraxis.com">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Local Praxis">
   <meta property="og:image" content="/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Local Praxis — Custom Software for Local Businesses | Port Aransas, TX">
-  <meta name="twitter:description" content="Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, and client portals — built for you, owned by you forever.">
+  <meta name="twitter:title" content="Local Praxis: Custom Software for Local Businesses | Port Aransas, TX">
+  <meta name="twitter:description" content="Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, and client portals, built for you and owned by you forever.">
   <meta name="twitter:image" content="/og-image.png">
 
   <!-- Font Preload -->
@@ -624,88 +624,6 @@
       color: var(--terracotta);
     }
 
-    /* FAQ */
-    #faq {
-      background-color: var(--cream);
-    }
-
-    .faq-intro {
-      font-size: 1.05rem;
-      color: var(--ink-mid);
-      max-width: 62%;
-      line-height: 1.8;
-      margin-bottom: 3.5rem;
-      margin-top: -1.5rem;
-    }
-
-    .faq-list {
-      display: flex;
-      flex-direction: column;
-      border-top: 1px solid var(--rule);
-    }
-
-    .faq-list details {
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .faq-list details summary {
-      font-family: var(--font-sans);
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--ink);
-      padding: 1.6rem 2rem 1.6rem 0;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1.5rem;
-      transition: color 0.25s var(--ease);
-      user-select: none;
-    }
-
-    .faq-list details summary::-webkit-details-marker { display: none; }
-
-    .faq-list details summary::after {
-      content: '+';
-      font-size: 1.4rem;
-      font-weight: 300;
-      color: var(--terracotta);
-      flex-shrink: 0;
-      line-height: 1;
-      transition: transform 0.3s var(--ease);
-      opacity: 0.75;
-    }
-
-    .faq-list details[open] summary::after {
-      transform: rotate(45deg);
-      opacity: 1;
-    }
-
-    .faq-list details summary:hover { color: var(--terracotta); }
-    .faq-list details summary:hover::after { opacity: 1; }
-
-    .faq-answer {
-      padding: 0 3rem 1.75rem 0;
-      color: var(--ink-mid);
-      font-size: 1rem;
-      line-height: 1.85;
-      max-width: 75ch;
-    }
-
-    .faq-answer p + p { margin-top: 1rem; }
-    .faq-answer strong { color: var(--ink); font-weight: 600; }
-
-    @media (max-width: 680px) {
-      .faq-intro { max-width: 100%; }
-      .faq-list details summary { font-size: 0.975rem; padding: 1.4rem 1.75rem 1.4rem 0; }
-      .faq-answer { padding-right: 1.75rem; max-width: 100%; }
-      .contact-content { max-width: 100%; }
-      .contact-form-wrap { padding: 1.75rem; }
-      .form-row { grid-template-columns: 1fr; }
-      .contact-info { flex-direction: column; gap: 1.25rem; }
-    }
-
     /* Footer */
     footer {
       background-color: var(--cream);
@@ -908,6 +826,7 @@
       <ul>
         <li><a href="#work">Work</a></li>
         <li><a href="#process">Process</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -927,7 +846,7 @@
   <section id="work">
     <div class="container">
       <h2>What I build</h2>
-      <p class="portfolio-intro">Working demos — built for real business types in Port Aransas and the Coastal Bend. Click any tab to explore the system. <em>Best viewed on desktop.</em></p>
+      <p class="portfolio-intro">Working demos built for real business types in Port Aransas and the Coastal Bend. Click any tab to explore the system. <em>Best viewed on desktop.</em></p>
 
       <div class="tabs-nav" role="tablist" aria-label="Product demos">
         <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-booking" id="btn-booking" data-tab="tab-booking">Booking Systems</button>
@@ -956,7 +875,7 @@
           <div class="tab-info">
             <div class="portfolio-label">Inventory & POS</div>
             <h3>Salt Line Supply</h3>
-            <p>Real-time stock tracking across locations, sales ring-up, reorder signals. Built for how a local shop actually works — not how some SaaS company thinks it does.</p>
+            <p>Real-time stock tracking across locations, sales ring-up, reorder signals. Built for how a local shop actually works, not how some SaaS company thinks it does.</p>
             <a class="demo-link" href="/demos/inventory.html" target="_blank" rel="noopener">Open full demo</a>
           </div>
           <div class="tab-frame">
@@ -1007,82 +926,9 @@
         <div class="step reveal-card reveal-stagger-3">
           <div class="step-number">3</div>
           <h3>Low monthly rate</h3>
-          <p>No subscriptions per user. No surprise billing. One flat monthly rate for maintenance and updates — that's it.</p>
+          <p>No subscriptions per user. No surprise billing. One flat monthly rate for maintenance and updates, that's it.</p>
           <p class="pricing-note">Most projects run $25–$50/month. Less than your cable bill.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="container">
-      <h2>Common questions.</h2>
-      <p class="faq-intro">Straight answers about how this works, what it costs, and what you actually get.</p>
-
-      <div class="faq-list">
-        <details>
-          <summary>How long does a project take to build?</summary>
-          <div class="faq-answer">
-            <p>Most projects take <strong>4 to 8 weeks</strong> from kickoff to launch. A focused booking system or client portal sits closer to 4 weeks. Something with inventory tracking, reporting, and staff roles might run 6 to 8 weeks. Before I write a line of code, we spend a week mapping out exactly how your business works — that upfront time is what keeps the build from dragging on.</p>
-            <p>I'll give you a realistic timeline in writing before we start, and I stick to it.</p>
-          </div>
-        </details>
-
-        <details>
-          <summary>What does the monthly fee cover?</summary>
-          <div class="faq-answer">
-            <p>The <strong>$25–$50/month</strong> covers ongoing maintenance, security updates, and routine changes as your needs evolve. If something breaks — for any reason — I fix it, no extra charge. It also means you have a direct line to me when questions come up.</p>
-            <p>The rate depends on the complexity of what was built. We agree on a number before the project starts — no surprises.</p>
-          </div>
-        </details>
-
-        <details>
-          <summary>What if I decide to stop paying — do I lose my software?</summary>
-          <div class="faq-answer">
-            <p><strong>No. The code is yours outright.</strong> You own it from day one. If you ever stop the monthly fee, you keep everything — the source code, the database, all of it. You can take it to any developer in the world to host or maintain.</p>
-            <p>The monthly fee is for the ongoing service, not a subscription that locks you out. I have no interest in holding anyone hostage to a recurring bill.</p>
-          </div>
-        </details>
-
-        <details>
-          <summary>Do I need any technical knowledge to use it?</summary>
-          <div class="faq-answer">
-            <p>None. That's the whole point — the software is designed around the way you actually work, not around how a generic platform assumes you work. If you can use email, you can use what I build.</p>
-            <p>Before launch I'll walk you through everything in person or over a screen share, and put together a simple reference guide tailored to your setup.</p>
-          </div>
-        </details>
-
-        <details>
-          <summary>Will my employees be able to learn it?</summary>
-          <div class="faq-answer">
-            <p>Yes — usually faster than learning something off-the-shelf. Because the software matches your existing workflow, there's no mental translation required. Staff aren't learning a foreign system; they're doing the same job they already know, just with better tools.</p>
-            <p>I can build in role-based access so employees only see what's relevant to their job, which keeps things simpler for everyone.</p>
-          </div>
-        </details>
-
-        <details>
-          <summary>Who handles hosting?</summary>
-          <div class="faq-answer">
-            <p>I deploy directly onto your existing server — most businesses already have one, or a cheap VPS works fine. That keeps your costs low and means you're not dependent on me for infrastructure. I handle the setup, configuration, and anything technical. Your job is to run your business.</p>
-          </div>
-        </details>
-
-        <details>
-          <summary>What if I need changes or new features later?</summary>
-          <div class="faq-answer">
-            <p>Routine changes — tweaking a form, adjusting a workflow, adding a field — are covered under the monthly fee. Most of these I can turn around within a few days.</p>
-            <p>Larger additions, like a completely new module or a major integration, are scoped and quoted separately. I'll always tell you upfront what's routine and what isn't — no ambiguity.</p>
-          </div>
-        </details>
-
-        <details>
-          <summary>How is this different from Mindbody, Square, or Jobber?</summary>
-          <div class="faq-answer">
-            <p>Those platforms are built for the average business in your industry — which means they fit no one perfectly. You end up working around the software rather than the software working for you. And you're paying forever for a tool you'll never own, with features you'll never use crowding out the ones you need.</p>
-            <p><strong>What I build is shaped entirely around your operation.</strong> Your terminology, your pricing, your workflow. No feature bloat, no per-seat pricing that scales against you, no vendor who can change the terms next year. After the build, costs are fixed and predictable — and the software is yours.</p>
-          </div>
-        </details>
       </div>
     </div>
   </section>
@@ -1136,7 +982,7 @@
 
             <div class="form-field">
               <label class="form-label" for="contact-message">What do you need help with?<span class="required-mark" aria-hidden="true">*</span></label>
-              <textarea class="form-textarea" id="contact-message" name="message" required placeholder="Describe the problem you're trying to solve — doesn't need to be technical"></textarea>
+              <textarea class="form-textarea" id="contact-message" name="message" required placeholder="Describe the problem you're trying to solve, doesn't need to be technical"></textarea>
             </div>
 
             <div class="form-submit-row">
@@ -1192,7 +1038,7 @@
       observer.observe(el);
     });
 
-    // Contact form — Netlify Forms via fetch
+    // Contact form, Netlify Forms via fetch
     const contactForm = document.querySelector('form[name="contact"]');
     if (contactForm) {
       contactForm.addEventListener('submit', async function(e) {

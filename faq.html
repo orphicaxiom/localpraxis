@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ: Local Praxis | Port Aransas, TX</title>
+  <meta name="description" content="Common questions about how Local Praxis works, what things cost, and what you get. Custom software for local businesses in Port Aransas, TX.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23C2603D'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
+
+  <!-- Fonts -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  </noscript>
+
+  <style>
+    :root {
+      --warm-white: #FDFAF5;
+      --cream: #F5F0E8;
+      --ink: #1C1917;
+      --ink-mid: #57534E;
+      --ink-light: #A8A29E;
+      --terracotta: #C2603D;
+      --rule: #DDD6CC;
+      --font-serif: 'Instrument Serif', serif;
+      --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--warm-white);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="4" seed="1"/></filter><rect width="256" height="256" fill="%231C1917" filter="url(%23n)"/></svg>');
+      opacity: 0.025; pointer-events: none; z-index: 1;
+    }
+    ::selection { background-color: var(--terracotta); color: var(--warm-white); }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background-color: rgba(253, 250, 245, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+      padding: 1rem 0;
+    }
+    .nav-container {
+      max-width: 1080px; margin: 0 auto; padding: 0 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+      font-family: var(--font-serif); font-size: 1.25rem;
+      font-weight: 500; color: var(--ink); letter-spacing: -0.01em;
+    }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav a {
+      color: var(--ink); text-decoration: none;
+      font-size: 0.95rem; font-weight: 500;
+      transition: color 0.3s var(--ease); position: relative;
+    }
+    nav a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background-color: var(--terracotta);
+      transition: width 0.3s var(--ease);
+    }
+    nav a:hover::after { width: 100%; }
+    nav a.active { color: var(--terracotta); }
+    nav a.active::after { width: 100%; }
+
+    /* Container */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
+
+    /* Page header */
+    .page-header {
+      padding: 6rem 0 4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .page-header .back-link {
+      display: inline-block;
+      font-size: 0.85rem;
+      color: var(--ink-light);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .page-header .back-link:hover { color: var(--terracotta); }
+    .page-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .page-header .lead {
+      font-size: 1.05rem;
+      color: var(--ink-mid);
+      max-width: 55ch;
+      line-height: 1.8;
+    }
+
+    /* FAQ list */
+    .faq-section {
+      padding: 5rem 0 8rem;
+    }
+    .faq-list {
+      display: flex; flex-direction: column;
+      border-top: 1px solid var(--rule);
+      max-width: 780px;
+    }
+    .faq-list details { border-bottom: 1px solid var(--rule); }
+    .faq-list details summary {
+      font-family: var(--font-sans);
+      font-size: 1.05rem; font-weight: 600; color: var(--ink);
+      padding: 1.6rem 2rem 1.6rem 0;
+      cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 1.5rem; transition: color 0.25s var(--ease); user-select: none;
+    }
+    .faq-list details summary::-webkit-details-marker { display: none; }
+    .faq-list details summary::after {
+      content: '+'; font-size: 1.4rem; font-weight: 300;
+      color: var(--terracotta); flex-shrink: 0; line-height: 1;
+      transition: transform 0.3s var(--ease); opacity: 0.75;
+    }
+    .faq-list details[open] summary::after { transform: rotate(45deg); opacity: 1; }
+    .faq-list details summary:hover { color: var(--terracotta); }
+    .faq-list details summary:hover::after { opacity: 1; }
+    .faq-answer {
+      padding: 0 3rem 1.75rem 0;
+      color: var(--ink-mid); font-size: 1rem; line-height: 1.85; max-width: 68ch;
+    }
+    .faq-answer p + p { margin-top: 1rem; }
+    .faq-answer strong { color: var(--ink); font-weight: 600; }
+
+    /* CTA block */
+    .faq-cta {
+      margin-top: 5rem;
+      padding: 3rem;
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      max-width: 780px;
+    }
+    .faq-cta h2 {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .faq-cta p { color: var(--ink-mid); margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .cta-button {
+      display: inline-block; background-color: var(--terracotta);
+      color: var(--warm-white); padding: 0.875rem 1.75rem;
+      text-decoration: none; font-weight: 600; border-radius: 5px;
+      transition: all 0.3s var(--ease); font-size: 0.95rem;
+      border: 1px solid var(--terracotta);
+    }
+    .cta-button:hover { background-color: transparent; color: var(--terracotta); }
+
+    /* Footer */
+    footer {
+      background-color: var(--cream); border-top: 1px solid var(--rule);
+      padding: 3rem 0;
+    }
+    .footer-content {
+      max-width: 1080px; margin: 0 auto; padding: 0 2rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .footer-left { font-family: var(--font-serif); font-size: 1rem; color: var(--ink); }
+    .footer-right { text-align: right; font-size: 0.85rem; color: var(--ink-light); }
+
+    @media (max-width: 768px) {
+      .nav-container { padding: 0 1.5rem; }
+      nav ul { gap: 1.5rem; }
+      nav a { font-size: 0.85rem; }
+      .container { padding: 0 1.5rem; }
+      .page-header { padding: 4rem 0 2.5rem; }
+      .faq-list details summary { font-size: 0.975rem; padding: 1.4rem 1.75rem 1.4rem 0; }
+      .faq-answer { padding-right: 1.75rem; max-width: 100%; }
+      .faq-cta { padding: 2rem; }
+      .footer-content { grid-template-columns: 1fr; text-align: left; }
+      .footer-right { text-align: left; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="/" class="logo" style="text-decoration:none;">Local Praxis</a>
+      <ul>
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/#process">Process</a></li>
+        <li><a href="/faq.html" class="active">FAQ</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="container">
+      <a href="/" class="back-link">← Back to home</a>
+      <h1>Common questions.</h1>
+      <p class="lead">Straight answers about how this works, what it costs, and what you actually get.</p>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="faq-list">
+        <details>
+          <summary>How long does a project take to build?</summary>
+          <div class="faq-answer">
+            <p>Most projects take <strong>4 to 8 weeks</strong> from kickoff to launch. A focused booking system or client portal sits closer to 4 weeks. Something with inventory tracking, reporting, and staff roles might run 6 to 8 weeks. Before I write a line of code, we spend a week mapping out exactly how your business works. That upfront time is what keeps the build from dragging on.</p>
+            <p>I'll give you a realistic timeline in writing before we start, and I stick to it.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What does the monthly fee cover?</summary>
+          <div class="faq-answer">
+            <p>The <strong>$25-$50/month</strong> covers ongoing maintenance, security updates, and routine changes as your needs evolve. If something breaks, for any reason, I fix it with no extra charge. It also means you have a direct line to me when questions come up.</p>
+            <p>The rate depends on the complexity of what was built. We agree on a number before the project starts with no surprises.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What if I decide to stop paying? Do I lose my software?</summary>
+          <div class="faq-answer">
+            <p><strong>No. The code is yours outright.</strong> You own it from day one. If you ever stop the monthly fee, you keep everything: the source code, the database, all of it. You can take it to any developer in the world to host or maintain.</p>
+            <p>The monthly fee is for the ongoing service, not a subscription that locks you out. I have no interest in holding anyone hostage to a recurring bill.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Do I need any technical knowledge to use it?</summary>
+          <div class="faq-answer">
+            <p>None. The software is designed around the way you actually work, not around how a generic platform assumes you work. If you can use email, you can use what I build.</p>
+            <p>Before launch I'll walk you through everything in person or over a screen share, and put together a simple reference guide tailored to your setup.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Will my employees be able to learn it?</summary>
+          <div class="faq-answer">
+            <p>Yes, usually faster than learning something off-the-shelf. Because the software matches your existing workflow, there's no mental translation required. Staff aren't learning a foreign system. They're doing the same job they already know, just with better tools.</p>
+            <p>I can build in role-based access so employees only see what's relevant to their job, which keeps things simpler for everyone.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Who handles hosting?</summary>
+          <div class="faq-answer">
+            <p>I deploy directly onto your existing server. Most businesses already have one, or a cheap VPS works fine. That keeps your costs low and means you're not dependent on me for infrastructure. I handle the setup, configuration, and anything technical. Your job is to run your business.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What if I need changes or new features later?</summary>
+          <div class="faq-answer">
+            <p>Routine changes like tweaking a form, adjusting a workflow, or adding a field are covered under the monthly fee. Most of these I can turn around within a few days.</p>
+            <p>Larger additions, like a completely new module or a major integration, are scoped and quoted separately. I'll always tell you upfront what's routine and what isn't.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>How is this different from Mindbody, Square, or Jobber?</summary>
+          <div class="faq-answer">
+            <p>Those platforms are built for the average business in your industry, which means they fit no one perfectly. You end up working around the software rather than the software working for you. And you're paying forever for a tool you'll never own, with features you'll never use crowding out the ones you need.</p>
+            <p><strong>What I build is shaped entirely around your operation.</strong> Your terminology, your pricing, your workflow. No feature bloat, no per-seat pricing that scales against you, no vendor who can change the terms next year. After the build, costs are fixed and predictable, and the software is yours.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-cta">
+        <h2>Still have questions?</h2>
+        <p>Drop me a message and I'll get back to you within one business day.</p>
+        <a href="/#contact" class="cta-button">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">Local Praxis. Port Aransas, Texas.</div>
+      <div class="footer-right">&copy; 2026 James Johnson. All rights reserved.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
