@@ -356,21 +356,50 @@
       border-radius: 6px;
     }
 
-    .portfolio-visual {
-      background-color: var(--warm-white);
-      border: 1px solid var(--rule);
-      border-radius: 4px;
-      height: 280px;
-      overflow: hidden;
-      position: relative;
-    }
-
     .demo-frame-wrapper {
       width: 1200px;
       height: 800px;
       transform: scale(0.38);
       transform-origin: top left;
-      pointer-events: none;
+    }
+
+    .portfolio-visual-link {
+      display: block;
+      position: relative;
+      background-color: var(--warm-white);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      height: 280px;
+      overflow: hidden;
+      text-decoration: none;
+      z-index: 2;
+    }
+
+    .portfolio-visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(28, 25, 23, 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+      z-index: 3;
+    }
+
+    .portfolio-visual-overlay span {
+      color: var(--warm-white);
+      font-weight: 600;
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .portfolio-visual-link:hover .portfolio-visual-overlay {
+      background: rgba(28, 25, 23, 0.5);
+    }
+
+    .portfolio-visual-link:hover .portfolio-visual-overlay span {
+      opacity: 1;
     }
 
     .demo-frame-wrapper iframe {
@@ -614,6 +643,24 @@
       }
     }
 
+    /* Pricing note */
+    .pricing-note {
+      color: var(--terracotta);
+      font-size: 0.95rem;
+      font-style: italic;
+      margin-top: 0.75rem;
+    }
+
+    /* Outcome stat */
+    .outcome-stat {
+      font-family: var(--font-sans);
+      color: var(--ink-mid);
+      border-left: 3px solid var(--terracotta);
+      padding-left: 1rem;
+      margin-top: 1.5rem;
+      font-style: italic;
+    }
+
     /* Lazy Load Animation for Cards */
     .reveal-card {
       animation: fadeInUpSmall 0.8s var(--ease) forwards;
@@ -680,50 +727,53 @@
       <div class="portfolio-grid">
         <!-- Redfish Run Charters -->
         <div class="portfolio-card reveal-card reveal-stagger-1">
-          <a href="/demos/booking.html" class="card-link-overlay" aria-label="View Redfish Run Charters booking demo"></a>
+          <a href="/demos/booking.html" class="card-link-overlay" target="_blank" rel="noopener" aria-label="View Redfish Run Charters booking demo"></a>
           <div class="portfolio-content">
             <div class="portfolio-label">Booking System</div>
             <h3>Redfish Run Charters</h3>
             <p class="portfolio-description">Fishing charters need bookings, waivers, and captain scheduling. This system handles it all. Customers see available dates, book with a credit card, and get confirmation emails. The captain has a dashboard to manage the day.</p>
             <a class="demo-link" href="/demos/booking.html">View demo</a>
           </div>
-          <div class="portfolio-visual">
+          <a href="/demos/booking.html" class="portfolio-visual-link" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
+            <div class="portfolio-visual-overlay"><span>View Demo →</span></div>
             <div class="demo-frame-wrapper">
               <iframe src="/demos/booking.html" loading="lazy" title="Booking system demo" scrolling="no" tabindex="-1"></iframe>
             </div>
-          </div>
+          </a>
         </div>
 
         <!-- Salt Line Supply -->
         <div class="portfolio-card reveal-card reveal-stagger-2">
-          <a href="/demos/inventory.html" class="card-link-overlay" aria-label="View Salt Line Supply inventory demo"></a>
+          <a href="/demos/inventory.html" class="card-link-overlay" target="_blank" rel="noopener" aria-label="View Salt Line Supply inventory demo"></a>
           <div class="portfolio-content">
             <div class="portfolio-label">Inventory & POS</div>
             <h3>Salt Line Supply</h3>
             <p class="portfolio-description">Local supply shop needed a way to track inventory across multiple locations, ring up sales, and see what's moving. Built a POS system with real-time stock tracking. Now they know what to reorder without guessing.</p>
             <a class="demo-link" href="/demos/inventory.html">View demo</a>
           </div>
-          <div class="portfolio-visual">
+          <a href="/demos/inventory.html" class="portfolio-visual-link" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
+            <div class="portfolio-visual-overlay"><span>View Demo →</span></div>
             <div class="demo-frame-wrapper">
               <iframe src="/demos/inventory.html" loading="lazy" title="Inventory management demo" scrolling="no" tabindex="-1"></iframe>
             </div>
-          </div>
+          </a>
         </div>
 
         <!-- Island Key Properties -->
         <div class="portfolio-card reveal-card reveal-stagger-3">
-          <a href="/demos/portal.html" class="card-link-overlay" aria-label="View Island Key Properties portal demo"></a>
+          <a href="/demos/portal.html" class="card-link-overlay" target="_blank" rel="noopener" aria-label="View Island Key Properties portal demo"></a>
           <div class="portfolio-content">
             <div class="portfolio-label">Client Portal</div>
             <h3>Island Key Properties</h3>
             <p class="portfolio-description">Property management company was drowning in emails. Tenants now log in to pay rent, submit maintenance requests, and see lease documents. Property manager has a dashboard to track everything without 500 emails.</p>
             <a class="demo-link" href="/demos/portal.html">View demo</a>
           </div>
-          <div class="portfolio-visual">
+          <a href="/demos/portal.html" class="portfolio-visual-link" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
+            <div class="portfolio-visual-overlay"><span>View Demo →</span></div>
             <div class="demo-frame-wrapper">
               <iframe src="/demos/portal.html" loading="lazy" title="Client portal demo" scrolling="no" tabindex="-1"></iframe>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -751,6 +801,7 @@
           <div class="step-number">3</div>
           <h3>Low monthly fee</h3>
           <p>No subscriptions per user. No surprise billing. One low monthly fee for maintenance and updates. That's it.</p>
+          <p class="pricing-note">Most projects run $150–$400/month — less than what you're probably paying now.</p>
         </div>
       </div>
     </div>
@@ -768,6 +819,8 @@
         <p>So I came back. Now I build custom software for the people and businesses that matter to me. Not for a venture fund. Not for an IPO. For you. For a reasonable fee. You own the code. You own your data. You own your future.</p>
 
         <p>I live in Port A. You'll find me cruising on my golf cart, eating dinner at Cancun's, or working on a project that solves a real problem.</p>
+
+        <p class="outcome-stat">Every client I've built for still uses their system. No lock-in contracts, no "we're sunsetting your plan" emails.</p>
       </div>
     </div>
   </section>

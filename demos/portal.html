@@ -991,13 +991,127 @@
 			}
 		}
 
+		/* Hamburger button */
+		.hamburger-btn {
+			display: none;
+			position: fixed;
+			top: 1rem;
+			left: 1rem;
+			z-index: 300;
+			background: var(--cream);
+			border: 1px solid var(--rule);
+			border-radius: 4px;
+			padding: 0.5rem 0.75rem;
+			font-size: 1.25rem;
+			cursor: pointer;
+			line-height: 1;
+		}
+
+		/* Sidebar close button (mobile only) */
+		.sidebar-close-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.5rem;
+			color: var(--ink-light);
+			cursor: pointer;
+			padding: 0;
+			position: absolute;
+			top: 1rem;
+			right: 1rem;
+		}
+
+		.sidebar-close-btn:hover {
+			color: var(--ink);
+		}
+
+		/* Sidebar backdrop */
+		.sidebar-backdrop {
+			display: none;
+			position: fixed;
+			inset: 0;
+			background: rgba(0,0,0,0.45);
+			z-index: 99;
+		}
+
+		.sidebar-backdrop.open {
+			display: block;
+		}
+
+		/* Demo banner */
+		.demo-banner {
+			background: var(--cream);
+			border-left: 3px solid var(--terracotta);
+			padding: 1rem 1.5rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 0.9rem;
+			color: var(--ink-mid);
+			flex-shrink: 0;
+		}
+
+		.demo-banner button {
+			background: none;
+			border: none;
+			font-size: 1rem;
+			color: var(--ink-light);
+			cursor: pointer;
+			padding: 0 0 0 1rem;
+			line-height: 1;
+			flex-shrink: 0;
+		}
+
+		.demo-banner button:hover {
+			color: var(--ink);
+		}
+
+		/* Sticky CTA bar */
+		.demo-footer-cta {
+			position: fixed;
+			bottom: 0;
+			left: 220px;
+			right: 0;
+			background: var(--terracotta);
+			color: var(--warm-white);
+			padding: 0.75rem 2rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			z-index: 200;
+			font-size: 0.95rem;
+		}
+
+		.demo-footer-cta a {
+			color: var(--warm-white);
+			font-weight: 600;
+			text-decoration: none;
+		}
+
+		.demo-footer-cta a:hover {
+			text-decoration: underline;
+		}
+
 		@media (max-width: 768px) {
+			.hamburger-btn {
+				display: block;
+			}
+
+			.sidebar-close-btn {
+				display: block;
+			}
+
 			.sidebar {
-				width: 100%;
-				height: auto;
-				position: relative;
-				border-right: none;
-				border-bottom: 1px solid var(--rule);
+				position: fixed;
+				left: -100%;
+				width: 280px;
+				height: 100vh;
+				z-index: 100;
+				transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+			}
+
+			.sidebar.mobile-open {
+				left: 0;
 			}
 
 			.main {
@@ -1016,13 +1130,21 @@
 			.stat-value {
 				font-size: 1.75rem;
 			}
+
+			.demo-footer-cta {
+				left: 0;
+			}
 		}
 	</style>
 </head>
 <body>
+	<button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu">☰</button>
+	<div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
 	<div class="container">
 		<!-- Sidebar -->
-		<div class="sidebar">
+		<div class="sidebar" id="sidebar">
+			<button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close menu">✕</button>
 			<div class="sidebar-header">
 				<div class="brand-name">Island Key Properties</div>
 				<div class="brand-subtitle">Owner Portal</div>
@@ -1047,7 +1169,11 @@
 		</div>
 
 		<!-- Main Content -->
-		<div class="main">
+		<div class="main" style="padding-bottom: 56px;">
+			<div class="demo-banner" id="demo-banner">
+				<span>Interactive demo — explore Overview, Bookings, Financials, Maintenance, and Messages using the sidebar</span>
+				<button onclick="document.getElementById('demo-banner').style.display='none'" aria-label="Dismiss">✕</button>
+			</div>
 			<div class="content">
 
 				<!-- Overview View -->
@@ -1094,20 +1220,22 @@
 					<div class="dashboard-grid">
 						<div>
 							<h2 class="section-title">Upcoming Bookings</h2>
-							<table class="bookings-table">
-								<thead>
-									<tr>
-										<th>Guest</th>
-										<th>Property</th>
-										<th>Check-in</th>
-										<th>Nights</th>
-										<th>Amount</th>
-									</tr>
-								</thead>
-								<tbody id="upcoming-bookings-body">
-									<!-- Populated by JS -->
-								</tbody>
-							</table>
+							<div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+								<table class="bookings-table">
+									<thead>
+										<tr>
+											<th>Guest</th>
+											<th>Property</th>
+											<th>Check-in</th>
+											<th>Nights</th>
+											<th>Amount</th>
+										</tr>
+									</thead>
+									<tbody id="upcoming-bookings-body">
+										<!-- Populated by JS -->
+									</tbody>
+								</table>
+							</div>
 						</div>
 
 						<div>
@@ -1129,7 +1257,7 @@
 						<label class="property-selector-label">Select month</label>
 						<div class="select-wrapper">
 							<select id="month-filter">
-								<option value="2025-03">March 2026</option>
+								<option value="2026-03">March 2026</option>
 								<option value="2026-04" selected>April 2026</option>
 								<option value="2026-05">May 2026</option>
 							</select>
@@ -1155,13 +1283,16 @@
 
 					<div style="margin-bottom: 2rem;">
 						<label class="property-selector-label">Period</label>
-						<div class="select-wrapper">
-							<select id="financial-period">
-								<option value="month">This Month</option>
-								<option value="last-month">Last Month</option>
-								<option value="quarter">This Quarter</option>
-								<option value="ytd">Year to Date</option>
-							</select>
+						<div style="display: flex; align-items: center;">
+							<div class="select-wrapper">
+								<select id="financial-period">
+									<option value="month">This Month</option>
+									<option value="last-month">Last Month</option>
+									<option value="quarter">This Quarter</option>
+									<option value="ytd">Year to Date</option>
+								</select>
+							</div>
+							<span style="font-size:0.75rem; color:var(--ink-light); margin-left:0.5rem;">Live system shows real-time data</span>
 						</div>
 					</div>
 
@@ -1205,19 +1336,21 @@
 							<h2 class="section-title" style="margin-bottom: 0;">Expenses</h2>
 							<button class="btn-primary" id="download-statement">Download Statement</button>
 						</div>
-						<table class="expense-table">
-							<thead>
-								<tr>
-									<th>Description</th>
-									<th>Property</th>
-									<th>Date</th>
-									<th style="text-align: right;">Amount</th>
-								</tr>
-							</thead>
-							<tbody id="expenses-body">
-								<!-- Populated by JS -->
-							</tbody>
-						</table>
+						<div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+							<table class="expense-table">
+								<thead>
+									<tr>
+										<th>Description</th>
+										<th>Property</th>
+										<th>Date</th>
+										<th style="text-align: right;">Amount</th>
+									</tr>
+								</thead>
+								<tbody id="expenses-body">
+									<!-- Populated by JS -->
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 
@@ -1327,6 +1460,12 @@
 
 	<!-- Confirmation Message -->
 	<div class="confirmation" id="confirmation"></div>
+
+	<!-- Sticky CTA Bar -->
+	<div class="demo-footer-cta">
+		<span>Like what you see?</span>
+		<a href="https://localpraxis.com#contact" target="_blank">Get one for your business →</a>
+	</div>
 
 	<script>
 		// Data
@@ -1607,21 +1746,23 @@
 						<div style="font-size: 0.75rem; color: var(--ink-light); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500;">April Occupancy</div>
 						${occupancyHtml}
 					</div>
-					<table class="bookings-table">
-						<thead>
-							<tr>
-								<th>Guest</th>
-								<th>Property</th>
-								<th>Check-in</th>
-								<th>Check-out</th>
-								<th>Nights</th>
-								<th>Guests</th>
-								<th>Total</th>
-								<th>Status</th>
-							</tr>
-						</thead>
-						<tbody>${bookingRows || '<tr><td colspan="8" style="text-align: center; padding: 2rem; color: var(--ink-light);">No bookings</td></tr>'}</tbody>
-					</table>
+					<div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+						<table class="bookings-table">
+							<thead>
+								<tr>
+									<th>Guest</th>
+									<th>Property</th>
+									<th>Check-in</th>
+									<th>Check-out</th>
+									<th>Nights</th>
+									<th>Guests</th>
+									<th>Total</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>${bookingRows || '<tr><td colspan="8" style="text-align: center; padding: 2rem; color: var(--ink-light);">No bookings</td></tr>'}</tbody>
+						</table>
+					</div>
 				</div>
 			`;
 		}
@@ -1872,6 +2013,35 @@
 		});
 
 		document.getElementById('download-statement').addEventListener('click', () => {
+			const rows = [
+				['Island Key Properties - Owner Statement'],
+				['Period', 'This Month (April 2026)'],
+				[''],
+				['Summary'],
+				['Gross Revenue', '$8,420'],
+				['Management Fee', '-$1,684'],
+				['Expenses', '-$1,230'],
+				['Net Income', '$5,506'],
+				[''],
+				['Expense Detail'],
+				['Description', 'Property', 'Date', 'Amount'],
+				...expenses.map(e => [
+					e.description,
+					e.property === 'both' ? 'Both Properties' : getPropertyName(e.property),
+					e.date,
+					'$' + e.amount.toLocaleString()
+				])
+			];
+			const csv = rows.map(r => r.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+			const blob = new Blob([csv], { type: 'text/csv' });
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = 'statement.csv';
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+			URL.revokeObjectURL(url);
 			showConfirmation('Statement downloaded');
 		});
 
@@ -1895,6 +2065,33 @@
 		document.querySelectorAll('.modal').forEach(modal => {
 			modal.addEventListener('click', (e) => {
 				if (e.target === modal) modal.classList.remove('active');
+			});
+		});
+
+		// Mobile sidebar toggle
+		const hamburgerBtn = document.getElementById('hamburger-btn');
+		const sidebarEl = document.getElementById('sidebar');
+		const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+		const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+
+		function openSidebar() {
+			sidebarEl.classList.add('mobile-open');
+			sidebarBackdrop.classList.add('open');
+		}
+
+		function closeSidebar() {
+			sidebarEl.classList.remove('mobile-open');
+			sidebarBackdrop.classList.remove('open');
+		}
+
+		hamburgerBtn.addEventListener('click', openSidebar);
+		sidebarCloseBtn.addEventListener('click', closeSidebar);
+		sidebarBackdrop.addEventListener('click', closeSidebar);
+
+		// Close sidebar on nav item click (mobile)
+		document.querySelectorAll('.nav-item').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth < 768) closeSidebar();
 			});
 		});
 

@@ -208,6 +208,7 @@
 
     .table-wrapper {
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     table {
@@ -620,45 +621,87 @@
       left: 22px;
     }
 
+    .hamburger-btn {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 300;
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+      transition: background 0.2s var(--ease);
+    }
+
+    .hamburger-btn:hover {
+      background: var(--rule);
+    }
+
+    .sidebar-close-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--ink-light);
+      padding: 0;
+      line-height: 1;
+      transition: color 0.2s var(--ease);
+    }
+
+    .sidebar-close-btn:hover {
+      color: var(--ink);
+    }
+
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 149;
+    }
+
+    .sidebar-backdrop.active {
+      display: block;
+    }
+
     @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
+      .hamburger-btn {
+        display: flex;
+      }
+
+      .sidebar-close-btn {
+        display: block;
       }
 
       .sidebar {
-        width: 100%;
-        height: auto;
-        position: static;
-        flex-direction: row;
-        border-right: none;
-        border-bottom: 1px solid var(--rule);
+        transform: translateX(-100%);
+        transition: transform 0.3s var(--ease);
+        z-index: 150;
+      }
+
+      .sidebar.mobile-open {
+        transform: translateX(0);
       }
 
       .sidebar-brand {
-        padding: 1rem 1.5rem;
-        border-right: 1px solid var(--rule);
-        border-bottom: none;
-      }
-
-      .sidebar-nav {
         display: flex;
-        flex: 1;
-        padding: 0;
-        overflow-y: visible;
-      }
-
-      .nav-item {
-        padding: 1rem 1rem;
-        white-space: nowrap;
-      }
-
-      .sidebar-footer {
-        display: none;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 1.5rem;
       }
 
       .main {
         margin-left: 0;
         padding: 2rem;
+        padding-top: 4rem;
       }
 
       .content-row {
@@ -799,13 +842,75 @@
     .line-item-price {
       font-weight: 500;
     }
+
+    .demo-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--cream);
+      border-left: 3px solid var(--terracotta);
+      padding: 1rem 1.5rem;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      color: var(--ink-mid);
+    }
+
+    .demo-banner button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--ink-light);
+      padding: 0 0 0 1rem;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: color 0.2s var(--ease);
+    }
+
+    .demo-banner button:hover {
+      color: var(--ink);
+    }
+
+    .demo-footer-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--terracotta);
+      color: var(--warm-white);
+      padding: 0.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+      z-index: 200;
+    }
+
+    .demo-footer-cta a {
+      color: var(--warm-white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s var(--ease);
+    }
+
+    .demo-footer-cta a:hover {
+      opacity: 0.85;
+    }
+
+    .main {
+      padding-bottom: 56px;
+    }
   </style>
 </head>
 <body>
+  <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu">☰</button>
+  <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
   <div class="container">
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
       <div class="sidebar-brand">
         <h1>Salt Line Supply</h1>
+        <button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close menu">✕</button>
       </div>
       <div class="sidebar-nav">
         <div class="nav-item active" data-view="dashboard">Dashboard</div>
@@ -820,6 +925,11 @@
     </div>
 
     <div class="main">
+      <div class="demo-banner" id="demo-banner">
+        <span>Interactive demo — explore Products, Sales, Orders, and Settings using the sidebar</span>
+        <button onclick="document.getElementById('demo-banner').style.display='none'" aria-label="Dismiss">✕</button>
+      </div>
+
       <div class="view active" id="dashboard-view">
         <div class="view-header">
           <h1 class="view-title">Salt Line Supply</h1>
@@ -1201,6 +1311,21 @@ Part of the Port Aransas fishing community since 2008.</textarea>
         </div>
       </form>
     </div>
+  </div>
+
+  <div class="modal-overlay" id="order-detail-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="order-detail-title">Order Details</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div id="order-detail-content"></div>
+    </div>
+  </div>
+
+  <div class="demo-footer-cta">
+    <span>Like what you see?</span>
+    <a href="https://localpraxis.com#contact" target="_blank">Get one for your business →</a>
   </div>
 
   <script>
@@ -1661,8 +1786,48 @@ Part of the Port Aransas fishing community since 2008.</textarea>
           <td>${order.orderDate}</td>
           <td>${statusBadge}</td>
         `;
+        row.addEventListener('click', () => showOrderDetail(order));
         tbody.appendChild(row);
       });
+    }
+
+    function showOrderDetail(order) {
+      document.getElementById('order-detail-title').textContent = order.id;
+      const content = document.getElementById('order-detail-content');
+      const etaLine = order.eta ? `
+        <div class="form-group">
+          <label class="form-label">Estimated Arrival</label>
+          <div style="font-size: 0.95rem; padding: 0.75rem 0;">${order.eta}</div>
+        </div>` : '';
+      content.innerHTML = `
+        <div class="form-group">
+          <label class="form-label">Supplier</label>
+          <div style="font-size: 0.95rem; padding: 0.75rem 0;">${order.supplier}</div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Order Date</label>
+            <div style="font-size: 0.95rem; padding: 0.75rem 0;">${order.orderDate}</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <div style="padding: 0.75rem 0;"><span class="badge badge-${order.status}">${capitalize(order.status)}</span></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Items</label>
+          <div style="font-size: 0.95rem; padding: 0.75rem 0;">${order.description}</div>
+        </div>
+        ${etaLine}
+        <div class="summary-box">
+          <div class="summary-line total">
+            <span>Order Total</span>
+            <span>$${order.total.toFixed(2)}</span>
+          </div>
+        </div>
+        <button class="btn btn-secondary" style="margin-top: 1.5rem; width: 100%;" onclick="document.getElementById('order-detail-modal').classList.remove('active')">Close</button>
+      `;
+      document.getElementById('order-detail-modal').classList.add('active');
     }
 
     document.getElementById('new-order-btn').addEventListener('click', () => {
@@ -1727,6 +1892,32 @@ Part of the Port Aransas fishing community since 2008.</textarea>
     }
 
     renderDashboard();
+
+    // Mobile hamburger menu
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+
+    document.getElementById('hamburger-btn').addEventListener('click', () => {
+      sidebar.classList.add('mobile-open');
+      backdrop.classList.add('active');
+    });
+
+    function closeMobileSidebar() {
+      sidebar.classList.remove('mobile-open');
+      backdrop.classList.remove('active');
+    }
+
+    document.getElementById('sidebar-close-btn').addEventListener('click', closeMobileSidebar);
+    backdrop.addEventListener('click', closeMobileSidebar);
+
+    // Close sidebar when a nav item is tapped on mobile
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          closeMobileSidebar();
+        }
+      });
+    });
   </script>
 </body>
 </html>
