@@ -196,7 +196,19 @@
       list-style: none;
       display: flex;
       gap: 2rem;
+      align-items: center;
     }
+
+    .nav-phone {
+      font-size: 0.875rem;
+      color: var(--ink-mid);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s var(--ease);
+      white-space: nowrap;
+    }
+    .nav-phone:hover { color: var(--terracotta); }
+    @media (max-width: 768px) { .nav-phone { display: none; } }
 
     nav a {
       color: var(--ink);
@@ -826,6 +838,7 @@
         <li><a href="#process">Process</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="tel:+13613322725" class="nav-phone">(361) 332-2725</a></li>
       </ul>
     </div>
   </nav>
@@ -835,7 +848,7 @@
     <div class="container">
       <h1>I build the software your business actually needs.</h1>
       <p class="subtitle">Stop paying for overpriced SaaS subscriptions that do too much and cost too much. I build custom software tailored to how you work. You own it forever.</p>
-      <a href="#contact" class="cta-button">Let's talk</a>
+      <a href="tel:+13613322725" class="cta-button">Let's talk</a>
     </div>
   </section>
 
@@ -910,7 +923,7 @@
       <div class="how-it-works-grid">
         <div class="step reveal-card reveal-stagger-1">
           <div class="step-number">1</div>
-          <h3>We talk</h3>
+          <h3>You talk</h3>
           <p>Tell me what your business does. What takes time. What costs money. What frustrates you. I listen.</p>
         </div>
 
@@ -924,7 +937,7 @@
           <div class="step-number">3</div>
           <h3>Low monthly rate</h3>
           <p>No subscriptions per user. No surprise billing. One flat monthly rate for maintenance and updates, that's it.</p>
-          <p class="pricing-note">Most projects run $25–$50/month. Less than your cable bill.</p>
+          <p class="pricing-note">Most projects run $25 to $50/month. Less than your cable bill.</p>
         </div>
       </div>
     </div>
