@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Island Wheels Golf Cart Rentals - Fleet Manager</title>
+  <link rel="canonical" href="https://localpraxis.com/demos/rental.html">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231E5FB5'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>IW</text></svg>">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -350,6 +351,15 @@
     .search-input:focus { outline: none; border-color: var(--blue); }
     .search-input::placeholder { color: var(--ink-light); }
     .overdue-card { border-left: 3px solid var(--danger); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -525,7 +535,7 @@
   </div>
 
   <div class="demo-footer-cta"><span>Like what you see?</span><a href="https://localpraxis.com#contact" target="_blank">Get one for your business &rarr;</a></div>
-  <a class="lp-back" href="https://localpraxis.com">&#8592; localpraxis.com</a>
+  <a class="lp-back" href="https://localpraxis.com" target="_blank" rel="noopener noreferrer">&#8592; localpraxis.com</a>
 
   <script>
   // ===== DATA =====

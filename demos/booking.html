@@ -4,23 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redfish Run Charters - Admin Dashboard</title>
+    <link rel="canonical" href="https://localpraxis.com/demos/booking.html">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232563EB'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>RR</text></svg>">
 
-    <!-- Preload fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --warm-white: #F8F9FA;
-            --cream: #F3F4F6;
-            --ink: #0F172A;
-            --ink-mid: #64748B;
-            --ink-light: #94A3B8;
-            --terracotta: #2563EB;
-            --terracotta-hover: #1D4ED8;
-            --rule: #E2E8F0;
+            --warm-white: #FDFAF5;
+            --cream: #F5F0E8;
+            --ink: #1C1917;
+            --ink-mid: #57534E;
+            --ink-light: #A8A29E;
+            --terracotta: #1E5FB5;
+            --terracotta-hover: #174B91;
+            --rule: #DDD6CC;
             --success: #16A34A;
             --warning: #D97706;
             --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -331,7 +334,7 @@
 
         .chart-bar {
             width: 100%;
-            background: linear-gradient(180deg, var(--terracotta) 0%, #3B82F6 100%);
+            background: var(--terracotta);
             border-radius: 6px 6px 0 0;
             transition: all 0.2s var(--ease);
             min-height: 4px;
@@ -339,14 +342,14 @@
         }
 
         .chart-bar:hover {
-            background: linear-gradient(180deg, var(--terracotta-hover) 0%, #2563EB 100%);
+            background: var(--terracotta-hover);
             cursor: pointer;
             transform: scaleY(1.03);
             transform-origin: bottom;
         }
 
         .chart-bar.selected {
-            background: linear-gradient(180deg, var(--terracotta-hover) 0%, #1E40AF 100%);
+            background: var(--terracotta-hover);
             box-shadow: 0 -2px 8px rgba(37, 99, 235, 0.3);
         }
 
@@ -573,7 +576,7 @@
             width: 36px;
             height: 20px;
             background: var(--rule);
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s var(--ease);
             outline: none;
@@ -613,7 +616,7 @@
         .widget-preview {
             background: #FFFFFF;
             border: 1px solid var(--rule);
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 2.5rem;
             min-height: 500px;
             display: flex;
@@ -1053,7 +1056,7 @@
 
         .modal {
             background: var(--warm-white);
-            border-radius: 12px;
+            border-radius: 8px;
             width: 90%;
             max-width: 500px;
             padding: 2rem;
@@ -1364,6 +1367,15 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.18);
         }
         .lp-back:hover { opacity: 0.8; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
     </style>
 </head>
 <body>
@@ -1646,7 +1658,7 @@
     <!-- Sticky CTA bar -->
     <div class="demo-footer-cta">
       <span>Like what you see?</span>
-      <a href="https://localpraxis.com#contact" target="_blank">Get one for your business &rarr;</a>
+      <a href="https://localpraxis.com#contact" target="_blank" rel="noopener noreferrer">Get one for your business &rarr;</a>
     </div>
 
     <!-- Modals -->
@@ -2333,6 +2345,6 @@
         });
     </script>
 
-    <a class="lp-back" href="https://localpraxis.com">&#8592; localpraxis.com</a>
+    <a class="lp-back" href="https://localpraxis.com" target="_blank" rel="noopener noreferrer">&#8592; localpraxis.com</a>
 </body>
 </html>

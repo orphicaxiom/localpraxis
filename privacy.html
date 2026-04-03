@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | Local Praxis</title>
+  <meta name="description" content="How Local Praxis handles your data. No cookies, no tracking, no third-party sharing. Plain-English privacy practices for a Port Aransas software business.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%231E5FB5'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
+  <link rel="canonical" href="https://localpraxis.com/privacy.html">
+  <meta property="og:title" content="Privacy Policy | Local Praxis">
+  <meta property="og:description" content="How Local Praxis handles your data. No cookies, no tracking, no third-party sharing.">
+  <meta property="og:url" content="https://localpraxis.com/privacy.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Local Praxis">
+  <meta property="og:image" content="https://localpraxis.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privacy Policy | Local Praxis">
+  <meta name="twitter:description" content="How Local Praxis handles your data. No cookies, no tracking, no third-party sharing.">
+  <meta name="twitter:image" content="https://localpraxis.com/og-image.png">
+
+  <!-- Fonts -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  </noscript>
+
+  <style>
+    :root {
+      --warm-white: #FDFAF5;
+      --cream: #F5F0E8;
+      --ink: #1C1917;
+      --ink-mid: #57534E;
+      --ink-light: #A8A29E;
+      --terracotta: #1E5FB5;
+      --rule: #DDD6CC;
+      --font-serif: 'Instrument Serif', serif;
+      --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--warm-white);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="4" seed="1"/></filter><rect width="256" height="256" fill="%231C1917" filter="url(%23n)"/></svg>');
+      opacity: 0.025; pointer-events: none; z-index: 1;
+    }
+    ::selection { background-color: var(--terracotta); color: var(--warm-white); }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background-color: rgba(253, 250, 245, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+      padding: 1rem 0;
+    }
+    .nav-container {
+      max-width: 1080px; margin: 0 auto; padding: 0 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+      font-family: var(--font-serif); font-size: 1.25rem;
+      font-weight: 500; color: var(--ink); letter-spacing: -0.01em;
+    }
+    nav ul { list-style: none; display: flex; gap: 2rem; align-items: center; }
+    .nav-phone {
+      font-size: 0.875rem; color: var(--ink-mid); text-decoration: none;
+      font-weight: 500; transition: color 0.3s var(--ease); white-space: nowrap;
+    }
+    .nav-phone:hover { color: var(--terracotta); }
+    @media (max-width: 768px) { .nav-phone { display: none; } }
+    nav a {
+      color: var(--ink); text-decoration: none;
+      font-size: 0.95rem; font-weight: 500;
+      transition: color 0.3s var(--ease); position: relative;
+    }
+    nav a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background-color: var(--terracotta);
+      transition: width 0.3s var(--ease);
+    }
+    nav a:hover::after { width: 100%; }
+    nav a.active { color: var(--terracotta); }
+    nav a.active::after { width: 100%; }
+
+    /* Container */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
+
+    /* Page header */
+    .page-header {
+      padding: 6rem 0 4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .page-header .back-link {
+      display: inline-block;
+      font-size: 0.85rem;
+      color: var(--ink-light);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .page-header .back-link:hover { color: var(--terracotta); }
+    .page-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .page-header .lead {
+      font-size: 1.05rem;
+      color: var(--ink-mid);
+      max-width: 55ch;
+      line-height: 1.8;
+    }
+
+    /* Privacy content */
+    .privacy-section {
+      padding: 5rem 0 8rem;
+    }
+    .privacy-content {
+      max-width: 780px;
+    }
+    .privacy-content h2 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      margin-top: 3rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+    .privacy-content h2:first-child {
+      margin-top: 0;
+    }
+    .privacy-content p {
+      color: var(--ink-mid);
+      font-size: 1rem;
+      line-height: 1.85;
+      margin-bottom: 1rem;
+      max-width: 68ch;
+    }
+    .privacy-content strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .privacy-content a {
+      color: var(--terracotta);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .privacy-content a:hover {
+      opacity: 0.75;
+    }
+    .privacy-content .updated {
+      font-size: 0.875rem;
+      color: var(--ink-light);
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--cream); border-top: 1px solid var(--rule);
+      padding: 3rem 0;
+    }
+    .footer-content {
+      max-width: 1080px; margin: 0 auto; padding: 0 2rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .footer-left { font-family: var(--font-serif); font-size: 1rem; color: var(--ink); }
+    .footer-right { text-align: right; font-size: 0.85rem; color: var(--ink-light); }
+
+    @media (max-width: 768px) {
+      .nav-container { padding: 0 1.5rem; }
+      nav ul { gap: 1.5rem; }
+      nav a { font-size: 0.85rem; }
+      .container { padding: 0 1.5rem; }
+      .page-header { padding: 4rem 0 2.5rem; }
+      .privacy-content h2 { margin-top: 2.5rem; }
+      .footer-content { grid-template-columns: 1fr; text-align: left; }
+      .footer-right { text-align: left; }
+    }
+
+    /* Page transitions */
+    @keyframes pageIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes pageOut {
+      from { opacity: 1; transform: scale(1); }
+      to   { opacity: 0; transform: scale(1.04); }
+    }
+    body {
+      animation: pageIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+      transform-origin: center top;
+    }
+    body.page-leaving {
+      animation: pageOut 0.28s cubic-bezier(0.4, 0, 1, 1) forwards;
+      pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="/" class="logo" style="text-decoration:none;">Local Praxis</a>
+      <ul>
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/#process">Process</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="tel:+13613322725" class="nav-phone">(361) 332-2725</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="container">
+      <a href="/" class="back-link">&larr; Back to home</a>
+      <h1>Privacy policy.</h1>
+      <p class="lead">What we collect, what we don't, and how we handle your information. The short version: we keep it simple and respect your data.</p>
+    </div>
+  </div>
+
+  <!-- Privacy Content -->
+  <section class="privacy-section">
+    <div class="container">
+      <div class="privacy-content">
+
+        <h2>What we collect</h2>
+        <p>When you use the contact form on this site, we collect the information you provide: your <strong>name</strong>, <strong>business name</strong>, <strong>phone number</strong> (optional), and your <strong>message</strong>. That's it. We don't collect anything else.</p>
+
+        <h2>How it's processed</h2>
+        <p>Contact form submissions are sent through <strong>FormSubmit.co</strong> directly to our email inbox. We don't store your information in a database. Once the message lands in email, that's where it lives.</p>
+
+        <h2>No tracking</h2>
+        <p>This site does not use cookies, analytics scripts, or tracking pixels. No Google Analytics, no Facebook Pixel, no session recording. When you visit this site, we have no idea you were here unless you reach out to us directly.</p>
+
+        <h2>No third-party sharing</h2>
+        <p>We don't sell, trade, or share your information with anyone. Your contact details are used for one thing: responding to your inquiry. That's it.</p>
+
+        <h2>Your rights</h2>
+        <p>If you've reached out to us and want your information deleted, just ask. We'll remove any emails and records associated with your inquiry. No forms to fill out, no hoops to jump through.</p>
+
+        <h2>Contact</h2>
+        <p>If you have questions about how we handle your data, reach out directly:</p>
+        <p>
+          <strong>James Johnson</strong><br>
+          Phone: <a href="tel:+13613322725">(361) 332-2725</a><br>
+          Email: <a href="mailto:JamesAndrewJohnson555@gmail.com">JamesAndrewJohnson555@gmail.com</a>
+        </p>
+
+        <p class="updated">Last updated: April 3, 2026</p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">Local Praxis. Port Aransas, Texas.</div>
+      <div class="footer-right"><a href="/privacy.html" style="color:var(--ink-mid);text-decoration:none;">Privacy</a> &middot; &copy; 2026 James Johnson</div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && !href.startsWith('#') && !href.startsWith('tel:') && !href.startsWith('mailto:') && !href.startsWith('http') && !link.getAttribute('target')) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          document.body.classList.add('page-leaving');
+          setTimeout(() => { window.location = href; }, 280);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

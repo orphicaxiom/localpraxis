@@ -1,0 +1,29 @@
+# Local Praxis
+
+> Custom software development for local businesses in Port Aransas, TX. Founded by James Johnson (ex-Apple, Meta, GoDaddy).
+
+## About
+Local Praxis builds custom booking systems, inventory management tools, client portals, and rental fleet platforms for local businesses in Port Aransas and the Texas Coastal Bend. You pay once to build it, then $25-50/month for maintenance. You own the code forever — no platform fees, no middleman.
+
+## Services
+- Booking Systems: Online reservations, calendar management, captain scheduling, payment processing
+- Inventory & POS: Real-time stock tracking, point-of-sale, reorder alerts for local retail
+- Client Portals: Secure self-service dashboards for property management and professional services
+- Rental Fleet Management: Availability calendars, dynamic pricing, digital waivers, check-in/check-out
+
+## Contact
+- Phone: (361) 332-2725
+- Email: JamesAndrewJohnson555@gmail.com
+- Location: Port Aransas, TX 78373
+- Web: https://localpraxis.com
+
+## Pages
+- [Homepage](https://localpraxis.com): Services, portfolio demos, process, about, contact
+- [FAQ](https://localpraxis.com/faq.html): Pricing, timelines, ownership, competitor comparison
+- [Privacy Policy](https://localpraxis.com/privacy.html): Data handling and privacy practices
+
+## Interactive Demos
+- [Booking System](https://localpraxis.com/demos/booking.html): Charter fishing booking demo (Redfish Run Charters)
+- [Inventory & POS](https://localpraxis.com/demos/inventory.html): Retail inventory and point-of-sale demo (Salt Line Supply)
+- [Client Portal](https://localpraxis.com/demos/portal.html): Property management portal demo (Island Key Properties)
+- [Rental Fleet](https://localpraxis.com/demos/rental.html): Golf cart rental management demo (Island Wheels)
