@@ -408,10 +408,18 @@
 
     .tab-panel {
       display: none;
+      opacity: 0;
+      transform: translateY(12px);
     }
 
     .tab-panel.active {
       display: block;
+      animation: tabFadeIn 0.4s ease forwards;
+    }
+
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .tab-content {
