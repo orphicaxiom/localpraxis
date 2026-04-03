@@ -6,7 +6,6 @@
   <title>Island Wheels Golf Cart Rentals - Fleet Manager</title>
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231E5FB5'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>IW</text></svg>">
-
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
@@ -31,1559 +30,1349 @@
       --info-bg: rgba(30, 95, 181, 0.1);
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html, body {
       font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--warm-white);
-      color: var(--ink);
-      line-height: 1.6;
+      background: var(--warm-white); color: var(--ink); line-height: 1.6;
     }
-
     body { display: flex; min-height: 100vh; }
-
     body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.018'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.018;
+      content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.018;
     }
-
     ::selection { background: var(--blue); color: #fff; }
 
-    /* ===== SIDEBAR ===== */
+    /* Sidebar */
     .sidebar {
-      width: 220px;
-      background: var(--cream);
-      border-right: 1px solid var(--rule);
-      padding: 2.5rem 1.5rem;
-      position: fixed;
-      height: 100vh;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      z-index: 100;
+      width: 220px; background: var(--cream); border-right: 1px solid var(--rule);
+      padding: 2.5rem 1.5rem; position: fixed; height: 100vh; overflow-y: auto;
+      display: flex; flex-direction: column; z-index: 100;
     }
-
-    .sidebar h1 {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 1.6rem;
-      line-height: 1.15;
-      margin-bottom: 0.4rem;
-    }
-
-    .sidebar .tagline {
-      font-size: 0.7rem;
-      color: var(--ink-light);
-      margin-bottom: 2rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-
-    .nav-menu {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
+    .sidebar h1 { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.6rem; line-height: 1.15; margin-bottom: 0.4rem; }
+    .sidebar .tagline { font-size: 0.7rem; color: var(--ink-light); margin-bottom: 2rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+    .nav-menu { flex: 1; display: flex; flex-direction: column; gap: 0.2rem; }
     .nav-item {
-      padding: 0.75rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      color: var(--ink-mid);
-      transition: all 0.2s var(--ease);
-      border-left: 3px solid transparent;
+      padding: 0.65rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.9rem;
+      color: var(--ink-mid); transition: all 0.2s var(--ease); border-left: 3px solid transparent;
     }
+    .nav-item:hover { background: var(--blue-subtle); color: var(--blue); }
+    .nav-item.active { background: var(--blue); color: #fff; border-left: 3px solid var(--blue); }
 
-    .nav-item:hover {
-      background: var(--blue-subtle);
-      color: var(--blue);
-    }
+    /* Main */
+    .main { margin-left: 220px; flex: 1; background: var(--warm-white); padding: 3rem 3.5rem; min-height: 100vh; padding-bottom: 60px; }
+    .header { margin-bottom: 2.5rem; }
+    .header h1 { font-family: 'Instrument Serif', Georgia, serif; font-size: 2.2rem; line-height: 1.1; margin-bottom: 0.4rem; }
+    .header p { color: var(--ink-light); font-size: 0.9rem; }
+    .view { display: none; } .view.active { display: block; }
 
-    .nav-item.active {
-      background: var(--blue);
-      color: #fff;
-      border-left: 3px solid var(--blue);
-    }
+    /* Stats */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+    .stat-card { border-top: 1px solid var(--rule); padding: 1.5rem 0; }
+    .stat-card.accent { border-top-color: var(--success); }
+    .stat-label { font-size: 0.68rem; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; margin-bottom: 0.4rem; }
+    .stat-value { font-family: 'Satoshi', sans-serif; font-size: 2.4rem; font-weight: 700; line-height: 1; color: var(--ink); }
+    .stat-sub { font-size: 0.78rem; color: var(--success); font-weight: 500; margin-top: 0.3rem; }
 
-    /* ===== MAIN ===== */
-    .main {
-      margin-left: 220px;
-      flex: 1;
-      background: var(--warm-white);
-      padding: 3.5rem 4rem;
-      min-height: 100vh;
-      padding-bottom: 60px;
-    }
+    /* Section Title */
+    .section-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.3rem; margin: 2rem 0 1.25rem 0; line-height: 1.1; }
 
-    .header { margin-bottom: 3rem; }
-
-    .header h1 {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 2.4rem;
-      line-height: 1.1;
-      margin-bottom: 0.5rem;
-    }
-
-    .header p {
-      color: var(--ink-light);
-      font-size: 0.95rem;
-    }
-
-    .view { display: none; }
-    .view.active { display: block; }
-
-    /* ===== STATS ===== */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-
-    .stat-card {
-      border-top: 1px solid var(--rule);
-      padding: 1.75rem 0;
-    }
-
-    .stat-label {
-      font-size: 0.7rem;
-      color: var(--ink-light);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
-
-    .stat-value {
-      font-family: 'Satoshi', sans-serif;
-      font-size: 2.8rem;
-      font-weight: 700;
-      line-height: 1;
-      color: var(--ink);
-    }
-
-    /* ===== FLEET GRID ===== */
-    .fleet-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 3rem;
-    }
-
+    /* Fleet Grid */
+    .fleet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
     .cart-card {
-      background: var(--warm-white);
-      border: 1px solid var(--rule);
-      border-radius: 6px;
-      padding: 1.25rem;
-      transition: all 0.2s var(--ease);
-      cursor: default;
-      position: relative;
+      background: var(--warm-white); border: 1px solid var(--rule); border-radius: 6px;
+      padding: 1.1rem; transition: all 0.2s var(--ease); cursor: pointer; position: relative;
     }
-
-    .cart-card:hover {
-      border-color: var(--blue);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .cart-number {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 1.35rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .cart-meta {
-      font-size: 0.8rem;
-      color: var(--ink-light);
-      margin-bottom: 0.75rem;
-    }
-
-    .cart-status {
-      display: inline-block;
-      padding: 0.25rem 0.7rem;
-      border-radius: 9999px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
+    .cart-card:hover { border-color: var(--blue); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .cart-number { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.25rem; margin-bottom: 0.2rem; }
+    .cart-meta { font-size: 0.78rem; color: var(--ink-light); margin-bottom: 0.5rem; }
+    .cart-status { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
     .cart-status.available { background: var(--success-bg); color: var(--success); }
     .cart-status.rented { background: var(--info-bg); color: var(--info); }
     .cart-status.cleaning { background: var(--warning-bg); color: var(--warning); }
     .cart-status.out-of-service { background: var(--danger-bg); color: var(--danger); }
+    .cart-status.checked-in { background: var(--info-bg); color: var(--info); }
+    .cart-due { display: block; font-size: 0.76rem; color: var(--info); margin-top: 0.3rem; font-weight: 500; }
+    .cart-renter { font-size: 0.78rem; color: var(--ink-mid); margin-top: 0.15rem; }
+    .condition-dots { display: flex; gap: 3px; margin-top: 0.4rem; }
+    .condition-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--rule); }
+    .condition-dots.excellent span { background: var(--success); }
+    .condition-dots.good span:nth-child(-n+3) { background: var(--success); }
+    .condition-dots.fair span:nth-child(-n+2) { background: var(--warning); }
+    .condition-dots.needs-repair span:first-child { background: var(--danger); }
 
-    .cart-due {
-      display: block;
-      font-size: 0.78rem;
-      color: var(--info);
-      margin-top: 0.35rem;
-      font-weight: 500;
-    }
-
-    /* ===== SECTION TITLE ===== */
-    .section-title {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 1.4rem;
-      margin: 2rem 0 1.5rem 0;
-      line-height: 1.1;
-    }
-
-    /* ===== TABLE ===== */
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
+    /* Table */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     .data-table thead { border-bottom: 1px solid var(--rule); }
+    .data-table th { text-align: left; padding: 0.65rem 0.5rem; font-size: 0.68rem; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; }
+    .data-table tbody tr { border-bottom: 1px solid var(--rule); transition: background 0.15s var(--ease); }
+    .data-table tbody tr:hover { background: rgba(30, 95, 181, 0.03); }
+    .data-table td { padding: 0.85rem 0.5rem; color: var(--ink); }
 
-    .data-table th {
-      text-align: left;
-      padding: 0.75rem 0.5rem;
-      font-size: 0.7rem;
-      color: var(--ink-light);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 500;
-    }
-
-    .data-table tbody tr {
-      border-bottom: 1px solid var(--rule);
-      transition: background 0.15s var(--ease);
-    }
-
-    .data-table tbody tr:hover {
-      background: rgba(30, 95, 181, 0.03);
-    }
-
-    .data-table td {
-      padding: 1rem 0.5rem;
-      font-size: 0.95rem;
-      color: var(--ink);
-    }
-
-    /* ===== BADGES / PILLS ===== */
-    .pill {
-      display: inline-block;
-      padding: 0.2rem 0.6rem;
-      border-radius: 9999px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
+    /* Badges / Pills */
+    .pill { display: inline-block; padding: 0.18rem 0.55rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.02em; }
     .pill-green { background: var(--success-bg); color: var(--success); }
     .pill-blue { background: var(--info-bg); color: var(--info); }
     .pill-amber { background: var(--warning-bg); color: var(--warning); }
     .pill-red { background: var(--danger-bg); color: var(--danger); }
     .pill-gray { background: rgba(168,162,158,0.15); color: var(--ink-light); }
 
-    /* ===== BUTTONS ===== */
-    .btn {
-      padding: 0.65rem 1.25rem;
-      font-family: 'Satoshi', sans-serif;
-      font-size: 0.9rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s var(--ease);
-      border: none;
-      font-weight: 500;
-    }
+    /* Buttons */
+    .btn { padding: 0.6rem 1.15rem; font-family: 'Satoshi', sans-serif; font-size: 0.88rem; border-radius: 4px; cursor: pointer; transition: all 0.2s var(--ease); border: none; font-weight: 500; }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: var(--blue-hover); transform: translateY(-1px); }
+    .btn-secondary { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+    .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
+    .btn-small { padding: 0.35rem 0.7rem; font-size: 0.78rem; }
+    .btn-danger { background: transparent; color: var(--danger); border: 1px solid rgba(197,48,48,0.3); }
+    .btn-danger:hover { background: var(--danger-bg); border-color: var(--danger); }
 
-    .btn-primary {
-      background: var(--blue);
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      background: var(--blue-hover);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--ink);
-      border: 1px solid var(--rule);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--blue);
-      color: var(--blue);
-    }
-
-    .btn-small {
-      padding: 0.4rem 0.8rem;
-      font-size: 0.8rem;
-    }
-
-    .btn-danger-outline {
-      background: transparent;
-      color: var(--danger);
-      border: 1px solid rgba(197, 48, 48, 0.3);
-    }
-
-    .btn-danger-outline:hover {
-      background: var(--danger-bg);
-      border-color: var(--danger);
-    }
-
-    /* ===== WALK-UP RENTAL BUTTON ===== */
     .walkup-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.85rem 1.5rem;
-      background: var(--blue);
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-family: 'Satoshi', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s var(--ease);
-      margin-bottom: 2rem;
+      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.4rem;
+      background: var(--blue); color: #fff; border: none; border-radius: 6px;
+      font-family: 'Satoshi', sans-serif; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s var(--ease); margin-bottom: 1.5rem;
     }
+    .walkup-btn:hover { background: var(--blue-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(30,95,181,0.25); }
 
-    .walkup-btn:hover {
-      background: var(--blue-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(30, 95, 181, 0.25);
-    }
+    /* Two-column dashboard */
+    .dash-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; margin-bottom: 2.5rem; }
+    .dash-section { background: var(--warm-white); border: 1px solid var(--rule); border-radius: 6px; padding: 1.25rem; }
 
-    /* ===== FEES SAVED ===== */
-    .fees-saved {
-      font-size: 0.85rem;
-      color: var(--success);
-      font-weight: 500;
-      margin-top: 0.75rem;
-    }
+    /* Bar Chart */
+    .chart-container { display: flex; align-items: flex-end; gap: 8px; height: 160px; margin-top: 0.75rem; }
+    .chart-col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
+    .chart-bar { width: 100%; border-radius: 4px 4px 0 0; background: var(--blue); min-height: 3px; transition: all 0.2s var(--ease); cursor: pointer; position: relative; }
+    .chart-bar:hover { opacity: 0.85; }
+    .chart-bar[data-amt]:hover::after { content: attr(data-amt); position: absolute; top: -24px; left: 50%; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 0.68rem; font-weight: 600; white-space: nowrap; }
+    .chart-label { font-size: 0.7rem; color: var(--ink-light); margin-top: 0.4rem; }
 
-    /* ===== MODALS ===== */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.35);
-      z-index: 200;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
+    /* Activity Timeline */
+    .timeline-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--rule); font-size: 0.88rem; }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-time { font-size: 0.75rem; color: var(--ink-light); min-width: 55px; font-weight: 500; }
+    .timeline-text { flex: 1; }
+    .timeline-pill { flex-shrink: 0; }
 
+    /* Calendar */
+    .cal-toolbar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .cal-toolbar .cal-label { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.1rem; margin-right: auto; }
+    .cal-filters { display: flex; gap: 0.35rem; margin-left: 1rem; }
+    .filter-pill { padding: 0.3rem 0.7rem; border: 1px solid var(--rule); border-radius: 9999px; background: transparent; font-family: 'Satoshi', sans-serif; font-size: 0.78rem; cursor: pointer; color: var(--ink-mid); transition: all 0.15s var(--ease); }
+    .filter-pill:hover { border-color: var(--blue); color: var(--blue); }
+    .filter-pill.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .cal-grid { display: grid; grid-template-columns: 84px repeat(7, 1fr); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+    .cal-corner { background: var(--cream); padding: 0.6rem 0.5rem; font-size: 0.68rem; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); display: flex; align-items: center; }
+    .cal-day-hdr { background: var(--cream); padding: 0.6rem 0.4rem; text-align: center; font-size: 0.72rem; color: var(--ink-mid); font-weight: 500; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+    .cal-day-hdr:last-child { border-right: none; }
+    .cal-day-hdr.today { color: var(--blue); font-weight: 700; }
+    .cal-day-hdr .cal-day-num { font-size: 1rem; font-weight: 700; display: block; }
+
+    .cal-row-label { background: var(--cream); padding: 0.5rem; font-size: 0.82rem; font-weight: 500; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); display: flex; flex-direction: column; justify-content: center; }
+    .cal-row-label .cal-cart-size { font-size: 0.65rem; color: var(--ink-light); font-weight: 400; }
+    .cal-row { display: contents; }
+    .cal-cell { border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); min-height: 40px; position: relative; cursor: pointer; transition: background 0.1s; }
+    .cal-cell:hover { background: var(--blue-subtle); }
+    .cal-cell:last-child { border-right: none; }
+    .cal-cell.today { background: rgba(30,95,181,0.03); }
+
+    .cal-booking { position: absolute; top: 4px; bottom: 4px; border-radius: 3px; padding: 0 6px; font-size: 0.7rem; font-weight: 600; color: #fff; display: flex; align-items: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; z-index: 2; cursor: pointer; transition: opacity 0.15s; }
+    .cal-booking:hover { opacity: 0.85; }
+
+    .cal-group-hdr { grid-column: 1 / -1; background: var(--cream); padding: 0.35rem 0.6rem; font-size: 0.65rem; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; border-bottom: 1px solid var(--rule); }
+
+    .utilization-strip { display: grid; grid-template-columns: 84px repeat(7, 1fr); gap: 0; margin-top: 0.75rem; }
+    .util-label { font-size: 0.65rem; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.3rem 0; }
+    .util-cell { padding: 0.3rem 0.4rem; }
+    .util-bar-bg { height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+    .util-bar { height: 100%; border-radius: 3px; background: var(--blue); transition: width 0.3s var(--ease); }
+    .util-pct { font-size: 0.65rem; color: var(--ink-light); margin-top: 2px; text-align: center; }
+
+    /* Filter Tabs */
+    .filter-bar { display: flex; gap: 0; margin-bottom: 1.5rem; border-bottom: 1px solid var(--rule); }
+    .filter-tab { padding: 0.65rem 1.1rem; cursor: pointer; border: none; background: none; font-family: 'Satoshi', sans-serif; font-size: 0.88rem; color: var(--ink-light); transition: all 0.2s var(--ease); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+    .filter-tab:hover { color: var(--ink); }
+    .filter-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+    /* Inner Tabs (check-in/out) */
+    .inner-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .inner-tab { padding: 0.5rem 1rem; border: 1px solid var(--rule); border-radius: 4px; background: transparent; font-family: 'Satoshi', sans-serif; font-size: 0.88rem; cursor: pointer; color: var(--ink-mid); transition: all 0.15s var(--ease); }
+    .inner-tab.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* Checklist */
+    .checklist-item { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0; }
+    .check-box { width: 20px; height: 20px; border: 2px solid var(--rule); border-radius: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s var(--ease); flex-shrink: 0; }
+    .check-box.checked { background: var(--success); border-color: var(--success); }
+    .check-box.checked::after { content: ''; width: 5px; height: 9px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg) translateY(-1px); }
+
+    /* Signature Pad */
+    .sig-pad-wrapper { border: 2px dashed var(--rule); border-radius: 6px; padding: 0.5rem; background: #fff; margin: 0.75rem 0; }
+    .sig-pad-wrapper.signed { border-color: var(--success); border-style: solid; }
+    .sig-canvas { width: 100%; height: 120px; display: block; cursor: crosshair; touch-action: none; }
+    .sig-actions { display: flex; gap: 0.75rem; align-items: center; margin-top: 0.5rem; }
+    .sig-status { font-size: 0.82rem; color: var(--success); font-weight: 500; display: flex; align-items: center; gap: 0.3rem; }
+
+    /* Modals */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.35); z-index: 200; display: none; align-items: center; justify-content: center; }
     .modal-overlay.active { display: flex; }
-
-    .modal {
-      background: var(--warm-white);
-      border-radius: 8px;
-      padding: 2rem;
-      width: 90%;
-      max-width: 520px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-    }
-
-    .modal-large { max-width: 680px; }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.75rem;
-      border-bottom: 1px solid var(--rule);
-      padding-bottom: 1rem;
-    }
-
-    .modal-title {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 1.5rem;
-      font-weight: 400;
-    }
-
-    .modal-close {
-      background: none;
-      border: none;
-      font-size: 1.4rem;
-      cursor: pointer;
-      color: var(--ink-light);
-      transition: color 0.2s var(--ease);
-      padding: 0;
-    }
-
+    .modal { background: var(--warm-white); border-radius: 8px; padding: 1.75rem; width: 90%; max-width: 520px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+    .modal-lg { max-width: 680px; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.75rem; }
+    .modal-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.4rem; font-weight: 400; }
+    .modal-close { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--ink-light); padding: 0; }
     .modal-close:hover { color: var(--ink); }
 
-    /* ===== FORMS ===== */
-    .form-group { margin-bottom: 1.25rem; }
-
-    .form-label {
-      display: block;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 500;
-      color: var(--ink-light);
-      margin-bottom: 0.4rem;
+    /* Forms */
+    .form-group { margin-bottom: 1.1rem; }
+    .form-label { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; color: var(--ink-light); margin-bottom: 0.35rem; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--rule); background: var(--warm-white);
+      font-family: 'Satoshi', sans-serif; font-size: 0.9rem; color: var(--ink); border-radius: 4px; transition: border-color 0.2s var(--ease);
     }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--blue); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-hint { font-size: 0.78rem; color: var(--ink-light); margin-top: 0.25rem; }
 
-    .form-input,
-    .form-select,
-    .form-textarea {
-      width: 100%;
-      padding: 0.7rem 0.9rem;
-      border: 1px solid var(--rule);
-      background: var(--warm-white);
-      font-family: 'Satoshi', sans-serif;
-      font-size: 0.95rem;
-      color: var(--ink);
-      border-radius: 4px;
-      transition: border-color 0.2s var(--ease);
-    }
+    /* Pricing Config */
+    .rate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .rate-card { border: 1px solid var(--rule); border-radius: 6px; padding: 1.25rem; }
+    .rate-card h3 { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.1rem; margin-bottom: 0.75rem; }
+    .rate-field { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid var(--rule); font-size: 0.88rem; }
+    .rate-field:last-child { border-bottom: none; }
+    .rate-val { font-weight: 600; color: var(--ink); }
+    .rate-input { width: 70px; padding: 0.3rem 0.5rem; border: 1px solid var(--rule); border-radius: 3px; font-family: 'Satoshi', sans-serif; font-size: 0.88rem; text-align: right; }
+    .rate-input:focus { outline: none; border-color: var(--blue); }
 
-    .form-input:focus,
-    .form-select:focus,
-    .form-textarea:focus {
-      outline: none;
-      border-color: var(--blue);
-    }
+    /* Toggle */
+    .toggle { position: relative; width: 44px; height: 24px; background: var(--rule); border-radius: 12px; cursor: pointer; transition: background 0.2s var(--ease); flex-shrink: 0; }
+    .toggle.on { background: var(--blue); }
+    .toggle::after { content: ''; position: absolute; width: 18px; height: 18px; background: #fff; border-radius: 50%; top: 3px; left: 3px; transition: transform 0.2s var(--ease); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+    .toggle.on::after { transform: translateX(20px); }
+    .rule-row { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--rule); }
+    .rule-row:last-child { border-bottom: none; }
+    .rule-info { flex: 1; }
+    .rule-name { font-weight: 500; margin-bottom: 0.15rem; }
+    .rule-desc { font-size: 0.82rem; color: var(--ink-light); }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
+    /* Settings table (seasonal, holidays) */
+    .settings-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 1rem; }
+    .settings-table th { text-align: left; padding: 0.5rem; font-size: 0.68rem; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; border-bottom: 1px solid var(--rule); }
+    .settings-table td { padding: 0.65rem 0.5rem; border-bottom: 1px solid var(--rule); }
 
-    /* ===== BOOKING WIDGET ===== */
-    .widget-container {
-      max-width: 560px;
-    }
+    /* Price Calculator */
+    .calc-box { background: var(--cream); border-radius: 6px; padding: 1.25rem; margin-top: 1.5rem; }
+    .calc-row { display: flex; justify-content: space-between; padding: 0.35rem 0; font-size: 0.9rem; }
+    .calc-row.total { font-weight: 700; font-size: 1.05rem; border-top: 1px solid var(--rule); padding-top: 0.6rem; margin-top: 0.4rem; }
+    .calc-row .adj { font-size: 0.82rem; color: var(--ink-mid); }
 
-    .widget-steps {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .widget-step-indicator {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.78rem;
-      color: var(--ink-light);
-      font-weight: 500;
-    }
-
-    .widget-step-indicator.active {
-      color: var(--blue);
-    }
-
-    .widget-step-indicator.completed {
-      color: var(--success);
-    }
-
-    .step-dot {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 2px solid var(--rule);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      font-weight: 700;
-      transition: all 0.2s var(--ease);
-    }
-
-    .widget-step-indicator.active .step-dot {
-      background: var(--blue);
-      border-color: var(--blue);
-      color: #fff;
-    }
-
-    .widget-step-indicator.completed .step-dot {
-      background: var(--success);
-      border-color: var(--success);
-      color: #fff;
-    }
-
-    .step-connector {
-      width: 24px;
-      height: 1px;
-      background: var(--rule);
-    }
-
-    .widget-panel {
-      background: var(--warm-white);
-      border: 1px solid var(--rule);
-      border-radius: 6px;
-      padding: 2rem;
-    }
-
-    .widget-panel-title {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 1.3rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .cart-size-options {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .cart-size-card {
-      border: 2px solid var(--rule);
-      border-radius: 6px;
-      padding: 1.25rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s var(--ease);
-    }
-
-    .cart-size-card:hover {
-      border-color: var(--blue);
-    }
-
-    .cart-size-card.selected {
-      border-color: var(--blue);
-      background: var(--blue-subtle);
-    }
-
-    .cart-size-card .size-number {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 2rem;
-      line-height: 1;
-      margin-bottom: 0.25rem;
-    }
-
-    .cart-size-card .size-label {
-      font-size: 0.78rem;
-      color: var(--ink-mid);
-      margin-bottom: 0.5rem;
-    }
-
-    .cart-size-card .size-price {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--blue);
-    }
-
-    .addon-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--rule);
-    }
-
+    /* Booking Widget */
+    .widget-container { max-width: 560px; }
+    .widget-steps { display: flex; gap: 0.4rem; margin-bottom: 1.75rem; flex-wrap: wrap; align-items: center; }
+    .step-ind { display: flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: var(--ink-light); font-weight: 500; }
+    .step-ind.active { color: var(--blue); }
+    .step-ind.done { color: var(--success); }
+    .step-dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--rule); display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700; transition: all 0.2s var(--ease); }
+    .step-ind.active .step-dot { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .step-ind.done .step-dot { background: var(--success); border-color: var(--success); color: #fff; }
+    .step-conn { width: 20px; height: 1px; background: var(--rule); }
+    .step-ind.done + .step-conn, .step-ind.active + .step-conn { background: var(--blue); }
+    .widget-panel { background: var(--warm-white); border: 1px solid var(--rule); border-radius: 6px; padding: 1.75rem; }
+    .widget-panel-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.25rem; margin-bottom: 1.1rem; }
+    .cart-size-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
+    .size-card { border: 2px solid var(--rule); border-radius: 6px; padding: 1.1rem; text-align: center; cursor: pointer; transition: all 0.2s var(--ease); }
+    .size-card:hover { border-color: var(--blue); }
+    .size-card.selected { border-color: var(--blue); background: var(--blue-subtle); }
+    .size-card .size-num { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.8rem; line-height: 1; margin-bottom: 0.2rem; }
+    .size-card .size-label { font-size: 0.75rem; color: var(--ink-mid); margin-bottom: 0.4rem; }
+    .size-card .size-price { font-size: 0.95rem; font-weight: 700; color: var(--blue); }
+    .size-card .size-avail { font-size: 0.72rem; color: var(--ink-light); margin-top: 0.25rem; }
+    .size-card .size-orig { text-decoration: line-through; color: var(--ink-light); font-size: 0.82rem; margin-right: 0.3rem; font-weight: 400; }
+    .addon-row { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 0; border-bottom: 1px solid var(--rule); }
     .addon-row:last-child { border-bottom: none; }
-
     .addon-info { flex: 1; }
+    .addon-name { font-weight: 500; margin-bottom: 0.1rem; }
+    .addon-price { font-size: 0.82rem; color: var(--ink-light); }
+    .addon-check { width: 20px; height: 20px; border: 2px solid var(--rule); border-radius: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; flex-shrink: 0; margin-left: 0.75rem; }
+    .addon-check.checked { background: var(--blue); border-color: var(--blue); }
+    .addon-check.checked::after { content: ''; width: 5px; height: 9px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg) translateY(-1px); }
+    .widget-nav { display: flex; justify-content: space-between; margin-top: 1.25rem; }
+    .upload-zone { border: 2px dashed var(--rule); border-radius: 6px; padding: 1.5rem; text-align: center; color: var(--ink-light); font-size: 0.88rem; cursor: pointer; transition: all 0.2s var(--ease); margin-bottom: 0.75rem; }
+    .upload-zone:hover { border-color: var(--blue); color: var(--blue); }
+    .upload-zone.uploaded { border-color: var(--success); border-style: solid; background: var(--success-bg); color: var(--success); }
+    .confirmation-box { text-align: center; padding: 1.5rem 0.5rem; }
+    .confirmation-box .check-circle { width: 52px; height: 52px; border-radius: 50%; background: var(--success-bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+    .confirmation-box h2 { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.5rem; margin-bottom: 0.4rem; }
+    .promo-applied { display: inline-flex; align-items: center; gap: 0.3rem; background: var(--success-bg); color: var(--success); padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; margin-top: 0.5rem; }
 
-    .addon-name { font-weight: 500; margin-bottom: 0.15rem; }
+    /* Toast */
+    .toast { position: fixed; top: 2rem; right: 2rem; background: var(--success); color: #fff; padding: 0.8rem 1.15rem; border-radius: 4px; font-weight: 500; font-size: 0.88rem; z-index: 300; animation: slideIn 0.3s var(--ease) forwards; }
+    @keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-    .addon-price {
-      font-size: 0.85rem;
-      color: var(--ink-light);
-    }
-
-    .addon-check {
-      width: 22px;
-      height: 22px;
-      border: 2px solid var(--rule);
-      border-radius: 4px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s var(--ease);
-      flex-shrink: 0;
-      margin-left: 1rem;
-    }
-
-    .addon-check.checked {
-      background: var(--blue);
-      border-color: var(--blue);
-    }
-
-    .addon-check.checked::after {
-      content: '';
-      width: 6px;
-      height: 10px;
-      border: solid #fff;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg) translateY(-1px);
-    }
-
-    .waiver-box {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      padding: 1rem;
-      background: var(--cream);
-      border-radius: 4px;
-      margin-top: 1rem;
-      cursor: pointer;
-    }
-
-    .waiver-box .addon-check { margin-left: 0; margin-top: 0.1rem; }
-
-    .upload-zone {
-      border: 2px dashed var(--rule);
-      border-radius: 6px;
-      padding: 2rem;
-      text-align: center;
-      color: var(--ink-light);
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.2s var(--ease);
-      margin-bottom: 1rem;
-    }
-
-    .upload-zone:hover {
-      border-color: var(--blue);
-      color: var(--blue);
-    }
-
-    .upload-zone.uploaded {
-      border-color: var(--success);
-      background: var(--success-bg);
-      color: var(--success);
-    }
-
-    .confirmation-box {
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-
-    .confirmation-box .check-circle {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--success-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.25rem;
-    }
-
-    .confirmation-box h2 {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 1.6rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .widget-nav {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1.5rem;
-    }
-
-    /* ===== SUCCESS TOAST ===== */
-    .toast {
-      position: fixed;
-      top: 2rem;
-      right: 2rem;
-      background: var(--success);
-      color: #fff;
-      padding: 0.9rem 1.25rem;
-      border-radius: 4px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      z-index: 300;
-      animation: slideIn 0.3s var(--ease) forwards;
-    }
-
-    @keyframes slideIn {
-      from { transform: translateX(400px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    /* ===== FOOTER CTA ===== */
-    .demo-footer-cta {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: var(--blue);
-      color: #fff;
-      padding: 0.75rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      font-size: 0.9rem;
-      z-index: 300;
-    }
-
-    .demo-footer-cta a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: opacity 0.2s var(--ease);
-    }
-
+    /* Footer */
+    .demo-footer-cta { position: fixed; bottom: 0; left: 0; right: 0; background: var(--blue); color: #fff; padding: 0.65rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: 0.88rem; z-index: 300; }
+    .demo-footer-cta a { color: #fff; text-decoration: none; font-weight: 500; transition: opacity 0.2s; }
     .demo-footer-cta a:hover { opacity: 0.8; }
-
-    .lp-back {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      font-size: 0.78rem;
-      color: var(--ink-light);
-      text-decoration: none;
-      z-index: 200;
-      background: var(--cream);
-      padding: 0.35rem 0.75rem;
-      border-radius: 4px;
-      border: 1px solid var(--rule);
-      transition: all 0.2s var(--ease);
-    }
-
+    .lp-back { position: fixed; top: 0.75rem; right: 0.75rem; font-size: 0.75rem; color: var(--ink-light); text-decoration: none; z-index: 200; background: var(--cream); padding: 0.3rem 0.65rem; border-radius: 4px; border: 1px solid var(--rule); transition: all 0.2s; }
     .lp-back:hover { opacity: 0.8; }
 
-    /* ===== MOBILE ===== */
-    .hamburger-btn {
-      display: none;
-      position: fixed;
-      top: 1rem; left: 1rem;
-      z-index: 300;
-      background: var(--cream);
-      border: 1px solid var(--rule);
-      border-radius: 4px;
-      width: 40px; height: 40px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      align-items: center;
-      justify-content: center;
-      color: var(--ink);
-    }
+    /* Demo Banner */
+    .demo-banner { display: flex; justify-content: space-between; align-items: center; background: var(--cream); border-left: 3px solid var(--blue); padding: 0.75rem 1.15rem; font-size: 0.85rem; margin-bottom: 1.5rem; color: var(--ink-mid); }
+    .demo-banner button { background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--ink-light); padding: 0 0 0 0.75rem; line-height: 1; flex-shrink: 0; }
 
-    .sidebar-close-btn {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.4rem;
-      cursor: pointer;
-      color: var(--ink-light);
-      padding: 0;
-      line-height: 1;
-    }
-
-    .sidebar-close-btn:hover { color: var(--ink); }
-
-    .sidebar-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 149;
-    }
-
+    /* Mobile */
+    .hamburger-btn { display: none; position: fixed; top: 0.75rem; left: 0.75rem; z-index: 300; background: var(--cream); border: 1px solid var(--rule); border-radius: 4px; width: 38px; height: 38px; font-size: 1.1rem; cursor: pointer; align-items: center; justify-content: center; color: var(--ink); }
+    .sidebar-close-btn { display: none; background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--ink-light); padding: 0; line-height: 1; }
+    .sidebar-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 149; }
     .sidebar-backdrop.active { display: block; }
-
     @media (max-width: 768px) {
       .hamburger-btn { display: flex; }
       .sidebar-close-btn { display: block; }
-
-      .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s var(--ease);
-        z-index: 150;
-      }
-
+      .sidebar { transform: translateX(-100%); transition: transform 0.3s var(--ease); z-index: 150; }
       .sidebar.mobile-open { transform: translateX(0); }
-
-      .sidebar-brand-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-      }
-
-      .main {
-        margin-left: 0;
-        padding: 2rem 1.5rem;
-        padding-top: 4rem;
-      }
-
-      .fleet-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      }
-
-      .cart-size-options {
-        grid-template-columns: 1fr;
-      }
-
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-row {
-        grid-template-columns: 1fr 1fr;
-      }
+      .sidebar-brand-row { display: flex; justify-content: space-between; align-items: flex-start; }
+      .main { margin-left: 0; padding: 1.5rem; padding-top: 3.5rem; }
+      .fleet-grid { grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); }
+      .dash-grid { grid-template-columns: 1fr; }
+      .cart-size-options, .rate-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .cal-grid { display: none; }
+      .cal-mobile { display: block !important; }
+      .utilization-strip { display: none; }
     }
-
-    /* ===== DEMO BANNER ===== */
-    .demo-banner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--cream);
-      border-left: 3px solid var(--blue);
-      padding: 0.85rem 1.25rem;
-      font-size: 0.88rem;
-      margin-bottom: 2rem;
-      color: var(--ink-mid);
-    }
-
-    .demo-banner button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      color: var(--ink-light);
-      padding: 0 0 0 1rem;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-
-    .demo-banner button:hover { color: var(--ink); }
+    .cal-mobile { display: none; }
+    .cal-mobile-day { margin-bottom: 1rem; }
+    .cal-mobile-date { font-family: 'Instrument Serif', Georgia, serif; font-size: 1rem; margin-bottom: 0.5rem; }
+    .cal-mobile-item { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0; border-bottom: 1px solid var(--rule); font-size: 0.88rem; }
+    .controls-bar { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .search-input { flex: 1; min-width: 180px; padding: 0.6rem 0.85rem; border: 1px solid var(--rule); background: var(--warm-white); font-family: 'Satoshi', sans-serif; font-size: 0.9rem; color: var(--ink); border-radius: 4px; }
+    .search-input:focus { outline: none; border-color: var(--blue); }
+    .search-input::placeholder { color: var(--ink-light); }
+    .overdue-card { border-left: 3px solid var(--danger); }
   </style>
 </head>
 <body>
   <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu">&#9776;</button>
   <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
-
   <div class="sidebar" id="sidebar">
     <div class="sidebar-brand-row">
       <div>
         <h1>Island Wheels</h1>
         <div class="tagline">Port Aransas, TX</div>
       </div>
-      <button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close menu">&#10005;</button>
+      <button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close">&#10005;</button>
     </div>
-
     <div class="nav-menu">
       <div class="nav-item active" data-view="dashboard" role="button" tabindex="0">Dashboard</div>
+      <div class="nav-item" data-view="calendar" role="button" tabindex="0">Calendar</div>
+      <div class="nav-item" data-view="fleet" role="button" tabindex="0">Fleet</div>
       <div class="nav-item" data-view="reservations" role="button" tabindex="0">Reservations</div>
+      <div class="nav-item" data-view="checkinout" role="button" tabindex="0">Check-in / Out</div>
+      <div class="nav-item" data-view="pricing" role="button" tabindex="0">Pricing</div>
+      <div class="nav-item" data-view="promotions" role="button" tabindex="0">Promotions</div>
       <div class="nav-item" data-view="widget" role="button" tabindex="0">Booking Widget</div>
     </div>
   </div>
-
   <div class="main">
     <div class="demo-banner" id="demo-banner">
-      <span>Interactive demo &mdash; explore Fleet, Reservations, and the customer Booking Widget</span>
+      <span>Interactive demo &mdash; explore all 8 sections via the sidebar</span>
       <button onclick="document.getElementById('demo-banner').style.display='none'" aria-label="Dismiss">&#10005;</button>
     </div>
 
-    <!-- ===== DASHBOARD ===== -->
+    <!-- DASHBOARD -->
     <div class="view active" id="dashboard-view">
-      <div class="header">
-        <h1>Fleet Dashboard</h1>
-        <p id="dashboard-date"></p>
-      </div>
-
+      <div class="header"><h1>Fleet Dashboard</h1><p id="dash-date"></p></div>
       <div class="stats-row">
-        <div class="stat-card">
-          <div class="stat-label">Carts Out</div>
-          <div class="stat-value" id="stat-carts-out">5</div>
+        <div class="stat-card"><div class="stat-label">Carts Out</div><div class="stat-value" id="s-out">7 / 16</div></div>
+        <div class="stat-card"><div class="stat-label">Revenue Today</div><div class="stat-value" id="s-rev">$1,640</div></div>
+        <div class="stat-card"><div class="stat-label">Upcoming Returns</div><div class="stat-value" id="s-ret">3</div></div>
+        <div class="stat-card accent"><div class="stat-label">Fees Saved This Month</div><div class="stat-value" style="color:var(--success);">$1,240</div><div class="stat-sub">vs. 6% FareHarbor</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;">
+        <button class="walkup-btn" id="walkup-btn"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3V15M3 9H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Walk-Up Rental</button>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-section">
+          <h3 class="section-title" style="margin-top:0;">Today's Activity</h3>
+          <div id="dash-timeline"></div>
         </div>
-        <div class="stat-card">
-          <div class="stat-label">Revenue Today</div>
-          <div class="stat-value" id="stat-revenue">$1,640</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Upcoming Returns</div>
-          <div class="stat-value" id="stat-returns">3</div>
+        <div class="dash-section">
+          <h3 class="section-title" style="margin-top:0;">Revenue This Week</h3>
+          <div class="chart-container" id="dash-chart"></div>
         </div>
       </div>
+      <h3 class="section-title">Fleet At a Glance</h3>
+      <div class="fleet-grid" id="dash-fleet"></div>
+    </div>
 
-      <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
-        <button class="walkup-btn" id="walkup-btn">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          Walk-Up Rental
-        </button>
-        <div class="fees-saved">Booking fees saved this month: $1,240</div>
+    <!-- CALENDAR -->
+    <div class="view" id="calendar-view">
+      <div class="header"><h1>Availability</h1><p>Fleet calendar &mdash; click to book or view details</p></div>
+      <div class="cal-toolbar">
+        <button class="btn btn-secondary btn-small" id="cal-prev">&larr; Prev</button>
+        <button class="btn btn-secondary btn-small" id="cal-today">Today</button>
+        <button class="btn btn-secondary btn-small" id="cal-next">Next &rarr;</button>
+        <span class="cal-label" id="cal-week-label"></span>
+        <div class="cal-filters" id="cal-filters"></div>
       </div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div class="cal-mobile" id="cal-mobile"></div>
+      <div class="utilization-strip" id="cal-util"></div>
+    </div>
 
-      <h2 class="section-title">Fleet Status</h2>
+    <!-- FLEET -->
+    <div class="view" id="fleet-view">
+      <div class="header"><h1>Fleet Management</h1><p>16 carts across 3 size tiers</p></div>
+      <div class="filter-bar" id="fleet-filters"></div>
       <div class="fleet-grid" id="fleet-grid"></div>
     </div>
 
-    <!-- ===== RESERVATIONS ===== -->
+    <!-- RESERVATIONS -->
     <div class="view" id="reservations-view">
-      <div class="header">
-        <h1>Reservations</h1>
-        <p>Upcoming bookings and guest details</p>
+      <div class="header"><h1>Reservations</h1><p>Upcoming bookings and guest details</p></div>
+      <div class="controls-bar">
+        <input type="text" class="search-input" id="res-search" placeholder="Search by guest name...">
+        <button class="btn btn-primary" id="new-res-btn">New Reservation</button>
       </div>
-
-      <div class="data-table" style="overflow-x:auto;">
-        <table class="data-table" id="reservations-table">
-          <thead>
-            <tr>
-              <th>Guest</th>
-              <th>Cart Size</th>
-              <th>Dates</th>
-              <th>Deposit</th>
-              <th>Waiver</th>
-              <th>ID</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
+      <div class="filter-bar" id="res-filters"></div>
+      <div style="overflow-x:auto;"><table class="data-table" id="res-table"><thead><tr>
+        <th>Guest</th><th>Cart</th><th>Size</th><th>Dates</th><th>Total</th><th>Deposit</th><th>Waiver</th><th>Status</th><th></th>
+      </tr></thead><tbody></tbody></table></div>
     </div>
 
-    <!-- ===== BOOKING WIDGET ===== -->
+    <!-- CHECK-IN/OUT -->
+    <div class="view" id="checkinout-view">
+      <div class="header"><h1>Check-in / Check-out</h1><p>Today's arrivals and returns</p></div>
+      <div class="inner-tabs">
+        <button class="inner-tab active" data-cio="checkins">Check-ins Due</button>
+        <button class="inner-tab" data-cio="checkouts">Check-outs Due</button>
+      </div>
+      <div id="cio-content"></div>
+    </div>
+
+    <!-- PRICING -->
+    <div class="view" id="pricing-view">
+      <div class="header"><h1>Pricing &amp; Rates</h1><p>Configure rates, seasonal pricing, and discounts</p></div>
+      <h3 class="section-title" style="margin-top:0;">Base Rates</h3>
+      <div class="rate-grid" id="rate-grid"></div>
+      <h3 class="section-title">Dynamic Pricing Rules</h3>
+      <div id="pricing-rules"></div>
+      <h3 class="section-title">Seasonal Pricing</h3>
+      <div id="seasonal-table"></div>
+      <h3 class="section-title">Live Price Calculator</h3>
+      <div class="calc-box" id="price-calc"></div>
+    </div>
+
+    <!-- PROMOTIONS -->
+    <div class="view" id="promotions-view">
+      <div class="header"><h1>Promotions</h1><p>Promo codes, gift certificates, and waitlist</p></div>
+      <h3 class="section-title" style="margin-top:0;">Promo Codes</h3>
+      <div id="promo-section"></div>
+      <h3 class="section-title">Gift Certificates</h3>
+      <div id="gift-section"></div>
+      <h3 class="section-title">Waitlist</h3>
+      <div id="waitlist-section"></div>
+    </div>
+
+    <!-- BOOKING WIDGET -->
     <div class="view" id="widget-view">
-      <div class="header">
-        <h1>Booking Widget</h1>
-        <p>Customer-facing reservation flow &mdash; preview how guests book online</p>
-      </div>
-
+      <div class="header"><h1>Booking Widget</h1><p>Customer-facing reservation flow &mdash; preview how guests book online</p></div>
       <div class="widget-container">
-        <div class="widget-steps" id="widget-steps"></div>
-        <div class="widget-panel" id="widget-panel"></div>
+        <div class="widget-steps" id="w-steps"></div>
+        <div class="widget-panel" id="w-panel"></div>
       </div>
     </div>
   </div>
 
-  <!-- Walk-Up Rental Modal -->
+  <!-- Walk-Up Modal -->
   <div class="modal-overlay" id="walkup-modal">
-    <div class="modal">
-      <div class="modal-header">
-        <h2 class="modal-title">Walk-Up Rental</h2>
-        <button class="modal-close" aria-label="Close">&times;</button>
-      </div>
-      <form id="walkup-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="wu-name">Guest Name</label>
-            <input type="text" class="form-input" id="wu-name" placeholder="Full name" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="wu-phone">Phone</label>
-            <input type="tel" class="form-input" id="wu-phone" placeholder="(361) 555-1234">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="wu-card">Card on File</label>
-            <input type="text" class="form-input" id="wu-card" placeholder="**** **** **** 4242" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="wu-cart">Assign Cart</label>
-            <select class="form-select" id="wu-cart" required></select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="wu-return">Return By</label>
-          <select class="form-select" id="wu-return">
-            <option value="4:00 PM">4:00 PM today</option>
-            <option value="6:00 PM">6:00 PM today</option>
-            <option value="10:00 AM +1">10:00 AM tomorrow</option>
-            <option value="multi">Multi-day (set at return)</option>
-          </select>
-        </div>
-        <div style="display:flex;gap:1rem;margin-top:1.5rem;">
-          <button type="submit" class="btn btn-primary" style="flex:1;">Rent Out</button>
-          <button type="button" class="btn btn-secondary modal-close">Cancel</button>
-        </div>
-      </form>
-    </div>
+    <div class="modal"><div class="modal-header"><h2 class="modal-title">Walk-Up Rental</h2><button class="modal-close">&times;</button></div>
+    <form id="walkup-form">
+      <div class="form-row"><div class="form-group"><label class="form-label">Guest Name</label><input type="text" class="form-input" id="wu-name" required></div><div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-input" id="wu-phone" placeholder="(361) 555-1234"></div></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Card on File</label><input type="text" class="form-input" id="wu-card" placeholder="**** 4242" required></div><div class="form-group"><label class="form-label">Assign Cart</label><select class="form-select" id="wu-cart" required></select></div></div>
+      <div class="form-group"><label class="form-label">Return By</label><select class="form-select" id="wu-return"><option value="4:00 PM">4:00 PM today</option><option value="6:00 PM">6:00 PM today</option><option value="10:00 AM">10:00 AM tomorrow</option></select></div>
+      <div style="display:flex;gap:0.75rem;margin-top:1.25rem;"><button type="submit" class="btn btn-primary" style="flex:1;">Rent Out</button><button type="button" class="btn btn-secondary modal-close">Cancel</button></div>
+    </form></div>
   </div>
 
-  <!-- Tag Out Modal -->
-  <div class="modal-overlay" id="tagout-modal">
-    <div class="modal" style="max-width:400px;">
-      <div class="modal-header">
-        <h2 class="modal-title" id="tagout-title">Tag Out Cart</h2>
-        <button class="modal-close" aria-label="Close">&times;</button>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="tagout-reason">Reason</label>
-        <select class="form-select" id="tagout-reason">
-          <option value="cleaning">Needs Cleaning</option>
-          <option value="maintenance">Maintenance / Repair</option>
-          <option value="flat">Flat Tire</option>
-          <option value="battery">Battery Issue</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="tagout-notes">Notes (optional)</label>
-        <textarea class="form-textarea" id="tagout-notes" rows="2" placeholder="Any details..."></textarea>
-      </div>
-      <div style="display:flex;gap:1rem;margin-top:1rem;">
-        <button class="btn btn-danger-outline" id="tagout-confirm" style="flex:1;">Tag Out</button>
-        <button class="btn btn-secondary modal-close">Cancel</button>
-      </div>
-    </div>
+  <!-- Generic Detail Modal -->
+  <div class="modal-overlay" id="detail-modal">
+    <div class="modal modal-lg"><div class="modal-header"><h2 class="modal-title" id="detail-title">Details</h2><button class="modal-close">&times;</button></div><div id="detail-body"></div></div>
   </div>
 
-  <div class="demo-footer-cta">
-    <span>Like what you see?</span>
-    <a href="https://localpraxis.com#contact" target="_blank">Get one for your business &rarr;</a>
+  <!-- New Reservation Modal -->
+  <div class="modal-overlay" id="newres-modal">
+    <div class="modal modal-lg"><div class="modal-header"><h2 class="modal-title">New Reservation</h2><button class="modal-close">&times;</button></div>
+    <form id="newres-form">
+      <div class="form-row"><div class="form-group"><label class="form-label">Guest Name</label><input type="text" class="form-input" id="nr-name" required></div><div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="nr-email"></div></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-input" id="nr-phone"></div><div class="form-group"><label class="form-label">Cart Size</label><select class="form-select" id="nr-size"><option value="4">4-Passenger</option><option value="6">6-Passenger</option><option value="8">8-Passenger</option></select></div></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Pick-up Date</label><input type="date" class="form-input" id="nr-start" required></div><div class="form-group"><label class="form-label">Return Date</label><input type="date" class="form-input" id="nr-end" required></div></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Promo Code</label><input type="text" class="form-input" id="nr-promo" placeholder="Optional"></div><div class="form-group"><label class="form-label">Source</label><select class="form-select" id="nr-source"><option value="phone">Phone</option><option value="walk-up">Walk-in</option><option value="online">Online</option></select></div></div>
+      <div class="calc-box" id="nr-pricing" style="margin-bottom:1rem;"></div>
+      <div style="display:flex;gap:0.75rem;margin-top:1rem;"><button type="submit" class="btn btn-primary" style="flex:1;">Create Reservation</button><button type="button" class="btn btn-secondary modal-close">Cancel</button></div>
+    </form></div>
   </div>
 
+  <!-- Check-in Modal -->
+  <div class="modal-overlay" id="checkin-modal">
+    <div class="modal modal-lg"><div class="modal-header"><h2 class="modal-title" id="ci-title">Check-In</h2><button class="modal-close">&times;</button></div><div id="ci-body"></div></div>
+  </div>
+
+  <!-- Promo/Gift Create Modal -->
+  <div class="modal-overlay" id="create-modal">
+    <div class="modal"><div class="modal-header"><h2 class="modal-title" id="create-title">Create</h2><button class="modal-close">&times;</button></div><div id="create-body"></div></div>
+  </div>
+
+  <div class="demo-footer-cta"><span>Like what you see?</span><a href="https://localpraxis.com#contact" target="_blank">Get one for your business &rarr;</a></div>
   <a class="lp-back" href="https://localpraxis.com">&#8592; localpraxis.com</a>
 
   <script>
-    // ===== DATA =====
-    const fleet = [
-      { id: 1, number: 'IW-01', size: 4, status: 'available', dueBack: null, renter: null },
-      { id: 2, number: 'IW-02', size: 4, status: 'rented', dueBack: '4:00 PM', renter: 'Whitaker' },
-      { id: 3, number: 'IW-03', size: 4, status: 'rented', dueBack: '6:00 PM', renter: 'Campos' },
-      { id: 4, number: 'IW-04', size: 6, status: 'available', dueBack: null, renter: null },
-      { id: 5, number: 'IW-05', size: 6, status: 'cleaning', dueBack: null, renter: null },
-      { id: 6, number: 'IW-06', size: 6, status: 'rented', dueBack: '4:00 PM', renter: 'Martinez' },
-      { id: 7, number: 'IW-07', size: 8, status: 'rented', dueBack: '5:00 PM', renter: 'Johannsen' },
-      { id: 8, number: 'IW-08', size: 4, status: 'available', dueBack: null, renter: null },
-      { id: 9, number: 'IW-09', size: 8, status: 'out-of-service', dueBack: null, renter: null },
-      { id: 10, number: 'IW-10', size: 4, status: 'available', dueBack: null, renter: null },
-      { id: 11, number: 'IW-11', size: 6, status: 'rented', dueBack: '4:00 PM', renter: 'Nguyen' },
-      { id: 12, number: 'IW-12', size: 8, status: 'available', dueBack: null, renter: null }
+  // ===== DATA =====
+  const fleet = [
+    { id:1, number:'IW-01', size:4, status:'available', condition:'excellent', mileage:1247, lastInspected:'Apr 1' },
+    { id:2, number:'IW-02', size:4, status:'rented', condition:'good', mileage:2103, lastInspected:'Mar 30', dueBack:'4:00 PM', renter:'Whitaker', rentalId:1 },
+    { id:3, number:'IW-03', size:4, status:'rented', condition:'good', mileage:1890, lastInspected:'Mar 31', dueBack:'6:00 PM', renter:'Campos', rentalId:2 },
+    { id:4, number:'IW-04', size:4, status:'available', condition:'excellent', mileage:980, lastInspected:'Apr 1' },
+    { id:5, number:'IW-05', size:6, status:'available', condition:'excellent', mileage:1456, lastInspected:'Apr 2' },
+    { id:6, number:'IW-06', size:6, status:'rented', condition:'good', mileage:2340, lastInspected:'Mar 29', dueBack:'4:00 PM', renter:'Martinez', rentalId:3 },
+    { id:7, number:'IW-07', size:6, status:'cleaning', condition:'fair', mileage:3102, lastInspected:'Mar 28' },
+    { id:8, number:'IW-08', size:6, status:'rented', condition:'good', mileage:1678, lastInspected:'Apr 1', dueBack:'5:00 PM', renter:'Johannsen', rentalId:4 },
+    { id:9, number:'IW-09', size:8, status:'rented', condition:'excellent', mileage:890, lastInspected:'Apr 2', dueBack:'4:00 PM', renter:'Nguyen', rentalId:5 },
+    { id:10, number:'IW-10', size:8, status:'out-of-service', condition:'needs-repair', mileage:4210, lastInspected:'Mar 25' },
+    { id:11, number:'IW-11', size:4, status:'available', condition:'good', mileage:1567, lastInspected:'Apr 1' },
+    { id:12, number:'IW-12', size:6, status:'rented', condition:'excellent', mileage:720, lastInspected:'Apr 2', dueBack:'6:00 PM', renter:'Patel', rentalId:6 },
+    { id:13, number:'IW-13', size:4, status:'rented', condition:'good', mileage:2045, lastInspected:'Mar 31', dueBack:'4:00 PM', renter:'Rowe', rentalId:7 },
+    { id:14, number:'IW-14', size:8, status:'available', condition:'excellent', mileage:560, lastInspected:'Apr 2' },
+    { id:15, number:'IW-15', size:6, status:'available', condition:'good', mileage:1890, lastInspected:'Apr 1' },
+    { id:16, number:'IW-16', size:8, status:'available', condition:'excellent', mileage:345, lastInspected:'Apr 2' }
+  ];
+
+  const reservations = [
+    { id:1, guest:'Lauren Whitaker', email:'lauren@email.com', phone:'(361) 555-2341', size:4, dateStart:'2026-04-02', dateEnd:'2026-04-04', deposit:'paid', depositAmount:75, balanceDue:75, waiver:'signed', idVerified:true, cart:'IW-02', status:'checked-in', source:'online', addons:{speaker:true}, promoCode:null, damageDeposit:200, signatureData:'collected', createdAt:'Mar 28' },
+    { id:2, guest:'Carlos Campos', email:'carlos@email.com', phone:'(361) 555-8821', size:4, dateStart:'2026-04-02', dateEnd:'2026-04-03', deposit:'paid', depositAmount:38, balanceDue:37, waiver:'signed', idVerified:true, cart:'IW-03', status:'checked-in', source:'phone', addons:{}, promoCode:null, damageDeposit:200, signatureData:'collected', createdAt:'Mar 30' },
+    { id:3, guest:'Sofia Martinez', email:'sofia@email.com', phone:'(361) 555-4422', size:6, dateStart:'2026-04-02', dateEnd:'2026-04-05', deposit:'paid', depositAmount:165, balanceDue:165, waiver:'signed', idVerified:true, cart:'IW-06', status:'checked-in', source:'online', addons:{cooler:true}, promoCode:null, damageDeposit:200, signatureData:'collected', createdAt:'Mar 25' },
+    { id:4, guest:'Erik Johannsen', email:'erik@email.com', phone:'(512) 555-1199', size:6, dateStart:'2026-04-02', dateEnd:'2026-04-04', deposit:'paid', depositAmount:110, balanceDue:110, waiver:'signed', idVerified:true, cart:'IW-08', status:'checked-in', source:'online', addons:{speaker:true,parking:true}, promoCode:'ISLAND10', damageDeposit:200, signatureData:'collected', createdAt:'Mar 27' },
+    { id:5, guest:'Trang Nguyen', email:'trang@email.com', phone:'(361) 555-3344', size:8, dateStart:'2026-04-02', dateEnd:'2026-04-06', deposit:'paid', depositAmount:300, balanceDue:300, waiver:'signed', idVerified:true, cart:'IW-09', status:'checked-in', source:'online', addons:{cooler:true,speaker:true}, promoCode:null, damageDeposit:200, signatureData:'collected', createdAt:'Mar 20' },
+    { id:6, guest:'Mike Patel', email:'mike@email.com', phone:'(361) 555-9988', size:6, dateStart:'2026-04-03', dateEnd:'2026-04-05', deposit:'paid', depositAmount:110, balanceDue:110, waiver:'signed', idVerified:true, cart:null, status:'confirmed', source:'online', addons:{}, promoCode:null, damageDeposit:200, signatureData:null, createdAt:'Apr 1' },
+    { id:7, guest:'Jessica Rowe', email:'jess@email.com', phone:'(713) 555-6677', size:4, dateStart:'2026-04-03', dateEnd:'2026-04-07', deposit:'paid', depositAmount:150, balanceDue:150, waiver:'signed', idVerified:true, cart:'IW-13', status:'checked-in', source:'phone', addons:{parking:true}, promoCode:null, damageDeposit:200, signatureData:'collected', createdAt:'Mar 29' },
+    { id:8, guest:'David Camacho', email:'david@email.com', phone:'(361) 555-2200', size:6, dateStart:'2026-04-04', dateEnd:'2026-04-06', deposit:'paid', depositAmount:110, balanceDue:110, waiver:'signed', idVerified:true, cart:null, status:'confirmed', source:'online', addons:{cooler:true}, promoCode:'EARLYBIRD', damageDeposit:200, signatureData:null, createdAt:'Mar 22' },
+    { id:9, guest:'Amy Schuster', email:'amy@email.com', phone:'(210) 555-3311', size:4, dateStart:'2026-04-05', dateEnd:'2026-04-07', deposit:'pending', depositAmount:0, balanceDue:150, waiver:'pending', idVerified:false, cart:null, status:'confirmed', source:'online', addons:{}, promoCode:null, damageDeposit:200, signatureData:null, createdAt:'Apr 2' },
+    { id:10, guest:'Robert Tran', email:'rob@email.com', phone:'(361) 555-7744', size:8, dateStart:'2026-04-05', dateEnd:'2026-04-08', deposit:'paid', depositAmount:225, balanceDue:225, waiver:'pending', idVerified:false, cart:null, status:'confirmed', source:'phone', addons:{speaker:true,cooler:true,parking:true}, promoCode:null, damageDeposit:200, signatureData:null, createdAt:'Apr 1' },
+    { id:11, guest:'Maria Santos', email:'maria@email.com', phone:'(361) 555-1122', size:6, dateStart:'2026-04-06', dateEnd:'2026-04-08', deposit:'paid', depositAmount:110, balanceDue:110, waiver:'signed', idVerified:true, cart:null, status:'confirmed', source:'online', addons:{}, promoCode:'REPEAT15', damageDeposit:200, signatureData:null, createdAt:'Mar 28' },
+    { id:12, guest:'Tyler Brooks', email:'tyler@email.com', phone:'(361) 555-9812', size:8, dateStart:'2026-04-05', dateEnd:'2026-04-07', deposit:'pending', depositAmount:0, balanceDue:300, waiver:'pending', idVerified:false, cart:null, status:'waitlisted', source:'online', addons:{}, promoCode:null, damageDeposit:200, signatureData:null, createdAt:'Mar 31' },
+    { id:13, guest:'Nina Rodriguez', email:'nina@email.com', phone:'(361) 555-5566', size:4, dateStart:'2026-04-07', dateEnd:'2026-04-09', deposit:'paid', depositAmount:75, balanceDue:75, waiver:'signed', idVerified:true, cart:null, status:'confirmed', source:'phone', addons:{parking:true}, promoCode:null, damageDeposit:200, signatureData:null, createdAt:'Apr 2' },
+    { id:14, guest:'Jake Henderson', email:'jake@email.com', phone:'(512) 555-8833', size:6, dateStart:'2026-04-08', dateEnd:'2026-04-10', deposit:'paid', depositAmount:110, balanceDue:110, waiver:'pending', idVerified:false, cart:null, status:'confirmed', source:'online', addons:{cooler:true,speaker:true}, promoCode:'ISLAND10', damageDeposit:200, signatureData:null, createdAt:'Apr 1' },
+    { id:15, guest:'Carmen Vega', email:'carmen@email.com', phone:'(361) 555-4400', size:4, dateStart:'2026-03-30', dateEnd:'2026-04-01', deposit:'paid', depositAmount:75, balanceDue:0, waiver:'signed', idVerified:true, cart:'IW-01', status:'checked-out', source:'online', addons:{}, promoCode:null, damageDeposit:200, signatureData:'collected', createdAt:'Mar 25' },
+    { id:16, guest:'Sam Wilson', email:'sam@email.com', phone:'(361) 555-7788', size:6, dateStart:'2026-04-02', dateEnd:'2026-04-04', deposit:'paid', depositAmount:110, balanceDue:110, waiver:'signed', idVerified:true, cart:'IW-12', status:'checked-in', source:'walk-up', addons:{speaker:true}, promoCode:null, damageDeposit:200, signatureData:'collected', createdAt:'Apr 2' }
+  ];
+
+  const pricingRules = {
+    base: { 4: { daily: 75, hourly: 25 }, 6: { daily: 110, hourly: 35 }, 8: { daily: 150, hourly: 50 } },
+    multiDay: { 3: 0.92, 5: 0.87, 7: 0.80 },
+    seasonal: [
+      { name: 'Spring Break', startMD: '03-07', endMD: '03-21', mult: 1.35, on: true },
+      { name: 'Memorial Day', startMD: '05-22', endMD: '05-26', mult: 1.25, on: true },
+      { name: 'July 4th Week', startMD: '06-28', endMD: '07-06', mult: 1.40, on: true },
+      { name: 'Labor Day', startMD: '08-29', endMD: '09-02', mult: 1.20, on: true }
+    ],
+    leadTime: { sameDaySurcharge: { pct: 10, on: true }, earlyBird: { days: 30, pct: 5, on: false } },
+    lowAvail: { threshold: 2, pct: 10, on: true },
+    damageDeposit: 200, depositPct: 50
+  };
+
+  const promoCodes = [
+    { code: 'ISLAND10', type: 'percent', value: 10, active: true, uses: 14, limit: 50 },
+    { code: 'EARLYBIRD', type: 'flat', value: 25, active: true, uses: 8, limit: 20 },
+    { code: 'REPEAT15', type: 'percent', value: 15, active: true, uses: 3, limit: null }
+  ];
+
+  const giftCerts = [
+    { code: 'GC-1001', balance: 150, original: 200, purchaser: 'Maria Santos', recipient: 'David Camacho', created: 'Mar 28' },
+    { code: 'GC-1002', balance: 100, original: 100, purchaser: 'Online Purchase', recipient: 'Open', created: 'Mar 30' }
+  ];
+
+  const waitlist = [
+    { id: 1, guest: 'Tyler Brooks', email: 'tyler@email.com', phone: '(361) 555-9812', size: 8, dateStart: 'Apr 5', dateEnd: 'Apr 7', createdAt: 'Mar 31', notified: false }
+  ];
+
+  const statusLabels = { available:'Available', rented:'Rented', cleaning:'Needs Cleaning', 'out-of-service':'Out of Service', 'checked-in':'Checked In' };
+  const bookingColors = ['#3B82F6','#8B5CF6','#EC4899','#F97316','#10B981','#6366F1','#EF4444'];
+  const addonData = [
+    { key:'speaker', name:'Bluetooth Speaker', price:20, unit:'/day' },
+    { key:'cooler', name:'Yeti Cooler with Ice', price:35, unit:'/day' },
+    { key:'parking', name:'Beach Parking Permit', price:15, unit:'flat' },
+    { key:'map', name:'Island Map & Guide', price:5, unit:'flat' }
+  ];
+
+  let calState = { weekStart: null, filterSize: 'all' };
+  let fleetFilter = 'all';
+  let resFilter = 'all';
+  let resSearch = '';
+  let cioTab = 'checkins';
+  let ciResId = null;
+  const wState = { step:1, dateStart:'', dateEnd:'', size:null, addons:{speaker:false,cooler:false,parking:false,map:false}, licenseUploaded:false, waiverSigned:false, promoCode:'', sigData:null };
+
+  // ===== HELPERS =====
+  function daysBetween(a, b) { return Math.max(Math.round((new Date(b+'T12:00') - new Date(a+'T12:00')) / 864e5), 1); }
+  function fmtDate(s) { if (!s) return ''; const d = new Date(s+'T12:00'); return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
+  function fmtMoney(n) { return '$' + n.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+  function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1).replace(/-/g,' '); }
+  function toISO(d) { return d.toISOString().split('T')[0]; }
+  function getMon(d) { const m = new Date(d); m.setDate(m.getDate() - ((m.getDay()+6)%7)); return m; }
+
+  function calculatePrice(size, start, end, promo) {
+    const days = daysBetween(start, end);
+    const base = pricingRules.base[size].daily;
+    let rate = base;
+    const adj = [];
+    // Multi-day
+    const mdKeys = Object.keys(pricingRules.multiDay).map(Number).sort((a,b)=>b-a);
+    for (const k of mdKeys) { if (days >= k) { rate = Math.round(base * pricingRules.multiDay[k]); adj.push({ label: days+'+ day rate', val: rate - base, perDay: true }); break; } }
+    let subtotal = rate * days;
+    // Seasonal (simplified: check if start month falls in seasonal)
+    for (const s of pricingRules.seasonal) {
+      if (!s.on) continue;
+      const sm = parseInt(s.startMD.split('-')[0]);
+      const startMonth = new Date(start+'T12:00').getMonth()+1;
+      if (startMonth >= sm && startMonth <= parseInt(s.endMD.split('-')[0])) {
+        const extra = Math.round(subtotal * (s.mult - 1));
+        adj.push({ label: s.name+' (+'+Math.round((s.mult-1)*100)+'%)', val: extra });
+        subtotal += extra; break;
+      }
+    }
+    // Lead time
+    if (pricingRules.leadTime.sameDaySurcharge.on) {
+      const daysOut = daysBetween(toISO(new Date()), start);
+      if (daysOut <= 1) { const extra = Math.round(subtotal * pricingRules.leadTime.sameDaySurcharge.pct / 100); adj.push({ label: 'Same-day surcharge (+'+pricingRules.leadTime.sameDaySurcharge.pct+'%)', val: extra }); subtotal += extra; }
+    }
+    // Promo
+    if (promo) {
+      const pc = promoCodes.find(p => p.code === promo.toUpperCase() && p.active);
+      if (pc) {
+        const disc = pc.type === 'percent' ? Math.round(subtotal * pc.value / 100) : pc.value;
+        adj.push({ label: pc.code+' ('+( pc.type==='percent' ? pc.value+'% off' : fmtMoney(pc.value)+' off' )+')', val: -disc });
+        subtotal -= disc;
+      }
+    }
+    const deposit = Math.round(subtotal * pricingRules.depositPct / 100);
+    return { base: rate, days, subtotal, adjustments: adj, total: subtotal, deposit, balance: subtotal - deposit };
+  }
+
+  function getAvailableCarts(size, start, end) {
+    return fleet.filter(c => {
+      if (size && c.size !== size) return false;
+      if (c.status === 'out-of-service') return false;
+      const hasConflict = reservations.some(r => {
+        if (r.cart !== c.number || r.status === 'checked-out' || r.status === 'cancelled') return false;
+        return r.dateStart < end && r.dateEnd > start;
+      });
+      return !hasConflict;
+    });
+  }
+
+  // ===== NAVIGATION =====
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', function() { switchView(this.dataset.view); });
+    item.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); item.click(); } });
+  });
+
+  function switchView(v) {
+    document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+    document.getElementById(v+'-view').classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelector(`[data-view="${v}"]`).classList.add('active');
+    if (v==='dashboard') renderDashboard();
+    else if (v==='calendar') renderCalendar();
+    else if (v==='fleet') renderFleet();
+    else if (v==='reservations') renderReservations();
+    else if (v==='checkinout') renderCIO();
+    else if (v==='pricing') renderPricing();
+    else if (v==='promotions') renderPromotions();
+    else if (v==='widget') renderWidget();
+  }
+
+  // ===== DASHBOARD =====
+  const weekRevenue = [{ d:'Thu', a:1245 },{ d:'Fri', a:2103 },{ d:'Sat', a:2540 },{ d:'Sun', a:1892 },{ d:'Mon', a:967 },{ d:'Tue', a:1567 },{ d:'Wed', a:1640 }];
+
+  function renderDashboard() {
+    document.getElementById('dash-date').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+    const rented = fleet.filter(c => c.status==='rented'||c.status==='checked-in');
+    document.getElementById('s-out').textContent = rented.length + ' / ' + fleet.length;
+    const todayRev = rented.reduce((s,c) => s + pricingRules.base[c.size].daily, 0);
+    document.getElementById('s-rev').textContent = fmtMoney(todayRev);
+    document.getElementById('s-ret').textContent = rented.filter(c => c.dueBack && c.dueBack.includes('4:00')).length;
+
+    // Timeline
+    const tl = document.getElementById('dash-timeline');
+    const items = [
+      { time:'7:00 AM', text:'Whitaker checked in &mdash; IW-02', pill:'pill-green', label:'Checked In' },
+      { time:'7:15 AM', text:'Campos checked in &mdash; IW-03', pill:'pill-green', label:'Checked In' },
+      { time:'8:30 AM', text:'Martinez checked in &mdash; IW-06', pill:'pill-green', label:'Checked In' },
+      { time:'9:00 AM', text:'Johannsen checked in &mdash; IW-08', pill:'pill-green', label:'Checked In' },
+      { time:'4:00 PM', text:'Whitaker due back &mdash; IW-02', pill:'pill-blue', label:'Due Back' },
+      { time:'4:00 PM', text:'Martinez due back &mdash; IW-06', pill:'pill-blue', label:'Due Back' },
+      { time:'5:00 PM', text:'Johannsen due back &mdash; IW-08', pill:'pill-blue', label:'Due Back' },
+      { time:'6:00 PM', text:'Campos due back &mdash; IW-03', pill:'pill-blue', label:'Due Back' }
     ];
+    tl.innerHTML = items.map(i => `<div class="timeline-item"><span class="timeline-time">${i.time}</span><span class="timeline-text">${i.text}</span><span class="timeline-pill pill ${i.pill}">${i.label}</span></div>`).join('');
 
-    const reservations = [
-      { id: 1, guest: 'Lauren Whitaker', size: 4, dateStart: 'Apr 2', dateEnd: 'Apr 4', deposit: 'paid', waiver: 'signed', idVerified: true, cart: 'IW-02' },
-      { id: 2, guest: 'Carlos Campos', size: 4, dateStart: 'Apr 2', dateEnd: 'Apr 3', deposit: 'paid', waiver: 'signed', idVerified: true, cart: 'IW-03' },
-      { id: 3, guest: 'Sofia Martinez', size: 6, dateStart: 'Apr 2', dateEnd: 'Apr 5', deposit: 'paid', waiver: 'signed', idVerified: true, cart: 'IW-06' },
-      { id: 4, guest: 'Erik Johannsen', size: 8, dateStart: 'Apr 2', dateEnd: 'Apr 3', deposit: 'paid', waiver: 'signed', idVerified: true, cart: 'IW-07' },
-      { id: 5, guest: 'Trang Nguyen', size: 6, dateStart: 'Apr 2', dateEnd: 'Apr 6', deposit: 'paid', waiver: 'signed', idVerified: true, cart: 'IW-11' },
-      { id: 6, guest: 'Mike Patel', size: 4, dateStart: 'Apr 3', dateEnd: 'Apr 5', deposit: 'paid', waiver: 'signed', idVerified: false, cart: null },
-      { id: 7, guest: 'Jessica Rowe', size: 8, dateStart: 'Apr 3', dateEnd: 'Apr 7', deposit: 'pending', waiver: 'pending', idVerified: false, cart: null },
-      { id: 8, guest: 'David Camacho', size: 6, dateStart: 'Apr 4', dateEnd: 'Apr 6', deposit: 'paid', waiver: 'signed', idVerified: true, cart: null },
-      { id: 9, guest: 'Amy Schuster', size: 4, dateStart: 'Apr 5', dateEnd: 'Apr 7', deposit: 'paid', waiver: 'pending', idVerified: true, cart: null },
-      { id: 10, guest: 'Robert Tran', size: 6, dateStart: 'Apr 6', dateEnd: 'Apr 8', deposit: 'pending', waiver: 'pending', idVerified: false, cart: null }
+    // Chart
+    const ch = document.getElementById('dash-chart');
+    const mx = Math.max(...weekRevenue.map(r=>r.a));
+    ch.innerHTML = weekRevenue.map(r => `<div class="chart-col"><div class="chart-bar" style="height:${(r.a/mx)*100}%;" data-amt="${fmtMoney(r.a)}"></div><div class="chart-label">${r.d}</div></div>`).join('');
+
+    // Fleet at a glance
+    renderFleetGrid('dash-fleet', fleet.slice(0,8));
+  }
+
+  function renderFleetGrid(containerId, carts) {
+    const g = document.getElementById(containerId);
+    g.innerHTML = '';
+    carts.forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'cart-card';
+      const due = c.dueBack ? `<span class="cart-due">Due back ${c.dueBack}</span>` : '';
+      const renter = c.renter ? `<div class="cart-renter">${c.renter}</div>` : '';
+      card.innerHTML = `<div class="cart-number">${c.number}</div><div class="cart-meta">${c.size}-passenger &middot; ${c.mileage.toLocaleString()} mi</div><span class="cart-status ${c.status}">${statusLabels[c.status]||capitalize(c.status)}</span>${due}${renter}<div class="condition-dots ${c.condition}"><span></span><span></span><span></span><span></span></div>`;
+      card.addEventListener('click', () => showCartDetail(c));
+      g.appendChild(card);
+    });
+  }
+
+  function showCartDetail(c) {
+    document.getElementById('detail-title').textContent = c.number;
+    const rentals = reservations.filter(r => r.cart === c.number).slice(-3);
+    const body = document.getElementById('detail-body');
+    body.innerHTML = `
+      <div class="form-row" style="margin-bottom:1rem;"><div><div class="form-label">Size</div><div style="font-size:0.95rem;">${c.size}-Passenger</div></div><div><div class="form-label">Status</div><span class="cart-status ${c.status}">${statusLabels[c.status]||capitalize(c.status)}</span></div></div>
+      <div class="form-row" style="margin-bottom:1rem;"><div><div class="form-label">Condition</div><div class="condition-dots ${c.condition}" style="margin-top:0.2rem;"><span></span><span></span><span></span><span></span></div><div style="font-size:0.78rem;color:var(--ink-light);margin-top:0.2rem;">${capitalize(c.condition)}</div></div><div><div class="form-label">Mileage</div><div style="font-size:0.95rem;">${c.mileage.toLocaleString()} mi</div></div></div>
+      <div class="form-label">Last Inspected</div><div style="font-size:0.95rem;margin-bottom:1rem;">${c.lastInspected}</div>
+      ${c.renter ? `<div class="form-label">Current Renter</div><div style="font-size:0.95rem;margin-bottom:1rem;">${c.renter} &mdash; due back ${c.dueBack}</div>` : ''}
+      ${rentals.length ? `<div class="form-label" style="margin-top:1rem;">Recent Rentals</div>${rentals.map(r=>`<div style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid var(--rule);font-size:0.88rem;"><span>${r.guest}</span><span>${fmtDate(r.dateStart)} &ndash; ${fmtDate(r.dateEnd)}</span></div>`).join('')}` : ''}
+      <div style="display:flex;gap:0.5rem;margin-top:1.25rem;">
+        ${c.status==='rented'||c.status==='checked-in' ? '<button class="btn btn-primary btn-small" onclick="closeAllModals()">Process Return</button>' : ''}
+        ${c.status==='available' ? '<button class="btn btn-danger btn-small" onclick="tagOutCart(\''+c.number+'\')">Tag Out</button>' : ''}
+        ${c.status==='cleaning'||c.status==='out-of-service' ? '<button class="btn btn-primary btn-small" onclick="markAvailable(\''+c.number+'\')">Mark Available</button>' : ''}
+        <button class="btn btn-secondary btn-small modal-close">Close</button>
+      </div>`;
+    openModal('detail-modal');
+  }
+
+  window.tagOutCart = function(num) { const c = fleet.find(x=>x.number===num); if(c){c.status='out-of-service';c.renter=null;c.dueBack=null;} closeAllModals(); showToast(num+' tagged out'); renderFleet(); };
+  window.markAvailable = function(num) { const c = fleet.find(x=>x.number===num); if(c){c.status='available';c.condition='good';} closeAllModals(); showToast(num+' marked available'); renderFleet(); };
+
+  // ===== CALENDAR =====
+  function initCal() { calState.weekStart = getMon(new Date()); }
+  initCal();
+
+  function renderCalendar() {
+    const ws = calState.weekStart;
+    const days = [];
+    for (let i=0;i<7;i++) { const d=new Date(ws); d.setDate(d.getDate()+i); days.push(d); }
+    const todayStr = toISO(new Date());
+
+    document.getElementById('cal-week-label').textContent = fmtDate(toISO(days[0])) + ' \u2013 ' + fmtDate(toISO(days[6])) + ', ' + days[0].getFullYear();
+
+    // Filters
+    const ff = document.getElementById('cal-filters');
+    ff.innerHTML = ['all',4,6,8].map(s => `<button class="filter-pill ${calState.filterSize==s?'active':''}" data-cs="${s}">${s==='all'?'All':s+'-Pass'}</button>`).join('');
+    ff.querySelectorAll('.filter-pill').forEach(b => b.addEventListener('click', () => { calState.filterSize = b.dataset.cs==='all'?'all':parseInt(b.dataset.cs); renderCalendar(); }));
+
+    const filtered = calState.filterSize==='all' ? fleet : fleet.filter(c=>c.size===calState.filterSize);
+    const sizes = [...new Set(filtered.map(c=>c.size))].sort();
+    const grid = document.getElementById('cal-grid');
+    let html = '<div class="cal-corner">Cart</div>';
+    days.forEach(d => {
+      const iso = toISO(d);
+      const dayName = d.toLocaleDateString('en-US',{weekday:'short'});
+      const dayNum = d.getDate();
+      html += `<div class="cal-day-hdr ${iso===todayStr?'today':''}"><span class="cal-day-num">${dayNum}</span>${dayName}</div>`;
+    });
+
+    sizes.forEach(sz => {
+      html += `<div class="cal-group-hdr">${sz}-Passenger</div>`;
+      const cartsOfSize = filtered.filter(c=>c.size===sz);
+      cartsOfSize.forEach(cart => {
+        html += `<div class="cal-row-label"><span>${cart.number}</span><span class="cal-cart-size">${statusLabels[cart.status]||capitalize(cart.status)}</span></div>`;
+        days.forEach(d => {
+          const iso = toISO(d);
+          html += `<div class="cal-cell ${iso===todayStr?'today':''}" data-cart="${cart.number}" data-date="${iso}"></div>`;
+        });
+      });
+    });
+    grid.innerHTML = html;
+
+    // Place booking blocks
+    const wsISO = toISO(days[0]), weISO = toISO(new Date(days[6].getTime()+864e5));
+    reservations.forEach(r => {
+      if (!r.cart || r.status==='cancelled' || r.status==='checked-out') return;
+      const cart = filtered.find(c=>c.number===r.cart);
+      if (!cart) return;
+      if (r.dateEnd <= wsISO || r.dateStart >= weISO) return;
+      const visStart = r.dateStart < wsISO ? wsISO : r.dateStart;
+      const visEnd = r.dateEnd > weISO ? weISO : r.dateEnd;
+      const startIdx = daysBetween(wsISO, visStart);
+      const span = daysBetween(visStart, visEnd);
+      const startCell = grid.querySelector(`.cal-cell[data-cart="${r.cart}"][data-date="${visStart}"]`);
+      if (!startCell) return;
+      const color = bookingColors[r.id % bookingColors.length];
+      const block = document.createElement('div');
+      block.className = 'cal-booking';
+      block.style.cssText = `left:0;right:0;background:${color};`;
+      if (span > 1) { block.style.width = `calc(${span*100}% + ${(span-1)}px)`; }
+      block.textContent = r.guest.split(' ').pop();
+      block.title = r.guest + ' \u2014 ' + fmtDate(r.dateStart) + ' to ' + fmtDate(r.dateEnd);
+      block.addEventListener('click', e => { e.stopPropagation(); showResDetail(r); });
+      startCell.appendChild(block);
+    });
+
+    // Empty cell clicks
+    grid.querySelectorAll('.cal-cell').forEach(cell => {
+      if (cell.children.length === 0) {
+        cell.addEventListener('click', () => {
+          document.getElementById('nr-start').value = cell.dataset.date;
+          const end = new Date(cell.dataset.date+'T12:00'); end.setDate(end.getDate()+2);
+          document.getElementById('nr-end').value = toISO(end);
+          openModal('newres-modal'); updateNewResPricing();
+        });
+      }
+    });
+
+    // Utilization strip
+    const util = document.getElementById('cal-util');
+    let uhtml = '<div class="util-label">Usage</div>';
+    days.forEach(d => {
+      const iso = toISO(d);
+      const nextISO = toISO(new Date(d.getTime()+864e5));
+      const booked = reservations.filter(r => r.cart && r.status!=='cancelled' && r.status!=='checked-out' && r.dateStart <= iso && r.dateEnd > iso).length;
+      const pct = Math.round((booked / fleet.length) * 100);
+      uhtml += `<div class="util-cell"><div class="util-bar-bg"><div class="util-bar" style="width:${pct}%;"></div></div><div class="util-pct">${pct}%</div></div>`;
+    });
+    util.innerHTML = uhtml;
+
+    // Mobile
+    const mob = document.getElementById('cal-mobile');
+    let mhtml = '';
+    days.forEach(d => {
+      const iso = toISO(d);
+      mhtml += `<div class="cal-mobile-day"><div class="cal-mobile-date">${d.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'})}</div>`;
+      filtered.forEach(cart => {
+        const booking = reservations.find(r => r.cart===cart.number && r.status!=='cancelled' && r.status!=='checked-out' && r.dateStart<=iso && r.dateEnd>iso);
+        mhtml += `<div class="cal-mobile-item"><strong>${cart.number}</strong> <span class="pill ${booking?'pill-blue':'pill-green'}">${booking?booking.guest.split(' ').pop():'Available'}</span></div>`;
+      });
+      mhtml += '</div>';
+    });
+    mob.innerHTML = mhtml;
+  }
+
+  document.getElementById('cal-prev').addEventListener('click', () => { calState.weekStart.setDate(calState.weekStart.getDate()-7); renderCalendar(); });
+  document.getElementById('cal-today').addEventListener('click', () => { calState.weekStart = getMon(new Date()); renderCalendar(); });
+  document.getElementById('cal-next').addEventListener('click', () => { calState.weekStart.setDate(calState.weekStart.getDate()+7); renderCalendar(); });
+
+  // ===== FLEET =====
+  function renderFleet() {
+    const fb = document.getElementById('fleet-filters');
+    const tabs = ['all','available','rented','attention'];
+    const labels = { all:'All', available:'Available', rented:'Rented', attention:'Needs Attention' };
+    fb.innerHTML = tabs.map(t => `<button class="filter-tab ${fleetFilter===t?'active':''}" data-ff="${t}">${labels[t]}</button>`).join('');
+    fb.querySelectorAll('.filter-tab').forEach(b => b.addEventListener('click', () => { fleetFilter=b.dataset.ff; renderFleet(); }));
+
+    let carts = fleet;
+    if (fleetFilter==='available') carts = fleet.filter(c=>c.status==='available');
+    else if (fleetFilter==='rented') carts = fleet.filter(c=>c.status==='rented'||c.status==='checked-in');
+    else if (fleetFilter==='attention') carts = fleet.filter(c=>c.status==='cleaning'||c.status==='out-of-service');
+    renderFleetGrid('fleet-grid', carts);
+  }
+
+  // ===== RESERVATIONS =====
+  document.getElementById('res-search').addEventListener('input', e => { resSearch = e.target.value.toLowerCase(); renderReservations(); });
+
+  function renderReservations() {
+    const fb = document.getElementById('res-filters');
+    const tabs = ['all','confirmed','checked-in','checked-out','cancelled','waitlisted'];
+    fb.innerHTML = tabs.map(t => `<button class="filter-tab ${resFilter===t?'active':''}" data-rf="${t}">${capitalize(t)}</button>`).join('');
+    fb.querySelectorAll('.filter-tab').forEach(b => b.addEventListener('click', () => { resFilter=b.dataset.rf; renderReservations(); }));
+
+    let list = reservations;
+    if (resFilter!=='all') list = list.filter(r=>r.status===resFilter);
+    if (resSearch) list = list.filter(r=>r.guest.toLowerCase().includes(resSearch));
+
+    const tbody = document.querySelector('#res-table tbody');
+    tbody.innerHTML = '';
+    list.forEach(r => {
+      const pr = calculatePrice(r.size, r.dateStart, r.dateEnd, r.promoCode);
+      const tr = document.createElement('tr');
+      tr.style.cursor = 'pointer';
+      const depPill = r.deposit==='paid' ? '<span class="pill pill-green">Paid</span>' : '<span class="pill pill-amber">Pending</span>';
+      const wavPill = r.waiver==='signed' ? '<span class="pill pill-green">Signed</span>' : '<span class="pill pill-gray">Pending</span>';
+      const stPill = { confirmed:'pill-blue', 'checked-in':'pill-green', 'checked-out':'pill-gray', cancelled:'pill-red', waitlisted:'pill-amber' }[r.status] || 'pill-gray';
+      tr.innerHTML = `<td style="font-weight:500;">${r.guest}</td><td>${r.cart||'&mdash;'}</td><td>${r.size}-pass</td><td>${fmtDate(r.dateStart)} &ndash; ${fmtDate(r.dateEnd)}</td><td>${fmtMoney(pr.total)}</td><td>${depPill}</td><td>${wavPill}</td><td><span class="pill ${stPill}">${capitalize(r.status)}</span></td><td><button class="btn btn-secondary btn-small" onclick="event.stopPropagation();showResDetail(reservations.find(x=>x.id===${r.id}))">View</button></td>`;
+      tr.addEventListener('click', () => showResDetail(r));
+      tbody.appendChild(tr);
+    });
+  }
+
+  window.showResDetail = function(r) {
+    const pr = calculatePrice(r.size, r.dateStart, r.dateEnd, r.promoCode);
+    document.getElementById('detail-title').textContent = r.guest;
+    const body = document.getElementById('detail-body');
+    const stPill = { confirmed:'pill-blue', 'checked-in':'pill-green', 'checked-out':'pill-gray', cancelled:'pill-red', waitlisted:'pill-amber' }[r.status] || 'pill-gray';
+    body.innerHTML = `
+      <div class="form-row" style="margin-bottom:1rem;"><div><div class="form-label">Status</div><span class="pill ${stPill}">${capitalize(r.status)}</span></div><div><div class="form-label">Source</div><div style="font-size:0.9rem;">${capitalize(r.source)}</div></div></div>
+      <div class="form-row" style="margin-bottom:1rem;"><div><div class="form-label">Cart</div><div style="font-size:0.9rem;">${r.cart||'Not assigned'} (${r.size}-pass)</div></div><div><div class="form-label">Dates</div><div style="font-size:0.9rem;">${fmtDate(r.dateStart)} &ndash; ${fmtDate(r.dateEnd)} (${pr.days} day${pr.days>1?'s':''})</div></div></div>
+      <div class="form-row" style="margin-bottom:1rem;"><div><div class="form-label">Email</div><div style="font-size:0.9rem;">${r.email}</div></div><div><div class="form-label">Phone</div><div style="font-size:0.9rem;">${r.phone}</div></div></div>
+      <div class="form-row" style="margin-bottom:1rem;"><div><div class="form-label">Deposit</div><span class="pill ${r.deposit==='paid'?'pill-green':'pill-amber'}">${r.deposit==='paid'?fmtMoney(r.depositAmount)+' Paid':'Pending'}</span></div><div><div class="form-label">Waiver</div><span class="pill ${r.waiver==='signed'?'pill-green':'pill-gray'}">${capitalize(r.waiver)}</span></div></div>
+      ${r.promoCode ? `<div class="promo-applied">${r.promoCode} applied</div>` : ''}
+      <div class="calc-box" style="margin-top:1rem;">${pr.adjustments.map(a=>`<div class="calc-row adj"><span>${a.label}</span><span>${a.val>=0?'+':''}${fmtMoney(a.val)}</span></div>`).join('')}<div class="calc-row total"><span>Total</span><span>${fmtMoney(pr.total)}</span></div></div>
+      <div style="display:flex;gap:0.5rem;margin-top:1.25rem;flex-wrap:wrap;">
+        ${r.status==='confirmed'?'<button class="btn btn-primary btn-small" onclick="beginCheckin('+r.id+')">Check In</button>':''}
+        ${r.status==='checked-in'?'<button class="btn btn-primary btn-small" onclick="beginCheckout('+r.id+')">Process Return</button>':''}
+        ${r.status!=='cancelled'&&r.status!=='checked-out'?'<button class="btn btn-danger btn-small" onclick="cancelRes('+r.id+')">Cancel</button>':''}
+        <button class="btn btn-secondary btn-small modal-close">Close</button>
+      </div>`;
+    openModal('detail-modal');
+  };
+
+  window.cancelRes = function(id) { const r=reservations.find(x=>x.id===id); if(r){r.status='cancelled';if(r.cart){const c=fleet.find(x=>x.number===r.cart);if(c){c.status='available';c.renter=null;c.dueBack=null;}}r.cart=null;} closeAllModals(); showToast('Reservation cancelled'); renderReservations(); };
+
+  // New reservation
+  document.getElementById('new-res-btn').addEventListener('click', () => { document.getElementById('newres-form').reset(); openModal('newres-modal'); updateNewResPricing(); });
+  ['nr-size','nr-start','nr-end','nr-promo'].forEach(id => document.getElementById(id).addEventListener('change', updateNewResPricing));
+  ['nr-start','nr-end','nr-promo'].forEach(id => document.getElementById(id).addEventListener('input', updateNewResPricing));
+
+  function updateNewResPricing() {
+    const size = parseInt(document.getElementById('nr-size').value);
+    const start = document.getElementById('nr-start').value;
+    const end = document.getElementById('nr-end').value;
+    const promo = document.getElementById('nr-promo').value;
+    const box = document.getElementById('nr-pricing');
+    if (!start || !end) { box.innerHTML = '<div style="color:var(--ink-light);font-size:0.88rem;">Select dates to see pricing</div>'; return; }
+    const pr = calculatePrice(size, start, end, promo);
+    box.innerHTML = `<div class="calc-row"><span>${size}-pass &times; ${pr.days} day${pr.days>1?'s':''} @ ${fmtMoney(pr.base)}/day</span><span>${fmtMoney(pr.base*pr.days)}</span></div>${pr.adjustments.map(a=>`<div class="calc-row adj"><span>${a.label}</span><span>${a.val>=0?'+':''}${fmtMoney(a.val)}</span></div>`).join('')}<div class="calc-row total"><span>Total</span><span>${fmtMoney(pr.total)}</span></div><div class="calc-row" style="font-size:0.82rem;color:var(--ink-light);"><span>Deposit (50%)</span><span>${fmtMoney(pr.deposit)}</span></div>`;
+  }
+
+  document.getElementById('newres-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('nr-name').value;
+    const newR = { id: reservations.length+100, guest: name, email: document.getElementById('nr-email').value, phone: document.getElementById('nr-phone').value, size: parseInt(document.getElementById('nr-size').value), dateStart: document.getElementById('nr-start').value, dateEnd: document.getElementById('nr-end').value, deposit:'pending', depositAmount:0, balanceDue:0, waiver:'pending', idVerified:false, cart:null, status:'confirmed', source:document.getElementById('nr-source').value, addons:{}, promoCode:document.getElementById('nr-promo').value||null, damageDeposit:200, signatureData:null, createdAt:'Apr 3' };
+    reservations.push(newR);
+    closeAllModals(); showToast('Reservation created for '+name); renderReservations();
+  });
+
+  // ===== CHECK-IN/OUT =====
+  document.querySelectorAll('.inner-tab').forEach(t => t.addEventListener('click', function() { cioTab = this.dataset.cio; document.querySelectorAll('.inner-tab').forEach(x=>x.classList.remove('active')); this.classList.add('active'); renderCIO(); }));
+
+  function renderCIO() {
+    const el = document.getElementById('cio-content');
+    if (cioTab === 'checkins') {
+      const due = reservations.filter(r => r.status==='confirmed' && r.dateStart <= toISO(new Date()));
+      if (!due.length) { el.innerHTML = '<div style="color:var(--ink-light);padding:2rem 0;">No check-ins due today</div>'; return; }
+      el.innerHTML = due.map(r => `<div class="cart-card" style="margin-bottom:0.75rem;"><div style="display:flex;justify-content:space-between;align-items:flex-start;"><div><div style="font-weight:600;margin-bottom:0.2rem;">${r.guest}</div><div style="font-size:0.82rem;color:var(--ink-mid);">${r.size}-pass &middot; ${fmtDate(r.dateStart)} &ndash; ${fmtDate(r.dateEnd)}</div><div style="margin-top:0.4rem;">${r.deposit==='paid'?'<span class="pill pill-green">Deposit Paid</span>':'<span class="pill pill-amber">Deposit Pending</span>'} ${r.waiver==='signed'?'<span class="pill pill-green">Waiver Signed</span>':'<span class="pill pill-gray">Waiver Pending</span>'} ${r.idVerified?'<span class="pill pill-green">ID Verified</span>':'<span class="pill pill-gray">ID Pending</span>'}</div></div><button class="btn btn-primary btn-small" onclick="beginCheckin(${r.id})">Begin Check-In</button></div></div>`).join('');
+    } else {
+      const due = reservations.filter(r => (r.status==='checked-in') && r.dateEnd <= toISO(new Date(new Date().getTime()+864e5)));
+      if (!due.length) { el.innerHTML = '<div style="color:var(--ink-light);padding:2rem 0;">No check-outs due today</div>'; return; }
+      el.innerHTML = due.map(r => {
+        const overdue = r.dateEnd <= toISO(new Date());
+        return `<div class="cart-card ${overdue?'overdue-card':''}" style="margin-bottom:0.75rem;"><div style="display:flex;justify-content:space-between;align-items:flex-start;"><div><div style="font-weight:600;margin-bottom:0.2rem;">${r.guest} ${overdue?'<span class="pill pill-red">OVERDUE</span>':''}</div><div style="font-size:0.82rem;color:var(--ink-mid);">${r.cart} &middot; Return by ${fmtDate(r.dateEnd)}</div></div><button class="btn btn-primary btn-small" onclick="beginCheckout(${r.id})">Process Return</button></div></div>`;
+      }).join('');
+    }
+  }
+
+  window.beginCheckin = function(resId) {
+    ciResId = resId;
+    const r = reservations.find(x=>x.id===resId);
+    closeAllModals();
+    document.getElementById('ci-title').textContent = 'Check In: ' + r.guest;
+    renderCheckinStep(1, r);
+    openModal('checkin-modal');
+  };
+
+  function renderCheckinStep(step, r) {
+    const body = document.getElementById('ci-body');
+    if (step === 1) {
+      body.innerHTML = `
+        <h3 class="widget-panel-title">Step 1: Verify Identity</h3>
+        <div class="form-row" style="margin-bottom:1rem;"><div><div class="form-label">Guest</div><div style="font-size:0.95rem;font-weight:500;">${r.guest}</div></div><div><div class="form-label">ID Status</div>${r.idVerified?'<span class="pill pill-green">Verified</span>':'<span class="pill pill-gray">Pending</span>'}</div></div>
+        ${!r.idVerified ? `<div class="upload-zone" id="ci-upload"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 15V7M11 7L7 11M11 7L15 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><br>Tap to upload driver's license</div>` : ''}
+        <div class="checklist-item"><div class="check-box ${r.idVerified?'checked':''}" id="ci-id-check"></div><span>ID matches reservation name</span></div>
+        <div class="widget-nav"><div></div><button class="btn btn-primary" id="ci-next1">Next: Waiver &rarr;</button></div>`;
+      if (!r.idVerified) document.getElementById('ci-upload').addEventListener('click', function() { this.classList.add('uploaded'); this.innerHTML='<strong>License uploaded</strong>'; r.idVerified=true; document.getElementById('ci-id-check').classList.add('checked'); });
+      document.getElementById('ci-id-check').addEventListener('click', function() { this.classList.toggle('checked'); });
+      document.getElementById('ci-next1').addEventListener('click', () => renderCheckinStep(2, r));
+    } else if (step === 2) {
+      body.innerHTML = `
+        <h3 class="widget-panel-title">Step 2: Digital Waiver</h3>
+        <div style="max-height:120px;overflow-y:auto;padding:0.75rem;background:var(--cream);border-radius:4px;font-size:0.82rem;color:var(--ink-mid);margin-bottom:0.75rem;line-height:1.5;">I, the undersigned, acknowledge that I am renting a golf cart from Island Wheels Golf Cart Rentals and agree to the following: I accept full responsibility for the golf cart during the rental period. I agree to pay for any damages caused during the rental. I confirm I have a valid driver's license. I will not operate the cart while impaired. I understand the cart must be returned by the agreed time or additional charges apply. I release Island Wheels from liability for injuries.</div>
+        <div class="form-label">Sign Below</div>
+        <div class="sig-pad-wrapper" id="ci-sig-wrap"><canvas class="sig-canvas" id="ci-sig-canvas"></canvas></div>
+        <div class="sig-actions"><button class="btn btn-secondary btn-small" id="ci-sig-clear">Clear</button><button class="btn btn-primary btn-small" id="ci-sig-accept">Accept Signature</button><span class="sig-status" id="ci-sig-status" style="display:none;">&#10003; Signature captured</span></div>
+        <div class="widget-nav"><button class="btn btn-secondary" id="ci-back2">&larr; Back</button><button class="btn btn-primary" id="ci-next2">Next: Assign Cart &rarr;</button></div>`;
+      initSignaturePad('ci-sig-canvas', 'ci-sig-clear', 'ci-sig-accept', 'ci-sig-status', 'ci-sig-wrap');
+      document.getElementById('ci-back2').addEventListener('click', () => renderCheckinStep(1, r));
+      document.getElementById('ci-next2').addEventListener('click', () => { r.waiver='signed'; r.signatureData='collected'; renderCheckinStep(3, r); });
+    } else if (step === 3) {
+      const avail = getAvailableCarts(r.size, r.dateStart, r.dateEnd);
+      body.innerHTML = `
+        <h3 class="widget-panel-title">Step 3: Assign Cart & Condition</h3>
+        <div class="form-group"><label class="form-label">Assign Cart</label><select class="form-select" id="ci-cart">${avail.map(c=>`<option value="${c.number}">${c.number} (${c.condition}, ${c.mileage} mi)</option>`).join('')}</select></div>
+        <div class="form-label">Condition Checklist</div>
+        <div class="checklist-item"><div class="check-box checked" data-ck></div><span>Body &mdash; no scratches or dents</span></div>
+        <div class="checklist-item"><div class="check-box checked" data-ck></div><span>Battery &mdash; full charge confirmed</span></div>
+        <div class="checklist-item"><div class="check-box checked" data-ck></div><span>Tires &mdash; all inflated</span></div>
+        <div class="checklist-item"><div class="check-box checked" data-ck></div><span>Accessories &mdash; keys and charger</span></div>
+        <div class="form-group" style="margin-top:0.75rem;"><label class="form-label">Notes</label><textarea class="form-textarea" rows="2" id="ci-notes" placeholder="Any notes..."></textarea></div>
+        <div class="widget-nav"><button class="btn btn-secondary" id="ci-back3">&larr; Back</button><button class="btn btn-primary" id="ci-complete">Complete Check-In</button></div>`;
+      body.querySelectorAll('[data-ck]').forEach(b => b.addEventListener('click', function() { this.classList.toggle('checked'); }));
+      document.getElementById('ci-back3').addEventListener('click', () => renderCheckinStep(2, r));
+      document.getElementById('ci-complete').addEventListener('click', () => {
+        const cartNum = document.getElementById('ci-cart').value;
+        r.cart = cartNum; r.status = 'checked-in'; r.deposit = 'paid'; r.depositAmount = calculatePrice(r.size,r.dateStart,r.dateEnd,r.promoCode).deposit;
+        const cart = fleet.find(c=>c.number===cartNum);
+        if (cart) { cart.status = 'rented'; cart.renter = r.guest.split(' ').pop(); cart.dueBack = '10:00 AM'; cart.rentalId = r.id; }
+        closeAllModals(); showToast(r.guest+' checked in on '+cartNum); renderCIO();
+      });
+    }
+  }
+
+  window.beginCheckout = function(resId) {
+    const r = reservations.find(x=>x.id===resId);
+    closeAllModals();
+    document.getElementById('ci-title').textContent = 'Check Out: ' + r.guest;
+    const pr = calculatePrice(r.size, r.dateStart, r.dateEnd, r.promoCode);
+    const body = document.getElementById('ci-body');
+    body.innerHTML = `
+      <h3 class="widget-panel-title">Return Condition Assessment</h3>
+      <div style="margin-bottom:1rem;font-size:0.9rem;"><strong>Cart:</strong> ${r.cart} &middot; <strong>Renter:</strong> ${r.guest}</div>
+      <div class="form-label">Condition Checklist</div>
+      <div class="checklist-item"><div class="check-box checked" data-ck></div><span>Body &mdash; no new damage</span></div>
+      <div class="checklist-item"><div class="check-box checked" data-ck></div><span>Seats &mdash; clean, no stains</span></div>
+      <div class="checklist-item"><div class="check-box checked" data-ck></div><span>Accessories &mdash; all returned</span></div>
+      <div class="form-group" style="margin-top:0.75rem;"><label class="form-label">Damage Charges ($)</label><input type="number" class="form-input" id="co-damage" value="0" min="0"></div>
+      <div class="calc-box">
+        <div class="calc-row"><span>Rental Total</span><span>${fmtMoney(pr.total)}</span></div>
+        <div class="calc-row"><span>Deposit Paid</span><span>-${fmtMoney(r.depositAmount)}</span></div>
+        <div class="calc-row" id="co-damage-row" style="display:none;"><span>Damage Charges</span><span id="co-damage-val">$0</span></div>
+        <div class="calc-row total"><span>Balance Due</span><span id="co-balance">${fmtMoney(pr.total - r.depositAmount)}</span></div>
+      </div>
+      <div style="display:flex;gap:0.5rem;margin-top:1.25rem;">
+        <button class="btn btn-primary" style="flex:1;" id="co-complete">${pr.total-r.depositAmount>0?'Charge '+fmtMoney(pr.total-r.depositAmount)+' & Complete':'No Balance Due &mdash; Complete Return'}</button>
+        <button class="btn btn-secondary modal-close">Cancel</button>
+      </div>`;
+    body.querySelectorAll('[data-ck]').forEach(b => b.addEventListener('click', function() { this.classList.toggle('checked'); }));
+    document.getElementById('co-damage').addEventListener('input', function() {
+      const dmg = parseInt(this.value)||0;
+      document.getElementById('co-damage-row').style.display = dmg>0?'flex':'none';
+      document.getElementById('co-damage-val').textContent = fmtMoney(dmg);
+      const bal = pr.total - r.depositAmount + dmg;
+      document.getElementById('co-balance').textContent = fmtMoney(bal);
+    });
+    document.getElementById('co-complete').addEventListener('click', () => {
+      r.status = 'checked-out'; r.balanceDue = 0;
+      const cart = fleet.find(c=>c.number===r.cart);
+      if (cart) { cart.status = 'cleaning'; cart.renter = null; cart.dueBack = null; cart.rentalId = null; }
+      closeAllModals(); showToast(r.guest+' checked out &mdash; '+r.cart+' returned'); renderCIO();
+    });
+    openModal('checkin-modal');
+  };
+
+  // ===== SIGNATURE PAD =====
+  function initSignaturePad(canvasId, clearId, acceptId, statusId, wrapperId) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth; canvas.height = 120;
+    ctx.strokeStyle = var_ink; ctx.lineWidth = 2; ctx.lineCap = 'round';
+    let drawing = false;
+    function pos(e) { const r = canvas.getBoundingClientRect(); const t = e.touches?e.touches[0]:e; return { x: t.clientX-r.left, y: t.clientY-r.top }; }
+    canvas.addEventListener('mousedown', e => { drawing=true; const p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); });
+    canvas.addEventListener('mousemove', e => { if(!drawing) return; const p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); });
+    canvas.addEventListener('mouseup', () => drawing=false);
+    canvas.addEventListener('mouseleave', () => drawing=false);
+    canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing=true; const p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); }, {passive:false});
+    canvas.addEventListener('touchmove', e => { e.preventDefault(); if(!drawing) return; const p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); }, {passive:false});
+    canvas.addEventListener('touchend', () => drawing=false);
+    document.getElementById(clearId).addEventListener('click', () => { ctx.clearRect(0,0,canvas.width,canvas.height); document.getElementById(statusId).style.display='none'; document.getElementById(wrapperId).classList.remove('signed'); });
+    document.getElementById(acceptId).addEventListener('click', () => { document.getElementById(statusId).style.display='flex'; document.getElementById(wrapperId).classList.add('signed'); });
+  }
+  const var_ink = '#1C1917';
+
+  // ===== PRICING =====
+  function renderPricing() {
+    // Base rates
+    const rg = document.getElementById('rate-grid');
+    rg.innerHTML = [4,6,8].map(sz => {
+      const r = pricingRules.base[sz];
+      const disc3 = Math.round(r.daily * (pricingRules.multiDay[3]||1));
+      const disc5 = Math.round(r.daily * (pricingRules.multiDay[5]||1));
+      const disc7 = Math.round(r.daily * (pricingRules.multiDay[7]||1));
+      return `<div class="rate-card"><h3>${sz}-Passenger</h3>
+        <div class="rate-field"><span>Hourly (4hr)</span><span class="rate-val">${fmtMoney(r.hourly)}</span></div>
+        <div class="rate-field"><span>Daily</span><span class="rate-val">${fmtMoney(r.daily)}</span></div>
+        <div class="rate-field"><span>3+ Days</span><span class="rate-val">${fmtMoney(disc3)}/day</span></div>
+        <div class="rate-field"><span>5+ Days</span><span class="rate-val">${fmtMoney(disc5)}/day</span></div>
+        <div class="rate-field"><span>7+ Days</span><span class="rate-val">${fmtMoney(disc7)}/day</span></div>
+      </div>`;
+    }).join('');
+
+    // Dynamic rules
+    const rules = [
+      { label: 'Seasonal Pricing', desc: 'Automatic peak-season rates for Spring Break, holidays', key: 'seasonal_on', on: pricingRules.seasonal.some(s=>s.on) },
+      { label: 'Same-Day Surcharge', desc: '+'+pricingRules.leadTime.sameDaySurcharge.pct+'% for bookings within 24 hours', key: 'sameday', on: pricingRules.leadTime.sameDaySurcharge.on },
+      { label: 'Low-Availability Surcharge', desc: '+'+pricingRules.lowAvail.pct+'% when fewer than '+pricingRules.lowAvail.threshold+' carts of a size available', key: 'lowavail', on: pricingRules.lowAvail.on },
+      { label: 'Early Bird Discount', desc: '-'+pricingRules.leadTime.earlyBird.pct+'% for bookings '+pricingRules.leadTime.earlyBird.days+'+ days out', key: 'earlybird', on: pricingRules.leadTime.earlyBird.on }
     ];
+    document.getElementById('pricing-rules').innerHTML = rules.map(r => `<div class="rule-row"><div class="rule-info"><div class="rule-name">${r.label}</div><div class="rule-desc">${r.desc}</div></div><div class="toggle ${r.on?'on':''}" data-rule="${r.key}"></div></div>`).join('');
+    document.querySelectorAll('[data-rule]').forEach(t => t.addEventListener('click', function() { this.classList.toggle('on'); }));
 
-    const statusLabels = {
-      'available': 'Available',
-      'rented': 'Rented',
-      'cleaning': 'Needs Cleaning',
-      'out-of-service': 'Out of Service'
-    };
+    // Seasonal table
+    document.getElementById('seasonal-table').innerHTML = `<table class="settings-table"><thead><tr><th>Season</th><th>Dates</th><th>Multiplier</th><th>Active</th></tr></thead><tbody>${pricingRules.seasonal.map(s=>`<tr><td>${s.name}</td><td>${s.startMD} &ndash; ${s.endMD}</td><td style="font-weight:600;">${s.mult}x</td><td><div class="toggle ${s.on?'on':''}" onclick="this.classList.toggle('on')"></div></td></tr>`).join('')}</tbody></table>`;
 
-    const cartPrices = { 4: 75, 6: 110, 8: 150 };
+    // Calculator
+    renderPriceCalc();
+  }
 
-    let tagoutCartId = null;
+  function renderPriceCalc() {
+    const box = document.getElementById('price-calc');
+    box.innerHTML = `
+      <div class="form-row" style="margin-bottom:0.75rem;">
+        <div class="form-group"><label class="form-label">Cart Size</label><select class="form-select" id="pc-size"><option value="4">4-Passenger</option><option value="6">6-Passenger</option><option value="8">8-Passenger</option></select></div>
+        <div class="form-group"><label class="form-label">Promo Code</label><input type="text" class="form-input" id="pc-promo" placeholder="Optional"></div>
+      </div>
+      <div class="form-row" style="margin-bottom:0.75rem;">
+        <div class="form-group"><label class="form-label">Start Date</label><input type="date" class="form-input" id="pc-start"></div>
+        <div class="form-group"><label class="form-label">End Date</label><input type="date" class="form-input" id="pc-end"></div>
+      </div>
+      <div id="pc-result"></div>`;
+    const d = new Date(); d.setDate(d.getDate()+1);
+    document.getElementById('pc-start').value = toISO(d);
+    const e = new Date(d); e.setDate(e.getDate()+3);
+    document.getElementById('pc-end').value = toISO(e);
+    ['pc-size','pc-start','pc-end','pc-promo'].forEach(id => document.getElementById(id).addEventListener('change', updateCalc));
+    document.getElementById('pc-promo').addEventListener('input', updateCalc);
+    updateCalc();
+  }
 
-    // ===== NAVIGATION =====
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', function() {
-        switchView(this.dataset.view);
+  function updateCalc() {
+    const size = parseInt(document.getElementById('pc-size').value);
+    const start = document.getElementById('pc-start').value;
+    const end = document.getElementById('pc-end').value;
+    const promo = document.getElementById('pc-promo').value;
+    if (!start||!end) return;
+    const pr = calculatePrice(size, start, end, promo);
+    document.getElementById('pc-result').innerHTML = `
+      <div class="calc-row"><span>${size}-pass &times; ${pr.days} day${pr.days>1?'s':''} @ ${fmtMoney(pr.base)}/day</span><span>${fmtMoney(pr.base*pr.days)}</span></div>
+      ${pr.adjustments.map(a=>`<div class="calc-row adj"><span>${a.label}</span><span>${a.val>=0?'+':''}${fmtMoney(a.val)}</span></div>`).join('')}
+      <div class="calc-row total"><span>Total</span><span>${fmtMoney(pr.total)}</span></div>
+      <div class="calc-row" style="font-size:0.82rem;color:var(--ink-light);"><span>Deposit (50%)</span><span>${fmtMoney(pr.deposit)}</span></div>`;
+  }
+
+  // ===== PROMOTIONS =====
+  function renderPromotions() {
+    // Promo codes
+    document.getElementById('promo-section').innerHTML = `
+      <div style="display:flex;justify-content:flex-end;margin-bottom:0.75rem;"><button class="btn btn-primary btn-small" id="new-promo-btn">New Promo Code</button></div>
+      <table class="data-table"><thead><tr><th>Code</th><th>Type</th><th>Value</th><th>Uses</th><th>Limit</th><th>Status</th></tr></thead><tbody>
+      ${promoCodes.map(p=>`<tr><td style="font-weight:600;letter-spacing:0.05em;">${p.code}</td><td>${capitalize(p.type)}</td><td>${p.type==='percent'?p.value+'%':fmtMoney(p.value)}</td><td>${p.uses}</td><td>${p.limit||'&infin;'}</td><td><div class="toggle ${p.active?'on':''}" onclick="this.classList.toggle('on')"></div></td></tr>`).join('')}
+      </tbody></table>`;
+    document.getElementById('new-promo-btn').addEventListener('click', () => {
+      document.getElementById('create-title').textContent = 'New Promo Code';
+      document.getElementById('create-body').innerHTML = `
+        <div class="form-group"><label class="form-label">Code</label><input type="text" class="form-input" id="cp-code" placeholder="e.g. SUMMER20" style="text-transform:uppercase;"></div>
+        <div class="form-row"><div class="form-group"><label class="form-label">Type</label><select class="form-select" id="cp-type"><option value="percent">Percent Off</option><option value="flat">Flat Amount</option></select></div><div class="form-group"><label class="form-label">Value</label><input type="number" class="form-input" id="cp-value" required></div></div>
+        <div class="form-group"><label class="form-label">Usage Limit (blank = unlimited)</label><input type="number" class="form-input" id="cp-limit"></div>
+        <button class="btn btn-primary" style="width:100%;margin-top:0.75rem;" id="cp-save">Create Code</button>`;
+      document.getElementById('cp-save').addEventListener('click', () => {
+        promoCodes.push({ code: document.getElementById('cp-code').value.toUpperCase(), type: document.getElementById('cp-type').value, value: parseInt(document.getElementById('cp-value').value), active: true, uses: 0, limit: parseInt(document.getElementById('cp-limit').value)||null });
+        closeAllModals(); showToast('Promo code created'); renderPromotions();
       });
-      item.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); }
+      openModal('create-modal');
+    });
+
+    // Gift certs
+    document.getElementById('gift-section').innerHTML = `
+      <div style="display:flex;justify-content:flex-end;margin-bottom:0.75rem;"><button class="btn btn-primary btn-small" id="new-gift-btn">Issue Certificate</button></div>
+      <table class="data-table"><thead><tr><th>Code</th><th>Balance</th><th>Original</th><th>Purchaser</th><th>Recipient</th></tr></thead><tbody>
+      ${giftCerts.map(g=>`<tr><td style="font-weight:600;">${g.code}</td><td>${fmtMoney(g.balance)}</td><td>${fmtMoney(g.original)}</td><td>${g.purchaser}</td><td>${g.recipient}</td></tr>`).join('')}
+      </tbody></table>`;
+    document.getElementById('new-gift-btn').addEventListener('click', () => {
+      document.getElementById('create-title').textContent = 'Issue Gift Certificate';
+      document.getElementById('create-body').innerHTML = `
+        <div class="form-group"><label class="form-label">Amount ($)</label><input type="number" class="form-input" id="gc-amt" required></div>
+        <div class="form-row"><div class="form-group"><label class="form-label">Purchaser</label><input type="text" class="form-input" id="gc-pur" required></div><div class="form-group"><label class="form-label">Recipient</label><input type="text" class="form-input" id="gc-rec" placeholder="Optional"></div></div>
+        <button class="btn btn-primary" style="width:100%;margin-top:0.75rem;" id="gc-save">Issue Certificate</button>`;
+      document.getElementById('gc-save').addEventListener('click', () => {
+        const amt = parseInt(document.getElementById('gc-amt').value);
+        const code = 'GC-' + (1000 + giftCerts.length + 1);
+        giftCerts.push({ code, balance: amt, original: amt, purchaser: document.getElementById('gc-pur').value, recipient: document.getElementById('gc-rec').value||'Open', created: 'Apr 3' });
+        closeAllModals(); showToast('Gift certificate '+code+' issued'); renderPromotions();
       });
+      openModal('create-modal');
     });
 
-    function switchView(viewName) {
-      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-      document.getElementById(viewName + '-view').classList.add('active');
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
+    // Waitlist
+    document.getElementById('waitlist-section').innerHTML = waitlist.length ? `
+      <table class="data-table"><thead><tr><th>Guest</th><th>Size</th><th>Dates</th><th>Requested</th><th>Status</th><th></th></tr></thead><tbody>
+      ${waitlist.map(w=>`<tr><td style="font-weight:500;">${w.guest}</td><td>${w.size}-pass</td><td>${w.dateStart} &ndash; ${w.dateEnd}</td><td>${w.createdAt}</td><td>${w.notified?'<span class="pill pill-green">Notified</span>':'<span class="pill pill-gray">Waiting</span>'}</td><td><button class="btn btn-secondary btn-small" onclick="notifyWaitlist(${w.id})">Notify</button></td></tr>`).join('')}
+      </tbody></table>` : '<div style="color:var(--ink-light);font-size:0.9rem;">No one on the waitlist</div>';
+  }
 
-      if (viewName === 'dashboard') renderDashboard();
-      else if (viewName === 'reservations') renderReservations();
-      else if (viewName === 'widget') renderWidget();
-    }
+  window.notifyWaitlist = function(id) { const w = waitlist.find(x=>x.id===id); if(w) w.notified=true; showToast('Notification sent to '+w.guest); renderPromotions(); };
 
-    // ===== DASHBOARD =====
-    function renderDashboard() {
-      const today = new Date();
-      document.getElementById('dashboard-date').textContent = today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  // ===== BOOKING WIDGET =====
+  function renderWidget() { renderWSteps(); renderWPanel(); }
 
-      const rented = fleet.filter(c => c.status === 'rented');
-      document.getElementById('stat-carts-out').textContent = rented.length;
-      document.getElementById('stat-revenue').textContent = '$' + (rented.length * 150).toLocaleString();
-      document.getElementById('stat-returns').textContent = rented.filter(c => c.dueBack && c.dueBack.includes('4:00')).length;
+  function renderWSteps() {
+    const c = document.getElementById('w-steps');
+    const labels = ['Dates','Size','Add-ons','Verify','Pay'];
+    c.innerHTML = '';
+    labels.forEach((l, i) => {
+      const n = i+1;
+      if (i>0) { const conn = document.createElement('div'); conn.className = 'step-conn'; if(n<=wState.step) conn.style.background='var(--blue)'; c.appendChild(conn); }
+      const el = document.createElement('div');
+      el.className = 'step-ind'+(n===wState.step?' active':'')+(n<wState.step?' done':'');
+      el.innerHTML = `<span class="step-dot">${n<wState.step?'&#10003;':n}</span>${l}`;
+      c.appendChild(el);
+    });
+  }
 
-      renderFleet();
-    }
-
-    function renderFleet() {
-      const grid = document.getElementById('fleet-grid');
-      grid.innerHTML = '';
-
-      fleet.forEach(cart => {
-        const card = document.createElement('div');
-        card.className = 'cart-card';
-        const sizeLabel = cart.size + '-passenger';
-        const dueHtml = cart.dueBack ? `<span class="cart-due">Due back ${cart.dueBack}</span>` : '';
-        const renterHtml = cart.renter ? `<span style="font-size:0.8rem;color:var(--ink-mid);display:block;margin-top:0.2rem;">${cart.renter}</span>` : '';
-
-        card.innerHTML = `
-          <div class="cart-number">${cart.number}</div>
-          <div class="cart-meta">${sizeLabel}</div>
-          <span class="cart-status ${cart.status}">${statusLabels[cart.status]}</span>
-          ${dueHtml}
-          ${renterHtml}
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    // ===== RESERVATIONS =====
-    function renderReservations() {
-      const tbody = document.querySelector('#reservations-table tbody');
-      tbody.innerHTML = '';
-
-      reservations.forEach(r => {
-        const row = document.createElement('tr');
-        const depositPill = r.deposit === 'paid'
-          ? '<span class="pill pill-green">Paid</span>'
-          : '<span class="pill pill-amber">Pending</span>';
-        const waiverPill = r.waiver === 'signed'
-          ? '<span class="pill pill-green">Signed</span>'
-          : '<span class="pill pill-gray">Pending</span>';
-        const idPill = r.idVerified
-          ? '<span class="pill pill-green">Verified</span>'
-          : '<span class="pill pill-gray">Pending</span>';
-
-        row.innerHTML = `
-          <td style="font-weight:500;">${r.guest}</td>
-          <td>${r.size}-passenger</td>
-          <td>${r.dateStart} &ndash; ${r.dateEnd}</td>
-          <td>${depositPill}</td>
-          <td>${waiverPill}</td>
-          <td>${idPill}</td>
-          <td>
-            ${r.cart ? `<button class="btn btn-danger-outline btn-small" onclick="openTagout('${r.cart}')">Tag Out</button>` : ''}
-          </td>
-        `;
-        tbody.appendChild(row);
-      });
-    }
-
-    // ===== TAG OUT =====
-    function openTagout(cartNumber) {
-      tagoutCartId = cartNumber;
-      document.getElementById('tagout-title').textContent = `Tag Out ${cartNumber}`;
-      document.getElementById('tagout-reason').value = 'cleaning';
-      document.getElementById('tagout-notes').value = '';
-      openModal('tagout-modal');
-    }
-
-    document.getElementById('tagout-confirm').addEventListener('click', () => {
-      if (tagoutCartId) {
-        const cart = fleet.find(c => c.number === tagoutCartId);
-        if (cart) {
-          cart.status = 'out-of-service';
-          cart.dueBack = null;
-          cart.renter = null;
-        }
-        showToast(`${tagoutCartId} tagged out of service`);
-        tagoutCartId = null;
-        closeAllModals();
-        renderFleet();
-        renderReservations();
+  function renderWPanel() {
+    const p = document.getElementById('w-panel');
+    if (wState.step===1) {
+      p.innerHTML = `<h3 class="widget-panel-title">Pick Your Dates</h3>
+        <div class="form-row"><div class="form-group"><label class="form-label">Pick-Up Date</label><input type="date" class="form-input" id="wd-start" value="${wState.dateStart}"></div><div class="form-group"><label class="form-label">Return Date</label><input type="date" class="form-input" id="wd-end" value="${wState.dateEnd}"></div></div>
+        <p style="font-size:0.82rem;color:var(--ink-light);margin-top:0.35rem;">Pick-up at 302 E Ave G, Port Aransas. Return by 10 AM on your return date.</p>
+        <div id="wd-avail" style="margin-top:0.75rem;"></div>
+        <div class="widget-nav"><div></div><button class="btn btn-primary" id="wd-next1">Next &rarr;</button></div>`;
+      const si = document.getElementById('wd-start'), ei = document.getElementById('wd-end');
+      if (!si.value) { const d=new Date(); d.setDate(d.getDate()+1); si.value=toISO(d); const e=new Date(d); e.setDate(e.getDate()+2); ei.value=toISO(e); }
+      function showAvail() {
+        const s=si.value, e=ei.value;
+        if (!s||!e) return;
+        const a4 = getAvailableCarts(4,s,e).length, a6 = getAvailableCarts(6,s,e).length, a8 = getAvailableCarts(8,s,e).length;
+        document.getElementById('wd-avail').innerHTML = `<div style="display:flex;gap:1rem;font-size:0.82rem;color:var(--ink-mid);"><span>4-pass: <strong>${a4} available</strong></span><span>6-pass: <strong>${a6} available</strong></span><span>8-pass: <strong>${a8} available</strong></span></div>`;
       }
-    });
-
-    // ===== WALK-UP RENTAL =====
-    document.getElementById('walkup-btn').addEventListener('click', () => {
-      const select = document.getElementById('wu-cart');
-      select.innerHTML = '';
-      fleet.filter(c => c.status === 'available').forEach(cart => {
-        const opt = document.createElement('option');
-        opt.value = cart.number;
-        opt.textContent = `${cart.number} (${cart.size}-passenger)`;
-        select.appendChild(opt);
-      });
-      document.getElementById('walkup-form').reset();
-      openModal('walkup-modal');
-    });
-
-    document.getElementById('walkup-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('wu-name').value;
-      const cartNum = document.getElementById('wu-cart').value;
-      const returnBy = document.getElementById('wu-return').value;
-      const lastName = name.split(' ').pop();
-
-      const cart = fleet.find(c => c.number === cartNum);
-      if (cart) {
-        cart.status = 'rented';
-        cart.dueBack = returnBy.includes('+1') ? '10:00 AM' : returnBy;
-        cart.renter = lastName;
-      }
-
-      closeAllModals();
-      showToast(`${cartNum} rented to ${name}`);
-      renderDashboard();
-    });
-
-    // ===== BOOKING WIDGET =====
-    const widgetState = {
-      step: 1,
-      dateStart: '',
-      dateEnd: '',
-      size: null,
-      addons: { speaker: false, cooler: false, parking: false },
-      licenseUploaded: false,
-      waiverSigned: false
-    };
-
-    const addonData = [
-      { key: 'speaker', name: 'Bluetooth Speaker', price: 20, unit: '/day' },
-      { key: 'cooler', name: 'Yeti Cooler with Ice', price: 35, unit: '/day' },
-      { key: 'parking', name: 'Beach Parking Permit', price: 15, unit: 'flat' }
-    ];
-
-    function renderWidget() {
-      renderStepIndicators();
-      renderStepContent();
+      si.addEventListener('change', showAvail); ei.addEventListener('change', showAvail); showAvail();
+      document.getElementById('wd-next1').addEventListener('click', () => { wState.dateStart=si.value; wState.dateEnd=ei.value; if(!wState.dateStart||!wState.dateEnd) return; wState.step=2; renderWidget(); });
+    } else if (wState.step===2) {
+      const days = daysBetween(wState.dateStart, wState.dateEnd);
+      p.innerHTML = `<h3 class="widget-panel-title">Choose Your Cart</h3>
+        <p style="font-size:0.85rem;color:var(--ink-mid);margin-bottom:1rem;">${days} day${days>1?'s':''} &mdash; ${fmtDate(wState.dateStart)} to ${fmtDate(wState.dateEnd)}</p>
+        <div class="cart-size-options">${[4,6,8].map(sz => {
+          const pr = calculatePrice(sz, wState.dateStart, wState.dateEnd, wState.promoCode);
+          const avail = getAvailableCarts(sz, wState.dateStart, wState.dateEnd).length;
+          return `<div class="size-card ${wState.size===sz?'selected':''}" data-sz="${sz}"><div class="size-num">${sz}</div><div class="size-label">Passenger</div><div class="size-price">${fmtMoney(pr.base)}/day</div><div style="font-size:0.78rem;color:var(--ink-light);margin-top:0.2rem;">${fmtMoney(pr.total)} total</div><div class="size-avail">${avail} available</div></div>`;
+        }).join('')}</div>
+        <div class="form-group"><label class="form-label">Promo Code</label><input type="text" class="form-input" id="wd-promo" value="${wState.promoCode}" placeholder="Optional" style="text-transform:uppercase;"></div>
+        <div class="widget-nav"><button class="btn btn-secondary" id="wd-back2">&larr; Back</button><button class="btn btn-primary" id="wd-next2" ${!wState.size?'disabled style="opacity:0.5;cursor:not-allowed;"':''}>Next &rarr;</button></div>`;
+      p.querySelectorAll('.size-card').forEach(c => c.addEventListener('click', () => { wState.size=parseInt(c.dataset.sz); wState.promoCode=document.getElementById('wd-promo').value; renderWPanel(); }));
+      document.getElementById('wd-promo').addEventListener('change', function() { wState.promoCode=this.value; renderWPanel(); });
+      document.getElementById('wd-back2').addEventListener('click', () => { wState.step=1; renderWidget(); });
+      document.getElementById('wd-next2').addEventListener('click', () => { if(!wState.size) return; wState.promoCode=document.getElementById('wd-promo').value; wState.step=3; renderWidget(); });
+    } else if (wState.step===3) {
+      const days = daysBetween(wState.dateStart, wState.dateEnd);
+      p.innerHTML = `<h3 class="widget-panel-title">Add-ons</h3>${addonData.map(a => `<div class="addon-row"><div class="addon-info"><div class="addon-name">${a.name}</div><div class="addon-price">+${fmtMoney(a.price)}${a.unit==='/day'?'/day ('+fmtMoney(a.price*days)+' total)':' flat'}</div></div><div class="addon-check ${wState.addons[a.key]?'checked':''}" data-ak="${a.key}"></div></div>`).join('')}
+        <div class="widget-nav"><button class="btn btn-secondary" id="wd-back3">&larr; Back</button><button class="btn btn-primary" id="wd-next3">Next &rarr;</button></div>`;
+      p.querySelectorAll('.addon-check').forEach(b => b.addEventListener('click', () => { wState.addons[b.dataset.ak]=!wState.addons[b.dataset.ak]; b.classList.toggle('checked'); }));
+      document.getElementById('wd-back3').addEventListener('click', () => { wState.step=2; renderWidget(); });
+      document.getElementById('wd-next3').addEventListener('click', () => { wState.step=4; renderWidget(); });
+    } else if (wState.step===4) {
+      p.innerHTML = `<h3 class="widget-panel-title">Verify Your Identity</h3>
+        <div class="form-group"><label class="form-label">Driver's License Photo</label><div class="upload-zone ${wState.licenseUploaded?'uploaded':''}" id="wd-upload">${wState.licenseUploaded?'<strong>&#10003; License uploaded</strong>':'<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 15V7M11 7L7 11M11 7L15 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><br>Tap to upload driver\'s license'}</div></div>
+        <div class="form-label">Digital Waiver</div>
+        <div style="max-height:100px;overflow-y:auto;padding:0.75rem;background:var(--cream);border-radius:4px;font-size:0.8rem;color:var(--ink-mid);margin-bottom:0.5rem;line-height:1.5;">I acknowledge that I am renting a golf cart from Island Wheels Golf Cart Rentals. I accept full responsibility for the cart during the rental period and agree to pay for any damages. I confirm I have a valid driver's license and will not operate the cart while impaired. I understand the cart must be returned by the agreed time or additional charges apply.</div>
+        <div class="form-label">Sign Below</div>
+        <div class="sig-pad-wrapper" id="wd-sig-wrap"><canvas class="sig-canvas" id="wd-sig-canvas"></canvas></div>
+        <div class="sig-actions"><button class="btn btn-secondary btn-small" id="wd-sig-clear">Clear</button><button class="btn btn-primary btn-small" id="wd-sig-accept">Accept</button><span class="sig-status" id="wd-sig-status" style="display:none;">&#10003; Signature captured</span></div>
+        <div class="widget-nav"><button class="btn btn-secondary" id="wd-back4">&larr; Back</button><button class="btn btn-primary" id="wd-next4">Next &rarr;</button></div>`;
+      document.getElementById('wd-upload').addEventListener('click', function() { wState.licenseUploaded=true; this.classList.add('uploaded'); this.innerHTML='<strong>&#10003; License uploaded</strong>'; });
+      initSignaturePad('wd-sig-canvas','wd-sig-clear','wd-sig-accept','wd-sig-status','wd-sig-wrap');
+      document.getElementById('wd-back4').addEventListener('click', () => { wState.step=3; renderWidget(); });
+      document.getElementById('wd-next4').addEventListener('click', () => { wState.step=5; renderWidget(); });
+    } else if (wState.step===5) {
+      const days = daysBetween(wState.dateStart, wState.dateEnd);
+      const pr = calculatePrice(wState.size, wState.dateStart, wState.dateEnd, wState.promoCode);
+      let addonsTotal = 0;
+      addonData.forEach(a => { if (wState.addons[a.key]) addonsTotal += a.unit==='/day' ? a.price*days : a.price; });
+      const grandTotal = pr.total + addonsTotal;
+      const deposit = Math.round(grandTotal * 0.5);
+      p.innerHTML = `<h3 class="widget-panel-title">Pay Deposit &amp; Confirm</h3>
+        <div style="border:1px solid var(--rule);border-radius:6px;padding:1.1rem;margin-bottom:1.25rem;">
+          <div class="calc-row"><span>${wState.size}-pass &times; ${days} day${days>1?'s':''}</span><span>${fmtMoney(pr.base*days)}</span></div>
+          ${pr.adjustments.map(a=>`<div class="calc-row adj"><span>${a.label}</span><span>${a.val>=0?'+':''}${fmtMoney(a.val)}</span></div>`).join('')}
+          ${addonData.filter(a=>wState.addons[a.key]).map(a=>`<div class="calc-row adj"><span>${a.name}</span><span>+${fmtMoney(a.unit==='/day'?a.price*days:a.price)}</span></div>`).join('')}
+          <div class="calc-row total"><span>Total</span><span>${fmtMoney(grandTotal)}</span></div>
+        </div>
+        <div style="background:var(--cream);padding:0.85rem;border-radius:4px;margin-bottom:1.25rem;">
+          <div style="font-size:0.82rem;color:var(--ink-mid);">50% deposit due now</div>
+          <div style="font-weight:700;font-size:1.2rem;">${fmtMoney(deposit)}</div>
+          <div style="font-size:0.78rem;color:var(--ink-light);margin-top:0.15rem;">Remaining ${fmtMoney(grandTotal-deposit)} due at pick-up</div>
+        </div>
+        <div class="form-group"><label class="form-label">Card Number</label><input type="text" class="form-input" placeholder="4242 4242 4242 4242"></div>
+        <div class="form-row"><div class="form-group"><label class="form-label">Expiry</label><input type="text" class="form-input" placeholder="MM / YY"></div><div class="form-group"><label class="form-label">CVC</label><input type="text" class="form-input" placeholder="123"></div></div>
+        <div style="font-size:0.75rem;color:var(--ink-light);margin-bottom:1rem;display:flex;align-items:center;gap:0.35rem;"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 4V3C4 1.9 4.9 1 6 1H8C9.1 1 10 1.9 10 3V4" stroke="currentColor" stroke-width="1.2"/></svg> Secured by Stripe</div>
+        <div class="widget-nav"><button class="btn btn-secondary" id="wd-back5">&larr; Back</button><button class="btn btn-primary" id="wd-pay" style="flex:1;margin-left:0.75rem;">Pay ${fmtMoney(deposit)} Deposit</button></div>`;
+      document.getElementById('wd-back5').addEventListener('click', () => { wState.step=4; renderWidget(); });
+      document.getElementById('wd-pay').addEventListener('click', () => { wState.step=6; renderWidget(); });
+    } else if (wState.step===6) {
+      p.innerHTML = `<div class="confirmation-box">
+        <div class="check-circle"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M6 13L11 18L20 9" stroke="var(--success)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h2>You're All Set!</h2>
+        <p style="color:var(--ink-mid);margin-bottom:1.25rem;">Confirmation #IW-2026-${1000+Math.floor(Math.random()*900)}</p>
+        <div style="text-align:left;border:1px solid var(--rule);border-radius:6px;padding:1.1rem;font-size:0.88rem;">
+          <div style="margin-bottom:0.5rem;"><strong>Cart:</strong> ${wState.size}-passenger</div>
+          <div style="margin-bottom:0.5rem;"><strong>Pick-up:</strong> ${fmtDate(wState.dateStart)} at 10:00 AM</div>
+          <div style="margin-bottom:0.5rem;"><strong>Return:</strong> ${fmtDate(wState.dateEnd)} by 10:00 AM</div>
+          <div style="margin-bottom:0.5rem;"><strong>Location:</strong> 302 E Ave G, Port Aransas</div>
+          ${addonData.filter(a=>wState.addons[a.key]).length?`<div><strong>Add-ons:</strong> ${addonData.filter(a=>wState.addons[a.key]).map(a=>a.name).join(', ')}</div>`:''}
+        </div>
+        <div style="background:var(--cream);border-radius:6px;padding:1rem;margin-top:1rem;text-align:left;font-size:0.82rem;">
+          <div style="font-weight:600;margin-bottom:0.35rem;">&#9993; Confirmation email sent</div>
+          <div style="color:var(--ink-mid);">Check your inbox for your receipt and rental details. See you on the island!</div>
+        </div>
+        <button class="btn btn-secondary" style="margin-top:1.25rem;" id="wd-restart">Book Another Cart</button>
+      </div>`;
+      document.getElementById('wd-restart').addEventListener('click', () => { Object.assign(wState, { step:1, dateStart:'', dateEnd:'', size:null, addons:{speaker:false,cooler:false,parking:false,map:false}, licenseUploaded:false, waiverSigned:false, promoCode:'', sigData:null }); renderWidget(); });
     }
+  }
 
-    function renderStepIndicators() {
-      const container = document.getElementById('widget-steps');
-      container.innerHTML = '';
-      const labels = ['Dates', 'Cart Size', 'Add-ons', 'Verify', 'Pay'];
-      labels.forEach((label, i) => {
-        const stepNum = i + 1;
-        let cls = 'widget-step-indicator';
-        if (stepNum === widgetState.step) cls += ' active';
-        else if (stepNum < widgetState.step) cls += ' completed';
+  // ===== WALK-UP =====
+  document.getElementById('walkup-btn').addEventListener('click', () => {
+    const sel = document.getElementById('wu-cart');
+    sel.innerHTML = '';
+    fleet.filter(c=>c.status==='available').forEach(c => { const o=document.createElement('option'); o.value=c.number; o.textContent=c.number+' ('+c.size+'-pass)'; sel.appendChild(o); });
+    document.getElementById('walkup-form').reset();
+    openModal('walkup-modal');
+  });
 
-        if (i > 0) {
-          const conn = document.createElement('div');
-          conn.className = 'step-connector';
-          if (stepNum <= widgetState.step) conn.style.background = 'var(--blue)';
-          container.appendChild(conn);
-        }
+  document.getElementById('walkup-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('wu-name').value;
+    const cartNum = document.getElementById('wu-cart').value;
+    const returnBy = document.getElementById('wu-return').value;
+    const cart = fleet.find(c=>c.number===cartNum);
+    if (cart) { cart.status='rented'; cart.dueBack=returnBy; cart.renter=name.split(' ').pop(); }
+    closeAllModals(); showToast(cartNum+' rented to '+name); renderDashboard();
+  });
 
-        const el = document.createElement('div');
-        el.className = cls;
-        el.innerHTML = `<span class="step-dot">${stepNum < widgetState.step ? '&#10003;' : stepNum}</span>${label}`;
-        container.appendChild(el);
-      });
-    }
+  // ===== MODALS =====
+  function openModal(id) { const m=document.getElementById(id); m.classList.add('active'); const f=m.querySelector('input,select,textarea'); if(f) f.focus(); }
+  function closeAllModals() { document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('active')); }
+  document.querySelectorAll('.modal-close').forEach(b => b.addEventListener('click', closeAllModals));
+  document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if(e.target===o) closeAllModals(); }));
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeAllModals(); });
 
-    function renderStepContent() {
-      const panel = document.getElementById('widget-panel');
+  function showToast(msg) { const d=document.createElement('div'); d.className='toast'; d.textContent=msg; document.body.appendChild(d); setTimeout(()=>d.remove(),3000); }
 
-      if (widgetState.step === 1) {
-        panel.innerHTML = `
-          <h3 class="widget-panel-title">Pick Your Dates</h3>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Pick-Up Date</label>
-              <input type="date" class="form-input" id="w-date-start" value="${widgetState.dateStart}">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Return Date</label>
-              <input type="date" class="form-input" id="w-date-end" value="${widgetState.dateEnd}">
-            </div>
-          </div>
-          <p style="font-size:0.85rem;color:var(--ink-light);margin-top:0.5rem;">Pick-up at 302 E Ave G, Port Aransas. Return by 10 AM on your return date.</p>
-          <div class="widget-nav">
-            <div></div>
-            <button class="btn btn-primary" id="w-next-1">Next &rarr;</button>
-          </div>
-        `;
-        // Set default dates if empty
-        const startInput = document.getElementById('w-date-start');
-        const endInput = document.getElementById('w-date-end');
-        if (!startInput.value) {
-          const d = new Date();
-          d.setDate(d.getDate() + 1);
-          startInput.value = d.toISOString().split('T')[0];
-          const e = new Date(d);
-          e.setDate(e.getDate() + 2);
-          endInput.value = e.toISOString().split('T')[0];
-        }
-        document.getElementById('w-next-1').addEventListener('click', () => {
-          widgetState.dateStart = document.getElementById('w-date-start').value;
-          widgetState.dateEnd = document.getElementById('w-date-end').value;
-          if (!widgetState.dateStart || !widgetState.dateEnd) return;
-          widgetState.step = 2;
-          renderWidget();
-        });
-      }
+  // ===== MOBILE =====
+  document.getElementById('hamburger-btn').addEventListener('click', () => { document.getElementById('sidebar').classList.add('mobile-open'); document.getElementById('sidebar-backdrop').classList.add('active'); });
+  function closeMobileSidebar() { document.getElementById('sidebar').classList.remove('mobile-open'); document.getElementById('sidebar-backdrop').classList.remove('active'); }
+  document.getElementById('sidebar-close-btn').addEventListener('click', closeMobileSidebar);
+  document.getElementById('sidebar-backdrop').addEventListener('click', closeMobileSidebar);
+  document.querySelectorAll('.nav-item').forEach(i => i.addEventListener('click', () => { if(window.innerWidth<=768) closeMobileSidebar(); }));
 
-      else if (widgetState.step === 2) {
-        const days = getDays();
-        panel.innerHTML = `
-          <h3 class="widget-panel-title">Choose Your Cart</h3>
-          <p style="font-size:0.88rem;color:var(--ink-mid);margin-bottom:1.25rem;">${days} day${days > 1 ? 's' : ''} &mdash; ${formatDate(widgetState.dateStart)} to ${formatDate(widgetState.dateEnd)}</p>
-          <div class="cart-size-options">
-            ${[4, 6, 8].map(size => `
-              <div class="cart-size-card ${widgetState.size === size ? 'selected' : ''}" data-size="${size}">
-                <div class="size-number">${size}</div>
-                <div class="size-label">Passenger</div>
-                <div class="size-price">$${cartPrices[size]}/day</div>
-                <div style="font-size:0.78rem;color:var(--ink-light);margin-top:0.35rem;">$${cartPrices[size] * days} total</div>
-              </div>
-            `).join('')}
-          </div>
-          <div class="widget-nav">
-            <button class="btn btn-secondary" id="w-back-2">&larr; Back</button>
-            <button class="btn btn-primary" id="w-next-2" ${!widgetState.size ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Next &rarr;</button>
-          </div>
-        `;
-        document.querySelectorAll('.cart-size-card').forEach(card => {
-          card.addEventListener('click', () => {
-            widgetState.size = parseInt(card.dataset.size);
-            renderStepContent();
-          });
-        });
-        document.getElementById('w-back-2').addEventListener('click', () => { widgetState.step = 1; renderWidget(); });
-        document.getElementById('w-next-2').addEventListener('click', () => {
-          if (!widgetState.size) return;
-          widgetState.step = 3;
-          renderWidget();
-        });
-      }
-
-      else if (widgetState.step === 3) {
-        const days = getDays();
-        panel.innerHTML = `
-          <h3 class="widget-panel-title">Add-ons</h3>
-          ${addonData.map(a => `
-            <div class="addon-row">
-              <div class="addon-info">
-                <div class="addon-name">${a.name}</div>
-                <div class="addon-price">+$${a.price}${a.unit === '/day' ? '/day ($' + (a.price * days) + ' total)' : ' flat rate'}</div>
-              </div>
-              <div class="addon-check ${widgetState.addons[a.key] ? 'checked' : ''}" data-addon="${a.key}"></div>
-            </div>
-          `).join('')}
-          <div class="widget-nav">
-            <button class="btn btn-secondary" id="w-back-3">&larr; Back</button>
-            <button class="btn btn-primary" id="w-next-3">Next &rarr;</button>
-          </div>
-        `;
-        document.querySelectorAll('.addon-check').forEach(box => {
-          box.addEventListener('click', () => {
-            const key = box.dataset.addon;
-            widgetState.addons[key] = !widgetState.addons[key];
-            box.classList.toggle('checked');
-          });
-        });
-        document.getElementById('w-back-3').addEventListener('click', () => { widgetState.step = 2; renderWidget(); });
-        document.getElementById('w-next-3').addEventListener('click', () => { widgetState.step = 4; renderWidget(); });
-      }
-
-      else if (widgetState.step === 4) {
-        panel.innerHTML = `
-          <h3 class="widget-panel-title">Verify Your Identity</h3>
-          <div class="form-group">
-            <label class="form-label">Driver's License Photo</label>
-            <div class="upload-zone ${widgetState.licenseUploaded ? 'uploaded' : ''}" id="w-upload">
-              ${widgetState.licenseUploaded
-                ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><br>License uploaded'
-                : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V8M12 8L8 12M12 8L16 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><br>Tap to upload photo of your driver\'s license'}
-            </div>
-          </div>
-          <div class="waiver-box" id="w-waiver">
-            <div class="addon-check ${widgetState.waiverSigned ? 'checked' : ''}"></div>
-            <div>
-              <div style="font-weight:500;margin-bottom:0.2rem;">Digital Waiver</div>
-              <div style="font-size:0.85rem;color:var(--ink-mid);">I agree to the rental terms, acknowledge responsibility for damages, and confirm I have a valid driver's license.</div>
-            </div>
-          </div>
-          <div class="widget-nav">
-            <button class="btn btn-secondary" id="w-back-4">&larr; Back</button>
-            <button class="btn btn-primary" id="w-next-4" ${!(widgetState.licenseUploaded && widgetState.waiverSigned) ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Next &rarr;</button>
-          </div>
-        `;
-        document.getElementById('w-upload').addEventListener('click', () => {
-          widgetState.licenseUploaded = true;
-          renderStepContent();
-        });
-        document.getElementById('w-waiver').addEventListener('click', () => {
-          widgetState.waiverSigned = !widgetState.waiverSigned;
-          renderStepContent();
-        });
-        document.getElementById('w-back-4').addEventListener('click', () => { widgetState.step = 3; renderWidget(); });
-        document.getElementById('w-next-4').addEventListener('click', () => {
-          if (!(widgetState.licenseUploaded && widgetState.waiverSigned)) return;
-          widgetState.step = 5;
-          renderWidget();
-        });
-      }
-
-      else if (widgetState.step === 5) {
-        const days = getDays();
-        const base = cartPrices[widgetState.size] * days;
-        let addonsTotal = 0;
-        addonData.forEach(a => {
-          if (widgetState.addons[a.key]) {
-            addonsTotal += a.unit === '/day' ? a.price * days : a.price;
-          }
-        });
-        const total = base + addonsTotal;
-        const deposit = Math.round(total * 0.5);
-
-        panel.innerHTML = `
-          <h3 class="widget-panel-title">Pay Deposit &amp; Confirm</h3>
-          <div style="border:1px solid var(--rule);border-radius:6px;padding:1.25rem;margin-bottom:1.5rem;">
-            <div style="display:flex;justify-content:space-between;margin-bottom:0.6rem;">
-              <span>${widgetState.size}-passenger cart &times; ${days} day${days > 1 ? 's' : ''}</span>
-              <span style="font-weight:600;">$${base}</span>
-            </div>
-            ${addonData.filter(a => widgetState.addons[a.key]).map(a => {
-              const cost = a.unit === '/day' ? a.price * days : a.price;
-              return `<div style="display:flex;justify-content:space-between;margin-bottom:0.6rem;font-size:0.9rem;color:var(--ink-mid);">
-                <span>${a.name}</span>
-                <span>$${cost}</span>
-              </div>`;
-            }).join('')}
-            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--rule);padding-top:0.75rem;margin-top:0.5rem;font-weight:700;font-size:1.1rem;">
-              <span>Total</span>
-              <span>$${total}</span>
-            </div>
-          </div>
-          <div style="background:var(--cream);padding:1rem;border-radius:4px;margin-bottom:1.5rem;">
-            <div style="font-size:0.85rem;color:var(--ink-mid);margin-bottom:0.25rem;">50% deposit due now</div>
-            <div style="font-weight:700;font-size:1.3rem;">$${deposit}</div>
-            <div style="font-size:0.8rem;color:var(--ink-light);margin-top:0.25rem;">Remaining $${total - deposit} due at pick-up</div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Card Number</label>
-            <input type="text" class="form-input" placeholder="4242 4242 4242 4242" id="w-card-number">
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Expiry</label>
-              <input type="text" class="form-input" placeholder="MM / YY" id="w-card-expiry">
-            </div>
-            <div class="form-group">
-              <label class="form-label">CVC</label>
-              <input type="text" class="form-input" placeholder="123" id="w-card-cvc">
-            </div>
-          </div>
-          <div style="font-size:0.78rem;color:var(--ink-light);margin-bottom:1.25rem;display:flex;align-items:center;gap:0.4rem;">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 4V3C4 1.9 4.9 1 6 1H8C9.1 1 10 1.9 10 3V4" stroke="currentColor" stroke-width="1.2"/></svg>
-            Secured by Stripe. Your card details are encrypted.
-          </div>
-          <div class="widget-nav">
-            <button class="btn btn-secondary" id="w-back-5">&larr; Back</button>
-            <button class="btn btn-primary" id="w-pay" style="flex:1;margin-left:1rem;">Pay $${deposit} Deposit</button>
-          </div>
-        `;
-        document.getElementById('w-back-5').addEventListener('click', () => { widgetState.step = 4; renderWidget(); });
-        document.getElementById('w-pay').addEventListener('click', () => {
-          widgetState.step = 6;
-          renderWidget();
-        });
-      }
-
-      else if (widgetState.step === 6) {
-        const days = getDays();
-        panel.innerHTML = `
-          <div class="confirmation-box">
-            <div class="check-circle">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 14L12 19L21 10" stroke="var(--success)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h2>You're All Set!</h2>
-            <p style="color:var(--ink-mid);margin-bottom:1.5rem;">Confirmation #IW-2026-${1000 + Math.floor(Math.random() * 900)}</p>
-            <div style="text-align:left;border:1px solid var(--rule);border-radius:6px;padding:1.25rem;font-size:0.9rem;">
-              <div style="margin-bottom:0.6rem;"><strong>Cart:</strong> ${widgetState.size}-passenger</div>
-              <div style="margin-bottom:0.6rem;"><strong>Pick-up:</strong> ${formatDate(widgetState.dateStart)} at 10:00 AM</div>
-              <div style="margin-bottom:0.6rem;"><strong>Return:</strong> ${formatDate(widgetState.dateEnd)} by 10:00 AM</div>
-              <div style="margin-bottom:0.6rem;"><strong>Location:</strong> 302 E Ave G, Port Aransas</div>
-              ${Object.entries(widgetState.addons).filter(([,v]) => v).length > 0 ? `<div><strong>Add-ons:</strong> ${addonData.filter(a => widgetState.addons[a.key]).map(a => a.name).join(', ')}</div>` : ''}
-            </div>
-            <p style="font-size:0.85rem;color:var(--ink-light);margin-top:1.25rem;">A confirmation email has been sent. See you on the island!</p>
-            <button class="btn btn-secondary" style="margin-top:1.5rem;" id="w-restart">Book Another Cart</button>
-          </div>
-        `;
-        document.getElementById('w-restart').addEventListener('click', () => {
-          widgetState.step = 1;
-          widgetState.size = null;
-          widgetState.addons = { speaker: false, cooler: false, parking: false };
-          widgetState.licenseUploaded = false;
-          widgetState.waiverSigned = false;
-          widgetState.dateStart = '';
-          widgetState.dateEnd = '';
-          renderWidget();
-        });
-      }
-    }
-
-    // ===== HELPERS =====
-    function getDays() {
-      if (!widgetState.dateStart || !widgetState.dateEnd) return 1;
-      const start = new Date(widgetState.dateStart);
-      const end = new Date(widgetState.dateEnd);
-      const diff = Math.round((end - start) / (1000 * 60 * 60 * 24));
-      return Math.max(diff, 1);
-    }
-
-    function formatDate(str) {
-      if (!str) return '';
-      const d = new Date(str + 'T12:00:00');
-      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    }
-
-    // ===== MODALS =====
-    function openModal(id) {
-      const m = document.getElementById(id);
-      m.classList.add('active');
-      const first = m.querySelector('input, select, textarea, button:not(.modal-close)');
-      if (first) first.focus();
-    }
-
-    function closeAllModals() {
-      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
-    }
-
-    document.querySelectorAll('.modal-close').forEach(btn => {
-      btn.addEventListener('click', () => closeAllModals());
-    });
-
-    document.querySelectorAll('.modal-overlay').forEach(overlay => {
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) closeAllModals();
-      });
-    });
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeAllModals();
-    });
-
-    function showToast(msg) {
-      const div = document.createElement('div');
-      div.className = 'toast';
-      div.textContent = msg;
-      document.body.appendChild(div);
-      setTimeout(() => div.remove(), 3000);
-    }
-
-    // ===== MOBILE =====
-    document.getElementById('hamburger-btn').addEventListener('click', () => {
-      document.getElementById('sidebar').classList.add('mobile-open');
-      document.getElementById('sidebar-backdrop').classList.add('active');
-    });
-
-    function closeMobileSidebar() {
-      document.getElementById('sidebar').classList.remove('mobile-open');
-      document.getElementById('sidebar-backdrop').classList.remove('active');
-    }
-
-    document.getElementById('sidebar-close-btn').addEventListener('click', closeMobileSidebar);
-    document.getElementById('sidebar-backdrop').addEventListener('click', closeMobileSidebar);
-
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', () => {
-        if (window.innerWidth <= 768) closeMobileSidebar();
-      });
-    });
-
-    // ===== INIT =====
-    renderDashboard();
+  // ===== INIT =====
+  renderDashboard();
   </script>
 </body>
 </html>
