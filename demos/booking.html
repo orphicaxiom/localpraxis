@@ -954,6 +954,10 @@
             border-color: rgba(0, 0, 0, 0.12);
         }
 
+        .calendar-card.completed {
+            opacity: 0.45;
+        }
+
         .calendar-card.cancelled {
             opacity: 0.55;
         }
@@ -2255,7 +2259,7 @@
                 const day = new Date(start);
                 day.setDate(day.getDate() + i);
                 const dateStr = formatDate(day);
-                const dayBookings = bookingData.filter(b => b.date === dateStr && b.status !== 'completed');
+                const dayBookings = bookingData.filter(b => b.date === dateStr);
                 html += `<div class="calendar-day">`;
                 html += `<div class="calendar-day-label">${dayNames[day.getDay()]}<span class="calendar-day-num">${day.getDate()}</span></div>`;
                 if (dayBookings.length === 0) {
@@ -2270,7 +2274,8 @@
                         const statusLabel = b.status.replace('-', ' ');
                         const depositLabel = b.deposit === 'paid' ? 'Paid' : 'Deposit due';
                         const depositClass = b.deposit === 'paid' ? 'st-deposit-paid' : 'st-deposit-due';
-                        html += `<div class="calendar-card${b.status === 'cancelled' ? ' cancelled' : ''}" onclick="openDetailModal(${b.id})">`;
+                        const cardClass = b.status === 'cancelled' ? ' cancelled' : b.status === 'completed' ? ' completed' : '';
+                        html += `<div class="calendar-card${cardClass}" onclick="openDetailModal(${b.id})">`;
                         html += `<div class="calendar-card-name">${b.guest}</div>`;
                         html += `<div class="calendar-card-meta">${b.trip} · ${b.party} ${b.party === 1 ? 'guest' : 'guests'}</div>`;
                         html += `<div class="calendar-card-statuses"><span class="calendar-status st-${b.status}">${statusLabel}</span><span class="calendar-status ${depositClass}">${depositLabel}</span></div>`;
