@@ -6,7 +6,7 @@
     <title>Redfish Run Charters - Admin Dashboard</title>
     <link rel="canonical" href="https://localpraxis.com/demos/booking.html">
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232563EB'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>RR</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23C2452D'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>RR</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,8 +21,8 @@
             --ink: #1C1917;
             --ink-mid: #57534E;
             --ink-light: #A8A29E;
-            --terracotta: #1E5FB5;
-            --terracotta-hover: #174B91;
+            --terracotta: #C2452D;
+            --terracotta-hover: #A33825;
             --rule: #DDD6CC;
             --success: #16A34A;
             --warning: #D97706;
@@ -115,7 +115,7 @@
         }
 
         .nav-item:hover {
-            background: rgba(37, 99, 235, 0.08);
+            background: rgba(194, 69, 45, 0.08);
             color: var(--terracotta);
         }
 
@@ -278,6 +278,11 @@
             gap: 0.75rem;
             flex: 1;
             min-width: 0;
+            transition: opacity 0.2s var(--ease);
+        }
+
+        .attention-left:hover {
+            opacity: 0.7;
         }
 
         .attention-status {
@@ -413,7 +418,7 @@
         }
 
         .manifest-table tbody tr:hover {
-            background: rgba(37, 99, 235, 0.04);
+            background: rgba(194, 69, 45, 0.04);
         }
 
         .manifest-table td {
@@ -507,7 +512,7 @@
 
         .chart-bar.selected {
             background: var(--terracotta-hover);
-            box-shadow: 0 -2px 8px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 -2px 8px rgba(194, 69, 45, 0.3);
         }
 
         .chart-bar[data-amount]:hover::after {
@@ -609,7 +614,7 @@
         }
 
         .btn-secondary:hover {
-            background: rgba(37, 99, 235, 0.08);
+            background: rgba(194, 69, 45, 0.08);
         }
 
         .btn-sm {
@@ -816,13 +821,13 @@
 
         .widget-trip-option:hover {
             border-color: var(--terracotta);
-            background: rgba(37, 99, 235, 0.04);
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+            background: rgba(194, 69, 45, 0.04);
+            box-shadow: 0 2px 8px rgba(194, 69, 45, 0.08);
         }
 
         .widget-trip-option.selected {
             border-color: var(--terracotta);
-            background: rgba(37, 99, 235, 0.06);
+            background: rgba(194, 69, 45, 0.06);
             box-shadow: 0 0 0 1px var(--terracotta);
         }
 
@@ -830,7 +835,7 @@
             width: 40px;
             height: 40px;
             border-radius: 8px;
-            background: rgba(37, 99, 235, 0.1);
+            background: rgba(194, 69, 45, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -910,7 +915,7 @@
         .form-input:focus {
             outline: none;
             border-color: var(--terracotta);
-            background: rgba(37, 99, 235, 0.02);
+            background: rgba(194, 69, 45, 0.02);
         }
 
         .widget-confirmation {
@@ -1264,7 +1269,7 @@
         }
 
         .bookings-table tbody tr:hover {
-            background: rgba(37, 99, 235, 0.04);
+            background: rgba(194, 69, 45, 0.04);
         }
 
         .bookings-table td {
@@ -2016,28 +2021,9 @@
                 </div>
             </div>
 
-            <!-- Needs Attention (rendered dynamically) -->
-            <div id="attention-container"></div>
-
             <div class="dashboard-grid">
-                <div>
-                    <h2 class="section-title">Today's Manifest</h2>
-                    <div style="overflow-x: auto;">
-                    <table class="manifest-table">
-                        <thead>
-                            <tr>
-                                <th>Time</th>
-                                <th>Trip</th>
-                                <th>Guest</th>
-                                <th>Party</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="manifest-body">
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
+                <!-- Needs Attention (rendered dynamically) -->
+                <div id="attention-container"></div>
 
                 <div>
                     <h2 class="section-title">Revenue This Week</h2>
@@ -2045,6 +2031,23 @@
                     </div>
                     <div id="chart-detail"></div>
                 </div>
+            </div>
+
+            <h2 class="section-title">Today's Manifest</h2>
+            <div style="overflow-x: auto;">
+            <table class="manifest-table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Trip</th>
+                        <th>Guest</th>
+                        <th>Party</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="manifest-body">
+                </tbody>
+            </table>
             </div>
 
             <h2 class="section-title">Upcoming Bookings</h2>
@@ -2497,6 +2500,7 @@
                 <button class="btn btn-secondary" onclick="closeModal('detail-modal')">Close</button>
                 <button class="btn btn-primary" id="detail-checkin">Check In</button>
                 <button class="btn btn-secondary" id="detail-reminder">Send Reminder</button>
+                <button class="btn btn-secondary" id="detail-resolve" onclick="resolveAttentionItem()">Mark Resolved</button>
             </div>
         </div>
     </div>
@@ -2725,19 +2729,19 @@
                     const depAmt = Math.round(b.amt * 0.25);
                     const urgency = daysOut <= 0 ? 'urgent' : daysOut <= 1 ? 'soon' : 'info';
                     const label = daysOut <= 0 ? 'Due today' : daysOut === 1 ? 'Due tomorrow' : 'Due in ' + daysOut + ' days';
-                    items.push({ sort: 0 + daysOut, urgency, label, guest: b.guest, detail: b.date + ' ' + b.trip.toLowerCase() + '. $' + depAmt + ' deposit.', action: 'Send reminder', toast: 'Deposit reminder sent to ' + b.guest });
+                    items.push({ sort: 0 + daysOut, urgency, label, guest: b.guest, detail: b.date + ' ' + b.trip.toLowerCase() + '. $' + depAmt + ' deposit.', action: 'Send reminder', toast: 'Deposit reminder sent to ' + b.guest, bookingId: b.id });
                 }
                 // Waiver missing
                 if (b.waiver === false && b.status !== 'pending') {
                     const urgency = daysOut <= 1 ? 'soon' : 'info';
                     const label = daysOut <= 0 ? 'Today' : daysOut === 1 ? 'Tomorrow' : b.date;
-                    items.push({ sort: 100 + daysOut, urgency, label, guest: b.guest, detail: b.date + ' ' + b.trip.toLowerCase() + '. No waiver on file.', action: 'Send waiver', toast: 'Waiver sent to ' + b.guest });
+                    items.push({ sort: 100 + daysOut, urgency, label, guest: b.guest, detail: b.date + ' ' + b.trip.toLowerCase() + '. No waiver on file.', action: 'Send waiver', toast: 'Waiver sent to ' + b.guest, bookingId: b.id });
                 }
                 // Unconfirmed booking
                 if (b.status === 'pending') {
                     const urgency = daysOut <= 1 ? 'soon' : 'info';
                     const pendLabel = daysOut <= 1 ? 'Pending' : 'Pending ' + (daysOut > 2 ? '48hrs+' : daysOut + 'd');
-                    items.push({ sort: 200 + daysOut, urgency, label: pendLabel, guest: b.guest, detail: b.date + ' ' + b.trip.toLowerCase() + '. Unconfirmed booking.', action: 'Follow up', toast: 'Follow-up sent to ' + b.guest });
+                    items.push({ sort: 200 + daysOut, urgency, label: pendLabel, guest: b.guest, detail: b.date + ' ' + b.trip.toLowerCase() + '. Unconfirmed booking.', action: 'Follow up', toast: 'Follow-up sent to ' + b.guest, bookingId: b.id });
                 }
             });
             items.sort((a, b) => a.sort - b.sort);
@@ -2752,7 +2756,7 @@
             let html = '<div class="attention-header"><h2 class="section-title">Needs Attention</h2><span class="attention-count">' + items.length + '</span></div>';
             html += '<ul class="attention-list">';
             items.forEach((item, i) => {
-                html += '<li class="attention-item" id="attn-' + i + '"><div class="attention-left"><span class="attention-status ' + item.urgency + '">' + item.label + '</span><span><strong>' + item.guest + '</strong></span><span class="attention-detail">' + item.detail + '</span></div><button class="attention-action" onclick="dismissAttention(' + i + ', \'' + item.toast.replace(/'/g, "\\'") + '\')">' + item.action + '</button></li>';
+                html += '<li class="attention-item" id="attn-' + i + '"><div class="attention-left" onclick="openDetailModal(' + item.bookingId + ')" style="cursor:pointer;"><span class="attention-status ' + item.urgency + '">' + item.label + '</span><span><strong>' + item.guest + '</strong></span><span class="attention-detail">' + item.detail + '</span></div><button class="attention-action" onclick="dismissAttention(' + i + ', \'' + item.toast.replace(/'/g, "\\'") + '\')">' + item.action + '</button></li>';
             });
             html += '</ul>';
             document.getElementById('attention-container').innerHTML = html;
@@ -3504,6 +3508,33 @@
                     if (countEl) countEl.textContent = remaining;
                 }
             }, 350);
+        }
+
+        function resolveAttentionItem() {
+            if (!currentDetailId) return;
+            // Find and dismiss the attention item for this booking
+            const items = document.querySelectorAll('.attention-item');
+            items.forEach(el => {
+                const left = el.querySelector('.attention-left');
+                if (left && left.getAttribute('onclick') && left.getAttribute('onclick').includes(currentDetailId)) {
+                    el.classList.add('dismissed');
+                    setTimeout(() => {
+                        el.remove();
+                        const remaining = document.querySelectorAll('.attention-item:not(.dismissed)').length;
+                        const badge = document.querySelector('.nav-badge');
+                        const countEl = document.querySelector('.attention-count');
+                        if (remaining === 0) {
+                            document.getElementById('attention-container').innerHTML = '';
+                            if (badge) badge.style.display = 'none';
+                        } else {
+                            if (badge) badge.textContent = remaining;
+                            if (countEl) countEl.textContent = remaining;
+                        }
+                    }, 350);
+                }
+            });
+            closeModal('detail-modal');
+            showToast('Marked as resolved');
         }
 
         function showToast(msg) {
