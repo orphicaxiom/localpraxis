@@ -21,8 +21,8 @@
             --ink: #1C1917;
             --ink-mid: #57534E;
             --ink-light: #A8A29E;
-            --terracotta: #2C4A6E;
-            --terracotta-hover: #1E3A5A;
+            --terracotta: #1E5FB5;
+            --terracotta-hover: #184D96;
             --on-accent: #FFFFFF;
             --rule: #DDD6CC;
             --success: #16A34A;
@@ -3723,19 +3723,7 @@
         function animateCountUp(el, target, prefix, suffix, duration) {
             prefix = prefix || '';
             suffix = suffix || '';
-            duration = duration || 1200;
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                el.textContent = prefix + target.toLocaleString() + suffix;
-                return;
-            }
-            const start = performance.now();
-            function update(now) {
-                const t = Math.min((now - start) / duration, 1);
-                const ease = 1 - Math.pow(1 - t, 3);
-                el.textContent = prefix + Math.round(ease * target).toLocaleString() + suffix;
-                if (t < 1) requestAnimationFrame(update);
-            }
-            requestAnimationFrame(update);
+            el.textContent = prefix + target.toLocaleString() + suffix;
         }
 
         function generateSmoothPath(points) {

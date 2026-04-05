@@ -19,9 +19,9 @@
   --ink: #1C1917;
   --ink-mid: #57534E;
   --ink-light: #A8A29E;
-  --terracotta: #C45D3E;
-  --terracotta-hover: #A84B30;
-  --terracotta-subtle: rgba(196, 93, 62, 0.08);
+  --terracotta: #1E5FB5;
+  --terracotta-hover: #184D96;
+  --terracotta-subtle: color-mix(in srgb, #1E5FB5 8%, transparent);
   --rule: #DDD6CC;
   --status-green: #6B8F71;
   --status-amber: #B5976B;
@@ -41,7 +41,7 @@
   --ink-mid: #A8A29E;
   --ink-light: #78716C;
   --rule: #44403C;
-  --terracotta-subtle: rgba(196, 93, 62, 0.15);
+  --terracotta-subtle: color-mix(in srgb, var(--terracotta) 15%, transparent);
 }
 
 /* ── Reset + Base ── */
@@ -2400,24 +2400,12 @@ function calculateTotal(cartId, pickupDate, returnDate, promoCode) {
 }
 
 function animateCountUp(el, target, duration) {
-  duration = duration || 800;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    el.textContent = typeof target === 'string' ? target : target.toLocaleString('en-US');
-    return;
+  if (typeof target === 'string' && target.startsWith('$')) {
+    var num = parseInt(target.replace(/[$,]/g, ''));
+    el.textContent = '$' + num.toLocaleString('en-US');
+  } else {
+    el.textContent = target.toLocaleString('en-US');
   }
-  var isMoneyStr = typeof target === 'string' && target.startsWith('$');
-  var numTarget = isMoneyStr ? parseInt(target.replace(/[$,]/g, '')) : target;
-  var start = performance.now();
-  function tick(now) {
-    var elapsed = now - start;
-    var progress = Math.min(elapsed / duration, 1);
-    var ease = 1 - Math.pow(1 - progress, 3);
-    var current = Math.round(numTarget * ease);
-    if (isMoneyStr) el.textContent = '$' + current.toLocaleString('en-US');
-    else el.textContent = current.toLocaleString('en-US');
-    if (progress < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
 }
 
 function showToast(message) {
@@ -2855,7 +2843,7 @@ function renderHeatmap() {
     var pct = booked / 16;
     var opacity = Math.min(0.1 + pct * 0.8, 0.9);
     var isToday = ds === TODAY;
-    var bg = pct > 0 ? 'rgba(196, 93, 62, ' + opacity + ')' : 'transparent';
+    var bg = pct > 0 ? 'rgba(30, 95, 181, ' + opacity + ')' : 'transparent';
     var color = pct > 0.5 ? 'var(--warm-white)' : 'var(--ink)';
     html += '<div class="heatmap-cell ' + (isToday ? 'today' : '') + '" style="background:' + bg + ';color:' + color + '" onclick="calGoToWeek(\'' + ds + '\')">' + day + '</div>';
   }

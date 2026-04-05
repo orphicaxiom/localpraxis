@@ -19,9 +19,9 @@
       --ink: #1C1917;
       --ink-mid: #57534E;
       --ink-light: #A8A29E;
-      --terracotta: #367055;
-      --terracotta-hover: #2B5A44;
-      --terracotta-subtle: rgba(54, 112, 85, 0.08);
+      --terracotta: #1E5FB5;
+      --terracotta-hover: #184D96;
+      --terracotta-subtle: color-mix(in srgb, #1E5FB5 8%, transparent);
       --rule: #DDD6CC;
       --success: #6B8F71;
       --warning: #B5976B;
@@ -47,7 +47,7 @@
       --ink-mid: #A8A29E;
       --ink-light: #78716C;
       --rule: #44403C;
-      --terracotta-subtle: rgba(54, 112, 85, 0.12);
+      --terracotta-subtle: color-mix(in srgb, var(--terracotta) 12%, transparent);
     }
 
     /* ─── Reset + Base ───────────────────────────────────────── */
@@ -298,7 +298,7 @@
       right: 0;
       width: 40%;
       height: 100%;
-      background: linear-gradient(135deg, transparent 0%, rgba(54, 112, 85, 0.04) 100%);
+      background: linear-gradient(135deg, transparent 0%, color-mix(in srgb, var(--terracotta) 4%, transparent) 100%);
       pointer-events: none;
     }
 
@@ -1002,13 +1002,13 @@
       border-radius: 60px;
       cursor: pointer;
       z-index: 400;
-      box-shadow: 0 4px 16px rgba(54, 112, 85, 0.25);
+      box-shadow: 0 4px 16px color-mix(in srgb, var(--terracotta) 25%, transparent);
       transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), opacity 0.2s;
     }
 
     .fab:hover {
       transform: scale(1.03);
-      box-shadow: 0 6px 24px rgba(54, 112, 85, 0.35);
+      box-shadow: 0 6px 24px color-mix(in srgb, var(--terracotta) 35%, transparent);
     }
 
     .fab:active {
@@ -2186,20 +2186,7 @@
     const format = v => isDecimal
       ? v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
       : Math.round(v).toLocaleString();
-    const duration = 400;
-    const ease = t => 1 - Math.pow(1 - t, 3);
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced || end === 0) {
-      el.textContent = prefix + format(end) + suffix;
-      return;
-    }
-    const start = performance.now();
-    function tick(now) {
-      const t = Math.min((now - start) / duration, 1);
-      el.textContent = prefix + format(end * ease(t)) + suffix;
-      if (t < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
+    el.textContent = prefix + format(end) + suffix;
   }
 
   // ─── Dashboard ─────────────────────────────────────────────
