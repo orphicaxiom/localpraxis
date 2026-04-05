@@ -1220,6 +1220,11 @@
         });
       }
     });
+
+    // Restore visibility when returning via back/forward navigation (bfcache)
+    window.addEventListener('pageshow', e => {
+      if (e.persisted) document.body.classList.remove('page-leaving');
+    });
   </script>
 
   <script>

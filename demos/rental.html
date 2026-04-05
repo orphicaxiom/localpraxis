@@ -2536,8 +2536,7 @@ function renderDashboard() {
   document.querySelectorAll('.stat-value[data-count]').forEach(function(el) {
     var target = parseInt(el.dataset.count);
     var isMoney = el.dataset.money === 'true';
-    if (isMoney) animateCountUp(el, '$' + target, 900);
-    else animateCountUp(el, target, 900);
+    el.textContent = isMoney ? '$' + target.toLocaleString('en-US') : target.toLocaleString('en-US');
   });
 
   // Activity Timeline
