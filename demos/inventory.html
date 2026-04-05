@@ -1880,19 +1880,19 @@
 
     const statsEl = document.getElementById('dashboard-stats');
     statsEl.innerHTML = `
-      <div class="stat-card accent" style="animation: fadeUp 0.35s var(--ease) both;">
+      <div class="stat-card accent" style="animation: fadeUp 0.35s var(--ease) both; cursor:pointer;" onclick="showView('sales')">
         <div class="stat-label">Today's Sales</div>
         <div class="stat-value" id="stat-revenue">$0</div>
       </div>
-      <div class="stat-card" style="animation: fadeUp 0.35s var(--ease) 0.05s both;">
+      <div class="stat-card" style="animation: fadeUp 0.35s var(--ease) 0.05s both; cursor:pointer;" onclick="showView('sales')">
         <div class="stat-label">Items Sold</div>
         <div class="stat-value" id="stat-items">0</div>
       </div>
-      <div class="stat-card" style="animation: fadeUp 0.35s var(--ease) 0.1s both;">
+      <div class="stat-card" style="animation: fadeUp 0.35s var(--ease) 0.1s both; cursor:pointer;" onclick="showView('products'); filterLowStock();">
         <div class="stat-label"><span class="alert-dot"></span> Low Stock Alerts</div>
         <div class="stat-value" id="stat-lowstock">0</div>
       </div>
-      <div class="stat-card" style="animation: fadeUp 0.35s var(--ease) 0.15s both;">
+      <div class="stat-card" style="animation: fadeUp 0.35s var(--ease) 0.15s both; cursor:pointer;" onclick="showView('settings')">
         <div class="stat-label">Processing Fees Saved</div>
         <div class="stat-value" id="stat-fees">$0</div>
       </div>
@@ -1983,9 +1983,25 @@
   // ─── Products ──────────────────────────────────────────────
   let currentCategory = 'all';
   let currentSearch = '';
+  let lowStockOnly = false;
+
+  function filterLowStock() {
+    lowStockOnly = true;
+    currentCategory = 'all';
+    currentSearch = '';
+    document.getElementById('product-search').value = '';
+    document.querySelectorAll('#category-filters .filter-tab').forEach(t => t.classList.remove('active'));
+    const allTab = document.querySelector('#category-filters .filter-tab[data-category="all"]');
+    if (allTab) allTab.classList.add('active');
+    renderProducts();
+  }
 
   function renderProducts() {
     let products = store.products.filter(p => p.status === 'active');
+    if (lowStockOnly) {
+      products = products.filter(p => p.stock <= store.settings.lowStockThreshold);
+      lowStockOnly = false;
+    }
     if (currentCategory !== 'all') products = products.filter(p => p.category === currentCategory);
     if (currentSearch) products = products.filter(p =>
       p.name.toLowerCase().includes(currentSearch) ||
