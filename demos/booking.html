@@ -387,6 +387,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3.5rem;
+            align-items: start;
         }
 
         /* Manifest section */
@@ -471,7 +472,7 @@
 
         /* Revenue chart */
         .chart-container {
-            height: 160px;
+            height: 280px;
             display: flex;
             align-items: flex-end;
             gap: 0.75rem;
@@ -2033,9 +2034,28 @@
                 </div>
             </div>
 
+            <!-- Needs Attention (rendered dynamically) -->
+            <div id="attention-container"></div>
+
             <div class="dashboard-grid">
-                <!-- Needs Attention (rendered dynamically) -->
-                <div id="attention-container"></div>
+                <div>
+                    <h2 class="section-title">Today's Manifest</h2>
+                    <div style="overflow-x: auto;">
+                    <table class="manifest-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Trip</th>
+                                <th>Guest</th>
+                                <th>Party</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="manifest-body">
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
 
                 <div>
                     <h2 class="section-title">Revenue This Week</h2>
@@ -2043,23 +2063,6 @@
                     </div>
                     <div id="chart-detail"></div>
                 </div>
-            </div>
-
-            <h2 class="section-title">Today's Manifest</h2>
-            <div style="overflow-x: auto;">
-            <table class="manifest-table">
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Trip</th>
-                        <th>Guest</th>
-                        <th>Party</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="manifest-body">
-                </tbody>
-            </table>
             </div>
 
             <h2 class="section-title">Upcoming Bookings</h2>
@@ -2803,7 +2806,7 @@
             const maxVal = Math.max(...computed.map(d => d.val));
             let html = '';
             computed.forEach((d, i) => {
-                const height = maxVal > 0 ? Math.max((d.val / maxVal) * 120, d.val > 0 ? 4 : 0) : 0;
+                const height = maxVal > 0 ? Math.max((d.val / maxVal) * 240, d.val > 0 ? 4 : 0) : 0;
                 html += `<div class="chart-col" onclick="showChartDay('${d.date}', ${i})" style="cursor:pointer;"><div class="chart-bar" style="height: ${height}px;" data-amount="$${d.val.toLocaleString()}"></div><div class="chart-bar-label">${d.day}</div></div>`;
             });
             document.getElementById('revenue-chart').innerHTML = html;
