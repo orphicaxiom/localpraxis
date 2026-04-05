@@ -965,14 +965,14 @@
   <!-- Fee Calculator -->
   <section id="calculator" style="border-top:none;padding-top:2rem;">
     <div class="container">
-      <h2>See what you're really paying in platform fees</h2>
-      <p style="color:var(--ink-mid);max-width:620px;margin-bottom:2.5rem;">Most booking platforms charge 3–6% on every transaction. Enter your numbers to see the real cost.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:680px;margin-bottom:3rem;" class="calc-grid">
+      <h2>Run your numbers</h2>
+      <p style="color:var(--ink-mid);max-width:620px;margin-bottom:2.5rem;">Enter your annual revenue. See what you're actually handing over — and what it costs to stop.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:680px;margin-bottom:2rem;" class="calc-grid">
         <div>
           <label style="display:block;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-mid);margin-bottom:0.5rem;">Annual booking revenue</label>
           <div style="position:relative;">
             <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--ink-mid);font-size:1.1rem;">$</span>
-            <input type="text" id="calc-revenue" placeholder="200,000" style="width:100%;padding:0.75rem 1rem 0.75rem 2rem;border:1px solid var(--rule);border-radius:4px;font-family:var(--font-sans);font-size:1.05rem;background:var(--warm-white);" inputmode="numeric">
+            <input type="text" id="calc-revenue" placeholder="200,000" value="200,000" style="width:100%;padding:0.75rem 1rem 0.75rem 2rem;border:1px solid var(--rule);border-radius:4px;font-family:var(--font-sans);font-size:1.05rem;background:var(--warm-white);" inputmode="numeric">
           </div>
         </div>
         <div>
@@ -984,19 +984,16 @@
           </select>
         </div>
       </div>
-      <div id="calc-result" style="display:none;background:var(--cream);border:1px solid var(--rule);border-radius:4px;padding:2rem;max-width:680px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;text-align:center;" class="calc-result-grid">
-          <div>
-            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-mid);margin-bottom:0.5rem;">You pay them per year</div>
-            <div id="calc-annual" style="font-family:var(--font-serif);font-size:clamp(1.5rem,3vw,2.2rem);color:var(--terracotta);font-weight:700;"></div>
+      <div id="calc-result" style="background:var(--cream);border:1px solid var(--rule);border-radius:4px;padding:2rem;max-width:680px;">
+        <div id="calc-punchline" style="font-family:var(--font-serif);font-size:clamp(1.4rem,3vw,2rem);color:var(--terracotta);font-weight:700;margin-bottom:1.5rem;line-height:1.3;"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:480px;" class="calc-result-grid">
+          <div style="padding:1.25rem;background:var(--warm-white);border-radius:4px;text-align:center;">
+            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-mid);margin-bottom:0.5rem;">Their cut over 3 years</div>
+            <div id="calc-threeyear" style="font-family:var(--font-serif);font-size:clamp(1.3rem,2.5vw,1.8rem);color:var(--ink);font-weight:700;"></div>
           </div>
-          <div>
-            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-mid);margin-bottom:0.5rem;">Over 3 years</div>
-            <div id="calc-threeyear" style="font-family:var(--font-serif);font-size:clamp(1.5rem,3vw,2.2rem);color:var(--ink);font-weight:700;"></div>
-          </div>
-          <div>
-            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-mid);margin-bottom:0.5rem;">Local Praxis instead</div>
-            <div style="font-family:var(--font-serif);font-size:clamp(1.5rem,3vw,2.2rem);color:var(--ink);font-weight:700;">$300–600<span style="font-size:0.6em;color:var(--ink-mid);font-weight:400;">/yr</span></div>
+          <div style="padding:1.25rem;background:var(--warm-white);border-radius:4px;text-align:center;">
+            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-mid);margin-bottom:0.5rem;">A Local Praxis build</div>
+            <div style="font-family:var(--font-serif);font-size:clamp(1.3rem,2.5vw,1.8rem);color:var(--ink);font-weight:700;">$2,500<span style="font-size:0.55em;color:var(--ink-mid);font-weight:400;"> once</span></div>
           </div>
         </div>
       </div>
@@ -1374,21 +1371,25 @@
     // Fee calculator
     const calcRevenue = document.getElementById('calc-revenue');
     const calcRate = document.getElementById('calc-rate');
-    const calcResult = document.getElementById('calc-result');
     function updateCalc() {
       const raw = calcRevenue.value.replace(/[^0-9]/g, '');
       const revenue = parseInt(raw, 10);
-      if (!revenue || revenue < 1000) { calcResult.style.display = 'none'; return; }
+      if (!revenue || revenue < 1000) {
+        document.getElementById('calc-punchline').textContent = '';
+        document.getElementById('calc-threeyear').textContent = '—';
+        return;
+      }
       const rate = parseFloat(calcRate.value);
       const annual = revenue * rate;
       const threeYear = annual * 3;
-      document.getElementById('calc-annual').textContent = '$' + annual.toLocaleString('en-US', {maximumFractionDigits: 0});
+      const fmtAnnual = '$' + annual.toLocaleString('en-US', {maximumFractionDigits: 0});
+      document.getElementById('calc-punchline').textContent = 'You\u2019re paying ' + fmtAnnual + '/year in platform fees.';
       document.getElementById('calc-threeyear').textContent = '$' + threeYear.toLocaleString('en-US', {maximumFractionDigits: 0});
-      calcResult.style.display = 'block';
     }
     if (calcRevenue) {
       calcRevenue.addEventListener('input', updateCalc);
       calcRate.addEventListener('change', updateCalc);
+      updateCalc();
     }
   </script>
 
