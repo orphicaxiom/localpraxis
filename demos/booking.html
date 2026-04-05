@@ -934,82 +934,125 @@
             margin-top: 0.25rem;
         }
 
+        .calendar-day-cards {
+            max-height: calc((88px + 12px) * 3);
+            overflow-y: auto;
+        }
+
+        .calendar-day-cards::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .calendar-day-cards::-webkit-scrollbar-thumb {
+            background: var(--rule);
+            border-radius: 3px;
+        }
+
         .calendar-card {
             background: #FFFFFF;
-            border-left: 3px solid var(--terracotta);
-            padding: 1rem 1.25rem;
-            margin-bottom: 0.75rem;
+            border: 1px solid var(--rule);
+            padding: 16px 18px;
+            margin-bottom: 12px;
             cursor: pointer;
-            transition: box-shadow 0.2s var(--ease);
-            border-radius: 2px;
+            transition: box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
+            border-radius: 10px;
+        }
+
+        .calendar-card:last-child {
+            margin-bottom: 0;
         }
 
         .calendar-card:hover {
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            border-color: rgba(0, 0, 0, 0.12);
         }
 
         .calendar-card.cancelled {
-            opacity: 0.5;
-            border-left-color: var(--ink-light);
+            opacity: 0.55;
         }
 
         .calendar-card.cancelled .calendar-card-name {
             text-decoration: line-through;
+            text-decoration-color: var(--ink-light);
         }
 
         .calendar-card-name {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--ink);
-            margin-bottom: 0.35rem;
+            margin-bottom: 6px;
+            line-height: 1.2;
         }
 
         .calendar-card-meta {
             font-size: 0.8rem;
             color: var(--ink-mid);
-            margin-bottom: 0.35rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
         }
 
-        .calendar-card-bottom {
+        .calendar-card-pills {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.5rem;
+            gap: 6px;
+            flex-wrap: wrap;
         }
 
-        .calendar-card-status {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 600;
-            color: var(--ink-light);
+        .calendar-pill {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 500;
+            padding: 3px 8px;
+            border-radius: 9999px;
+            line-height: 1.3;
         }
 
-        .calendar-card-status.s-confirmed { color: var(--ink-mid); }
-        .calendar-card-status.s-checked-in { color: var(--success); }
-        .calendar-card-status.s-pending { color: var(--warning); }
-        .calendar-card-status.s-cancelled { color: var(--ink-light); }
-
-        .calendar-card-deposit {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 600;
+        .calendar-pill.pill-confirmed {
+            background: rgba(22, 163, 74, 0.1);
+            color: #15803D;
         }
 
-        .calendar-card-deposit.paid { color: var(--terracotta); }
-        .calendar-card-deposit.unpaid { color: var(--warning); }
+        .calendar-pill.pill-checked-in {
+            background: rgba(22, 163, 74, 0.15);
+            color: #15803D;
+        }
+
+        .calendar-pill.pill-pending {
+            background: rgba(217, 119, 6, 0.1);
+            color: #B45309;
+        }
+
+        .calendar-pill.pill-cancelled {
+            background: rgba(239, 68, 68, 0.08);
+            color: #DC2626;
+        }
+
+        .calendar-pill.pill-deposit-paid {
+            background: rgba(30, 95, 181, 0.08);
+            color: var(--terracotta);
+        }
+
+        .calendar-pill.pill-deposit-due {
+            background: rgba(217, 119, 6, 0.08);
+            color: #B45309;
+        }
 
         .calendar-card-phone {
+            display: none;
             font-size: 0.78rem;
             color: var(--ink-light);
-            margin-top: 0.25rem;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--rule);
+        }
+
+        .calendar-card:hover .calendar-card-phone {
+            display: block;
         }
 
         .calendar-empty {
             border: 1px dashed var(--rule);
-            border-radius: 2px;
-            padding: 1.25rem;
+            border-radius: 10px;
+            padding: 1.5rem;
             text-align: center;
             font-size: 0.8rem;
             color: var(--ink-light);
@@ -1264,7 +1307,8 @@
         }
 
         [data-theme="dark"] .calendar-card:hover {
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.1);
         }
 
         [data-theme="dark"] .stat-card:hover {
@@ -2179,17 +2223,19 @@
                         const timeToNum = t => { const [h, m] = t.replace(/[ap]m/, '').split(':').map(Number); return (t.includes('pm') && h !== 12 ? h + 12 : h) * 60 + (m || 0); };
                         return timeToNum(a.time) - timeToNum(b.time);
                     });
+                    html += `<div class="calendar-day-cards">`;
                     dayBookings.forEach(b => {
-                        const depositLabel = b.deposit === 'paid' ? 'Deposit paid' : 'Deposit due';
-                        const depositClass = b.deposit === 'paid' ? 'paid' : 'unpaid';
                         const statusLabel = b.status.replace('-', ' ');
+                        const depositLabel = b.deposit === 'paid' ? 'Paid' : 'Deposit due';
+                        const depositPill = b.deposit === 'paid' ? 'pill-deposit-paid' : 'pill-deposit-due';
                         html += `<div class="calendar-card${b.status === 'cancelled' ? ' cancelled' : ''}" onclick="openDetailModal(${b.id})">`;
                         html += `<div class="calendar-card-name">${b.guest}</div>`;
                         html += `<div class="calendar-card-meta">${b.trip} · ${b.party} ${b.party === 1 ? 'guest' : 'guests'}</div>`;
-                        html += `<div class="calendar-card-bottom"><span class="calendar-card-status s-${b.status}">${statusLabel}</span><span class="calendar-card-deposit ${depositClass}">${depositLabel}</span></div>`;
+                        html += `<div class="calendar-card-pills"><span class="calendar-pill pill-${b.status}">${statusLabel}</span><span class="calendar-pill ${depositPill}">${depositLabel}</span></div>`;
                         html += `<div class="calendar-card-phone">${b.phone}</div>`;
                         html += `</div>`;
                     });
+                    html += `</div>`;
                 }
                 html += `</div>`;
             }
@@ -2275,7 +2321,7 @@
             const newBooking = {
                 id: Math.max(...bookingData.map(b => b.id)) + 1,
                 guest: name, trip, date: formattedDate, time: tripTimes[trip], party, amt: tripPrices[trip],
-                status: 'pending', phone, email, note: notes
+                status: 'pending', deposit: 'pending', phone, email, note: notes
             };
 
             bookingData.push(newBooking);
