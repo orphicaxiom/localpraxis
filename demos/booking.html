@@ -302,6 +302,12 @@
             font-weight: 600;
         }
 
+        .status-cancelled {
+            background: rgba(168, 162, 158, 0.1);
+            color: var(--ink-light);
+            font-weight: 600;
+        }
+
         /* Revenue chart */
         .chart-container {
             height: 220px;
@@ -891,62 +897,122 @@
             color: var(--ink-mid);
         }
 
-        .calendar-grid {
+        .calendar-week {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 1px;
-            background: var(--rule);
-            border: 1px solid var(--rule);
-            border-radius: 8px;
-            overflow: hidden;
+            gap: 0;
             margin-top: 1.5rem;
         }
 
-        .calendar-day-header {
-            text-align: center;
-            font-size: 0.85rem;
+        .calendar-day {
+            padding: 1.25rem;
+            border-right: 1px solid var(--rule);
+            min-height: 200px;
+        }
+
+        .calendar-day:last-child {
+            border-right: none;
+        }
+
+        .calendar-day-label {
+            font-size: 0.7rem;
             color: var(--ink-light);
             text-transform: uppercase;
             letter-spacing: 0.12em;
             font-weight: 500;
-            background: var(--cream);
-            padding: 0.75rem 0.5rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--rule);
         }
 
-        .calendar-slot {
-            border-radius: 0;
-            min-height: 96px;
-            padding: 0.75rem;
+        .calendar-day-label .calendar-day-num {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: 0;
+            margin-top: 0.25rem;
+        }
+
+        .calendar-card {
             background: #FFFFFF;
-            position: relative;
+            border-left: 3px solid var(--terracotta);
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: box-shadow 0.2s var(--ease);
+            border-radius: 2px;
         }
 
-        .calendar-time {
+        .calendar-card:hover {
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .calendar-card.cancelled {
+            opacity: 0.5;
+            border-left-color: var(--ink-light);
+        }
+
+        .calendar-card.cancelled .calendar-card-name {
+            text-decoration: line-through;
+        }
+
+        .calendar-card-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 0.35rem;
+        }
+
+        .calendar-card-meta {
+            font-size: 0.8rem;
+            color: var(--ink-mid);
+            margin-bottom: 0.35rem;
+        }
+
+        .calendar-card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .calendar-card-status {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            color: var(--ink-light);
+        }
+
+        .calendar-card-status.s-confirmed { color: var(--ink-mid); }
+        .calendar-card-status.s-checked-in { color: var(--success); }
+        .calendar-card-status.s-pending { color: var(--warning); }
+        .calendar-card-status.s-cancelled { color: var(--ink-light); }
+
+        .calendar-card-deposit {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+
+        .calendar-card-deposit.paid { color: var(--terracotta); }
+        .calendar-card-deposit.unpaid { color: var(--warning); }
+
+        .calendar-card-phone {
+            font-size: 0.78rem;
+            color: var(--ink-light);
+            margin-top: 0.25rem;
+        }
+
+        .calendar-empty {
+            border: 1px dashed var(--rule);
+            border-radius: 2px;
+            padding: 1.25rem;
+            text-align: center;
             font-size: 0.8rem;
             color: var(--ink-light);
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .calendar-slot.now-indicator {}
-        .calendar-slot.now-indicator::before {}
-
-        .calendar-event {
-            background: rgba(37, 99, 235, 0.1);
-            color: var(--terracotta);
-            padding: 0.5rem 0.6rem 0.5rem 0.85rem;
-            border-radius: 6px;
-            border-left: 3px solid var(--terracotta);
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            cursor: pointer;
-            transition: all 0.2s var(--ease);
-        }
-
-        .calendar-event:hover {
-            background: rgba(37, 99, 235, 0.18);
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
         }
 
         /* Bookings view */
@@ -1180,6 +1246,63 @@
             opacity: 0.8;
         }
 
+        /* Dark mode */
+        [data-theme="dark"] {
+            --warm-white: #1C1917;
+            --cream: #292524;
+            --ink: #E7E5E4;
+            --ink-mid: #A8A29E;
+            --ink-light: #78716C;
+            --rule: #44403C;
+        }
+
+        [data-theme="dark"] .calendar-card,
+        [data-theme="dark"] .stat-card,
+        [data-theme="dark"] .chart-detail,
+        [data-theme="dark"] .trip-card {
+            background: #292524;
+        }
+
+        [data-theme="dark"] .calendar-card:hover {
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] .stat-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] .calendar-slot,
+        [data-theme="dark"] .manifest-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        [data-theme="dark"] .demo-banner {
+            background: #292524;
+        }
+
+        [data-theme="dark"] body::before {
+            opacity: 0.03;
+        }
+
+        .theme-toggle {
+            margin-top: auto;
+            padding: 0.75rem 1rem;
+            font-size: 0.8rem;
+            color: var(--ink-light);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 500;
+            border: none;
+            background: none;
+            text-align: left;
+            transition: color 0.2s var(--ease);
+        }
+
+        .theme-toggle:hover {
+            color: var(--ink);
+        }
+
         @media (max-width: 960px) {
             .sidebar {
                 width: 60px;
@@ -1330,6 +1453,16 @@
             .filter-group {
                 width: 100%;
             }
+
+            .calendar-week {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-day {
+                border-right: none;
+                border-bottom: 1px solid var(--rule);
+                min-height: auto;
+            }
         }
         /* Sidebar LP card */
 
@@ -1390,6 +1523,7 @@
             <div class="nav-item" data-view="bookings" role="button" tabindex="0">Bookings</div>
             <div class="nav-item" data-view="widget" role="button" tabindex="0">Widget</div>
         </div>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">Dark</button>
     </div>
 
     <!-- Main content -->
@@ -1410,17 +1544,17 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-label">Today's Revenue</div>
-                    <div class="stat-value">$2,100</div>
+                    <div class="stat-value" id="stat-revenue">—</div>
                     <div class="stat-trend up"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2.5L10 7H2L6 2.5Z" fill="currentColor"/></svg> 12% vs last week</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Active Bookings</div>
-                    <div class="stat-value">3</div>
-                    <div class="stat-trend up"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2.5L10 7H2L6 2.5Z" fill="currentColor"/></svg> 1 new today</div>
+                    <div class="stat-value" id="stat-active">—</div>
+                    <div class="stat-trend up"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2.5L10 7H2L6 2.5Z" fill="currentColor"/></svg> This week</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Total Guests</div>
-                    <div class="stat-value">9</div>
+                    <div class="stat-value" id="stat-guests">—</div>
                     <div class="stat-trend neutral">This week</div>
                 </div>
             </div>
@@ -1500,7 +1634,7 @@
                 </div>
             </div>
 
-            <div class="calendar-grid" id="calendar-grid">
+            <div class="calendar-week" id="calendar-grid">
             </div>
         </div>
 
@@ -1518,6 +1652,7 @@
                     <button class="filter-btn" data-filter="confirmed">Confirmed</button>
                     <button class="filter-btn" data-filter="checked-in">Checked In</button>
                     <button class="filter-btn" data-filter="completed">Completed</button>
+                    <button class="filter-btn" data-filter="cancelled">Cancelled</button>
                 </div>
                 <button class="btn btn-primary" id="new-booking-btn">New Booking</button>
             </div>
@@ -1765,6 +1900,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label">Deposit</label>
+                    <div style="font-size: 0.95rem; padding: 0.75rem 0;" id="detail-deposit"></div>
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">Status</label>
                     <div style="font-size: 0.95rem; padding: 0.75rem 0;" id="detail-status"></div>
                 </div>
@@ -1785,16 +1925,41 @@
 
     <script>
         let bookingData = [
-            { id:1, guest:'Marcus Webb', trip:'Half Day Inshore', date:'Apr 1, 2026', time:'6:00am', party:3, amt:450, status:'checked-in', phone:'(512) 555-0147', email:'marcus.webb@email.com', note:'First time fishing. Bringing his two sons, ages 12 and 14. Wants to target redfish.' },
-            { id:2, guest:'David Herrera', trip:'Full Day Offshore', date:'Apr 1, 2026', time:'6:00am', party:4, amt:950, status:'confirmed', phone:'(361) 555-0283', email:'dherrera@email.com', note:'Repeat customer. Third trip this year. Wants to hit the deep rigs for kingfish.' },
-            { id:3, guest:'Anna Kelley', trip:'Sunset Cruise', date:'Apr 1, 2026', time:'5:30pm', party:2, amt:300, status:'pending', phone:'(210) 555-0391', email:'anna.k@email.com', note:'Anniversary trip. Bringing a bottle of wine. Asked about dolphin sightings.' },
-            { id:4, guest:'Rachel Nguyen', trip:'Half Day Inshore', date:'Apr 2, 2026', time:'6:00am', party:2, amt:450, status:'confirmed', phone:'(713) 555-0412', email:'rnguyen@email.com', note:'' },
-            { id:5, guest:'Tom Briggs', trip:'Full Day Offshore', date:'Apr 4, 2026', time:'6:00am', party:4, amt:950, status:'confirmed', phone:'(281) 555-0528', email:'tbriggs@email.com', note:'Corporate group. Building a team outing. Wants a cooler of beer on board.' },
-            { id:6, guest:'Lisa Contreras', trip:'Half Day Inshore', date:'Apr 5, 2026', time:'6:00am', party:3, amt:450, status:'confirmed', phone:'(361) 555-0619', email:'lisa.c@email.com', note:'Staying at Island Moorings. Needs directions to the wharf.' },
-            { id:7, guest:'Jake Moreno', trip:'Sunset Cruise', date:'Apr 5, 2026', time:'5:30pm', party:5, amt:300, status:'pending', phone:'(956) 555-0734', email:'jmoreno@email.com', note:'Bachelorette party. Might bring decorations for the boat.' },
-            { id:8, guest:'Chris Daley', trip:'Full Day Offshore', date:'Apr 6, 2026', time:'6:00am', party:2, amt:950, status:'confirmed', phone:'(512) 555-0845', email:'cdaley@email.com', note:'' },
-            { id:9, guest:'Maria Santos', trip:'Half Day Inshore', date:'Mar 28, 2026', time:'6:00am', party:4, amt:450, status:'completed', phone:'(361) 555-0156', email:'msantos@email.com', note:'Caught two reds and a trout.' },
-            { id:10, guest:'Paul Kim', trip:'Full Day Offshore', date:'Mar 29, 2026', time:'6:00am', party:3, amt:950, status:'completed', phone:'(832) 555-0267', email:'pkim@email.com', note:'Rough seas. Cut the trip short. Offered a credit for next time.' },
+            // Completed — prior week
+            { id:1, guest:'Maria Santos', trip:'Half Day Inshore', date:'Mar 28, 2026', time:'6:00am', party:4, amt:450, status:'completed', deposit:'paid', phone:'(361) 555-0156', email:'msantos@email.com', note:'Caught two reds and a trout.' },
+            { id:2, guest:'Paul Kim', trip:'Full Day Offshore', date:'Mar 29, 2026', time:'6:00am', party:3, amt:950, status:'completed', deposit:'paid', phone:'(832) 555-0267', email:'pkim@email.com', note:'Rough seas. Cut the trip short. Offered a credit for next time.' },
+            // Monday Mar 30
+            { id:3, guest:'Derek Stanton', trip:'Half Day Inshore', date:'Mar 30, 2026', time:'6:00am', party:2, amt:450, status:'completed', deposit:'paid', phone:'(512) 555-0301', email:'dstanton@email.com', note:'Father-son trip. First time on the bay.' },
+            { id:4, guest:'Carla Vega', trip:'Sunset Cruise', date:'Mar 30, 2026', time:'5:30pm', party:4, amt:300, status:'completed', deposit:'paid', phone:'(210) 555-0302', email:'cvega@email.com', note:'Birthday celebration. Brought cake on board.' },
+            // Tuesday Mar 31
+            { id:5, guest:'Robert Tran', trip:'Full Day Offshore', date:'Mar 31, 2026', time:'6:00am', party:3, amt:950, status:'completed', deposit:'paid', phone:'(713) 555-0311', email:'rtran@email.com', note:'Experienced angler. Targeting kingfish.' },
+            { id:6, guest:'Nadia Okafor', trip:'Half Day Inshore', date:'Mar 31, 2026', time:'6:00am', party:2, amt:450, status:'completed', deposit:'paid', phone:'(281) 555-0312', email:'nokafor@email.com', note:'Caught limit of trout. Will rebook.' },
+            // Wednesday Apr 1
+            { id:7, guest:'Marcus Webb', trip:'Half Day Inshore', date:'Apr 1, 2026', time:'6:00am', party:3, amt:450, status:'checked-in', deposit:'paid', phone:'(512) 555-0147', email:'marcus.webb@email.com', note:'First time fishing. Bringing his two sons, ages 12 and 14. Wants to target redfish.' },
+            { id:8, guest:'David Herrera', trip:'Full Day Offshore', date:'Apr 1, 2026', time:'6:00am', party:4, amt:950, status:'confirmed', deposit:'paid', phone:'(361) 555-0283', email:'dherrera@email.com', note:'Repeat customer. Third trip this year. Wants to hit the deep rigs for kingfish.' },
+            { id:9, guest:'Kelly Dawson', trip:'Half Day Inshore', date:'Apr 1, 2026', time:'6:00am', party:2, amt:450, status:'confirmed', deposit:'pending', phone:'(956) 555-0103', email:'kdawson@email.com', note:'Staying at Sandcastle. Wants to fish the flats.' },
+            { id:10, guest:'Anna Kelley', trip:'Sunset Cruise', date:'Apr 1, 2026', time:'5:30pm', party:2, amt:300, status:'pending', deposit:'pending', phone:'(210) 555-0391', email:'anna.k@email.com', note:'Anniversary trip. Bringing a bottle of wine. Asked about dolphin sightings.' },
+            // Thursday Apr 2
+            { id:11, guest:'Rachel Nguyen', trip:'Half Day Inshore', date:'Apr 2, 2026', time:'6:00am', party:2, amt:450, status:'confirmed', deposit:'paid', phone:'(713) 555-0412', email:'rnguyen@email.com', note:'Second trip with us. Liked the bay last time.' },
+            { id:12, guest:'Brandon Cole', trip:'Full Day Offshore', date:'Apr 2, 2026', time:'6:00am', party:4, amt:950, status:'confirmed', deposit:'paid', phone:'(832) 555-0213', email:'bcole@email.com', note:'Corporate team outing. Bringing cooler. Asked about kingfish.' },
+            { id:13, guest:'Jenna Park', trip:'Half Day Inshore', date:'Apr 2, 2026', time:'6:00am', party:3, amt:450, status:'pending', deposit:'pending', phone:'(361) 555-0214', email:'jpark@email.com', note:'Family with young kids. Wants calm water.' },
+            { id:14, guest:'Miguel Reyes', trip:'Sunset Cruise', date:'Apr 2, 2026', time:'5:30pm', party:6, amt:300, status:'confirmed', deposit:'paid', phone:'(512) 555-0215', email:'mreyes@email.com', note:'Proposal cruise. Needs to coordinate timing with photographer on dock.' },
+            // Friday Apr 3
+            { id:15, guest:'Sarah Mitchell', trip:'Half Day Inshore', date:'Apr 3, 2026', time:'6:00am', party:4, amt:450, status:'confirmed', deposit:'paid', phone:'(713) 555-0316', email:'smitchell@email.com', note:'Girls trip. Never been fishing. Wants photos.' },
+            { id:16, guest:'Eric Tanaka', trip:'Full Day Offshore', date:'Apr 3, 2026', time:'6:00am', party:2, amt:950, status:'confirmed', deposit:'paid', phone:'(281) 555-0317', email:'etanaka@email.com', note:'Serious angler. Wants to target snapper and cobia.' },
+            { id:17, guest:'Wade Phillips', trip:'Half Day Inshore', date:'Apr 3, 2026', time:'6:00am', party:3, amt:450, status:'cancelled', deposit:'pending', phone:'(210) 555-0318', email:'wphillips@email.com', note:'Cancelled — weather concern. May rebook next week.' },
+            { id:18, guest:'Diana Flores', trip:'Sunset Cruise', date:'Apr 3, 2026', time:'5:30pm', party:4, amt:300, status:'confirmed', deposit:'paid', phone:'(956) 555-0319', email:'dflores@email.com', note:'Bachelorette group. BYOB. Wants to see dolphins.' },
+            // Saturday Apr 4
+            { id:19, guest:'Tom Briggs', trip:'Full Day Offshore', date:'Apr 4, 2026', time:'6:00am', party:4, amt:950, status:'confirmed', deposit:'paid', phone:'(281) 555-0528', email:'tbriggs@email.com', note:'Corporate group. Building a team outing. Wants a cooler of beer on board.' },
+            { id:20, guest:'Olivia Hart', trip:'Half Day Inshore', date:'Apr 4, 2026', time:'6:00am', party:2, amt:450, status:'confirmed', deposit:'paid', phone:'(512) 555-0421', email:'ohart@email.com', note:'Mother-daughter trip. First time on the water.' },
+            { id:21, guest:'James Whitfield', trip:'Half Day Inshore', date:'Apr 4, 2026', time:'6:00am', party:4, amt:450, status:'confirmed', deposit:'paid', phone:'(361) 555-0422', email:'jwhitfield@email.com', note:'Staying at Port Royal. Fished with us last spring.' },
+            { id:22, guest:'Priya Patel', trip:'Sunset Cruise', date:'Apr 4, 2026', time:'5:30pm', party:5, amt:300, status:'confirmed', deposit:'paid', phone:'(713) 555-0423', email:'ppatel@email.com', note:'Family reunion group. Wants a calm evening cruise.' },
+            { id:23, guest:'Nick Salazar', trip:'Full Day Offshore', date:'Apr 4, 2026', time:'6:00am', party:3, amt:950, status:'pending', deposit:'pending', phone:'(832) 555-0424', email:'nsalazar@email.com', note:'Wants to target mahi. Bringing own tackle.' },
+            // Sunday Apr 5
+            { id:24, guest:'Lisa Contreras', trip:'Half Day Inshore', date:'Apr 5, 2026', time:'6:00am', party:3, amt:450, status:'confirmed', deposit:'paid', phone:'(361) 555-0619', email:'lisa.c@email.com', note:'Staying at Island Moorings. Needs directions to the wharf.' },
+            { id:25, guest:'Chris Daley', trip:'Full Day Offshore', date:'Apr 5, 2026', time:'6:00am', party:2, amt:950, status:'confirmed', deposit:'paid', phone:'(512) 555-0845', email:'cdaley@email.com', note:'Tournament prep. Scouting the deep water.' },
+            { id:26, guest:'Jake Moreno', trip:'Sunset Cruise', date:'Apr 5, 2026', time:'5:30pm', party:5, amt:300, status:'pending', deposit:'pending', phone:'(956) 555-0734', email:'jmoreno@email.com', note:'Bachelorette party. Might bring decorations for the boat.' },
+            { id:27, guest:'Tamara Reid', trip:'Half Day Inshore', date:'Apr 5, 2026', time:'6:00am', party:2, amt:450, status:'confirmed', deposit:'paid', phone:'(210) 555-0526', email:'treid@email.com', note:'Honeymoon trip. Wants a relaxed morning on the bay.' },
         ];
 
         const trips = [
@@ -1903,6 +2068,17 @@
         }
 
         function renderDashboard() {
+            // Dynamic stats
+            const today = 'Apr 1, 2026';
+            const todayBookings = bookingData.filter(b => b.date === today && b.status !== 'cancelled');
+            const todayRevenue = todayBookings.reduce((sum, b) => sum + b.amt, 0);
+            document.getElementById('stat-revenue').textContent = `$${todayRevenue.toLocaleString()}`;
+            const weekDates = getWeekDates();
+            const activeBookings = bookingData.filter(b => weekDates.some(wd => wd.date === b.date) && !['completed','cancelled'].includes(b.status));
+            document.getElementById('stat-active').textContent = activeBookings.length;
+            const weekGuests = bookingData.filter(b => weekDates.some(wd => wd.date === b.date) && b.status !== 'cancelled').reduce((sum, b) => sum + b.party, 0);
+            document.getElementById('stat-guests').textContent = weekGuests;
+
             renderManifest();
             renderChart();
             renderUpcoming();
@@ -1987,26 +2163,36 @@
             const { start, end } = getWeekRange(weekStart);
             document.getElementById('calendar-range').textContent = `Week of ${formatDate(start)}`;
             const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const times = ['5:00am', '6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00pm', '2:00pm', '3:00pm', '4:00pm', '5:00pm', '6:00pm'];
+            const dayAbbr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             let html = '';
             for (let i = 0; i < 7; i++) {
                 const day = new Date(start);
                 day.setDate(day.getDate() + i);
-                html += `<div class="calendar-day-header">${dayNames[day.getDay()]} ${day.getDate()}</div>`;
-            }
-            times.forEach(time => {
-                for (let dayOffset = 0; dayOffset < 7; dayOffset++) {
-                    const slotDate = new Date(start);
-                    slotDate.setDate(slotDate.getDate() + dayOffset);
-                    const dateStr = formatDate(slotDate);
-                    html += `<div class="calendar-slot"><div class="calendar-time">${time}</div>`;
-                    const dayEvents = bookingData.filter(b => b.date === dateStr && b.time === time);
-                    dayEvents.forEach(event => {
-                        html += `<div class="calendar-event" onclick="openDetailModal(${event.id})"><span style="font-size:0.7rem;opacity:0.8;">${event.time}</span> ${event.guest.split(' ')[0]}</div>`;
+                const dateStr = formatDate(day);
+                const dayBookings = bookingData.filter(b => b.date === dateStr && b.status !== 'completed');
+                html += `<div class="calendar-day">`;
+                html += `<div class="calendar-day-label">${dayNames[day.getDay()]}<span class="calendar-day-num">${day.getDate()}</span></div>`;
+                if (dayBookings.length === 0) {
+                    html += `<div class="calendar-empty">No trips</div>`;
+                } else {
+                    dayBookings.sort((a, b) => {
+                        const timeToNum = t => { const [h, m] = t.replace(/[ap]m/, '').split(':').map(Number); return (t.includes('pm') && h !== 12 ? h + 12 : h) * 60 + (m || 0); };
+                        return timeToNum(a.time) - timeToNum(b.time);
                     });
-                    html += `</div>`;
+                    dayBookings.forEach(b => {
+                        const depositLabel = b.deposit === 'paid' ? 'Deposit paid' : 'Deposit due';
+                        const depositClass = b.deposit === 'paid' ? 'paid' : 'unpaid';
+                        const statusLabel = b.status.replace('-', ' ');
+                        html += `<div class="calendar-card${b.status === 'cancelled' ? ' cancelled' : ''}" onclick="openDetailModal(${b.id})">`;
+                        html += `<div class="calendar-card-name">${b.guest}</div>`;
+                        html += `<div class="calendar-card-meta">${b.trip} · ${b.party} ${b.party === 1 ? 'guest' : 'guests'}</div>`;
+                        html += `<div class="calendar-card-bottom"><span class="calendar-card-status s-${b.status}">${statusLabel}</span><span class="calendar-card-deposit ${depositClass}">${depositLabel}</span></div>`;
+                        html += `<div class="calendar-card-phone">${b.phone}</div>`;
+                        html += `</div>`;
+                    });
                 }
-            });
+                html += `</div>`;
+            }
             document.getElementById('calendar-grid').innerHTML = html;
         }
 
@@ -2116,6 +2302,8 @@
             document.getElementById('detail-datetime').textContent = `${booking.date} at ${booking.time}`;
             document.getElementById('detail-party').textContent = `${booking.party} ${booking.party === 1 ? 'guest' : 'guests'}`;
             document.getElementById('detail-amount').textContent = `$${booking.amt}`;
+            const depPaid = booking.deposit === 'paid';
+            document.getElementById('detail-deposit').innerHTML = `<span style="font-weight:600;color:${depPaid ? 'var(--terracotta)' : 'var(--warning)'};text-transform:uppercase;font-size:0.8rem;letter-spacing:0.06em;">${depPaid ? 'Paid' : 'Pending'}</span>`;
             document.getElementById('detail-status').innerHTML = `<span class="status-badge status-${booking.status}">${booking.status}</span>`;
             document.getElementById('detail-notes').textContent = booking.note || '(no notes)';
 
@@ -2325,6 +2513,26 @@
             item.addEventListener('click', () => {
                 if (window.innerWidth < 640) closeMobileSidebar();
             });
+        });
+
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('rr-theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = 'Light';
+        }
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                document.documentElement.removeAttribute('data-theme');
+                themeToggle.textContent = 'Dark';
+                localStorage.setItem('rr-theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = 'Light';
+                localStorage.setItem('rr-theme', 'dark');
+            }
         });
 
         renderDashboard();
