@@ -3296,18 +3296,9 @@
             // Top customers
             renderTopCustomers();
 
-            // Make analytics stat cards interactive
-            document.querySelectorAll('#revenue-analytics .stat-card').forEach((card, i) => {
+            // Stat cards get pointer cursor
+            document.querySelectorAll('#revenue-analytics .stat-card').forEach(card => {
                 card.style.cursor = 'pointer';
-                card.addEventListener('click', () => {
-                    const messages = [
-                        'Revenue trending up 18% vs the prior period. Peak days are Saturdays.',
-                        'Average booking value is $' + avgBooking + '. Full Day Offshore drives the highest per-trip revenue.',
-                        totalGuests + ' guests over 30 days. Party sizes average ' + (totalGuests / totalTrips).toFixed(1) + ' per booking.',
-                        'Guest volume peaks on weekends, with Saturday averaging the highest count.'
-                    ];
-                    showToast(messages[i]);
-                });
             });
         }
 
@@ -3454,7 +3445,7 @@
             let html = '';
             bars.forEach((b, i) => {
                 const pct = maxRev > 0 ? (b.rev / maxRev) * 100 : 0;
-                html += `<div class="ra-hbar-row" onclick="showToast('${b.name}: ${b.count} bookings, $${b.rev.toLocaleString()} revenue over 30 days.')">
+                html += `<div class="ra-hbar-row" >
                     <div class="ra-hbar-label">${b.name}</div>
                     <div class="ra-hbar-track"><div class="ra-hbar-fill" data-width="${pct.toFixed(1)}%" style="transition-delay: ${i * 150}ms;"></div></div>
                     <div class="ra-hbar-value">$${b.rev.toLocaleString()} <span class="ra-hbar-count">(${b.count})</span></div>
@@ -3474,7 +3465,7 @@
         function renderTopCustomers() {
             let html = '';
             topCustomers.forEach((c, i) => {
-                html += `<tr onclick="showToast('${c.name}: ${c.trips} trips, $${c.totalSpend.toLocaleString()} lifetime spend. Last trip ${c.lastTrip}.')" style="cursor:pointer;">
+                html += `<tr style="cursor:pointer;">
                     <td><div class="ra-customer-name-cell"><span class="ra-customers-rank">${i + 1}</span>${c.name}</div></td>
                     <td style="text-align:right;">${c.trips}</td>
                     <td style="text-align:right;font-weight:600;">$${c.totalSpend.toLocaleString()}</td>
