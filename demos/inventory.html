@@ -229,7 +229,6 @@
 
     .stat-card:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-      transform: translateY(-1px);
     }
 
     .stat-card.accent {
@@ -250,7 +249,7 @@
 
     .stat-value {
       font-family: var(--font-body);
-      font-size: 2.4rem;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
       font-weight: 700;
       color: var(--ink);
       letter-spacing: -0.03em;
