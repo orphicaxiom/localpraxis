@@ -1427,6 +1427,29 @@
       }
     }
 
+    /* ─── Back Link ──────────────────────────────────────────── */
+    .lp-back {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: 0.5em 1em;
+      background: var(--ink);
+      color: var(--warm-white);
+      border-radius: 5px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .lp-back:hover { opacity: 0.8; }
+
     /* ─── Reduced Motion ─────────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -1601,6 +1624,8 @@
       </div>
     </div>
   </div>
+
+  <a class="lp-back" href="https://localpraxis.com">&#8592; localpraxis.com</a>
 
   <script>
   // ─── Pinned Demo Date ──────────────────────────────────────
