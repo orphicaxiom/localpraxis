@@ -219,6 +219,151 @@
             background: rgba(148, 163, 184, 0.1);
         }
 
+        /* Needs Attention section */
+        .attention-header {
+            display: flex;
+            align-items: baseline;
+            gap: 0;
+            margin-bottom: 1.25rem;
+        }
+
+        .attention-header .section-title {
+            margin: 0;
+        }
+
+        .attention-count {
+            color: var(--terracotta);
+            font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .attention-count::before {
+            content: '\00B7';
+            margin-right: 0.4rem;
+            color: var(--ink-light);
+        }
+
+        .attention-list {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .attention-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid var(--rule);
+            font-size: 0.95rem;
+            gap: 1rem;
+        }
+
+        .attention-item:last-child {
+            border-bottom: none;
+        }
+
+        .attention-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .attention-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            line-height: 1;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .attention-status::before {
+            content: '';
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .attention-status.urgent {
+            color: #DC2626;
+        }
+
+        .attention-status.urgent::before {
+            background: #DC2626;
+        }
+
+        .attention-status.soon {
+            color: #B45309;
+        }
+
+        .attention-status.soon::before {
+            background: #B45309;
+        }
+
+        .attention-status.info {
+            color: var(--ink-light);
+        }
+
+        .attention-status.info::before {
+            background: var(--ink-light);
+        }
+
+        .attention-detail {
+            color: var(--ink-mid);
+            font-size: 0.9rem;
+        }
+
+        .attention-action {
+            color: var(--terracotta);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            flex-shrink: 0;
+            padding: 0;
+            transition: color 0.2s var(--ease);
+        }
+
+        .attention-action:hover {
+            color: var(--terracotta-hover);
+            text-decoration: underline;
+        }
+
+        /* Sidebar badge */
+        .nav-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--terracotta);
+            color: var(--warm-white);
+            font-size: 0.65rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-left: 0.4rem;
+            padding: 0 4px;
+            flex-shrink: 0;
+        }
+
+        .nav-item.active .nav-badge {
+            background: var(--warm-white);
+            color: var(--terracotta);
+        }
+
         /* Layout grid for dashboard */
         .dashboard-grid {
             display: grid;
@@ -1278,6 +1423,239 @@
             opacity: 0.8;
         }
 
+        /* Revenue Analytics view */
+        .ra-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: none;
+            border: none;
+            color: var(--ink-light);
+            font-family: 'Satoshi', system-ui, sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            padding: 0;
+            margin-bottom: 1.5rem;
+            transition: color 0.2s var(--ease);
+        }
+        .ra-back-btn:hover { color: var(--ink); }
+
+        .ra-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .ra-chart-card {
+            background: #FFFFFF;
+            border: 1px solid var(--rule);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .ra-chart-card + .ra-chart-card {
+            margin-top: 2rem;
+        }
+
+        .ra-count-value {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Revenue drill-down hints on dashboard */
+        .stat-card-clickable {
+            cursor: pointer;
+            position: relative;
+        }
+        .stat-card-clickable .drill-hint {
+            font-size: 0.7rem;
+            color: var(--ink-light);
+            opacity: 0;
+            transition: opacity 0.2s var(--ease);
+            margin-top: 0.25rem;
+        }
+        .stat-card-clickable:hover .drill-hint {
+            opacity: 1;
+        }
+        .section-title-clickable {
+            cursor: pointer;
+            transition: color 0.2s var(--ease);
+        }
+        .section-title-clickable:hover {
+            color: var(--terracotta);
+        }
+
+        /* SVG line chart */
+        .ra-line-svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-top: 1rem;
+            overflow: visible;
+        }
+        .ra-line-path {
+            fill: none;
+            stroke: var(--terracotta);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .ra-line-path.animate {
+            transition: stroke-dashoffset 1.5s var(--ease);
+        }
+        .ra-area-path {
+            opacity: 0;
+            transition: opacity 0.8s ease 0.5s;
+        }
+        .ra-area-path.animate {
+            opacity: 1;
+        }
+        .ra-data-point {
+            fill: var(--terracotta);
+            r: 3;
+            opacity: 0;
+            transition: opacity 0.3s ease, r 0.15s var(--ease);
+        }
+        .ra-data-point.animate {
+            opacity: 1;
+        }
+        .ra-data-point:hover {
+            r: 5;
+            cursor: pointer;
+        }
+        #revenue-analytics .stats-grid .stat-card {
+            cursor: pointer;
+        }
+        .ra-hbar-row {
+            cursor: pointer;
+            margin: 0 -1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            transition: background 0.15s ease;
+        }
+        .ra-hbar-row:hover {
+            background: var(--cream);
+        }
+        #ra-customers-body tr {
+            cursor: pointer;
+        }
+        .ra-grid-line {
+            stroke: var(--rule);
+            stroke-width: 0.5;
+        }
+        .ra-axis-label {
+            fill: var(--ink-light);
+            font-family: 'Satoshi', system-ui, sans-serif;
+            font-size: 9px;
+            font-weight: 500;
+        }
+
+        /* Chart tooltip */
+        .ra-tooltip {
+            position: fixed;
+            background: var(--ink);
+            color: #FFFFFF;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Satoshi', system-ui, sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+        .ra-tooltip.visible { opacity: 1; }
+
+        /* Horizontal bar chart */
+        .ra-hbar-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--rule);
+        }
+        .ra-hbar-row:last-child { border-bottom: none; }
+        .ra-hbar-label {
+            width: 140px;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+        .ra-hbar-track {
+            flex: 1;
+            height: 28px;
+            background: var(--cream);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .ra-hbar-fill {
+            height: 100%;
+            background: var(--terracotta);
+            border-radius: 4px;
+            width: 0;
+            transition: width 0.8s var(--ease);
+        }
+        .ra-hbar-value {
+            width: 80px;
+            flex-shrink: 0;
+            text-align: right;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink);
+            font-variant-numeric: tabular-nums;
+        }
+        .ra-hbar-count {
+            font-size: 0.75rem;
+            color: var(--ink-light);
+            font-weight: 400;
+        }
+
+        /* Sparkline */
+        .ra-sparkline-svg {
+            display: block;
+            width: 120px;
+            height: 32px;
+            margin-top: 0.5rem;
+        }
+        .ra-sparkline-line {
+            fill: none;
+            stroke: var(--terracotta);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .ra-sparkline-line.animate {
+            transition: stroke-dashoffset 0.8s var(--ease);
+        }
+
+        /* Top customers */
+        .ra-customers-rank {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--cream);
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--ink-mid);
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        .ra-customer-name-cell {
+            display: flex;
+            align-items: center;
+        }
+
         /* Dark mode */
         [data-theme="dark"] {
             --warm-white: #1C1917;
@@ -1311,6 +1689,23 @@
 
         [data-theme="dark"] .demo-banner {
             background: #292524;
+        }
+
+        [data-theme="dark"] .ra-chart-card {
+            background: #292524;
+        }
+
+        [data-theme="dark"] .ra-hbar-track {
+            background: #44403C;
+        }
+
+        [data-theme="dark"] .ra-customers-rank {
+            background: #44403C;
+        }
+
+        [data-theme="dark"] .ra-tooltip {
+            background: #E7E5E4;
+            color: #1C1917;
         }
 
         [data-theme="dark"] body::before {
@@ -1372,6 +1767,14 @@
 
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
+            }
+
+            .ra-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ra-hbar-label {
+                width: 110px;
             }
         }
 
@@ -1496,6 +1899,17 @@
                 border-bottom: 1px solid var(--rule);
                 min-height: auto;
             }
+
+            .ra-hbar-row {
+                flex-wrap: wrap;
+            }
+            .ra-hbar-label {
+                width: 100%;
+            }
+            .ra-hbar-track {
+                flex: 1;
+                min-width: 0;
+            }
         }
         /* Sidebar LP card */
 
@@ -1550,7 +1964,7 @@
         <h1>Redfish Run</h1>
         <p class="tagline">Port Aransas, TX</p>
         <div class="nav-menu">
-            <div class="nav-item active" data-view="dashboard" role="button" tabindex="0">Dashboard</div>
+            <div class="nav-item active" data-view="dashboard" role="button" tabindex="0">Dashboard<span class="nav-badge">3</span></div>
             <div class="nav-item" data-view="trips" role="button" tabindex="0">Trips</div>
             <div class="nav-item" data-view="calendar" role="button" tabindex="0">Calendar</div>
             <div class="nav-item" data-view="bookings" role="button" tabindex="0">Bookings</div>
@@ -1591,6 +2005,9 @@
                     <div class="stat-trend neutral">This week</div>
                 </div>
             </div>
+
+            <!-- Needs Attention (rendered dynamically) -->
+            <div id="attention-container"></div>
 
             <div class="dashboard-grid">
                 <div>
@@ -1819,6 +2236,67 @@
                 </div>
             </div>
         </div>
+
+        <!-- Revenue Analytics View -->
+        <div class="view" id="revenue-analytics">
+            <button class="ra-back-btn" id="ra-back-btn">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Back to Dashboard
+            </button>
+
+            <div class="header">
+                <h1>Revenue Analytics</h1>
+                <p>30-day performance overview for Redfish Run Charters.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">30-Day Revenue</div>
+                    <div class="stat-value ra-count-value" id="ra-total-revenue">$0</div>
+                    <div class="stat-trend up"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2.5L10 7H2L6 2.5Z" fill="currentColor"/></svg> 18% vs prior 30 days</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg Booking Value</div>
+                    <div class="stat-value ra-count-value" id="ra-avg-booking">$0</div>
+                    <div class="stat-trend up"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2.5L10 7H2L6 2.5Z" fill="currentColor"/></svg> 8% vs prior 30 days</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Guests</div>
+                    <div class="stat-value ra-count-value" id="ra-total-guests">0</div>
+                    <div class="stat-trend up"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2.5L10 7H2L6 2.5Z" fill="currentColor"/></svg> 22% vs prior 30 days</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Guest Trend</div>
+                    <div id="ra-sparkline-container"></div>
+                    <div class="stat-label" style="margin-top:0.5rem;">30-day guest count</div>
+                </div>
+            </div>
+
+            <div class="ra-grid">
+                <div>
+                    <div class="ra-chart-card">
+                        <h2 class="section-title">Daily Revenue. Last 30 Days</h2>
+                        <div id="ra-line-chart-container"></div>
+                    </div>
+                    <div class="ra-chart-card">
+                        <h2 class="section-title">Revenue by Trip Type</h2>
+                        <div id="ra-trip-breakdown"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ra-chart-card">
+                        <h2 class="section-title">Top Customers</h2>
+                        <table class="manifest-table">
+                            <thead>
+                                <tr><th>Guest</th><th style="text-align:right;">Trips</th><th style="text-align:right;">Lifetime</th></tr>
+                            </thead>
+                            <tbody id="ra-customers-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Sticky CTA bar -->
@@ -2025,15 +2503,15 @@
             { id:5, guest:'Robert Tran', trip:'Full Day Offshore', date:'Mar 31, 2026', time:'6:00am', party:3, amt:950, status:'completed', deposit:'paid', phone:'(713) 555-0311', email:'rtran@email.com', note:'Experienced angler. Targeting kingfish.' },
             { id:6, guest:'Nadia Okafor', trip:'Half Day Inshore', date:'Mar 31, 2026', time:'6:00am', party:2, amt:450, status:'completed', deposit:'paid', phone:'(281) 555-0312', email:'nokafor@email.com', note:'Caught limit of trout. Will rebook.' },
             // Wednesday Apr 1
-            { id:7, guest:'Marcus Webb', trip:'Half Day Inshore', date:'Apr 1, 2026', time:'6:00am', party:3, amt:450, status:'checked-in', deposit:'paid', phone:'(512) 555-0147', email:'marcus.webb@email.com', note:'First time fishing. Bringing his two sons, ages 12 and 14. Wants to target redfish.' },
-            { id:8, guest:'David Herrera', trip:'Full Day Offshore', date:'Apr 1, 2026', time:'6:00am', party:4, amt:950, status:'confirmed', deposit:'paid', phone:'(361) 555-0283', email:'dherrera@email.com', note:'Repeat customer. Third trip this year. Wants to hit the deep rigs for kingfish.' },
-            { id:9, guest:'Kelly Dawson', trip:'Half Day Inshore', date:'Apr 1, 2026', time:'6:00am', party:2, amt:450, status:'confirmed', deposit:'pending', phone:'(956) 555-0103', email:'kdawson@email.com', note:'Staying at Sandcastle. Wants to fish the flats.' },
-            { id:10, guest:'Anna Kelley', trip:'Sunset Cruise', date:'Apr 1, 2026', time:'5:30pm', party:2, amt:300, status:'pending', deposit:'pending', phone:'(210) 555-0391', email:'anna.k@email.com', note:'Anniversary trip. Bringing a bottle of wine. Asked about dolphin sightings.' },
+            { id:7, guest:'Marcus Webb', trip:'Half Day Inshore', date:'Apr 1, 2026', time:'6:00am', party:3, amt:450, status:'checked-in', deposit:'paid', waiver:true, phone:'(512) 555-0147', email:'marcus.webb@email.com', note:'First time fishing. Bringing his two sons, ages 12 and 14. Wants to target redfish.' },
+            { id:8, guest:'David Herrera', trip:'Full Day Offshore', date:'Apr 1, 2026', time:'6:00am', party:4, amt:950, status:'confirmed', deposit:'paid', waiver:true, phone:'(361) 555-0283', email:'dherrera@email.com', note:'Repeat customer. Third trip this year. Wants to hit the deep rigs for kingfish.' },
+            { id:9, guest:'Kelly Dawson', trip:'Half Day Inshore', date:'Apr 1, 2026', time:'6:00am', party:2, amt:450, status:'confirmed', deposit:'pending', waiver:true, phone:'(956) 555-0103', email:'kdawson@email.com', note:'Staying at Sandcastle. Wants to fish the flats.' },
+            { id:10, guest:'Anna Kelley', trip:'Sunset Cruise', date:'Apr 1, 2026', time:'5:30pm', party:2, amt:300, status:'pending', deposit:'pending', waiver:false, phone:'(210) 555-0391', email:'anna.k@email.com', note:'Anniversary trip. Bringing a bottle of wine. Asked about dolphin sightings.' },
             // Thursday Apr 2
-            { id:11, guest:'Rachel Nguyen', trip:'Half Day Inshore', date:'Apr 2, 2026', time:'6:00am', party:2, amt:450, status:'confirmed', deposit:'paid', phone:'(713) 555-0412', email:'rnguyen@email.com', note:'Second trip with us. Liked the bay last time.' },
-            { id:12, guest:'Brandon Cole', trip:'Full Day Offshore', date:'Apr 2, 2026', time:'6:00am', party:4, amt:950, status:'confirmed', deposit:'paid', phone:'(832) 555-0213', email:'bcole@email.com', note:'Corporate team outing. Bringing cooler. Asked about kingfish.' },
-            { id:13, guest:'Jenna Park', trip:'Half Day Inshore', date:'Apr 2, 2026', time:'6:00am', party:3, amt:450, status:'pending', deposit:'pending', phone:'(361) 555-0214', email:'jpark@email.com', note:'Family with young kids. Wants calm water.' },
-            { id:14, guest:'Miguel Reyes', trip:'Sunset Cruise', date:'Apr 2, 2026', time:'5:30pm', party:6, amt:300, status:'confirmed', deposit:'paid', phone:'(512) 555-0215', email:'mreyes@email.com', note:'Proposal cruise. Needs to coordinate timing with photographer on dock.' },
+            { id:11, guest:'Rachel Nguyen', trip:'Half Day Inshore', date:'Apr 2, 2026', time:'6:00am', party:2, amt:450, status:'confirmed', deposit:'paid', waiver:true, phone:'(713) 555-0412', email:'rnguyen@email.com', note:'Second trip with us. Liked the bay last time.' },
+            { id:12, guest:'Brandon Cole', trip:'Full Day Offshore', date:'Apr 2, 2026', time:'6:00am', party:4, amt:950, status:'confirmed', deposit:'paid', waiver:false, phone:'(832) 555-0213', email:'bcole@email.com', note:'Corporate team outing. Bringing cooler. Asked about kingfish.' },
+            { id:13, guest:'Jenna Park', trip:'Half Day Inshore', date:'Apr 2, 2026', time:'6:00am', party:3, amt:450, status:'pending', deposit:'pending', waiver:false, phone:'(361) 555-0214', email:'jpark@email.com', note:'Family with young kids. Wants calm water.' },
+            { id:14, guest:'Miguel Reyes', trip:'Sunset Cruise', date:'Apr 2, 2026', time:'5:30pm', party:6, amt:300, status:'confirmed', deposit:'paid', waiver:true, phone:'(512) 555-0215', email:'mreyes@email.com', note:'Proposal cruise. Needs to coordinate timing with photographer on dock.' },
             // Friday Apr 3
             { id:15, guest:'Sarah Mitchell', trip:'Half Day Inshore', date:'Apr 3, 2026', time:'6:00am', party:4, amt:450, status:'confirmed', deposit:'paid', phone:'(713) 555-0316', email:'smitchell@email.com', note:'Girls trip. Never been fishing. Wants photos.' },
             { id:16, guest:'Eric Tanaka', trip:'Full Day Offshore', date:'Apr 3, 2026', time:'6:00am', party:2, amt:950, status:'confirmed', deposit:'paid', phone:'(281) 555-0317', email:'etanaka@email.com', note:'Serious angler. Wants to target snapper and cobia.' },
@@ -2060,6 +2538,51 @@
 
         const tripTimes = { 'Half Day Inshore': '6:00am', 'Full Day Offshore': '6:00am', 'Sunset Cruise': '5:30pm' };
         const tripPrices = { 'Half Day Inshore': 450, 'Full Day Offshore': 950, 'Sunset Cruise': 300 };
+
+        // 30-day revenue data (Mar 7 – Apr 5, 2026)
+        const revenueData30 = [
+            { date:'Mar 7',  revenue:1850, guests:9,  halfDay:2, fullDay:1, sunset:0 },
+            { date:'Mar 8',  revenue:750,  guests:6,  halfDay:1, fullDay:0, sunset:1 },
+            { date:'Mar 9',  revenue:450,  guests:3,  halfDay:1, fullDay:0, sunset:0 },
+            { date:'Mar 10', revenue:950,  guests:4,  halfDay:0, fullDay:1, sunset:0 },
+            { date:'Mar 11', revenue:750,  guests:5,  halfDay:1, fullDay:0, sunset:1 },
+            { date:'Mar 12', revenue:450,  guests:3,  halfDay:1, fullDay:0, sunset:0 },
+            { date:'Mar 13', revenue:1850, guests:8,  halfDay:2, fullDay:1, sunset:0 },
+            { date:'Mar 14', revenue:2150, guests:12, halfDay:2, fullDay:1, sunset:1 },
+            { date:'Mar 15', revenue:1400, guests:6,  halfDay:1, fullDay:1, sunset:0 },
+            { date:'Mar 16', revenue:750,  guests:5,  halfDay:1, fullDay:0, sunset:1 },
+            { date:'Mar 17', revenue:1400, guests:6,  halfDay:1, fullDay:1, sunset:0 },
+            { date:'Mar 18', revenue:1200, guests:8,  halfDay:2, fullDay:0, sunset:1 },
+            { date:'Mar 19', revenue:1400, guests:5,  halfDay:1, fullDay:1, sunset:0 },
+            { date:'Mar 20', revenue:2150, guests:10, halfDay:2, fullDay:1, sunset:1 },
+            { date:'Mar 21', revenue:2150, guests:13, halfDay:2, fullDay:1, sunset:1 },
+            { date:'Mar 22', revenue:1200, guests:10, halfDay:2, fullDay:0, sunset:1 },
+            { date:'Mar 23', revenue:1400, guests:5,  halfDay:1, fullDay:1, sunset:0 },
+            { date:'Mar 24', revenue:750,  guests:6,  halfDay:1, fullDay:0, sunset:1 },
+            { date:'Mar 25', revenue:1850, guests:9,  halfDay:2, fullDay:1, sunset:0 },
+            { date:'Mar 26', revenue:750,  guests:5,  halfDay:1, fullDay:0, sunset:1 },
+            { date:'Mar 27', revenue:2150, guests:11, halfDay:2, fullDay:1, sunset:1 },
+            { date:'Mar 28', revenue:450,  guests:4,  halfDay:1, fullDay:0, sunset:0 },
+            { date:'Mar 29', revenue:950,  guests:3,  halfDay:0, fullDay:1, sunset:0 },
+            { date:'Mar 30', revenue:750,  guests:6,  halfDay:1, fullDay:0, sunset:1 },
+            { date:'Mar 31', revenue:1400, guests:5,  halfDay:1, fullDay:1, sunset:0 },
+            { date:'Apr 1',  revenue:2150, guests:11, halfDay:2, fullDay:1, sunset:1 },
+            { date:'Apr 2',  revenue:2150, guests:15, halfDay:2, fullDay:1, sunset:1 },
+            { date:'Apr 3',  revenue:1700, guests:10, halfDay:1, fullDay:1, sunset:1 },
+            { date:'Apr 4',  revenue:3100, guests:18, halfDay:2, fullDay:2, sunset:1 },
+            { date:'Apr 5',  revenue:2150, guests:12, halfDay:2, fullDay:1, sunset:1 },
+        ];
+
+        const topCustomers = [
+            { name:'Mike Castillo',    trips:6, totalSpend:4200, lastTrip:'Apr 2, 2026' },
+            { name:'David Herrera',    trips:5, totalSpend:3800, lastTrip:'Apr 1, 2026' },
+            { name:'Ben Schaefer',     trips:4, totalSpend:2850, lastTrip:'Mar 28, 2026' },
+            { name:'Ricky Dominguez',  trips:4, totalSpend:2400, lastTrip:'Mar 22, 2026' },
+            { name:'Angela Truong',    trips:3, totalSpend:1950, lastTrip:'Mar 30, 2026' },
+            { name:'Laura Montoya',    trips:3, totalSpend:1350, lastTrip:'Apr 3, 2026' },
+            { name:'James Whitfield',  trips:2, totalSpend:900,  lastTrip:'Apr 4, 2026' },
+        ];
+
         let currentWeekStart = new Date(2026, 3, 1);
         let widgetState = { step: 1, trip: null, date: null, name: '', email: '', phone: '', party: 1, notes: '' };
 
@@ -2148,13 +2671,17 @@
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewName).classList.add('active');
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
+            const navItem = document.querySelector(`[data-view="${viewName}"]`);
+            if (navItem) navItem.classList.add('active');
+
+            document.querySelector('.main').scrollTo(0, 0);
 
             if (viewName === 'calendar') renderCalendar();
             else if (viewName === 'trips') renderTrips();
             else if (viewName === 'bookings') renderBookings();
             else if (viewName === 'widget') renderWidget();
             else if (viewName === 'dashboard') renderDashboard();
+            else if (viewName === 'revenue-analytics') renderRevenueAnalytics();
         }
 
         function renderDashboard() {
@@ -2169,9 +2696,55 @@
             const weekGuests = bookingData.filter(b => weekDates.some(wd => wd.date === b.date) && b.status !== 'cancelled').reduce((sum, b) => sum + b.party, 0);
             document.getElementById('stat-guests').textContent = weekGuests;
 
+            renderAttention();
             renderManifest();
             renderChart();
             renderUpcoming();
+        }
+
+        function renderAttention() {
+            const today = parseDate('Apr 1, 2026');
+            const items = [];
+            bookingData.forEach(b => {
+                if (b.status === 'cancelled' || b.status === 'completed') return;
+                const bDate = parseDate(b.date);
+                if (!bDate || bDate < today) return;
+                const daysOut = Math.round((bDate - today) / (1000 * 60 * 60 * 24));
+                // Deposit due
+                if (b.deposit === 'pending' && b.status !== 'pending') {
+                    const depAmt = Math.round(b.amt * 0.25);
+                    const urgency = daysOut <= 0 ? 'urgent' : daysOut <= 1 ? 'soon' : 'info';
+                    const label = daysOut <= 0 ? 'Due today' : daysOut === 1 ? 'Due tomorrow' : 'Due in ' + daysOut + ' days';
+                    items.push({ sort: 0 + daysOut, urgency, label, guest: b.guest, detail: b.date + ' ' + b.trip.toLowerCase() + '. $' + depAmt + ' deposit.', action: 'Send reminder', toast: 'Deposit reminder sent to ' + b.guest });
+                }
+                // Waiver missing
+                if (b.waiver === false && b.status !== 'pending') {
+                    const urgency = daysOut <= 1 ? 'soon' : 'info';
+                    const label = daysOut <= 0 ? 'Today' : daysOut === 1 ? 'Tomorrow' : b.date;
+                    items.push({ sort: 100 + daysOut, urgency, label, guest: b.guest, detail: b.date + ' ' + b.trip.toLowerCase() + '. No waiver on file.', action: 'Send waiver', toast: 'Waiver sent to ' + b.guest });
+                }
+                // Unconfirmed booking
+                if (b.status === 'pending') {
+                    const urgency = daysOut <= 1 ? 'soon' : 'info';
+                    const pendLabel = daysOut <= 1 ? 'Pending' : 'Pending ' + (daysOut > 2 ? '48hrs+' : daysOut + 'd');
+                    items.push({ sort: 200 + daysOut, urgency, label: pendLabel, guest: b.guest, detail: b.date + ' ' + b.trip.toLowerCase() + '. Unconfirmed booking.', action: 'Follow up', toast: 'Follow-up sent to ' + b.guest });
+                }
+            });
+            items.sort((a, b) => a.sort - b.sort);
+            const badge = document.querySelector('.nav-badge');
+            if (items.length === 0) {
+                document.getElementById('attention-container').innerHTML = '';
+                if (badge) badge.style.display = 'none';
+                return;
+            }
+            if (badge) { badge.textContent = items.length; badge.style.display = ''; }
+            let html = '<div class="attention-header"><h2 class="section-title">Needs Attention</h2><span class="attention-count">' + items.length + '</span></div>';
+            html += '<ul class="attention-list">';
+            items.forEach(item => {
+                html += '<li class="attention-item"><div class="attention-left"><span class="attention-status ' + item.urgency + '">' + item.label + '</span><span><strong>' + item.guest + '</strong></span><span class="attention-detail">' + item.detail + '</span></div><button class="attention-action" onclick="showToast(\'' + item.toast.replace(/'/g, "\\'") + '\')">' + item.action + '</button></li>';
+            });
+            html += '</ul>';
+            document.getElementById('attention-container').innerHTML = html;
         }
 
         function renderManifest() {
@@ -2232,9 +2805,9 @@
         }
 
         function renderUpcoming() {
-            const upcoming = bookingData.filter(b => parseDate(b.date) >= parseDate('Apr 1, 2026')).sort((a, b) => parseDate(a.date) - parseDate(b.date));
+            const upcoming = bookingData.filter(b => parseDate(b.date) > parseDate('Apr 1, 2026') && b.status !== 'cancelled').sort((a, b) => parseDate(a.date) - parseDate(b.date));
             let html = '';
-            upcoming.slice(0, 5).forEach(b => {
+            upcoming.slice(0, 6).forEach(b => {
                 html += `<tr onclick="openDetailModal(${b.id})"><td>${b.date}</td><td>${b.guest}</td><td>${b.trip}</td><td>${b.party}</td><td>$${b.amt}</td></tr>`;
             });
             document.getElementById('upcoming-body').innerHTML = html;
@@ -2638,6 +3211,278 @@
             });
         });
 
+        // ── Revenue Analytics ──────────────────────────────────────────
+
+        function animateCountUp(el, target, prefix, suffix, duration) {
+            prefix = prefix || '';
+            suffix = suffix || '';
+            duration = duration || 1200;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                el.textContent = prefix + target.toLocaleString() + suffix;
+                return;
+            }
+            const start = performance.now();
+            function update(now) {
+                const t = Math.min((now - start) / duration, 1);
+                const ease = 1 - Math.pow(1 - t, 3);
+                el.textContent = prefix + Math.round(ease * target).toLocaleString() + suffix;
+                if (t < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+
+        function generateSmoothPath(points) {
+            if (points.length < 2) return '';
+            if (points.length === 2) return `M${points[0].x},${points[0].y}L${points[1].x},${points[1].y}`;
+            const n = points.length;
+            const dx = [], dy = [], m = [], a = [];
+            for (let i = 0; i < n - 1; i++) {
+                dx[i] = points[i + 1].x - points[i].x;
+                dy[i] = (points[i + 1].y - points[i].y) / dx[i];
+            }
+            m[0] = dy[0];
+            for (let i = 1; i < n - 1; i++) {
+                if (dy[i - 1] * dy[i] <= 0) m[i] = 0;
+                else m[i] = (dy[i - 1] + dy[i]) / 2;
+            }
+            m[n - 1] = dy[n - 2];
+            for (let i = 0; i < n - 1; i++) {
+                if (Math.abs(dy[i]) < 1e-6) { m[i] = 0; m[i + 1] = 0; continue; }
+                const ak = m[i] / dy[i], bk = m[i + 1] / dy[i];
+                const s = ak * ak + bk * bk;
+                if (s > 9) {
+                    const t = 3 / Math.sqrt(s);
+                    m[i] = t * ak * dy[i];
+                    m[i + 1] = t * bk * dy[i];
+                }
+            }
+            let d = `M${points[0].x.toFixed(1)},${points[0].y.toFixed(1)}`;
+            for (let i = 0; i < n - 1; i++) {
+                const x0 = points[i].x, y0 = points[i].y;
+                const x1 = points[i + 1].x, y1 = points[i + 1].y;
+                const t = dx[i] / 3;
+                d += `C${(x0 + t).toFixed(1)},${(y0 + m[i] * t).toFixed(1)},${(x1 - t).toFixed(1)},${(y1 - m[i + 1] * t).toFixed(1)},${x1.toFixed(1)},${y1.toFixed(1)}`;
+            }
+            return d;
+        }
+
+        function renderRevenueAnalytics() {
+            const totalRevenue = revenueData30.reduce((s, d) => s + d.revenue, 0);
+            const totalGuests = revenueData30.reduce((s, d) => s + d.guests, 0);
+            const totalTrips = revenueData30.reduce((s, d) => s + d.halfDay + d.fullDay + d.sunset, 0);
+            const avgBooking = Math.round(totalRevenue / totalTrips);
+            const totalHalf = revenueData30.reduce((s, d) => s + d.halfDay, 0);
+            const totalFull = revenueData30.reduce((s, d) => s + d.fullDay, 0);
+            const totalSunset = revenueData30.reduce((s, d) => s + d.sunset, 0);
+            const halfRev = totalHalf * 450;
+            const fullRev = totalFull * 950;
+            const sunsetRev = totalSunset * 300;
+            const maxTripRev = Math.max(halfRev, fullRev, sunsetRev);
+
+            // Count-up animations
+            animateCountUp(document.getElementById('ra-total-revenue'), totalRevenue, '$');
+            animateCountUp(document.getElementById('ra-avg-booking'), avgBooking, '$');
+            animateCountUp(document.getElementById('ra-total-guests'), totalGuests);
+
+            // Sparkline
+            renderSparkline();
+
+            // 30-day line chart
+            renderLineChart();
+
+            // Trip type breakdown
+            renderTripBars(halfRev, fullRev, sunsetRev, maxTripRev, totalHalf, totalFull, totalSunset);
+
+            // Top customers
+            renderTopCustomers();
+
+            // Make analytics stat cards interactive
+            document.querySelectorAll('#revenue-analytics .stat-card').forEach((card, i) => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', () => {
+                    const messages = [
+                        'Revenue trending up 18% vs the prior period. Peak days are Saturdays.',
+                        'Average booking value is $' + avgBooking + '. Full Day Offshore drives the highest per-trip revenue.',
+                        totalGuests + ' guests over 30 days. Party sizes average ' + (totalGuests / totalTrips).toFixed(1) + ' per booking.',
+                        'Guest volume peaks on weekends, with Saturday averaging the highest count.'
+                    ];
+                    showToast(messages[i]);
+                });
+            });
+        }
+
+        function renderSparkline() {
+            const guests = revenueData30.map(d => d.guests);
+            const max = Math.max(...guests);
+            const min = Math.min(...guests);
+            const range = max - min || 1;
+            const w = 120, h = 32, pad = 2;
+            const pts = guests.map((g, i) => {
+                const x = pad + (i / (guests.length - 1)) * (w - pad * 2);
+                const y = pad + (1 - (g - min) / range) * (h - pad * 2);
+                return `${x.toFixed(1)},${y.toFixed(1)}`;
+            }).join(' ');
+            const svg = `<svg class="ra-sparkline-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+                <polyline class="ra-sparkline-line" points="${pts}" />
+            </svg>`;
+            document.getElementById('ra-sparkline-container').innerHTML = svg;
+
+            requestAnimationFrame(() => {
+                const line = document.querySelector('.ra-sparkline-line');
+                if (!line) return;
+                const len = line.getTotalLength();
+                line.style.strokeDasharray = len;
+                line.style.strokeDashoffset = len;
+                requestAnimationFrame(() => {
+                    line.classList.add('animate');
+                    line.style.strokeDashoffset = '0';
+                });
+            });
+        }
+
+        function renderLineChart() {
+            const W = 620, H = 220;
+            const padL = 45, padR = 15, padT = 15, padB = 30;
+            const chartW = W - padL - padR;
+            const chartH = H - padT - padB;
+            const data = revenueData30;
+            const maxRev = Math.max(...data.map(d => d.revenue));
+            const yMax = Math.ceil(maxRev / 500) * 500;
+            const ySteps = 4;
+
+            // Compute points
+            const points = data.map((d, i) => ({
+                x: padL + (i / (data.length - 1)) * chartW,
+                y: padT + chartH - (d.revenue / yMax) * chartH,
+                rev: d.revenue,
+                date: d.date
+            }));
+
+            const linePath = generateSmoothPath(points);
+            const areaPath = linePath + `L${points[points.length - 1].x.toFixed(1)},${(padT + chartH).toFixed(1)}L${points[0].x.toFixed(1)},${(padT + chartH).toFixed(1)}Z`;
+
+            // Grid lines & y-axis labels
+            let gridHtml = '';
+            for (let i = 0; i <= ySteps; i++) {
+                const val = (yMax / ySteps) * i;
+                const y = padT + chartH - (val / yMax) * chartH;
+                gridHtml += `<line class="ra-grid-line" x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" />`;
+                gridHtml += `<text class="ra-axis-label" x="${padL - 6}" y="${(y + 3).toFixed(1)}" text-anchor="end">$${(val / 1000).toFixed(1)}k</text>`;
+            }
+
+            // X-axis labels (every 7 days)
+            for (let i = 0; i < data.length; i += 7) {
+                gridHtml += `<text class="ra-axis-label" x="${points[i].x.toFixed(1)}" y="${(H - 5).toFixed(1)}" text-anchor="middle">${data[i].date}</text>`;
+            }
+            // Always show last label
+            const lastI = data.length - 1;
+            gridHtml += `<text class="ra-axis-label" x="${points[lastI].x.toFixed(1)}" y="${(H - 5).toFixed(1)}" text-anchor="middle">${data[lastI].date}</text>`;
+
+            // Data point circles
+            let circlesHtml = '';
+            points.forEach((p, i) => {
+                circlesHtml += `<circle class="ra-data-point" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" data-rev="${p.rev}" data-date="${p.date}" style="transition-delay: ${i * 40}ms;" />`;
+            });
+
+            const svg = `<svg class="ra-line-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <linearGradient id="ra-area-gradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="var(--terracotta)" stop-opacity="0.15" />
+                        <stop offset="100%" stop-color="var(--terracotta)" stop-opacity="0.01" />
+                    </linearGradient>
+                </defs>
+                ${gridHtml}
+                <path class="ra-area-path" d="${areaPath}" fill="url(#ra-area-gradient)" />
+                <path class="ra-line-path" d="${linePath}" />
+                ${circlesHtml}
+            </svg>`;
+
+            document.getElementById('ra-line-chart-container').innerHTML = svg;
+
+            // Animate line drawing
+            requestAnimationFrame(() => {
+                const path = document.querySelector('.ra-line-path');
+                const area = document.querySelector('.ra-area-path');
+                if (!path) return;
+                const len = path.getTotalLength();
+                path.style.strokeDasharray = len;
+                path.style.strokeDashoffset = len;
+                requestAnimationFrame(() => {
+                    path.classList.add('animate');
+                    path.style.strokeDashoffset = '0';
+                    if (area) area.classList.add('animate');
+                    document.querySelectorAll('.ra-data-point').forEach(c => c.classList.add('animate'));
+                });
+            });
+
+            // Tooltip for data points
+            setupChartTooltip();
+        }
+
+        function setupChartTooltip() {
+            let tooltip = document.querySelector('.ra-tooltip');
+            if (!tooltip) {
+                tooltip = document.createElement('div');
+                tooltip.className = 'ra-tooltip';
+                document.body.appendChild(tooltip);
+            }
+            const svg = document.querySelector('.ra-line-svg');
+            if (!svg) return;
+
+            svg.addEventListener('mousemove', (e) => {
+                const circle = e.target.closest('.ra-data-point');
+                if (circle) {
+                    tooltip.textContent = `${circle.dataset.date}: $${Number(circle.dataset.rev).toLocaleString()}`;
+                    tooltip.classList.add('visible');
+                    tooltip.style.left = (e.clientX + 12) + 'px';
+                    tooltip.style.top = (e.clientY - 30) + 'px';
+                } else {
+                    tooltip.classList.remove('visible');
+                }
+            });
+            svg.addEventListener('mouseleave', () => {
+                tooltip.classList.remove('visible');
+            });
+        }
+
+        function renderTripBars(halfRev, fullRev, sunsetRev, maxRev, halfCount, fullCount, sunsetCount) {
+            const bars = [
+                { name: 'Half Day Inshore', rev: halfRev, count: halfCount },
+                { name: 'Full Day Offshore', rev: fullRev, count: fullCount },
+                { name: 'Sunset Cruise', rev: sunsetRev, count: sunsetCount },
+            ];
+            let html = '';
+            bars.forEach((b, i) => {
+                const pct = maxRev > 0 ? (b.rev / maxRev) * 100 : 0;
+                html += `<div class="ra-hbar-row" onclick="showToast('${b.name}: ${b.count} bookings, $${b.rev.toLocaleString()} revenue over 30 days.')">
+                    <div class="ra-hbar-label">${b.name}</div>
+                    <div class="ra-hbar-track"><div class="ra-hbar-fill" data-width="${pct.toFixed(1)}%" style="transition-delay: ${i * 150}ms;"></div></div>
+                    <div class="ra-hbar-value">$${b.rev.toLocaleString()} <span class="ra-hbar-count">(${b.count})</span></div>
+                </div>`;
+            });
+            document.getElementById('ra-trip-breakdown').innerHTML = html;
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    document.querySelectorAll('.ra-hbar-fill').forEach(bar => {
+                        bar.style.width = bar.dataset.width;
+                    });
+                });
+            });
+        }
+
+        function renderTopCustomers() {
+            let html = '';
+            topCustomers.forEach((c, i) => {
+                html += `<tr onclick="showToast('${c.name}: ${c.trips} trips, $${c.totalSpend.toLocaleString()} lifetime spend. Last trip ${c.lastTrip}.')" style="cursor:pointer;">
+                    <td><div class="ra-customer-name-cell"><span class="ra-customers-rank">${i + 1}</span>${c.name}</div></td>
+                    <td style="text-align:right;">${c.trips}</td>
+                    <td style="text-align:right;font-weight:600;">$${c.totalSpend.toLocaleString()}</td>
+                </tr>`;
+            });
+            document.getElementById('ra-customers-body').innerHTML = html;
+        }
+
         // Toast helper
         function showToast(msg) {
             const toast = document.createElement('div');
@@ -2693,6 +3538,28 @@
         });
 
         renderDashboard();
+
+        // Revenue analytics drill-down click handlers
+        (function wireRevenueAnalytics() {
+            // Make revenue stat card clickable
+            const revenueCard = document.getElementById('stat-revenue').closest('.stat-card');
+            revenueCard.classList.add('stat-card-clickable');
+            const hint1 = document.createElement('div');
+            hint1.className = 'drill-hint';
+            hint1.textContent = 'View analytics \u2192';
+            revenueCard.appendChild(hint1);
+            revenueCard.addEventListener('click', () => switchView('revenue-analytics'));
+
+            // Make "Revenue This Week" title clickable
+            const chartTitle = document.getElementById('revenue-chart').previousElementSibling;
+            if (chartTitle && chartTitle.classList.contains('section-title')) {
+                chartTitle.classList.add('section-title-clickable');
+                chartTitle.addEventListener('click', () => switchView('revenue-analytics'));
+            }
+
+            // Back button
+            document.getElementById('ra-back-btn').addEventListener('click', () => switchView('dashboard'));
+        })();
 
         // Re-render when restored from bfcache (browser back button)
         window.addEventListener('pageshow', (e) => {
