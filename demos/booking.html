@@ -6,7 +6,7 @@
     <title>Redfish Run Charters - Admin Dashboard</title>
     <link rel="canonical" href="https://localpraxis.com/demos/booking.html">
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232563EB'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>RR</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23C2452D'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>RR</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,11 +21,11 @@
             --ink: #1C1917;
             --ink-mid: #57534E;
             --ink-light: #A8A29E;
-            --terracotta: #1E5FB5;
-            --terracotta-hover: #174B91;
+            --terracotta: #C2452D;
+            --terracotta-hover: #A33825;
             --rule: #DDD6CC;
-            --success: #16A34A;
-            --warning: #D97706;
+            --success: #6B8F71;
+            --warning: #B5976B;
             --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -115,7 +115,7 @@
         }
 
         .nav-item:hover {
-            background: rgba(37, 99, 235, 0.08);
+            background: rgba(194, 69, 45, 0.08);
             color: var(--terracotta);
         }
 
@@ -165,7 +165,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
         }
 
         .stat-card {
@@ -211,12 +211,12 @@
 
         .stat-trend.up {
             color: var(--success);
-            background: rgba(22, 163, 74, 0.1);
+            background: rgba(107, 143, 113, 0.1);
         }
 
         .stat-trend.neutral {
             color: var(--ink-light);
-            background: rgba(148, 163, 184, 0.1);
+            background: rgba(168, 162, 158, 0.1);
         }
 
         /* Needs Attention section */
@@ -247,17 +247,25 @@
 
         .attention-list {
             list-style: none;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
         }
 
         .attention-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.85rem 0;
+            padding: 0.85rem 1rem;
             border-bottom: 1px solid var(--rule);
+            border-left: 2px solid var(--terracotta);
             font-size: 0.95rem;
             gap: 1rem;
+            transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+
+        .attention-item.dismissed {
+            opacity: 0;
+            transform: translateX(20px);
+            pointer-events: none;
         }
 
         .attention-item:last-child {
@@ -294,19 +302,19 @@
         }
 
         .attention-status.urgent {
-            color: #DC2626;
+            color: #C07060;
         }
 
         .attention-status.urgent::before {
-            background: #DC2626;
+            background: #C07060;
         }
 
         .attention-status.soon {
-            color: #B45309;
+            color: #B5976B;
         }
 
         .attention-status.soon::before {
-            background: #B45309;
+            background: #B5976B;
         }
 
         .attention-status.info {
@@ -368,14 +376,14 @@
         .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 3.5rem;
         }
 
         /* Manifest section */
         .section-title {
             font-family: 'Instrument Serif', Georgia, serif;
             font-size: 1.4rem;
-            margin: 2rem 0 1.5rem 0;
+            margin: 2.5rem 0 1.5rem 0;
             line-height: 1.1;
         }
 
@@ -405,7 +413,7 @@
         }
 
         .manifest-table tbody tr:hover {
-            background: rgba(37, 99, 235, 0.04);
+            background: rgba(194, 69, 45, 0.04);
         }
 
         .manifest-table td {
@@ -436,20 +444,20 @@
             flex-shrink: 0;
         }
 
-        .status-checked-in { color: #15803D; }
-        .status-checked-in::before { background: #15803D; }
+        .status-checked-in { color: #6B8F71; }
+        .status-checked-in::before { background: #6B8F71; }
 
-        .status-confirmed { color: #15803D; }
-        .status-confirmed::before { background: #15803D; }
+        .status-confirmed { color: #6B8F71; }
+        .status-confirmed::before { background: #6B8F71; }
 
-        .status-pending { color: #B45309; }
-        .status-pending::before { background: #B45309; }
+        .status-pending { color: #B5976B; }
+        .status-pending::before { background: #B5976B; }
 
-        .status-completed { color: #15803D; }
-        .status-completed::before { background: #15803D; }
+        .status-completed { color: #6B8F71; }
+        .status-completed::before { background: #6B8F71; }
 
-        .status-cancelled { color: #DC2626; }
-        .status-cancelled::before { background: #DC2626; }
+        .status-cancelled { color: #C07060; }
+        .status-cancelled::before { background: #C07060; }
 
         /* Revenue chart */
         .chart-container {
@@ -499,7 +507,7 @@
 
         .chart-bar.selected {
             background: var(--terracotta-hover);
-            box-shadow: 0 -2px 8px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 -2px 8px rgba(194, 69, 45, 0.3);
         }
 
         .chart-bar[data-amount]:hover::after {
@@ -601,7 +609,7 @@
         }
 
         .btn-secondary:hover {
-            background: rgba(37, 99, 235, 0.08);
+            background: rgba(194, 69, 45, 0.08);
         }
 
         .btn-sm {
@@ -782,8 +790,9 @@
         }
 
         .widget-step-title {
-            font-family: 'Instrument Serif', Georgia, serif;
-            font-size: 1.4rem;
+            font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
             margin-bottom: 1.5rem;
         }
 
@@ -807,13 +816,13 @@
 
         .widget-trip-option:hover {
             border-color: var(--terracotta);
-            background: rgba(37, 99, 235, 0.04);
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+            background: rgba(194, 69, 45, 0.04);
+            box-shadow: 0 2px 8px rgba(194, 69, 45, 0.08);
         }
 
         .widget-trip-option.selected {
             border-color: var(--terracotta);
-            background: rgba(37, 99, 235, 0.06);
+            background: rgba(194, 69, 45, 0.06);
             box-shadow: 0 0 0 1px var(--terracotta);
         }
 
@@ -821,7 +830,7 @@
             width: 40px;
             height: 40px;
             border-radius: 8px;
-            background: rgba(37, 99, 235, 0.1);
+            background: rgba(194, 69, 45, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -901,7 +910,7 @@
         .form-input:focus {
             outline: none;
             border-color: var(--terracotta);
-            background: rgba(37, 99, 235, 0.02);
+            background: rgba(194, 69, 45, 0.02);
         }
 
         .widget-confirmation {
@@ -912,7 +921,7 @@
         .checkmark {
             width: 60px;
             height: 60px;
-            background: rgba(45, 122, 62, 0.1);
+            background: rgba(107, 143, 113, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1152,23 +1161,23 @@
             flex-shrink: 0;
         }
 
-        .calendar-status.st-confirmed { color: #15803D; }
-        .calendar-status.st-confirmed::before { background: #15803D; }
+        .calendar-status.st-confirmed { color: #6B8F71; }
+        .calendar-status.st-confirmed::before { background: #6B8F71; }
 
-        .calendar-status.st-checked-in { color: #15803D; }
-        .calendar-status.st-checked-in::before { background: #15803D; }
+        .calendar-status.st-checked-in { color: #6B8F71; }
+        .calendar-status.st-checked-in::before { background: #6B8F71; }
 
-        .calendar-status.st-pending { color: #B45309; }
-        .calendar-status.st-pending::before { background: #B45309; }
+        .calendar-status.st-pending { color: #B5976B; }
+        .calendar-status.st-pending::before { background: #B5976B; }
 
-        .calendar-status.st-cancelled { color: #DC2626; }
-        .calendar-status.st-cancelled::before { background: #DC2626; }
+        .calendar-status.st-cancelled { color: #C07060; }
+        .calendar-status.st-cancelled::before { background: #C07060; }
 
-        .calendar-status.st-deposit-paid { color: #15803D; }
-        .calendar-status.st-deposit-paid::before { background: #15803D; }
+        .calendar-status.st-deposit-paid { color: #6B8F71; }
+        .calendar-status.st-deposit-paid::before { background: #6B8F71; }
 
-        .calendar-status.st-deposit-due { color: #B45309; }
-        .calendar-status.st-deposit-due::before { background: #B45309; }
+        .calendar-status.st-deposit-due { color: #B5976B; }
+        .calendar-status.st-deposit-due::before { background: #B5976B; }
 
         .calendar-card-phone {
             display: none;
@@ -1255,7 +1264,7 @@
         }
 
         .bookings-table tbody tr:hover {
-            background: rgba(37, 99, 235, 0.04);
+            background: rgba(194, 69, 45, 0.04);
         }
 
         .bookings-table td {
@@ -1309,8 +1318,9 @@
         }
 
         .modal-title {
-            font-family: 'Instrument Serif', Georgia, serif;
-            font-size: 1.6rem;
+            font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
@@ -1355,8 +1365,8 @@
         }
 
         .success-message {
-            background: rgba(45, 122, 62, 0.1);
-            border: 1px solid rgba(45, 122, 62, 0.3);
+            background: rgba(107, 143, 113, 0.1);
+            border: 1px solid rgba(107, 143, 113, 0.3);
             color: var(--success);
             padding: 0.875rem 1rem;
             border-radius: 6px;
@@ -1370,7 +1380,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
-            background: #EFF6FF;
+            background: var(--cream);
             border-left: 3px solid var(--terracotta);
             padding: 0.75rem 1rem;
             margin-bottom: 2rem;
@@ -2181,7 +2191,7 @@
                     <!-- Step 4: Confirmation -->
                     <div class="widget-step" data-step="4">
                         <div class="widget-confirmation">
-                            <div class="checkmark"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                            <div class="checkmark"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
                             <h3 class="widget-confirmation-title">Booking Confirmed</h3>
                             <p class="widget-confirmation-text">Your reservation has been recorded.</p>
                             <div class="widget-confirmation-details">
@@ -2226,11 +2236,11 @@
                     <div class="widget-settings">
                         <div class="settings-label">Widget Settings</div>
                         <ul class="settings-list">
-                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Allow date selection</li>
-                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Show trip descriptions</li>
-                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Collect guest info</li>
-                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Send confirmation email</li>
-                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Real-time availability</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Allow date selection</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Show trip descriptions</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Collect guest info</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Send confirmation email</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Real-time availability</li>
                         </ul>
                     </div>
                 </div>
@@ -2731,6 +2741,7 @@
                 }
             });
             items.sort((a, b) => a.sort - b.sort);
+            items.splice(3);
             const badge = document.querySelector('.nav-badge');
             if (items.length === 0) {
                 document.getElementById('attention-container').innerHTML = '';
@@ -2740,8 +2751,8 @@
             if (badge) { badge.textContent = items.length; badge.style.display = ''; }
             let html = '<div class="attention-header"><h2 class="section-title">Needs Attention</h2><span class="attention-count">' + items.length + '</span></div>';
             html += '<ul class="attention-list">';
-            items.forEach(item => {
-                html += '<li class="attention-item"><div class="attention-left"><span class="attention-status ' + item.urgency + '">' + item.label + '</span><span><strong>' + item.guest + '</strong></span><span class="attention-detail">' + item.detail + '</span></div><button class="attention-action" onclick="showToast(\'' + item.toast.replace(/'/g, "\\'") + '\')">' + item.action + '</button></li>';
+            items.forEach((item, i) => {
+                html += '<li class="attention-item" id="attn-' + i + '"><div class="attention-left"><span class="attention-status ' + item.urgency + '">' + item.label + '</span><span><strong>' + item.guest + '</strong></span><span class="attention-detail">' + item.detail + '</span></div><button class="attention-action" onclick="dismissAttention(' + i + ', \'' + item.toast.replace(/'/g, "\\'") + '\')">' + item.action + '</button></li>';
             });
             html += '</ul>';
             document.getElementById('attention-container').innerHTML = html;
@@ -3475,6 +3486,26 @@
         }
 
         // Toast helper
+        function dismissAttention(index, toastMsg) {
+            const item = document.getElementById('attn-' + index);
+            if (!item) return;
+            item.classList.add('dismissed');
+            showToast(toastMsg);
+            setTimeout(() => {
+                item.remove();
+                const remaining = document.querySelectorAll('.attention-item:not(.dismissed)').length;
+                const badge = document.querySelector('.nav-badge');
+                const countEl = document.querySelector('.attention-count');
+                if (remaining === 0) {
+                    document.getElementById('attention-container').innerHTML = '';
+                    if (badge) badge.style.display = 'none';
+                } else {
+                    if (badge) badge.textContent = remaining;
+                    if (countEl) countEl.textContent = remaining;
+                }
+            }, 350);
+        }
+
         function showToast(msg) {
             const toast = document.createElement('div');
             toast.textContent = msg;
