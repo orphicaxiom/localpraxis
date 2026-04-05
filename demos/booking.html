@@ -6,7 +6,7 @@
     <title>Redfish Run Charters - Admin Dashboard</title>
     <link rel="canonical" href="https://localpraxis.com/demos/booking.html">
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23C2452D'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>RR</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232563EB'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>RR</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,11 +21,11 @@
             --ink: #1C1917;
             --ink-mid: #57534E;
             --ink-light: #A8A29E;
-            --terracotta: #C2452D;
-            --terracotta-hover: #A33825;
+            --terracotta: #1E5FB5;
+            --terracotta-hover: #174B91;
             --rule: #DDD6CC;
-            --success: #6B8F71;
-            --warning: #B5976B;
+            --success: #16A34A;
+            --warning: #D97706;
             --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -115,7 +115,7 @@
         }
 
         .nav-item:hover {
-            background: rgba(194, 69, 45, 0.08);
+            background: rgba(37, 99, 235, 0.08);
             color: var(--terracotta);
         }
 
@@ -211,12 +211,12 @@
 
         .stat-trend.up {
             color: var(--success);
-            background: rgba(107, 143, 113, 0.1);
+            background: rgba(22, 163, 74, 0.1);
         }
 
         .stat-trend.neutral {
             color: var(--ink-light);
-            background: rgba(168, 162, 158, 0.1);
+            background: rgba(148, 163, 184, 0.1);
         }
 
         /* Needs Attention section */
@@ -302,19 +302,19 @@
         }
 
         .attention-status.urgent {
-            color: #C07060;
+            color: #DC2626;
         }
 
         .attention-status.urgent::before {
-            background: #C07060;
+            background: #DC2626;
         }
 
         .attention-status.soon {
-            color: #B5976B;
+            color: #B45309;
         }
 
         .attention-status.soon::before {
-            background: #B5976B;
+            background: #B45309;
         }
 
         .attention-status.info {
@@ -413,7 +413,7 @@
         }
 
         .manifest-table tbody tr:hover {
-            background: rgba(194, 69, 45, 0.04);
+            background: rgba(37, 99, 235, 0.04);
         }
 
         .manifest-table td {
@@ -444,20 +444,20 @@
             flex-shrink: 0;
         }
 
-        .status-checked-in { color: #6B8F71; }
-        .status-checked-in::before { background: #6B8F71; }
+        .status-checked-in { color: #15803D; }
+        .status-checked-in::before { background: #15803D; }
 
-        .status-confirmed { color: #6B8F71; }
-        .status-confirmed::before { background: #6B8F71; }
+        .status-confirmed { color: #15803D; }
+        .status-confirmed::before { background: #15803D; }
 
-        .status-pending { color: #B5976B; }
-        .status-pending::before { background: #B5976B; }
+        .status-pending { color: #B45309; }
+        .status-pending::before { background: #B45309; }
 
-        .status-completed { color: #6B8F71; }
-        .status-completed::before { background: #6B8F71; }
+        .status-completed { color: #15803D; }
+        .status-completed::before { background: #15803D; }
 
-        .status-cancelled { color: #C07060; }
-        .status-cancelled::before { background: #C07060; }
+        .status-cancelled { color: #DC2626; }
+        .status-cancelled::before { background: #DC2626; }
 
         /* Revenue chart */
         .chart-container {
@@ -507,7 +507,7 @@
 
         .chart-bar.selected {
             background: var(--terracotta-hover);
-            box-shadow: 0 -2px 8px rgba(194, 69, 45, 0.3);
+            box-shadow: 0 -2px 8px rgba(37, 99, 235, 0.3);
         }
 
         .chart-bar[data-amount]:hover::after {
@@ -609,7 +609,7 @@
         }
 
         .btn-secondary:hover {
-            background: rgba(194, 69, 45, 0.08);
+            background: rgba(37, 99, 235, 0.08);
         }
 
         .btn-sm {
@@ -816,13 +816,13 @@
 
         .widget-trip-option:hover {
             border-color: var(--terracotta);
-            background: rgba(194, 69, 45, 0.04);
-            box-shadow: 0 2px 8px rgba(194, 69, 45, 0.08);
+            background: rgba(37, 99, 235, 0.04);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
         }
 
         .widget-trip-option.selected {
             border-color: var(--terracotta);
-            background: rgba(194, 69, 45, 0.06);
+            background: rgba(37, 99, 235, 0.06);
             box-shadow: 0 0 0 1px var(--terracotta);
         }
 
@@ -830,7 +830,7 @@
             width: 40px;
             height: 40px;
             border-radius: 8px;
-            background: rgba(194, 69, 45, 0.1);
+            background: rgba(37, 99, 235, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -910,7 +910,7 @@
         .form-input:focus {
             outline: none;
             border-color: var(--terracotta);
-            background: rgba(194, 69, 45, 0.02);
+            background: rgba(37, 99, 235, 0.02);
         }
 
         .widget-confirmation {
@@ -921,7 +921,7 @@
         .checkmark {
             width: 60px;
             height: 60px;
-            background: rgba(107, 143, 113, 0.1);
+            background: rgba(45, 122, 62, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1161,23 +1161,23 @@
             flex-shrink: 0;
         }
 
-        .calendar-status.st-confirmed { color: #6B8F71; }
-        .calendar-status.st-confirmed::before { background: #6B8F71; }
+        .calendar-status.st-confirmed { color: #15803D; }
+        .calendar-status.st-confirmed::before { background: #15803D; }
 
-        .calendar-status.st-checked-in { color: #6B8F71; }
-        .calendar-status.st-checked-in::before { background: #6B8F71; }
+        .calendar-status.st-checked-in { color: #15803D; }
+        .calendar-status.st-checked-in::before { background: #15803D; }
 
-        .calendar-status.st-pending { color: #B5976B; }
-        .calendar-status.st-pending::before { background: #B5976B; }
+        .calendar-status.st-pending { color: #B45309; }
+        .calendar-status.st-pending::before { background: #B45309; }
 
-        .calendar-status.st-cancelled { color: #C07060; }
-        .calendar-status.st-cancelled::before { background: #C07060; }
+        .calendar-status.st-cancelled { color: #DC2626; }
+        .calendar-status.st-cancelled::before { background: #DC2626; }
 
-        .calendar-status.st-deposit-paid { color: #6B8F71; }
-        .calendar-status.st-deposit-paid::before { background: #6B8F71; }
+        .calendar-status.st-deposit-paid { color: #15803D; }
+        .calendar-status.st-deposit-paid::before { background: #15803D; }
 
-        .calendar-status.st-deposit-due { color: #B5976B; }
-        .calendar-status.st-deposit-due::before { background: #B5976B; }
+        .calendar-status.st-deposit-due { color: #B45309; }
+        .calendar-status.st-deposit-due::before { background: #B45309; }
 
         .calendar-card-phone {
             display: none;
@@ -1264,7 +1264,7 @@
         }
 
         .bookings-table tbody tr:hover {
-            background: rgba(194, 69, 45, 0.04);
+            background: rgba(37, 99, 235, 0.04);
         }
 
         .bookings-table td {
@@ -1365,8 +1365,8 @@
         }
 
         .success-message {
-            background: rgba(107, 143, 113, 0.1);
-            border: 1px solid rgba(107, 143, 113, 0.3);
+            background: rgba(45, 122, 62, 0.1);
+            border: 1px solid rgba(45, 122, 62, 0.3);
             color: var(--success);
             padding: 0.875rem 1rem;
             border-radius: 6px;
@@ -2191,7 +2191,7 @@
                     <!-- Step 4: Confirmation -->
                     <div class="widget-step" data-step="4">
                         <div class="widget-confirmation">
-                            <div class="checkmark"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                            <div class="checkmark"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
                             <h3 class="widget-confirmation-title">Booking Confirmed</h3>
                             <p class="widget-confirmation-text">Your reservation has been recorded.</p>
                             <div class="widget-confirmation-details">
@@ -2236,11 +2236,11 @@
                     <div class="widget-settings">
                         <div class="settings-label">Widget Settings</div>
                         <ul class="settings-list">
-                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Allow date selection</li>
-                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Show trip descriptions</li>
-                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Collect guest info</li>
-                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Send confirmation email</li>
-                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Real-time availability</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Allow date selection</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Show trip descriptions</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Collect guest info</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Send confirmation email</li>
+                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M20 6L9 17l-5-5"/></svg>Real-time availability</li>
                         </ul>
                     </div>
                 </div>
