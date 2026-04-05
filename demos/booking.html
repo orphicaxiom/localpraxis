@@ -6,7 +6,7 @@
     <title>Redfish Run Charters - Admin Dashboard</title>
     <link rel="canonical" href="https://localpraxis.com/demos/booking.html">
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F2B046'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%231C1917'>RR</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232C4A6E'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>RR</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,9 +21,9 @@
             --ink: #1C1917;
             --ink-mid: #57534E;
             --ink-light: #A8A29E;
-            --terracotta: #F2B046;
-            --terracotta-hover: #D99A2F;
-            --on-accent: #1C1917;
+            --terracotta: #2C4A6E;
+            --terracotta-hover: #1E3A5A;
+            --on-accent: #FFFFFF;
             --rule: #DDD6CC;
             --success: #16A34A;
             --warning: #D97706;
@@ -116,14 +116,15 @@
         }
 
         .nav-item:hover {
-            background: rgba(194, 69, 45, 0.08);
+            background: color-mix(in srgb, var(--terracotta) 8%, transparent);
             color: var(--terracotta);
         }
 
         .nav-item.active {
-            background: var(--terracotta);
-            color: var(--on-accent);
+            background: transparent;
+            color: var(--ink);
             border-left: 3px solid var(--terracotta);
+            font-weight: 500;
         }
 
         /* Main content area */
@@ -379,8 +380,8 @@
         }
 
         .nav-item.active .nav-badge {
-            background: var(--warm-white);
-            color: var(--terracotta);
+            background: var(--terracotta);
+            color: var(--warm-white);
         }
 
         /* Layout grid for dashboard */
@@ -425,7 +426,7 @@
         }
 
         .manifest-table tbody tr:hover {
-            background: rgba(194, 69, 45, 0.04);
+            background: color-mix(in srgb, var(--terracotta) 4%, transparent);
         }
 
         .manifest-table td {
@@ -519,7 +520,7 @@
 
         .chart-bar.selected {
             background: var(--terracotta-hover);
-            box-shadow: 0 -2px 8px rgba(194, 69, 45, 0.3);
+            box-shadow: 0 -2px 8px color-mix(in srgb, var(--terracotta) 30%, transparent);
         }
 
         .chart-bar[data-amount]:hover::after {
@@ -611,7 +612,7 @@
 
         .btn-primary:hover {
             background: var(--terracotta-hover);
-            box-shadow: 0 4px 12px rgba(194, 69, 45, 0.25);
+            box-shadow: 0 4px 12px color-mix(in srgb, var(--terracotta) 25%, transparent);
         }
 
         .btn-secondary {
@@ -621,7 +622,7 @@
         }
 
         .btn-secondary:hover {
-            background: rgba(194, 69, 45, 0.08);
+            background: color-mix(in srgb, var(--terracotta) 8%, transparent);
         }
 
         .btn-sm {
@@ -777,13 +778,15 @@
         /* Widget view */
         /* ─── Widget: Guest Booking Flow ─────────────────────── */
         .widget-flow {
-            max-width: 820px;
+            max-width: 640px;
+            margin: 0 auto;
         }
 
         .widget-progress {
             display: flex;
             align-items: center;
             margin-bottom: 2.5rem;
+            max-width: 400px;
         }
 
         .widget-progress-step {
@@ -828,122 +831,119 @@
 
         .widget-progress-line {
             flex: 1;
-            height: 1px;
+            height: 2px;
             background: var(--rule);
-            margin: 0 0.75rem;
-            min-width: 1.5rem;
+            margin: 0 0.5rem;
+            min-width: 1rem;
+            transition: background 0.3s var(--ease);
         }
 
-        .widget-step {
-            display: none;
+        .widget-progress-line.completed {
+            background: var(--terracotta);
         }
 
-        .widget-step.active {
-            display: block;
-            animation: fadeUp 0.3s var(--ease);
+        /* Step transition animation */
+        .widget-step-enter {
+            animation: widgetStepIn 300ms var(--ease) both;
         }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes widgetStepIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Page load cascade */
+        .widget-cascade > * {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: cascadeIn 400ms var(--ease) both;
+        }
+        .widget-cascade > *:nth-child(1) { animation-delay: 0ms; }
+        .widget-cascade > *:nth-child(2) { animation-delay: 80ms; }
+        .widget-cascade > *:nth-child(3) { animation-delay: 160ms; }
+
+        @keyframes cascadeIn {
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* Trip Cards */
         .widget-trip-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .widget-trip-card {
             background: var(--warm-white);
-            border: 2px solid var(--rule);
+            border: 1px solid var(--rule);
+            border-left: 3px solid transparent;
             border-radius: 6px;
-            overflow: hidden;
             cursor: pointer;
             transition: all 0.25s var(--ease);
+            display: flex;
+            align-items: center;
+            padding: 0 1.25rem;
+            height: 66px;
         }
 
         .widget-trip-card:hover {
-            border-color: var(--terracotta);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-            transform: translateY(-2px);
+            border-left-color: var(--terracotta);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
         .widget-trip-card.selected {
-            border-color: var(--terracotta);
-            box-shadow: 0 0 0 1px var(--terracotta);
+            border-left-color: var(--terracotta);
+            box-shadow: none;
         }
 
-        .widget-trip-photo {
-            aspect-ratio: 3 / 2;
-            background: var(--cream);
+        .widget-trip-icon {
+            color: var(--terracotta);
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: var(--terracotta);
-            opacity: 0.6;
-        }
-
-        .widget-trip-photo svg {
-            width: 40px;
-            height: 40px;
+            margin-right: 1rem;
+            flex-shrink: 0;
         }
 
         .widget-trip-body {
-            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0;
         }
 
         .widget-trip-name {
-            font-family: 'Instrument Serif', Georgia, serif;
-            font-size: 1.15rem;
-            font-weight: 400;
-            margin-bottom: 0.35rem;
-        }
-
-        .widget-trip-desc {
-            font-size: 0.82rem;
-            color: var(--ink-mid);
-            line-height: 1.5;
-            margin-bottom: 0.75rem;
+            font-family: 'Satoshi', system-ui, sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 0;
         }
 
         .widget-trip-meta {
             font-size: 0.75rem;
             color: var(--ink-light);
-            margin-bottom: 0.75rem;
-        }
-
-        .widget-trip-includes {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            margin-bottom: 1rem;
-        }
-
-        .widget-trip-includes span {
-            font-size: 0.7rem;
-            color: var(--ink-light);
-            border: 1px solid var(--rule);
-            padding: 0.15rem 0.5rem;
-            border-radius: 3px;
+            margin-bottom: 0;
         }
 
         .widget-trip-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
+            margin-left: auto;
+            flex-shrink: 0;
         }
 
         .widget-trip-price {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1rem;
+            font-weight: 600;
             color: var(--ink);
         }
 
         .widget-trip-cta {
-            font-size: 0.8rem;
-            color: var(--terracotta);
+            display: none;
+        }
+
+        .widget-trip-photo,
+        .widget-trip-desc,
+        .widget-trip-includes {
+            display: none;
             font-weight: 500;
         }
 
@@ -1020,9 +1020,11 @@
         }
 
         .widget-cal-day.selected {
-            background: var(--terracotta);
-            color: var(--on-accent);
-            border-color: var(--terracotta);
+            background: transparent;
+            color: var(--terracotta);
+            border-color: transparent;
+            border-bottom: 2px solid var(--terracotta);
+            border-radius: 2px;
             font-weight: 600;
         }
 
@@ -1044,7 +1046,7 @@
         }
 
         .widget-cal-day.today.selected::after {
-            background: var(--warm-white);
+            background: var(--terracotta);
         }
 
         .widget-cal-day.empty {
@@ -1162,11 +1164,24 @@
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: rgba(194, 69, 45, 0.1);
+            background: color-mix(in srgb, var(--terracotta) 10%, transparent);
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 1.5rem;
+        }
+
+        .widget-checkmark svg path {
+            stroke-dasharray: 30;
+            stroke-dashoffset: 30;
+        }
+
+        .widget-checkmark.animate svg path {
+            animation: checkDraw 0.8s ease forwards;
+        }
+
+        @keyframes checkDraw {
+            to { stroke-dashoffset: 0; }
         }
 
         .widget-confirmation-title {
@@ -1282,7 +1297,7 @@
         }
 
         .widget-nav-continue:hover {
-            background: rgba(194, 69, 45, 0.08);
+            background: color-mix(in srgb, var(--terracotta) 8%, transparent);
         }
 
         .widget-form {
@@ -1317,7 +1332,7 @@
         .form-input:focus {
             outline: none;
             border-color: var(--terracotta);
-            background: rgba(194, 69, 45, 0.02);
+            background: color-mix(in srgb, var(--terracotta) 2%, transparent);
         }
 
         /* (Old widget embed/settings CSS removed) */
@@ -1555,7 +1570,7 @@
         }
 
         .bookings-table tbody tr:hover {
-            background: rgba(194, 69, 45, 0.04);
+            background: color-mix(in srgb, var(--terracotta) 4%, transparent);
         }
 
         .bookings-table td {
@@ -2069,10 +2084,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .widget-trip-cards {
-                grid-template-columns: 1fr;
-            }
-
             .trips-grid {
                 grid-template-columns: 1fr;
             }
@@ -2187,10 +2198,6 @@
             .modal {
                 width: 95%;
                 padding: 1.5rem;
-            }
-
-            .widget-trip-cards {
-                grid-template-columns: 1fr;
             }
 
             .widget-cal-grid {
@@ -2900,7 +2907,14 @@
             if (viewName === 'calendar') renderCalendar();
             else if (viewName === 'trips') renderTrips();
             else if (viewName === 'bookings') renderBookings();
-            else if (viewName === 'widget') renderWidget();
+            else if (viewName === 'widget') {
+                renderWidget();
+                const flow = document.querySelector('#widget .widget-flow');
+                if (flow) {
+                    flow.classList.add('widget-cascade');
+                    setTimeout(() => flow.classList.remove('widget-cascade'), 600);
+                }
+            }
             else if (viewName === 'dashboard') renderDashboard();
             else if (viewName === 'revenue-analytics') renderRevenueAnalytics();
         }
@@ -3322,16 +3336,20 @@
                 let cls = '';
                 if (step < widgetState.step) cls = 'completed';
                 else if (step === widgetState.step) cls = 'active';
-                return `<div class="widget-progress-step ${cls}"><span class="widget-progress-dot"></span>${label}</div>${i < 3 ? '<div class="widget-progress-line"></div>' : ''}`;
+                const lineCls = (i < 3 && step < widgetState.step) ? 'completed' : '';
+                return `<div class="widget-progress-step ${cls}"><span class="widget-progress-dot"></span>${label}</div>${i < 3 ? `<div class="widget-progress-line ${lineCls}"></div>` : ''}`;
             }).join('');
         }
 
         function renderWidgetContent() {
             const el = document.getElementById('widget-content');
+            el.classList.remove('widget-step-enter');
+            void el.offsetWidth;
             if (widgetState.step === 1) renderStep1(el);
             else if (widgetState.step === 2) renderStep2(el);
             else if (widgetState.step === 3) renderStep3(el);
             else if (widgetState.step === 4) renderStep4(el);
+            el.classList.add('widget-step-enter');
         }
 
         function renderStep1(el) {
@@ -3339,20 +3357,16 @@
                 const icon = tripIcons[trip.name] || '';
                 return `
                 <div class="widget-trip-card ${widgetState.trip === trip.name ? 'selected' : ''}" onclick="selectTrip('${trip.name}')">
-                    <div class="widget-trip-photo">${icon}</div>
+                    <span class="widget-trip-icon">${icon.replace(/width="40" height="40"/g, 'width="22" height="22"')}</span>
                     <div class="widget-trip-body">
                         <div class="widget-trip-name">${trip.name}</div>
-                        <div class="widget-trip-desc">${trip.description}</div>
-                        <div class="widget-trip-meta">${trip.duration} · Up to ${trip.capacity} guests · Departs ${trip.departure}</div>
-                        <div class="widget-trip-includes">${trip.includes.map(i => `<span>${i}</span>`).join('')}</div>
+                        <div class="widget-trip-meta">${trip.duration} · Up to ${trip.capacity}</div>
                         <div class="widget-trip-footer">
                             <span class="widget-trip-price">$${trip.price}</span>
-                            <span class="widget-trip-cta">Check Availability</span>
                         </div>
                     </div>
                 </div>`;
             }).join('');
-            // Wrap in grid
             el.innerHTML = `<div class="widget-trip-cards">${el.innerHTML}</div>`;
         }
 
@@ -3542,6 +3556,10 @@
                     <button class="widget-nav-back" onclick="resetWidget()" style="color:var(--terracotta)">Book Another Trip</button>
                 </div>
             `;
+            requestAnimationFrame(() => {
+                const cm = el.querySelector('.widget-checkmark');
+                if (cm) cm.classList.add('animate');
+            });
         }
 
         function widgetBack() {
