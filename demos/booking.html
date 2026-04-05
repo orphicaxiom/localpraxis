@@ -2240,10 +2240,34 @@
             document.getElementById('upcoming-body').innerHTML = html;
         }
 
+        function editTrip(idx) {
+            const trip = trips[idx];
+            document.getElementById('add-trip-name').value = trip.name;
+            document.getElementById('add-trip-price').value = trip.price;
+            document.getElementById('add-trip-duration').value = trip.duration;
+            document.getElementById('add-trip-capacity').value = trip.capacity;
+            document.getElementById('add-trip-departure').value = trip.departure;
+            document.getElementById('add-trip-includes').value = trip.includes.join(', ');
+            document.getElementById('add-trip-desc').value = trip.description;
+            document.getElementById('add-trip-title').textContent = 'Edit Trip';
+            document.getElementById('add-trip-submit').textContent = 'Save Changes';
+            document.getElementById('add-trip-submit').setAttribute('data-edit-idx', idx);
+            _modalOpener = document.activeElement;
+            document.getElementById('add-trip-modal').classList.add('active');
+            document.getElementById('add-trip-name').focus();
+        }
+
+        function deleteTrip(idx) {
+            const name = trips[idx].name;
+            trips.splice(idx, 1);
+            renderTrips();
+            showToast('"' + name + '" deleted');
+        }
+
         function renderTrips() {
             let html = '';
-            trips.forEach(trip => {
-                html += `<div class="trip-card"><div class="trip-header"><div class="trip-name">${trip.name}</div><div class="trip-price">$${trip.price}</div></div><div class="trip-details"><div class="trip-detail-row"><span class="trip-detail-label">Duration</span><span>${trip.duration}</span></div><div class="trip-detail-row"><span class="trip-detail-label">Capacity</span><span>Up to ${trip.capacity} anglers</span></div><div class="trip-detail-row"><span class="trip-detail-label">Departure</span><span>${trip.departure}</span></div></div><div class="trip-includes"><div class="trip-includes-title">What's Included</div><ul class="trip-includes-list">${trip.includes.map(inc => `<li>${inc}</li>`).join('')}</ul></div><p class="trip-description">${trip.description}</p><div class="trip-actions"><button class="btn btn-secondary btn-sm" onclick="showToast('Trip editing available in your live system')">Edit Trip</button><label class="toggle-switch"><input type="checkbox" checked onchange="showToast('Trip availability updated')"><span style="font-size: 0.85rem; color: var(--ink-mid);">Available</span></label></div></div>`;
+            trips.forEach((trip, idx) => {
+                html += `<div class="trip-card"><div class="trip-header"><div class="trip-name">${trip.name}</div><div class="trip-price">$${trip.price}</div></div><div class="trip-details"><div class="trip-detail-row"><span class="trip-detail-label">Duration</span><span>${trip.duration}</span></div><div class="trip-detail-row"><span class="trip-detail-label">Capacity</span><span>Up to ${trip.capacity} anglers</span></div><div class="trip-detail-row"><span class="trip-detail-label">Departure</span><span>${trip.departure}</span></div></div><div class="trip-includes"><div class="trip-includes-title">What's Included</div><ul class="trip-includes-list">${trip.includes.map(inc => `<li>${inc}</li>`).join('')}</ul></div><p class="trip-description">${trip.description}</p><div class="trip-actions"><button class="btn btn-secondary btn-sm" onclick="editTrip(${idx})">Edit</button><button class="btn btn-secondary btn-sm" onclick="deleteTrip(${idx})" style="color:var(--ink-mid);">Delete</button><label class="toggle-switch" style="margin-left:auto;"><input type="checkbox" checked onchange="showToast('Trip availability updated')"><span style="font-size: 0.85rem; color: var(--ink-mid);">Available</span></label></div></div>`;
             });
             document.getElementById('trips-grid').innerHTML = html;
         }
@@ -2351,12 +2375,17 @@
             document.getElementById('add-trip-departure').value = '';
             document.getElementById('add-trip-includes').value = '';
             document.getElementById('add-trip-desc').value = '';
+            document.getElementById('add-trip-title').textContent = 'Add Trip';
+            document.getElementById('add-trip-submit').textContent = 'Add Trip';
+            document.getElementById('add-trip-submit').removeAttribute('data-edit-idx');
             _modalOpener = document.activeElement;
             document.getElementById('add-trip-modal').classList.add('active');
             document.getElementById('add-trip-name').focus();
         });
 
         document.getElementById('add-trip-submit').addEventListener('click', () => {
+            const submitBtn = document.getElementById('add-trip-submit');
+            const editIdx = submitBtn.getAttribute('data-edit-idx');
             const name = document.getElementById('add-trip-name').value.trim();
             if (!name) { document.getElementById('add-trip-name').focus(); return; }
             const price = parseInt(document.getElementById('add-trip-price').value) || 0;
@@ -2365,10 +2394,17 @@
             const departure = document.getElementById('add-trip-departure').value.trim() || '6:00am';
             const includes = document.getElementById('add-trip-includes').value.split(',').map(s => s.trim()).filter(Boolean);
             const desc = document.getElementById('add-trip-desc').value.trim();
-            trips.push({ name, price, duration, capacity, departure, includes: includes.length ? includes : ['Rods', 'Tackle'], description: desc || 'Custom trip.' });
+            const tripData = { name, price, duration, capacity, departure, includes: includes.length ? includes : ['Rods', 'Tackle'], description: desc || 'Custom trip.' };
+            if (editIdx !== null && editIdx !== '') {
+                trips[parseInt(editIdx)] = tripData;
+                showToast('"' + name + '" updated');
+            } else {
+                trips.push(tripData);
+                showToast('Trip "' + name + '" added');
+            }
+            submitBtn.removeAttribute('data-edit-idx');
             renderTrips();
             closeModal('add-trip-modal');
-            showToast('Trip "' + name + '" added');
         });
 
         document.getElementById('modal-trip').addEventListener('change', (e) => {
