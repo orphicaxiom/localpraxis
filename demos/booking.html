@@ -270,43 +270,41 @@
         }
 
         .status-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.7rem;
             font-weight: 600;
-            text-transform: capitalize;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            line-height: 1;
+            padding: 0;
+            background: none;
+            border-radius: 0;
         }
 
-        .status-checked-in {
-            background: rgba(22, 163, 74, 0.1);
-            color: #15803D;
-            font-weight: 600;
+        .status-badge::before {
+            content: '';
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            flex-shrink: 0;
         }
 
-        .status-confirmed {
-            background: rgba(37, 99, 235, 0.1);
-            color: #1D4ED8;
-            font-weight: 600;
-        }
+        .status-checked-in { color: #15803D; }
+        .status-checked-in::before { background: #15803D; }
 
-        .status-pending {
-            background: rgba(217, 119, 6, 0.1);
-            color: #B45309;
-            font-weight: 600;
-        }
+        .status-confirmed { color: #15803D; }
+        .status-confirmed::before { background: #15803D; }
 
-        .status-completed {
-            background: rgba(22, 163, 74, 0.1);
-            color: #15803D;
-            font-weight: 600;
-        }
+        .status-pending { color: #B45309; }
+        .status-pending::before { background: #B45309; }
 
-        .status-cancelled {
-            background: rgba(168, 162, 158, 0.1);
-            color: var(--ink-light);
-            font-weight: 600;
-        }
+        .status-completed { color: #15803D; }
+        .status-completed::before { background: #15803D; }
+
+        .status-cancelled { color: #DC2626; }
+        .status-cancelled::before { background: #DC2626; }
 
         /* Revenue chart */
         .chart-container {
