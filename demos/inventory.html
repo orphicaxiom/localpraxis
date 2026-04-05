@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Salt Line Supply - POS & Inventory</title>
   <link rel="canonical" href="https://localpraxis.com/demos/inventory.html">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23C2452D'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>SL</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23367055'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>SL</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
@@ -19,9 +19,9 @@
       --ink: #1C1917;
       --ink-mid: #57534E;
       --ink-light: #A8A29E;
-      --terracotta: #C2452D;
-      --terracotta-hover: #A33825;
-      --terracotta-subtle: rgba(194, 69, 45, 0.08);
+      --terracotta: #367055;
+      --terracotta-hover: #2B5A44;
+      --terracotta-subtle: rgba(54, 112, 85, 0.08);
       --rule: #DDD6CC;
       --success: #6B8F71;
       --warning: #B5976B;
@@ -40,7 +40,7 @@
       --ink-mid: #A8A29E;
       --ink-light: #78716C;
       --rule: #44403C;
-      --terracotta-subtle: rgba(194, 69, 45, 0.12);
+      --terracotta-subtle: rgba(54, 112, 85, 0.12);
     }
 
     /* ─── Reset + Base ───────────────────────────────────────── */
@@ -925,7 +925,7 @@
 
     .btn-new-sale:hover {
       background: var(--terracotta);
-      box-shadow: 0 4px 16px rgba(194, 69, 45, 0.2);
+      box-shadow: 0 4px 16px rgba(54, 112, 85, 0.2);
     }
 
     .btn-secondary {
@@ -1533,9 +1533,12 @@
 
     <!-- Dashboard View -->
     <section class="view active" id="dashboard-view">
-      <div class="header">
-        <h1>Dashboard</h1>
-        <p>Saturday, April 5, 2026</p>
+      <div class="header" style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <h1>Dashboard</h1>
+          <p>Saturday, April 5, 2026</p>
+        </div>
+        <button class="btn-new-sale" onclick="showView('sales'); setTimeout(openPOS, 100);">New Sale</button>
       </div>
       <div class="stats-grid" id="dashboard-stats"></div>
       <div class="content-grid">
@@ -1652,6 +1655,7 @@
         <h3 class="pos-cart-title">Cart</h3>
         <div class="cart-items" id="cart-items"></div>
         <div class="cart-summary" id="cart-summary"></div>
+        <p style="font-size:0.72rem;color:var(--ink-light);text-align:center;margin-top:auto;padding-top:1rem;letter-spacing:0.02em;">Live version connects to Stripe or Square for payment processing.</p>
       </div>
     </div>
   </div>
