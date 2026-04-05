@@ -1053,6 +1053,122 @@
             cursor: default;
         }
 
+        .widget-cal-day.has-bookings::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--ink-light);
+        }
+
+        .widget-cal-day.has-bookings-many::before {
+            width: 5px;
+            height: 5px;
+            opacity: 0.8;
+        }
+
+        /* Widget booking modal */
+        #widget-booking-modal .modal {
+            max-width: 520px;
+        }
+
+        .wbm-existing {
+            margin-bottom: 1.25rem;
+        }
+
+        .wbm-existing-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 400;
+            color: var(--ink-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .wbm-existing-list {
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .wbm-existing-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+            color: var(--ink-mid);
+        }
+
+        .wbm-existing-row + .wbm-existing-row {
+            border-top: 1px solid var(--rule);
+        }
+
+        .wbm-existing-row .guest-name {
+            font-weight: 400;
+            color: var(--ink);
+            min-width: 100px;
+        }
+
+        .wbm-existing-row .guest-party {
+            color: var(--ink-light);
+            font-size: 0.75rem;
+        }
+
+        .wbm-capacity {
+            font-size: 0.8rem;
+            font-weight: 400;
+            margin-top: 0.5rem;
+            margin-bottom: 1.25rem;
+            color: var(--ink-mid);
+        }
+
+        .wbm-capacity.near-full {
+            color: var(--warning);
+        }
+
+        .wbm-capacity.full {
+            color: var(--warning);
+        }
+
+        .wbm-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .wbm-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .wbm-confirm-btn {
+            display: block;
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--terracotta);
+            color: var(--on-accent);
+            border: none;
+            border-radius: 4px;
+            font-family: 'Satoshi', system-ui, sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s var(--ease);
+        }
+
+        .wbm-confirm-btn:hover {
+            background: var(--terracotta-hover);
+        }
+
+        .wbm-confirm-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         /* Date selection details */
         .widget-date-details {
             display: flex;
@@ -2019,6 +2135,18 @@
             background: #292524;
         }
 
+        [data-theme="dark"] .wbm-existing-list {
+            border-color: var(--rule);
+        }
+
+        [data-theme="dark"] .wbm-existing-row {
+            background: var(--cream);
+        }
+
+        [data-theme="dark"] .wbm-existing-row + .wbm-existing-row {
+            border-color: var(--rule);
+        }
+
         [data-theme="dark"] .ra-hbar-track {
             background: #44403C;
         }
@@ -2719,6 +2847,19 @@
         </div>
     </div>
 
+    <!-- Widget Booking Modal -->
+    <div class="modal-overlay" id="widget-booking-modal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="wbm-title">
+            <button class="modal-close" onclick="closeWidgetBookingModal()" aria-label="Close">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="wbm-title"></h2>
+                <p class="modal-subtitle" id="wbm-subtitle"></p>
+            </div>
+            <div class="modal-content" id="wbm-content"></div>
+            <div class="modal-actions" id="wbm-actions"></div>
+        </div>
+    </div>
+
     <script>
         let bookingData = [
             // Completed — prior week
@@ -3319,10 +3460,8 @@
         };
 
         const TAX_RATE = 8.25;
-        // Unavailable dates (seeded for demo consistency)
-        const unavailableDates = [3, 7, 10, 14, 17, 21, 24, 28];
 
-        const stepLabels = ['Trip', 'Date', 'Details', 'Confirmed'];
+        const stepLabels = ['Select Trip', 'Choose Date'];
 
         function renderWidget() {
             renderWidgetProgress();
@@ -3336,8 +3475,8 @@
                 let cls = '';
                 if (step < widgetState.step) cls = 'completed';
                 else if (step === widgetState.step) cls = 'active';
-                const lineCls = (i < 3 && step < widgetState.step) ? 'completed' : '';
-                return `<div class="widget-progress-step ${cls}"><span class="widget-progress-dot"></span>${label}</div>${i < 3 ? `<div class="widget-progress-line ${lineCls}"></div>` : ''}`;
+                const lineCls = (i < stepLabels.length - 1 && step < widgetState.step) ? 'completed' : '';
+                return `<div class="widget-progress-step ${cls}"><span class="widget-progress-dot"></span>${label}</div>${i < stepLabels.length - 1 ? `<div class="widget-progress-line ${lineCls}"></div>` : ''}`;
             }).join('');
         }
 
@@ -3347,8 +3486,6 @@
             void el.offsetWidth;
             if (widgetState.step === 1) renderStep1(el);
             else if (widgetState.step === 2) renderStep2(el);
-            else if (widgetState.step === 3) renderStep3(el);
-            else if (widgetState.step === 4) renderStep4(el);
             el.classList.add('widget-step-enter');
         }
 
@@ -3379,6 +3516,15 @@
             renderWidgetContent();
         }
 
+        function getBookingsForDay(dayNum) {
+            const months = { Jan:0, Feb:1, Mar:2, Apr:3, May:4, Jun:5, Jul:6, Aug:7, Sep:8, Oct:9, Nov:10, Dec:11 };
+            return bookingData.filter(b => {
+                const parts = b.date.match(/(\w+)\s(\d+),\s(\d+)/);
+                if (!parts) return false;
+                return parseInt(parts[3]) === 2026 && months[parts[1]] === 3 && parseInt(parts[2]) === dayNum;
+            });
+        }
+
         function renderStep2(el) {
             const trip = trips.find(t => t.name === widgetState.trip);
             const icon = tripIcons[trip.name] || '';
@@ -3395,41 +3541,25 @@
             for (let i = 0; i < firstDay; i++) calHTML += '<div class="widget-cal-day empty"></div>';
 
             for (let d = 1; d <= daysInMonth; d++) {
-                const isUnavail = unavailableDates.includes(d);
                 const isPast = d < 5; // before Apr 5 (demo today)
                 const isToday = d === 5;
                 const dateStr = `2026-04-${String(d).padStart(2, '0')}`;
                 const isSelected = widgetState.date === dateStr;
+                const dayBookings = getBookingsForDay(d);
+                const bookingCount = dayBookings.filter(b => b.status !== 'cancelled').length;
+
                 let cls = 'widget-cal-day';
-                if (isUnavail || isPast) cls += ' unavailable';
+                if (isPast) cls += ' unavailable';
                 if (isToday) cls += ' today';
                 if (isSelected) cls += ' selected';
+                if (bookingCount > 0) cls += ' has-bookings';
+                if (bookingCount >= 3) cls += ' has-bookings-many';
 
-                if (isUnavail || isPast) {
+                if (isPast) {
                     calHTML += `<div class="${cls}">${d}</div>`;
                 } else {
                     calHTML += `<div class="${cls}" onclick="selectDate('${dateStr}')">${d}</div>`;
                 }
-            }
-
-            let dateDetailsHTML = '';
-            if (widgetState.date) {
-                const dateObj = new Date(widgetState.date);
-                dateDetailsHTML = `
-                <div class="widget-date-details">
-                    <div class="widget-date-detail-group">
-                        <label>Departure</label>
-                        <div style="font-size:0.95rem;font-weight:500">${trip.departure}</div>
-                    </div>
-                    <div class="widget-date-detail-group">
-                        <label>Party Size</label>
-                        <input type="number" class="form-input" id="widget-party" min="1" max="${trip.capacity}" value="${widgetState.party}" onchange="widgetState.party=parseInt(this.value)||1" style="width:70px;padding:0.5rem 0.65rem">
-                    </div>
-                </div>
-                <div class="widget-nav">
-                    <button class="widget-nav-back" onclick="widgetBack()">Back</button>
-                    <button class="widget-nav-continue" onclick="widgetNext()">Continue</button>
-                </div>`;
             }
 
             el.innerHTML = `
@@ -3444,164 +3574,142 @@
                     </div>
                     <div class="widget-cal-grid">${calHTML}</div>
                 </div>
-                ${dateDetailsHTML}
-                ${!widgetState.date ? '<div class="widget-nav"><button class="widget-nav-back" onclick="widgetBack()">Back</button></div>' : ''}
+                <div class="widget-nav"><button class="widget-nav-back" onclick="widgetBack()">Back</button></div>
             `;
         }
 
         function selectDate(dateStr) {
             widgetState.date = dateStr;
             renderStep2(document.getElementById('widget-content'));
-        }
-
-        function renderStep3(el) {
-            const trip = trips.find(t => t.name === widgetState.trip);
-            const dateObj = new Date(widgetState.date);
-            const icon = tripIcons[trip.name] || '';
-            const base = trip.price;
-            const tax = Math.round(base * TAX_RATE) / 100;
-            const total = base + tax;
-            const deposit = Math.round(total * 50) / 100;
-
-            el.innerHTML = `
-                <div class="widget-summary">
-                    <span class="widget-summary-icon">${icon.replace(/width="40" height="40"/g, 'width="20" height="20"')}</span>
-                    <span>${trip.name} · ${formatDate(dateObj)} · ${widgetState.party} guest${widgetState.party > 1 ? 's' : ''}</span>
-                    <span class="widget-summary-price">$${trip.price}</span>
-                </div>
-
-                <form class="widget-form" id="widget-form" onsubmit="return false">
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
-                        <div class="form-group">
-                            <label class="form-label">Name</label>
-                            <input type="text" class="form-input" id="w-name" placeholder="Your full name" required value="${widgetState.name}">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-input" id="w-email" placeholder="your@email.com" required value="${widgetState.email}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Phone</label>
-                        <input type="tel" class="form-input" id="w-phone" placeholder="(555) 000-0000" value="${widgetState.phone}">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Special Requests</label>
-                        <textarea class="form-input" id="w-notes" placeholder="Allergies, celebrations, experience level..." rows="2" style="resize:vertical">${widgetState.notes}</textarea>
-                    </div>
-                </form>
-
-                <div style="margin-top:1.5rem">
-                    <div class="form-label">Payment</div>
-                    <div class="widget-payment-card">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                        <span>···· ···· ···· 4242</span>
-                    </div>
-                    <div class="widget-payment-secured">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                        Secured by Stripe
-                    </div>
-                </div>
-
-                <div class="widget-price-breakdown">
-                    <div class="widget-price-row"><span>Base rate</span><span>$${base.toFixed(2)}</span></div>
-                    <div class="widget-price-row"><span>Tax (${TAX_RATE}%)</span><span>$${tax.toFixed(2)}</span></div>
-                    <div class="widget-price-row total"><span>Total</span><span>$${total.toFixed(2)}</span></div>
-                    <div class="widget-price-row deposit"><span>50% deposit due today</span><span>$${deposit.toFixed(2)}</span></div>
-                </div>
-
-                <button class="widget-confirm-btn" onclick="confirmBooking()">Confirm Booking</button>
-                <div class="widget-nav" style="margin-top:1rem">
-                    <button class="widget-nav-back" onclick="widgetBack()">Back</button>
-                </div>
-            `;
-        }
-
-        function renderStep4(el) {
-            const trip = trips.find(t => t.name === widgetState.trip);
-            const dateObj = new Date(widgetState.date);
-            const base = trip.price;
-            const tax = Math.round(base * TAX_RATE) / 100;
-            const total = base + tax;
-            const confNum = 'RR-2026-' + String(Math.floor(Math.random() * 9000) + 1000);
-
-            el.innerHTML = `
-                <div class="widget-confirmation">
-                    <div class="widget-checkmark">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--terracotta)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                    </div>
-                    <h3 class="widget-confirmation-title">You're Booked!</h3>
-                    <div class="widget-confirmation-ref">${confNum}</div>
-
-                    <div class="widget-confirmation-card">
-                        <div class="widget-confirmation-row"><span>Trip</span><span>${trip.name}</span></div>
-                        <div class="widget-confirmation-row"><span>Date</span><span>${formatDate(dateObj)}</span></div>
-                        <div class="widget-confirmation-row"><span>Departure</span><span>${trip.departure}</span></div>
-                        <div class="widget-confirmation-row"><span>Party Size</span><span>${widgetState.party}</span></div>
-                        <div class="widget-confirmation-row" style="border-top:1px solid var(--rule);margin-top:0.35rem;padding-top:0.5rem"><span>Total</span><span style="font-weight:700">$${total.toFixed(2)}</span></div>
-                    </div>
-
-                    <div class="widget-bring">
-                        <h4>What to Bring</h4>
-                        <ul>
-                            <li>Sunscreen and polarized sunglasses</li>
-                            <li>Cooler with drinks and snacks</li>
-                            <li>Valid Texas fishing license</li>
-                            <li>Camera for the catch photos</li>
-                        </ul>
-                    </div>
-
-                    <p class="widget-waiver-note">A digital waiver will be sent to ${widgetState.email || 'your email'} before your trip.</p>
-
-                    <button class="widget-nav-back" onclick="resetWidget()" style="color:var(--terracotta)">Book Another Trip</button>
-                </div>
-            `;
-            requestAnimationFrame(() => {
-                const cm = el.querySelector('.widget-checkmark');
-                if (cm) cm.classList.add('animate');
-            });
+            openWidgetBookingModal(dateStr);
         }
 
         function widgetBack() {
             if (widgetState.step > 1) {
-                // Save form data before going back
-                if (widgetState.step === 3) {
-                    const n = document.getElementById('w-name');
-                    const e = document.getElementById('w-email');
-                    const p = document.getElementById('w-phone');
-                    const no = document.getElementById('w-notes');
-                    if (n) widgetState.name = n.value;
-                    if (e) widgetState.email = e.value;
-                    if (p) widgetState.phone = p.value;
-                    if (no) widgetState.notes = no.value;
-                }
                 widgetState.step--;
                 renderWidgetProgress();
                 renderWidgetContent();
             }
         }
 
-        function widgetNext() {
-            if (widgetState.step === 2) {
-                if (!widgetState.date) { showToast('Please select a date'); return; }
-                widgetState.step = 3;
-                renderWidgetProgress();
-                renderWidgetContent();
+        function openWidgetBookingModal(dateStr) {
+            const trip = trips.find(t => t.name === widgetState.trip);
+            if (!trip) return;
+
+            const dateObj = new Date(dateStr + 'T00:00:00');
+            const dayNum = dateObj.getDate();
+            const dayBookings = getBookingsForDay(dayNum).filter(b => b.status !== 'cancelled');
+            const usedSpots = dayBookings.reduce((sum, b) => sum + b.party, 0);
+            const capacity = trip.capacity;
+            const spotsLeft = Math.max(0, capacity - usedSpots);
+            const isFull = spotsLeft <= 0;
+            const isNearFull = !isFull && spotsLeft <= 1;
+
+            const formattedDate = formatDate(dateObj);
+
+            // Header
+            document.getElementById('wbm-title').textContent = trip.name;
+            document.getElementById('wbm-subtitle').textContent = formattedDate + ' \u00B7 $' + trip.price;
+
+            // Content
+            let html = '';
+
+            // Existing bookings
+            if (dayBookings.length > 0) {
+                html += '<div class="wbm-existing">';
+                html += '<div class="wbm-existing-title">Existing Bookings \u2014 ' + formattedDate.split(',')[0] + '</div>';
+                html += '<div class="wbm-existing-list">';
+                dayBookings.forEach(b => {
+                    html += '<div class="wbm-existing-row">';
+                    html += '<span class="guest-name">' + b.guest + '</span>';
+                    html += '<span class="guest-party">' + b.party + ' guest' + (b.party > 1 ? 's' : '') + '</span>';
+                    html += '<span class="status-badge status-' + b.status + '">' + b.status.replace('-', ' ') + '</span>';
+                    html += '</div>';
+                });
+                html += '</div>';
             }
+
+            // Capacity
+            const capacityCls = isFull ? 'wbm-capacity full' : isNearFull ? 'wbm-capacity near-full' : 'wbm-capacity';
+            html += '<div class="' + capacityCls + '">' + usedSpots + ' of ' + capacity + ' spots filled for ' + trip.name + '</div>';
+            html += '</div>';
+
+            // Form
+            html += '<div class="wbm-form">';
+            html += '<div class="form-row"><div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" id="wbm-name" placeholder="Full name" value="' + widgetState.name + '"></div>';
+            html += '<div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="wbm-email" placeholder="your@email.com" value="' + widgetState.email + '"></div></div>';
+            html += '<div class="form-row"><div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-input" id="wbm-phone" placeholder="(555) 000-0000" value="' + widgetState.phone + '"></div>';
+            html += '<div class="form-group"><label class="form-label">Party Size</label><input type="number" class="form-input" id="wbm-party" min="1" max="' + capacity + '" value="' + widgetState.party + '"></div></div>';
+            html += '<div class="form-group"><label class="form-label">Special Requests</label><textarea class="form-input" id="wbm-notes" placeholder="Allergies, celebrations, experience level..." rows="2" style="resize:vertical">' + widgetState.notes + '</textarea></div>';
+            html += '</div>';
+
+            // Price breakdown
+            const base = trip.price;
+            const tax = +(base * TAX_RATE / 100).toFixed(2);
+            const total = base + tax;
+            const deposit = +(total * 0.5).toFixed(2);
+
+            html += '<div class="widget-price-breakdown">';
+            html += '<div class="widget-price-row"><span>Base rate</span><span>$' + base.toFixed(2) + '</span></div>';
+            html += '<div class="widget-price-row"><span>Tax (' + TAX_RATE + '%)</span><span>$' + tax.toFixed(2) + '</span></div>';
+            html += '<div class="widget-price-row total"><span>Total</span><span>$' + total.toFixed(2) + '</span></div>';
+            html += '<div class="widget-price-row deposit"><span>50% deposit due today</span><span>$' + deposit.toFixed(2) + '</span></div>';
+            html += '</div>';
+
+            document.getElementById('wbm-content').innerHTML = html;
+
+            // Actions
+            let actionsHtml = '<button class="btn btn-secondary" onclick="closeWidgetBookingModal()">Cancel</button>';
+            if (isFull) {
+                actionsHtml += '<button class="wbm-confirm-btn" disabled>Fully Booked</button>';
+            } else {
+                actionsHtml += '<button class="wbm-confirm-btn" id="wbm-confirm-btn" onclick="submitWidgetBooking()">Confirm Booking</button>';
+            }
+            document.getElementById('wbm-actions').innerHTML = actionsHtml;
+
+            // Show modal
+            _modalOpener = document.activeElement;
+            document.getElementById('widget-booking-modal').classList.add('active');
+            const firstInput = document.querySelector('#wbm-content input');
+            if (firstInput) firstInput.focus();
         }
 
-        function confirmBooking() {
-            const name = document.getElementById('w-name');
-            const email = document.getElementById('w-email');
-            if (!name || !name.value) { showToast('Please enter your name'); return; }
-            if (!email || !email.value) { showToast('Please enter your email'); return; }
-            widgetState.name = name.value;
-            widgetState.email = email.value;
-            widgetState.phone = document.getElementById('w-phone')?.value || '';
-            widgetState.notes = document.getElementById('w-notes')?.value || '';
-            widgetState.step = 4;
-            renderWidgetProgress();
-            renderWidgetContent();
+        function closeWidgetBookingModal() {
+            document.getElementById('widget-booking-modal').classList.remove('active');
+            if (_modalOpener) { _modalOpener.focus(); _modalOpener = null; }
+        }
+
+        function submitWidgetBooking() {
+            const name = document.getElementById('wbm-name');
+            const email = document.getElementById('wbm-email');
+            if (!name || !name.value.trim()) { showToast('Please enter your name'); name && name.focus(); return; }
+            if (!email || !email.value.trim()) { showToast('Please enter your email'); email && email.focus(); return; }
+
+            const trip = trips.find(t => t.name === widgetState.trip);
+            const party = parseInt(document.getElementById('wbm-party').value) || 1;
+            const phone = document.getElementById('wbm-phone').value || '';
+            const notes = document.getElementById('wbm-notes').value || '';
+            const dateObj = new Date(widgetState.date + 'T00:00:00');
+
+            const newBooking = {
+                id: Math.max(...bookingData.map(b => b.id)) + 1,
+                guest: name.value.trim(),
+                trip: trip.name,
+                date: formatDate(dateObj),
+                time: trip.departure,
+                party: party,
+                amt: trip.price,
+                status: 'pending',
+                deposit: 'pending',
+                phone: phone,
+                email: email.value.trim(),
+                note: notes
+            };
+
+            bookingData.push(newBooking);
+            closeWidgetBookingModal();
+            showToast('Booking confirmed for ' + name.value.trim());
+            resetWidget();
         }
 
         function resetWidget() {
