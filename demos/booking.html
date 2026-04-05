@@ -1636,9 +1636,12 @@
 
         <!-- Trips View -->
         <div class="view" id="trips">
-            <div class="header">
-                <h1>Trips</h1>
-                <p>Manage your trip offerings and availability.</p>
+            <div class="header" style="display:flex;justify-content:space-between;align-items:flex-start;">
+                <div>
+                    <h1>Trips</h1>
+                    <p>Manage your trip offerings and availability.</p>
+                </div>
+                <button class="btn btn-primary" id="add-trip-btn">Add Trip</button>
             </div>
 
             <div class="trips-grid" id="trips-grid">
@@ -1879,6 +1882,60 @@
             <div class="modal-actions">
                 <button class="btn btn-secondary" onclick="closeModal('booking-modal')">Cancel</button>
                 <button class="btn btn-primary" id="modal-submit">Create Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="add-trip-modal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="add-trip-title">
+            <button class="modal-close" onclick="closeModal('add-trip-modal')" aria-label="Close">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="add-trip-title">Add Trip</h2>
+                <p class="modal-subtitle">Create a new trip offering</p>
+            </div>
+
+            <div class="modal-content">
+                <div class="form-group">
+                    <label class="form-label">Trip Name</label>
+                    <input type="text" class="form-input" id="add-trip-name" placeholder="e.g. Half Day Inshore">
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Price ($)</label>
+                        <input type="number" class="form-input" id="add-trip-price" placeholder="450" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Duration</label>
+                        <input type="text" class="form-input" id="add-trip-duration" placeholder="4 hours">
+                    </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Capacity</label>
+                        <input type="number" class="form-input" id="add-trip-capacity" placeholder="4" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Departure Time</label>
+                        <input type="text" class="form-input" id="add-trip-departure" placeholder="6:00am">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">What's Included</label>
+                    <input type="text" class="form-input" id="add-trip-includes" placeholder="Rods, Tackle, Bait, Fish cleaning">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <input type="text" class="form-input" id="add-trip-desc" placeholder="A short description of the trip">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('add-trip-modal')">Cancel</button>
+                <button class="btn btn-primary" id="add-trip-submit">Add Trip</button>
             </div>
         </div>
     </div>
@@ -2279,6 +2336,34 @@
             document.getElementById('booking-modal').classList.add('active');
             const focusable = document.querySelector('#booking-modal .modal').querySelectorAll('button, input, select, [tabindex]:not([tabindex="-1"])');
             if (focusable.length) focusable[0].focus();
+        });
+
+        document.getElementById('add-trip-btn').addEventListener('click', () => {
+            document.getElementById('add-trip-name').value = '';
+            document.getElementById('add-trip-price').value = '';
+            document.getElementById('add-trip-duration').value = '';
+            document.getElementById('add-trip-capacity').value = '';
+            document.getElementById('add-trip-departure').value = '';
+            document.getElementById('add-trip-includes').value = '';
+            document.getElementById('add-trip-desc').value = '';
+            _modalOpener = document.activeElement;
+            document.getElementById('add-trip-modal').classList.add('active');
+            document.getElementById('add-trip-name').focus();
+        });
+
+        document.getElementById('add-trip-submit').addEventListener('click', () => {
+            const name = document.getElementById('add-trip-name').value.trim();
+            if (!name) { document.getElementById('add-trip-name').focus(); return; }
+            const price = parseInt(document.getElementById('add-trip-price').value) || 0;
+            const duration = document.getElementById('add-trip-duration').value.trim() || '4 hours';
+            const capacity = parseInt(document.getElementById('add-trip-capacity').value) || 4;
+            const departure = document.getElementById('add-trip-departure').value.trim() || '6:00am';
+            const includes = document.getElementById('add-trip-includes').value.split(',').map(s => s.trim()).filter(Boolean);
+            const desc = document.getElementById('add-trip-desc').value.trim();
+            trips.push({ name, price, duration, capacity, departure, includes: includes.length ? includes : ['Rods', 'Tackle'], description: desc || 'Custom trip.' });
+            renderTrips();
+            closeModal('add-trip-modal');
+            showToast('Trip "' + name + '" added');
         });
 
         document.getElementById('modal-trip').addEventListener('change', (e) => {
