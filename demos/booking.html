@@ -6,7 +6,7 @@
     <title>Redfish Run Charters - Admin Dashboard</title>
     <link rel="canonical" href="https://localpraxis.com/demos/booking.html">
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23C2452D'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>RR</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F2B046'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%231C1917'>RR</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,8 +21,9 @@
             --ink: #1C1917;
             --ink-mid: #57534E;
             --ink-light: #A8A29E;
-            --terracotta: #C2452D;
-            --terracotta-hover: #A33825;
+            --terracotta: #F2B046;
+            --terracotta-hover: #D99A2F;
+            --on-accent: #1C1917;
             --rule: #DDD6CC;
             --success: #16A34A;
             --warning: #D97706;
@@ -64,7 +65,7 @@
         /* Selection color */
         ::selection {
             background: var(--terracotta);
-            color: var(--warm-white);
+            color: var(--on-accent);
         }
 
         /* Sidebar */
@@ -121,7 +122,7 @@
 
         .nav-item.active {
             background: var(--terracotta);
-            color: var(--warm-white);
+            color: var(--on-accent);
             border-left: 3px solid var(--terracotta);
         }
 
@@ -368,7 +369,7 @@
             height: 18px;
             border-radius: 50%;
             background: var(--terracotta);
-            color: var(--warm-white);
+            color: var(--on-accent);
             font-size: 0.65rem;
             font-weight: 700;
             line-height: 1;
@@ -605,7 +606,7 @@
 
         .btn-primary {
             background: var(--terracotta);
-            color: var(--warm-white);
+            color: var(--on-accent);
         }
 
         .btn-primary:hover {
@@ -1020,7 +1021,7 @@
 
         .widget-cal-day.selected {
             background: var(--terracotta);
-            color: var(--warm-white);
+            color: var(--on-accent);
             border-color: var(--terracotta);
             font-weight: 600;
         }
@@ -1136,7 +1137,7 @@
             width: 100%;
             padding: 0.9rem;
             background: var(--terracotta);
-            color: var(--warm-white);
+            color: var(--on-accent);
             border: none;
             border-radius: 6px;
             font-family: 'Satoshi', system-ui, sans-serif;
@@ -1523,7 +1524,7 @@
 
         .filter-btn.active {
             background: var(--terracotta);
-            color: var(--warm-white);
+            color: var(--on-accent);
             border-color: var(--terracotta);
         }
 
@@ -1702,7 +1703,7 @@
             left: 0;
             right: 0;
             background: var(--terracotta);
-            color: var(--warm-white);
+            color: var(--on-accent);
             padding: 0.75rem 2rem;
             display: flex;
             align-items: center;
@@ -1713,7 +1714,7 @@
         }
 
         .demo-footer-cta a {
-            color: var(--warm-white);
+            color: var(--on-accent);
             text-decoration: none;
             font-weight: 500;
             transition: opacity 0.2s var(--ease);
@@ -1966,6 +1967,7 @@
             --ink-mid: #A8A29E;
             --ink-light: #78716C;
             --rule: #44403C;
+            --on-accent: #1C1917;
         }
 
         [data-theme="dark"] .calendar-card,
@@ -2245,7 +2247,7 @@
             gap: 0.4em;
             padding: 0.5em 1em;
             background: var(--ink);
-            color: var(--warm-white);
+            color: #FFFFFF;
             border-radius: 5px;
             font-family: 'Satoshi', system-ui, sans-serif;
             font-size: 0.8rem;
