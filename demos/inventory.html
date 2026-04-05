@@ -661,12 +661,18 @@
       inset: 0;
       background: var(--cream);
       z-index: 600;
-      display: none;
+      display: flex;
       flex-direction: column;
+      opacity: 0;
+      transform: scale(0.97) translateY(8px);
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .pos-overlay.open {
-      display: flex;
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
     }
 
     .pos-header {
@@ -710,7 +716,7 @@
     .pos-product-card {
       background: var(--warm-white);
       border: 1px solid var(--rule);
-      border-radius: 8px;
+      border-radius: 4px;
       padding: 1rem;
       cursor: pointer;
       transition: box-shadow 0.2s var(--ease), border-color 0.2s;
@@ -897,6 +903,29 @@
 
     .btn-primary:hover {
       background: var(--terracotta-subtle);
+    }
+
+    .btn-new-sale {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--ink);
+      color: var(--warm-white);
+      font-family: 'Satoshi', var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+
+    .btn-new-sale:hover {
+      background: var(--terracotta);
+      box-shadow: 0 4px 16px rgba(194, 69, 45, 0.2);
     }
 
     .btn-secondary {
@@ -1557,7 +1586,7 @@
           <h1>Sales History</h1>
           <p>Transaction records and revenue</p>
         </div>
-        <button class="btn-secondary" id="new-sale-btn">+ New Sale</button>
+        <button class="btn-new-sale" id="new-sale-btn">New Sale</button>
       </div>
       <div class="sales-controls">
         <div class="filter-tabs" id="sales-filter">
@@ -1608,7 +1637,10 @@
   <!-- POS Overlay -->
   <div class="pos-overlay" id="pos-overlay">
     <div class="pos-header">
-      <h2 class="pos-title">New Sale</h2>
+      <div style="display:flex;align-items:center;gap:1.5rem;">
+        <button class="btn-secondary" onclick="closePOS()" style="padding:0;font-size:0.85rem;">Cancel</button>
+        <h2 class="pos-title">New Sale</h2>
+      </div>
       <button class="panel-close" id="pos-close" aria-label="Close POS">&times;</button>
     </div>
     <div class="pos-layout">
