@@ -169,9 +169,9 @@
         }
 
         .stat-card {
-            background: #FFFFFF;
+            background: var(--warm-white);
             border: 1px solid var(--rule);
-            border-radius: 8px;
+            border-radius: 4px;
             padding: 1.5rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
             transition: box-shadow 0.2s var(--ease);
@@ -192,7 +192,7 @@
 
         .stat-value {
             font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
-            font-size: clamp(2.4rem, 4vw, 3.2rem);
+            font-size: clamp(2rem, 3.5vw, 2.6rem);
             font-weight: 700;
             line-height: 1;
             color: var(--ink);
@@ -247,7 +247,7 @@
 
         .attention-list {
             list-style: none;
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
         }
 
         .attention-item {
@@ -282,7 +282,12 @@
         }
 
         .attention-left:hover {
-            opacity: 0.7;
+            opacity: 1;
+        }
+
+        .attention-left:hover strong {
+            text-decoration: underline;
+            text-underline-offset: 2px;
         }
 
         .attention-status {
@@ -466,7 +471,7 @@
 
         /* Revenue chart */
         .chart-container {
-            height: 220px;
+            height: 160px;
             display: flex;
             align-items: flex-end;
             gap: 0.75rem;
@@ -541,9 +546,9 @@
         .chart-detail {
             margin-top: 1rem;
             padding: 1rem;
-            background: #FFFFFF;
+            background: var(--warm-white);
             border: 1px solid var(--rule);
-            border-radius: 8px;
+            border-radius: 4px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
         }
 
@@ -604,7 +609,7 @@
 
         .btn-primary:hover {
             background: var(--terracotta-hover);
-            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(194, 69, 45, 0.25);
         }
 
         .btn-secondary {
@@ -637,9 +642,9 @@
         }
 
         .trip-card {
-            background: #FFFFFF;
+            background: var(--warm-white);
             border: 1px solid var(--rule);
-            border-radius: 8px;
+            border-radius: 4px;
             padding: 2rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
             transition: all 0.2s var(--ease);
@@ -648,7 +653,7 @@
         }
 
         .trip-card:hover {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
             transform: translateY(-4px);
         }
 
@@ -776,9 +781,9 @@
         }
 
         .widget-preview {
-            background: #FFFFFF;
+            background: var(--warm-white);
             border: 1px solid var(--rule);
-            border-radius: 8px;
+            border-radius: 4px;
             padding: 2.5rem;
             min-height: 500px;
             display: flex;
@@ -808,9 +813,9 @@
         }
 
         .widget-trip-option {
-            background: #FFFFFF;
+            background: var(--warm-white);
             border: 2px solid var(--rule);
-            border-radius: 8px;
+            border-radius: 4px;
             padding: 1rem 1rem 1rem 1.25rem;
             cursor: pointer;
             transition: all 0.2s var(--ease);
@@ -1095,13 +1100,13 @@
         }
 
         .calendar-card {
-            background: #FFFFFF;
+            background: var(--warm-white);
             border: 1px solid var(--rule);
             padding: 16px 18px;
             margin-bottom: 12px;
             cursor: pointer;
             transition: box-shadow 0.2s var(--ease), border-color 0.2s var(--ease);
-            border-radius: 10px;
+            border-radius: 4px;
         }
 
         .calendar-card:last-child {
@@ -1199,7 +1204,7 @@
 
         .calendar-empty {
             border: 1px dashed var(--rule);
-            border-radius: 10px;
+            border-radius: 4px;
             padding: 1.5rem;
             text-align: center;
             font-size: 0.8rem;
@@ -1304,13 +1309,13 @@
 
         .modal {
             background: var(--warm-white);
-            border-radius: 8px;
+            border-radius: 4px;
             width: 90%;
             max-width: 500px;
             padding: 2rem;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
             position: relative;
         }
 
@@ -1466,9 +1471,9 @@
         }
 
         .ra-chart-card {
-            background: #FFFFFF;
+            background: var(--warm-white);
             border: 1px solid var(--rule);
-            border-radius: 8px;
+            border-radius: 4px;
             padding: 1.5rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
         }
@@ -1476,6 +1481,8 @@
         .ra-chart-card + .ra-chart-card {
             margin-top: 2rem;
         }
+
+        .ra-chart-card .section-title { margin-top: 0; }
 
         .ra-count-value {
             font-variant-numeric: tabular-nums;
@@ -1707,6 +1714,11 @@
         }
 
         [data-theme="dark"] .ra-chart-card {
+            background: #292524;
+        }
+
+        [data-theme="dark"] .widget-preview,
+        [data-theme="dark"] .widget-trip-option {
             background: #292524;
         }
 
@@ -2791,7 +2803,7 @@
             const maxVal = Math.max(...computed.map(d => d.val));
             let html = '';
             computed.forEach((d, i) => {
-                const height = maxVal > 0 ? Math.max((d.val / maxVal) * 160, d.val > 0 ? 4 : 0) : 0;
+                const height = maxVal > 0 ? Math.max((d.val / maxVal) * 120, d.val > 0 ? 4 : 0) : 0;
                 html += `<div class="chart-col" onclick="showChartDay('${d.date}', ${i})" style="cursor:pointer;"><div class="chart-bar" style="height: ${height}px;" data-amount="$${d.val.toLocaleString()}"></div><div class="chart-bar-label">${d.day}</div></div>`;
             });
             document.getElementById('revenue-chart').innerHTML = html;
@@ -3010,7 +3022,7 @@
             const notes = document.getElementById('modal-notes').value;
 
             if (!trip || !date || !name || !email) {
-                alert('Please fill in all required fields');
+                showToast('Please fill in all required fields');
                 return;
             }
 
@@ -3026,7 +3038,7 @@
             bookingData.push(newBooking);
             closeModal('booking-modal');
             renderBookings();
-            alert('Booking created successfully.');
+            showToast('Booking created successfully.');
         });
 
         let currentDetailId = null;
@@ -3048,7 +3060,7 @@
             document.getElementById('detail-party').textContent = `${booking.party} ${booking.party === 1 ? 'guest' : 'guests'}`;
             document.getElementById('detail-amount').textContent = `$${booking.amt}`;
             const depPaid = booking.deposit === 'paid';
-            document.getElementById('detail-deposit').innerHTML = `<span style="font-weight:600;color:${depPaid ? 'var(--terracotta)' : 'var(--warning)'};text-transform:uppercase;font-size:0.8rem;letter-spacing:0.06em;">${depPaid ? 'Paid' : 'Pending'}</span>`;
+            document.getElementById('detail-deposit').innerHTML = `<span style="font-weight:600;color:${depPaid ? 'var(--success)' : 'var(--warning)'};text-transform:uppercase;font-size:0.8rem;letter-spacing:0.06em;">${depPaid ? 'Paid' : 'Pending'}</span>`;
             document.getElementById('detail-status').innerHTML = `<span class="status-badge status-${booking.status}">${booking.status}</span>`;
             document.getElementById('detail-notes').textContent = booking.note || '(no notes)';
 
@@ -3141,16 +3153,16 @@
 
             nextBtn.onclick = () => {
                 if (widgetState.step === 1) {
-                    if (!widgetState.trip) { alert('Please select a trip'); return; }
+                    if (!widgetState.trip) { showToast('Please select a trip'); return; }
                     widgetState.step = 2;
                 } else if (widgetState.step === 2) {
-                    if (!widgetState.date) { alert('Please select a date'); return; }
+                    if (!widgetState.date) { showToast('Please select a date'); return; }
                     widgetState.step = 3;
                 } else if (widgetState.step === 3) {
                     const form = document.getElementById('widget-form');
                     const inputs = form.querySelectorAll('input[required]');
                     for (let input of inputs) {
-                        if (!input.value) { alert('Please fill in all required fields'); return; }
+                        if (!input.value) { showToast('Please fill in all required fields'); return; }
                     }
                     widgetState.step = 4;
                     updateConfirmation();
@@ -3501,7 +3513,7 @@
                 const badge = document.querySelector('.nav-badge');
                 const countEl = document.querySelector('.attention-count');
                 if (remaining === 0) {
-                    document.getElementById('attention-container').innerHTML = '';
+                    document.getElementById('attention-container').innerHTML = '<div class="attention-header"><h2 class="section-title">Needs Attention</h2><span class="attention-count">0</span></div><p style="color:var(--ink-light);font-size:0.9rem;">All clear.</p>';
                     if (badge) badge.style.display = 'none';
                 } else {
                     if (badge) badge.textContent = remaining;
@@ -3524,7 +3536,7 @@
                         const badge = document.querySelector('.nav-badge');
                         const countEl = document.querySelector('.attention-count');
                         if (remaining === 0) {
-                            document.getElementById('attention-container').innerHTML = '';
+                            document.getElementById('attention-container').innerHTML = '<div class="attention-header"><h2 class="section-title">Needs Attention</h2><span class="attention-count">0</span></div><p style="color:var(--ink-light);font-size:0.9rem;">All clear.</p>';
                             if (badge) badge.style.display = 'none';
                         } else {
                             if (badge) badge.textContent = remaining;
