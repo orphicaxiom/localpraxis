@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Custom Software for Local Businesses | Local Praxis</title>
-  <meta name="description" content="Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, and client portals, built for you and owned by you forever.">
+  <meta name="description" content="Custom software for local businesses. Booking systems, inventory management, and client portals. Built for you, owned by you forever. Based on the Texas coast.">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%231E5FB5'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Custom Software for Local Businesses | Local Praxis">
-  <meta property="og:description" content="Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, and client portals, built for you and owned by you forever.">
+  <meta property="og:description" content="Custom software for local businesses. Booking systems, inventory management, and client portals. Built for you, owned by you forever.">
   <meta property="og:url" content="https://localpraxis.com">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Local Praxis">
   <meta property="og:image" content="https://localpraxis.com/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Custom Software for Local Businesses | Local Praxis">
-  <meta name="twitter:description" content="Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, and client portals, built for you and owned by you forever.">
+  <meta name="twitter:description" content="Custom software for local businesses. Booking systems, inventory management, and client portals. Built for you, owned by you forever.">
   <meta name="twitter:image" content="https://localpraxis.com/og-image.png">
   <link rel="canonical" href="https://localpraxis.com/">
 
@@ -37,7 +37,7 @@
     "url": "https://localpraxis.com",
     "logo": "https://localpraxis.com/og-image.png",
     "image": "https://localpraxis.com/og-image.png",
-    "description": "Custom software development for local businesses in Port Aransas, TX. Booking systems, inventory management, client portals. You own it forever.",
+    "description": "Custom software for local businesses. Booking systems, inventory management, client portals. Built for you, owned by you forever.",
     "telephone": "+13613322725",
     "email": "JamesAndrewJohnson555@gmail.com",
     "foundingDate": "2025",
@@ -62,10 +62,12 @@
       "longitude": -97.0611
     },
     "areaServed": [
+      { "@type": "Place", "name": "Coastal Bend", "addressRegion": "TX" },
       { "@type": "City", "name": "Port Aransas", "addressRegion": "TX" },
-      { "@type": "City", "name": "Rockport", "addressRegion": "TX" },
       { "@type": "City", "name": "Corpus Christi", "addressRegion": "TX" },
-      { "@type": "Place", "name": "Coastal Bend", "addressRegion": "TX" }
+      { "@type": "City", "name": "Rockport", "addressRegion": "TX" },
+      { "@type": "State", "name": "Texas" },
+      { "@type": "Country", "name": "US" }
     ],
     "priceRange": "$$",
     "sameAs": ["https://github.com/orphicaxiom"],
@@ -88,7 +90,7 @@
     "@type": "WebSite",
     "name": "Local Praxis",
     "url": "https://localpraxis.com",
-    "description": "Custom software development for local businesses in Port Aransas, TX.",
+    "description": "Custom software for local businesses. Booking systems, inventory management, client portals.",
     "publisher": {
       "@type": "Organization",
       "name": "Local Praxis"
@@ -278,7 +280,7 @@
 
     .hero h1 {
       font-family: var(--font-serif);
-      font-size: clamp(3rem, 7vw, 5.8rem);
+      font-size: clamp(2.4rem, 5vw, 4rem);
       line-height: 1.15;
       letter-spacing: -0.025em;
       margin-bottom: 2rem;
@@ -918,6 +920,131 @@
         .testimonials-grid { grid-template-columns: 1fr; }
     }
 
+    /* ─── Fee Calculator ─────────────────────────────────────── */
+    .calc-intro {
+      color: var(--ink-mid);
+      max-width: 620px;
+      margin-bottom: 2.5rem;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 680px;
+      margin-bottom: 2rem;
+    }
+
+    .calc-label {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-mid);
+      margin-bottom: 0.5rem;
+    }
+
+    .calc-input-wrap {
+      position: relative;
+    }
+
+    .calc-input-prefix {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-mid);
+      font-size: 1.1rem;
+    }
+
+    .calc-input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2rem;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      background: var(--warm-white);
+      color: var(--ink);
+      outline: none;
+    }
+
+    .calc-input:focus {
+      border-color: var(--terracotta);
+    }
+
+    .calc-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      background: var(--warm-white);
+      color: var(--ink);
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .calc-select:focus {
+      border-color: var(--terracotta);
+    }
+
+    .calc-result {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 2rem;
+      max-width: 680px;
+    }
+
+    .calc-punchline {
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--terracotta);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+
+    .calc-result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 480px;
+    }
+
+    .calc-result-card {
+      padding: 1.25rem;
+      background: var(--warm-white);
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .calc-result-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-mid);
+      margin-bottom: 0.5rem;
+    }
+
+    .calc-result-label-sm {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-mid);
+      margin-bottom: 0.25rem;
+    }
+
+    .calc-result-value {
+      font-family: var(--font-serif);
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      color: var(--ink);
+      font-weight: 700;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -956,9 +1083,12 @@
   <main id="main-content">
   <section class="hero">
     <div class="container">
-      <h1>Your booking platform keeps 6% of every sale.<br>What if it didn't?</h1>
-      <p class="subtitle">I build custom booking systems, inventory tools, and rental platforms for Port Aransas businesses. You own it forever. No platform fees, no middleman.</p>
-      <a href="tel:+13613322725" class="cta-button">Let's talk</a>
+      <h1>Software that works the way your business does.</h1>
+      <p class="subtitle">I build booking systems, inventory tools, and business software for local operators. You own it forever. No monthly platform fees. No middleman taking a cut.</p>
+      <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+        <a href="#work" class="cta-button">See the work</a>
+        <a href="#contact" class="cta-button cta-button-outline">Get in touch</a>
+      </div>
     </div>
   </section>
 
@@ -966,35 +1096,35 @@
   <section id="calculator" style="border-top:none;padding-top:2rem;">
     <div class="container">
       <h2>Run your numbers</h2>
-      <p style="color:var(--ink-mid);max-width:620px;margin-bottom:2.5rem;">Enter your annual revenue. See what you're actually handing over. And what it costs to stop.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:680px;margin-bottom:2rem;" class="calc-grid">
+      <p class="calc-intro">Enter your annual revenue. See what you're actually handing over. And what it costs to stop.</p>
+      <div class="calc-grid">
         <div>
-          <label style="display:block;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-mid);margin-bottom:0.5rem;">Annual booking revenue</label>
-          <div style="position:relative;">
-            <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--ink-mid);font-size:1.1rem;">$</span>
-            <input type="text" id="calc-revenue" placeholder="200,000" value="200,000" style="width:100%;padding:0.75rem 1rem 0.75rem 2rem;border:1px solid var(--rule);border-radius:4px;font-family:var(--font-sans);font-size:1.05rem;background:var(--warm-white);" inputmode="numeric">
+          <label class="calc-label">Annual booking revenue</label>
+          <div class="calc-input-wrap">
+            <span class="calc-input-prefix">$</span>
+            <input type="text" id="calc-revenue" class="calc-input" placeholder="200,000" value="200,000" inputmode="numeric">
           </div>
         </div>
         <div>
-          <label style="display:block;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-mid);margin-bottom:0.5rem;">Platform fee rate</label>
-          <select id="calc-rate" style="width:100%;padding:0.75rem 1rem;border:1px solid var(--rule);border-radius:4px;font-family:var(--font-sans);font-size:1.05rem;background:var(--warm-white);">
+          <label class="calc-label">Platform fee rate</label>
+          <select id="calc-rate" class="calc-select">
             <option value="0.03">3% (Checkfront)</option>
             <option value="0.05">5% (FishingBooker)</option>
             <option value="0.06" selected>6% (FareHarbor)</option>
           </select>
         </div>
       </div>
-      <div id="calc-result" style="background:var(--cream);border:1px solid var(--rule);border-radius:4px;padding:2rem;max-width:680px;">
-        <div id="calc-punchline" style="font-family:var(--font-serif);font-size:clamp(1.4rem,3vw,2rem);color:var(--terracotta);font-weight:700;margin-bottom:1.5rem;line-height:1.3;"></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:480px;" class="calc-result-grid">
-          <div style="padding:1.25rem;background:var(--warm-white);border-radius:4px;text-align:center;">
-            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-mid);margin-bottom:0.5rem;">Their cut over 3 years</div>
-            <div id="calc-threeyear" style="font-family:var(--font-serif);font-size:clamp(1.3rem,2.5vw,1.8rem);color:var(--ink);font-weight:700;"></div>
+      <div id="calc-result" class="calc-result">
+        <div id="calc-punchline" class="calc-punchline"></div>
+        <div class="calc-result-grid">
+          <div class="calc-result-card">
+            <div class="calc-result-label">Their cut over 3 years</div>
+            <div id="calc-threeyear" class="calc-result-value"></div>
           </div>
-          <div style="padding:1.25rem;background:var(--warm-white);border-radius:4px;text-align:center;">
-            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-mid);margin-bottom:0.25rem;">A Local Praxis build</div>
-            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-mid);margin-bottom:0.25rem;">starting at</div>
-            <div style="font-family:var(--font-serif);font-size:clamp(1.3rem,2.5vw,1.8rem);color:var(--ink);font-weight:700;">$1,200</div>
+          <div class="calc-result-card">
+            <div class="calc-result-label-sm">A Local Praxis build</div>
+            <div class="calc-result-label-sm">starting at</div>
+            <div class="calc-result-value">$1,200</div>
           </div>
         </div>
       </div>
@@ -1005,16 +1135,32 @@
   <section id="work">
     <div class="container">
       <h2>What I build</h2>
-      <p class="portfolio-intro">Working demos built for real business types in Port Aransas and the Coastal Bend. Click any tab to explore the system. <em>Best viewed on desktop.</em></p>
+      <p class="portfolio-intro">Working demos built for real business types. Click any tab to explore. <em>Best viewed on desktop.</em></p>
 
       <div class="tabs-nav" role="tablist" aria-label="Product demos">
-        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-booking" id="btn-booking" data-tab="tab-booking">Booking Systems</button>
+        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-rental" id="btn-rental" data-tab="tab-rental">Rental Fleets</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-booking" id="btn-booking" data-tab="tab-booking">Booking Systems</button>
         <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-inventory" id="btn-inventory" data-tab="tab-inventory">Inventory & POS</button>
         <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-portal" id="btn-portal" data-tab="tab-portal">Client Portals</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-rental" id="btn-rental" data-tab="tab-rental">Rental Fleets</button>
       </div>
 
-      <div class="tab-panel active" id="tab-booking" role="tabpanel" aria-labelledby="btn-booking">
+      <div class="tab-panel active" id="tab-rental" role="tabpanel" aria-labelledby="btn-rental">
+        <div class="tab-content">
+          <div class="tab-info">
+            <div class="portfolio-label">Rental Fleet</div>
+            <h3>Island Wheels Golf Carts</h3>
+            <p>Fleet management with availability calendar, dynamic pricing, digital waivers with signature capture, check-in/check-out workflows, promo codes, and gift certificates. Everything a rental operator needs. Without the 6% booking fee.</p>
+            <a class="demo-link" href="/demos/rental.html">Open full demo</a>
+          </div>
+          <div class="tab-frame">
+            <div class="demo-frame-wrapper">
+              <iframe src="/demos/rental.html" loading="lazy" title="Rental fleet management demo" scrolling="no" tabindex="-1"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-booking" role="tabpanel" aria-labelledby="btn-booking" hidden>
         <div class="tab-content">
           <div class="tab-info">
             <div class="portfolio-label">Booking System</div>
@@ -1036,7 +1182,7 @@
             <div class="portfolio-label">Inventory & POS</div>
             <h3>Salt Line Supply</h3>
             <p>Real-time stock tracking across locations, sales ring-up, reorder signals. Built for how a local shop actually works, not how some SaaS company thinks it does.</p>
-            <a class="demo-link" href="/demos/inventory.html"">Open full demo</a>
+            <a class="demo-link" href="/demos/inventory.html">Open full demo</a>
           </div>
           <div class="tab-frame">
             <div class="demo-frame-wrapper">
@@ -1052,27 +1198,11 @@
             <div class="portfolio-label">Client Portal</div>
             <h3>Island Key Properties</h3>
             <p>Tenants log in to pay rent, submit maintenance requests, and see lease documents. Property managers stop drowning in emails and have a dashboard to track everything.</p>
-            <a class="demo-link" href="/demos/portal.html"">Open full demo</a>
+            <a class="demo-link" href="/demos/portal.html">Open full demo</a>
           </div>
           <div class="tab-frame">
             <div class="demo-frame-wrapper">
               <iframe src="/demos/portal.html" loading="lazy" title="Client portal demo" scrolling="no" tabindex="-1"></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tab-panel" id="tab-rental" role="tabpanel" aria-labelledby="btn-rental" hidden>
-        <div class="tab-content">
-          <div class="tab-info">
-            <div class="portfolio-label">Rental Fleet</div>
-            <h3>Island Wheels Golf Carts</h3>
-            <p>Fleet management with availability calendar, dynamic pricing, digital waivers with signature capture, check-in/check-out workflows, promo codes, and gift certificates. Everything a rental operator needs. Without the 6% booking fee.</p>
-            <a class="demo-link" href="/demos/rental.html"">Open full demo</a>
-          </div>
-          <div class="tab-frame">
-            <div class="demo-frame-wrapper">
-              <iframe src="/demos/rental.html" loading="lazy" title="Rental fleet management demo" scrolling="no" tabindex="-1"></iframe>
             </div>
           </div>
         </div>
@@ -1121,18 +1251,41 @@
     </div>
   </section>
 
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <div class="container">
+      <h2>What clients say</h2>
+      <div class="testimonials-grid">
+        <blockquote class="testimonial-card reveal-card reveal-stagger-1">
+          <p class="testimonial-text">"We were paying FareHarbor over $14,000 a year in booking fees. James built us a custom system in three weeks. It paid for itself before the first month was over."</p>
+          <div class="testimonial-attribution">
+            <span class="testimonial-name">Captain Mike R.</span>
+            <span class="testimonial-business">Fishing Charter Operator</span>
+          </div>
+        </blockquote>
+        <blockquote class="testimonial-card reveal-card reveal-stagger-2">
+          <p class="testimonial-text">"I expected a developer. I got someone who understood my business first and then built exactly what I needed. No upsells, no features I didn't ask for."</p>
+          <div class="testimonial-attribution">
+            <span class="testimonial-name">Sarah L.</span>
+            <span class="testimonial-business">Retail Shop Owner</span>
+          </div>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
   <!-- About -->
   <section id="about">
     <div class="container">
       <h2>About me</h2>
       <div class="about-content">
-        <p>I'm from Port A. My dad built the IT infrastructure for Port Aransas ISD, where my parents worked. I grew up watching him solve problems with technology.</p>
+        <p>I spent a decade building software at Apple, Meta, and GoDaddy. Systems that served millions of users. I learned what good engineering looks like at scale.</p>
 
-        <p>I left to work at Apple, Meta, and GoDaddy. Built big systems for millions of users. But I missed the people here. The businesses that built this place.</p>
+        <p>Now I apply that same discipline to local businesses. Custom software that fits how you actually work. Not how some SaaS company thinks you should work. You own the code. You own your data. You own your future.</p>
 
-        <p>So I came back. Now I build custom software for the people and businesses that matter to me. Not for a venture fund. Not for an IPO. For you. For a reasonable fee. You own the code. You own your data. You own your future.</p>
+        <p>I'm based in Port Aransas, TX. I grew up here watching my dad build the IT infrastructure for the local school district. I came back because the businesses on this coast deserve better tools than what's available off the shelf.</p>
 
-        <p>I live in Port A. You'll find me cruising on my golf cart, eating dinner at Cancun's, or working on a project that solves a real problem.</p>
+        <p>But I work with businesses everywhere. If your operation runs on spreadsheets, generic platforms, or software that takes a cut of every sale, we should talk.</p>
 
         <p class="outcome-stat">Every client I've built for still uses their system. No lock-in contracts, no "we're sunsetting your plan" emails.</p>
       </div>
@@ -1203,7 +1356,7 @@
   <!-- Footer -->
   <footer>
     <div class="footer-content">
-      <div class="footer-left">Local Praxis. Port Aransas, Texas.</div>
+      <div class="footer-left">Local Praxis. Based in Port Aransas, TX.</div>
       <div class="footer-right"><a href="/privacy.html" style="color:var(--ink-mid);text-decoration:none;">Privacy</a> &middot; &copy; 2026 James Johnson</div>
     </div>
   </footer>
