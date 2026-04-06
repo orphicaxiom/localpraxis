@@ -334,14 +334,14 @@
 
     /* Hero */
     .hero {
-      padding: 2rem 0 3rem;
+      padding: 0.5rem 0 3rem;
     }
 
     .hero-title {
-      font-family: var(--font-serif);
-      font-size: 18vw;
+      font-family: Impact, 'Helvetica Neue Condensed Black', 'Arial Narrow', sans-serif;
+      font-size: 20vw;
       line-height: 0.85;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.06em;
       color: var(--ink);
       margin: 0 -2rem;
       padding: 0;
@@ -356,12 +356,10 @@
 
     .hero-tagline {
       font-family: var(--font-sans);
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      font-size: 16px;
+      font-weight: 400;
       color: var(--ink-mid);
-      line-height: 1.65;
+      line-height: 1.5;
       margin-bottom: 12px;
     }
 
@@ -1796,7 +1794,7 @@
             const scrollY = window.scrollY;
             const maxScroll = 400;
             const progress = Math.min(scrollY / maxScroll, 1);
-            const spacing = -0.03 + (progress * -0.05);
+            const spacing = -0.06 + (progress * -0.04);
             heroTitle.style.letterSpacing = spacing + 'em';
             ticking = false;
           });
