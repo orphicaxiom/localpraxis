@@ -2402,6 +2402,44 @@
         scroll-behavior: auto !important;
       }
     }
+
+    /* Demo action modal */
+    .demo-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(28, 25, 23, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s var(--ease), visibility 0.2s;
+    }
+    .demo-modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    .demo-modal {
+        background: var(--warm-white);
+        border: 1px solid var(--rule);
+        border-radius: 12px;
+        padding: 2rem;
+        max-width: 400px;
+        width: 90%;
+        transform: scale(0.96);
+        transition: transform 0.2s var(--ease);
+        text-align: center;
+    }
+    .demo-modal-overlay.active .demo-modal {
+        transform: scale(1);
+    }
+    .demo-modal p {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        color: var(--ink-mid);
+        margin-bottom: 1.5rem;
+    }
     </style>
 </head>
 <body>
@@ -2842,6 +2880,9 @@
                 <button class="btn btn-secondary" onclick="closeModal('detail-modal')">Close</button>
                 <button class="btn btn-primary" id="detail-checkin">Check In</button>
                 <button class="btn btn-secondary" id="detail-reminder">Send Reminder</button>
+                <button class="btn btn-secondary" id="detail-confirmation" onclick="showDemoModal('In the live version, this sends a booking confirmation email with trip details, meeting location, and what to bring.')">Send Confirmation</button>
+                <button class="btn btn-secondary" id="detail-print" onclick="showDemoModal('In the live version, this prints a trip sheet with the guest info, trip details, and captain\'s notes.')">Print Details</button>
+                <button class="btn btn-secondary" id="detail-receipt" style="display:none;" onclick="showDemoModal('In the live version, this emails a post-trip receipt with photos and a link to leave a review.')">Email Receipt</button>
                 <button class="btn btn-secondary" id="detail-resolve" onclick="resolveAttentionItem()">Mark Resolved</button>
             </div>
         </div>
@@ -3423,6 +3464,9 @@
                 checkinBtn.style.opacity = '1';
                 checkinBtn.onclick = () => checkinBooking(bookingId);
             }
+
+            const receiptBtn = document.getElementById('detail-receipt');
+            receiptBtn.style.display = booking.status === 'completed' ? '' : 'none';
 
             document.getElementById('detail-reminder').onclick = () => sendReminder(bookingId);
             _modalOpener = document.activeElement;
@@ -4105,6 +4149,29 @@
 
         // Hash-based view switching (for iframe embeds)
         if (window.location.hash === '#widget') switchView('widget');
+    </script>
+
+    <div class="demo-modal-overlay" id="demo-modal-overlay" onclick="closeDemoModal(event)">
+        <div class="demo-modal">
+            <p id="demo-modal-message"></p>
+            <button class="btn btn-secondary" onclick="closeDemoModal()">Got it</button>
+        </div>
+    </div>
+
+    <script>
+        function showDemoModal(message) {
+            document.getElementById('demo-modal-message').textContent = message;
+            document.getElementById('demo-modal-overlay').classList.add('active');
+        }
+        function closeDemoModal(e) {
+            if (e && e.target !== document.getElementById('demo-modal-overlay') && e.type === 'click') return;
+            document.getElementById('demo-modal-overlay').classList.remove('active');
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('demo-modal-overlay').classList.contains('active')) {
+                closeDemoModal();
+            }
+        });
     </script>
 
     <a class="lp-back" href="https://localpraxis.com">&#8592; localpraxis.com</a>

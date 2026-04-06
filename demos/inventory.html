@@ -1769,6 +1769,56 @@
     }
     .lp-back:hover { opacity: 0.8; }
 
+    /* ─── Demo Modal ─────────────────────────────────────────── */
+    .demo-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 25, 23, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9000;
+      opacity: 0;
+      transition: opacity 0.2s var(--ease);
+    }
+
+    .demo-modal-overlay.visible {
+      opacity: 1;
+    }
+
+    .demo-modal {
+      background: var(--warm-white);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 2rem;
+      max-width: 380px;
+      width: 90%;
+      transform: scale(0.96);
+      transition: transform 0.2s var(--ease);
+      text-align: center;
+    }
+
+    .demo-modal-overlay.visible .demo-modal {
+      transform: scale(1);
+    }
+
+    .demo-modal p {
+      font-size: var(--font-size-base);
+      color: var(--ink-mid);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── Panel Actions ──────────────────────────────────────── */
+    .panel-actions {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
     /* ─── Reduced Motion ─────────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -2301,6 +2351,11 @@
         <div class="panel-summary-row"><span>Subtotal</span><span>${formatCurrency(sale.subtotal)}</span></div>
         <div class="panel-summary-row"><span>Tax (${store.settings.taxRate}%)</span><span>${formatCurrency(sale.tax)}</span></div>
         <div class="panel-summary-total"><span>Total</span><span>${formatCurrency(sale.total)}</span></div>
+      </div>
+      <div class="panel-actions">
+        <button class="btn-primary" onclick="showDemoModal('In the live version, this prints a formatted receipt to your thermal printer or generates a PDF.')">Print Receipt</button>
+        <button class="btn-secondary" onclick="showDemoModal('In the live version, this sends a branded receipt to the customer\\'s email address.')">Email Receipt</button>
+        <button class="btn-secondary" style="color:var(--ink-mid)" onclick="showDemoModal('In the live version, this processes a refund through your connected payment processor.')">Refund</button>
       </div>
     `);
   }
@@ -2992,8 +3047,39 @@
     }
   });
 
+  // ─── Demo Modal ────────────────────────────────────────────
+  function showDemoModal(message) {
+    const overlay = document.getElementById('demo-modal-overlay');
+    overlay.querySelector('.demo-modal p').textContent = message;
+    overlay.style.display = 'flex';
+    requestAnimationFrame(() => overlay.classList.add('visible'));
+  }
+
+  function closeDemoModal() {
+    const overlay = document.getElementById('demo-modal-overlay');
+    overlay.classList.remove('visible');
+    overlay.addEventListener('transitionend', () => {
+      if (!overlay.classList.contains('visible')) overlay.style.display = 'none';
+    }, { once: true });
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      const overlay = document.getElementById('demo-modal-overlay');
+      if (overlay.classList.contains('visible')) closeDemoModal();
+    }
+  });
+
   // ─── Init ──────────────────────────────────────────────────
   renderDashboard();
   </script>
+
+  <!-- Demo action modal (reusable) -->
+  <div id="demo-modal-overlay" class="demo-modal-overlay" style="display:none" onclick="if(event.target===this)closeDemoModal()">
+    <div class="demo-modal">
+      <p></p>
+      <button class="btn-secondary" onclick="closeDemoModal()">Got it</button>
+    </div>
+  </div>
 </body>
 </html>

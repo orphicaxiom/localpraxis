@@ -1972,6 +1972,74 @@ button, input, select, textarea {
   }
 }
 
+/* ── Demo Modal ── */
+.demo-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(28, 25, 23, 0.4);
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease);
+}
+.demo-modal-overlay.active { opacity: 1; }
+.demo-modal {
+  background: var(--warm-white);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  transform: scale(0.96);
+  transition: transform 0.2s var(--ease);
+}
+.demo-modal-overlay.active .demo-modal { transform: scale(1); }
+.demo-modal p {
+  font-size: 0.95rem;
+  color: var(--ink-mid);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.demo-modal button {
+  background: none;
+  border: none;
+  color: var(--terracotta);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 0;
+}
+.demo-modal button:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.panel-utility-actions {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.panel-utility-actions button {
+  background: none;
+  border: none;
+  color: var(--terracotta);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.4rem 0;
+}
+.panel-utility-actions button:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* ── Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -2406,6 +2474,18 @@ function animateCountUp(el, target, duration) {
   } else {
     el.textContent = target.toLocaleString('en-US');
   }
+}
+
+function showDemoModal(message) {
+  var overlay = document.getElementById('demo-modal-overlay');
+  document.getElementById('demo-modal-message').textContent = message;
+  overlay.style.display = 'flex';
+  requestAnimationFrame(function() { overlay.classList.add('active'); });
+}
+function closeDemoModal() {
+  var overlay = document.getElementById('demo-modal-overlay');
+  overlay.classList.remove('active');
+  setTimeout(function() { overlay.style.display = 'none'; }, 200);
 }
 
 function showToast(message) {
@@ -3006,6 +3086,15 @@ function openResPanel(resId) {
     html += '<button class="btn btn-danger btn-sm" onclick="cancelRes(' + res.id + ')">Cancel</button>';
     html += '</div>';
   }
+
+  // Utility actions for all statuses
+  html += '<div class="panel-utility-actions">' +
+    '<button onclick="showDemoModal(\'In the live version, this prints a rental agreement with terms, cart details, and the signed waiver.\')">Print Agreement</button>' +
+    '<button onclick="showDemoModal(\'In the live version, this emails the customer a confirmation with pickup time, location, and rental terms.\')">Email Confirmation</button>';
+  if (res.status === 'completed' || res.status === 'checked-in') {
+    html += '<button onclick="showDemoModal(\'In the live version, this sends a receipt with the rental charges and return summary.\')">Send Receipt</button>';
+  }
+  html += '</div>';
 
   openPanel('Reservation #' + res.id, html);
 }
@@ -3925,6 +4014,7 @@ document.addEventListener('keydown', function(e) {
     closePanel();
     document.querySelectorAll('.modal-overlay.active').forEach(function(m) { m.classList.remove('active'); });
     if (document.getElementById('guest-view').style.display === 'block') closeGuestView();
+    closeDemoModal();
     closeMoreMenu();
   }
 });
@@ -3935,5 +4025,13 @@ document.addEventListener('keydown', function(e) {
 document.getElementById('dashboard-date').textContent = fmtDateLong(TODAY);
 renderDashboard();
 </script>
+
+<div class="demo-modal-overlay" id="demo-modal-overlay" onclick="closeDemoModal()">
+  <div class="demo-modal" onclick="event.stopPropagation()">
+    <p id="demo-modal-message"></p>
+    <button onclick="closeDemoModal()">Got it</button>
+  </div>
+</div>
+
 </body>
 </html>

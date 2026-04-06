@@ -474,6 +474,69 @@
 
 		.close-btn:hover { color: var(--navy); }
 
+		/* Demo Action Modal */
+		.demo-modal-overlay {
+			display: none;
+			position: fixed;
+			top: 0; left: 0;
+			width: 100%; height: 100%;
+			background-color: rgba(15, 23, 42, 0.4);
+			z-index: 2000;
+			align-items: center;
+			justify-content: center;
+			backdrop-filter: blur(4px);
+			opacity: 0;
+			transition: opacity 0.2s var(--ease);
+		}
+
+		.demo-modal-overlay.active {
+			display: flex;
+			opacity: 1;
+		}
+
+		.demo-modal {
+			background-color: var(--warm-white);
+			border-radius: 8px;
+			padding: 2rem;
+			max-width: 420px;
+			width: 90%;
+			box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16);
+			transform: scale(0.96);
+			opacity: 0;
+			transition: transform 0.2s var(--ease), opacity 0.2s var(--ease);
+		}
+
+		.demo-modal-overlay.active .demo-modal {
+			transform: scale(1);
+			opacity: 1;
+		}
+
+		.demo-modal p {
+			font-size: 0.9rem;
+			line-height: 1.6;
+			color: var(--slate-600);
+			margin-bottom: 1.5rem;
+		}
+
+		.demo-modal button {
+			width: 100%;
+		}
+
+		/* Modal Action Buttons */
+		.modal-actions {
+			display: flex;
+			gap: 0.75rem;
+			margin-top: 1.75rem;
+			padding-top: 1.5rem;
+			border-top: 1px solid var(--slate-100);
+			flex-wrap: wrap;
+		}
+
+		.modal-actions button {
+			font-size: 0.8rem;
+			padding: 0.5rem 1rem;
+		}
+
 		/* Form Elements */
 		input, textarea {
 			font-family: inherit;
@@ -1612,6 +1675,11 @@
 						<span class="badge badge-green">Paid</span>
 					</div>
 				</div>
+				<div class="modal-actions">
+					<button class="btn-primary" onclick="showDemoModal('In the live version, this texts the guest a check-in guide with door codes, WiFi password, and house rules.')">Send Check-in Instructions</button>
+					<button class="btn-secondary" onclick="showDemoModal('In the live version, this prints a booking summary for your records.')">Print Summary</button>
+					<button class="btn-secondary" onclick="showDemoModal('In the live version, this emails a stay receipt to the guest with a link to leave a review.')">Email Receipt</button>
+				</div>
 			`;
 			openModal('booking-detail-modal', document.activeElement);
 		}
@@ -1834,6 +1902,10 @@
 			if (m.cost) html += `<div><div class="form-label">Cost</div><p class="amount amount-negative" style="font-weight:600;">$${m.cost.toLocaleString()}</p></div>`;
 			if (m.completed) html += `<div><div class="form-label">Completed</div><p style="font-size:0.85rem;">${formatFullDate(m.completed)}</p></div>`;
 			html += `</div>`;
+			html += `<div class="modal-actions">
+				<button class="btn-secondary" onclick="showDemoModal('In the live version, this prints a maintenance work order for your records or to hand to the vendor.')">Print Work Order</button>
+				<button class="btn-secondary" onclick="showDemoModal('In the live version, this emails the maintenance report to the property owner with photos and cost details.')">Email Report</button>
+			</div>`;
 
 			document.getElementById('modal-maintenance-body').innerHTML = html;
 			openModal('maintenance-detail-modal', document.activeElement);
@@ -2023,6 +2095,43 @@
 		// Init
 		document.getElementById('current-date').textContent = formatFullDate('2026-04-01');
 		renderOverview();
+	</script>
+
+	<div class="demo-modal-overlay" id="demo-modal-overlay">
+		<div class="demo-modal">
+			<p id="demo-modal-message"></p>
+			<button class="btn-primary" id="demo-modal-dismiss">Got it</button>
+		</div>
+	</div>
+
+	<script>
+		function showDemoModal(message) {
+			const overlay = document.getElementById('demo-modal-overlay');
+			document.getElementById('demo-modal-message').textContent = message;
+			overlay.style.display = 'flex';
+			requestAnimationFrame(() => {
+				overlay.classList.add('active');
+			});
+			document.getElementById('demo-modal-dismiss').focus();
+		}
+
+		function closeDemoModal() {
+			const overlay = document.getElementById('demo-modal-overlay');
+			overlay.classList.remove('active');
+			setTimeout(() => { overlay.style.display = 'none'; }, 200);
+		}
+
+		document.getElementById('demo-modal-dismiss').addEventListener('click', closeDemoModal);
+
+		document.getElementById('demo-modal-overlay').addEventListener('click', function(e) {
+			if (e.target === this) closeDemoModal();
+		});
+
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'Escape' && document.getElementById('demo-modal-overlay').classList.contains('active')) {
+				closeDemoModal();
+			}
+		});
 	</script>
 
 	<a class="lp-back" href="https://localpraxis.com" style="position:fixed;top:1rem;right:1rem;z-index:9999;display:inline-flex;align-items:center;gap:0.4em;padding:0.5em 1em;background:#1C1917;color:#FDFAF5;border-radius:5px;font-family:'Satoshi',system-ui,sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.02em;text-decoration:none;transition:opacity 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.18);">&#8592; localpraxis.com</a>
