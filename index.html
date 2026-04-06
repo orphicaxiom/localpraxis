@@ -499,27 +499,30 @@
     /* How It Works */
     .how-it-works-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3rem;
-      margin-top: 3rem;
+      grid-template-columns: 1fr 1px 1fr 1px 1fr;
+      gap: 0;
+    }
+
+    .how-it-works-grid .rule {
+      background: var(--rule);
     }
 
     .step {
-      position: relative;
+      padding: 0 2.5rem;
     }
 
-    .step-number {
-      font-family: var(--font-serif);
-      font-size: 3rem;
-      line-height: 1;
-      color: var(--rule);
-      margin-bottom: 1rem;
-      font-weight: 400;
+    .step:first-child {
+      padding-left: 0;
+    }
+
+    .step:last-child {
+      padding-right: 0;
     }
 
     .step h3 {
       font-family: var(--font-serif);
-      font-size: 1.4rem;
+      font-size: 1.5rem;
+      font-weight: 400;
       margin-bottom: 1rem;
       color: var(--ink);
       line-height: 1.3;
@@ -784,7 +787,25 @@
 
       .how-it-works-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 0;
+      }
+
+      .how-it-works-grid .rule {
+        display: none;
+      }
+
+      .step {
+        padding: 0 0 2rem 0;
+        border-bottom: 1px solid var(--rule);
+        margin-bottom: 2rem;
+      }
+
+      .step:first-child { padding-left: 0; }
+      .step:last-child {
+        padding-right: 0;
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
       }
 
       .about-content {
@@ -1227,25 +1248,24 @@
   <!-- How It Works -->
   <section id="process">
     <div class="container">
-      <h2>How it works</h2>
-
       <div class="how-it-works-grid">
         <div class="step reveal-card reveal-stagger-1">
-          <div class="step-number">1</div>
-          <h3>You talk</h3>
+          <h3>You talk.</h3>
           <p>Tell me what your business does. What takes time. What costs money. What frustrates you. I listen.</p>
         </div>
 
+        <div class="rule reveal-card reveal-stagger-1"></div>
+
         <div class="step reveal-card reveal-stagger-2">
-          <div class="step-number">2</div>
-          <h3>I build it</h3>
+          <h3>I build it.</h3>
           <p>You get a system that's built for exactly how you work. Not how some SaaS company thinks you should work. You own it.</p>
         </div>
 
+        <div class="rule reveal-card reveal-stagger-2"></div>
+
         <div class="step reveal-card reveal-stagger-3">
-          <div class="step-number">3</div>
-          <h3>Low monthly rate</h3>
-          <p>No subscriptions per user. No surprise billing. One flat monthly rate for maintenance and updates, that's it.</p>
+          <h3>Low monthly rate.</h3>
+          <p>No subscriptions per user. No surprise billing. One flat monthly rate for maintenance and updates.</p>
           <p class="pricing-note">Most projects run $25 to $50/month. Less than your cable bill.</p>
         </div>
       </div>
