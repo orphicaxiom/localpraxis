@@ -1887,6 +1887,7 @@ button, input, select, textarea {
   .demo-banner {
     margin: 0 -1.5rem 1.5rem;
     padding-left: 3.5rem;
+    padding-right: 1rem;
   }
 
   .bottom-tabs {
@@ -1970,6 +1971,75 @@ button, input, select, textarea {
   .guest-hero h1 {
     font-size: 2.2rem;
   }
+
+  .form-input, .form-select, .pricing-input, .search-input {
+    font-size: 1rem;
+  }
+
+  .hamburger {
+    min-width: 44px;
+    min-height: 44px;
+    top: max(1rem, env(safe-area-inset-top));
+    left: max(1rem, env(safe-area-inset-left));
+  }
+
+  .nav-item {
+    padding: 0.85rem 1rem 0.85rem 1.25rem;
+    min-height: 44px;
+  }
+
+  .filter-tab {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .filter-tabs {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .search-input {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .panel-close, .modal-close {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn {
+    min-height: 44px;
+  }
+
+  .btn-sm {
+    min-height: 40px;
+  }
+
+  .btn-secondary {
+    min-height: 40px;
+  }
+
+  .more-menu-item {
+    padding: 1rem 1.25rem;
+    min-height: 44px;
+  }
+
+  .bottom-tabs {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .slide-panel {
+    padding-top: max(2rem, env(safe-area-inset-top));
+  }
+
+  .stat-value {
+    font-size: 1.8rem;
+  }
 }
 
 /* ── Demo Modal ── */
@@ -2038,6 +2108,23 @@ button, input, select, textarea {
 .panel-utility-actions button:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+@media (hover: none) {
+  .cart-card:hover,
+  .guest-card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  .cart-card:active,
+  .guest-card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+  .more-menu-item:active,
+  .nav-item:active {
+    background: var(--terracotta-subtle);
+  }
 }
 
 /* ── Reduced Motion ── */
@@ -2539,7 +2626,11 @@ function switchView(view) {
   if (view === 'more') { toggleMoreMenu(); return; }
   activeView = view;
   document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.toggle('active', n.dataset.view === view); });
-  document.querySelectorAll('.tab-item').forEach(function(t) { t.classList.toggle('active', t.dataset.view === view); });
+  var moreViews = ['checkinout', 'pricing', 'promotions', 'waivers', 'widget'];
+  document.querySelectorAll('.tab-item').forEach(function(t) {
+    var isActive = t.dataset.view === view || (t.dataset.view === 'more' && moreViews.indexOf(view) !== -1);
+    t.classList.toggle('active', isActive);
+  });
   document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
   var target = document.getElementById('view-' + view);
   if (target) {
@@ -3990,8 +4081,10 @@ if (localStorage.getItem('iw-dark-mode') === 'dark') {
    MOBILE
    ══════════════════════════════════════════════════════ */
 function toggleMobileSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
+  var sidebar = document.getElementById('sidebar');
+  var isOpen = sidebar.classList.toggle('open');
   document.querySelector('.sidebar-backdrop').classList.toggle('active');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
 }
 
 var moreMenuOpen = false;
