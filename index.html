@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Custom Software for Local Businesses | Local Praxis</title>
-  <meta name="description" content="Custom software for local businesses. Booking systems, inventory management, and client portals. Built for you, owned by you forever. Based on the Texas coast.">
+  <meta name="description" content="Custom software for Port Aransas businesses. Booking systems, inventory management, and client portals. Built for you, owned by you forever.">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%231E5FB5'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
@@ -26,8 +26,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  </noscript>
 
   <script type="application/ld+json">
   {
@@ -39,7 +43,7 @@
     "image": "https://localpraxis.com/og-image.png",
     "description": "Custom software for local businesses. Booking systems, inventory management, client portals. Built for you, owned by you forever.",
     "telephone": "+13613322725",
-    "email": "JamesAndrewJohnson555@gmail.com",
+    "email": "jim@localpraxis.com",
     "foundingDate": "2025",
     "founder": {
       "@type": "Person",
@@ -105,16 +109,41 @@
       --ink: #1C1917;
       --ink-mid: #57534E;
       --ink-light: #A8A29E;
-      --terracotta: #1E5FB5;
+      --accent: #1E5FB5;
       --rule: #DDD6CC;
 
       --font-serif: 'Instrument Serif', serif;
       --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --accent-hover: #184D96;
+      --accent-subtle: color-mix(in srgb, #1E5FB5 8%, transparent);
+      --error: #B91C1C;
+      --radius: 4px;
+      --font-size-xs: 0.65rem;
+      --font-size-sm: 0.75rem;
+      --font-size-base: 0.875rem;
+      --font-size-md: 1rem;
+      --font-size-lg: 1.25rem;
+      --font-size-h2: clamp(2rem, 4vw, 3rem);
+      --font-size-hero: clamp(2.4rem, 5vw, 4rem);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
     }
 
-    * {
+    [data-theme="dark"] {
+      --warm-white: #1C1917;
+      --cream: #292524;
+      --ink: #E7E5E4;
+      --ink-mid: #A8A29E;
+      --ink-light: #78716C;
+      --rule: #44403C;
+      --accent-subtle: color-mix(in srgb, var(--accent) 12%, transparent);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.18);
+    }
+
+    *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -128,9 +157,11 @@
       background-color: var(--warm-white);
       color: var(--ink);
       font-family: var(--font-sans);
-      font-size: 1.05rem;
-      line-height: 1.75;
+      font-size: var(--font-size-md);
+      line-height: 1.65;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     /* Noise Overlay */
@@ -141,15 +172,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="4" seed="1"/></filter><rect width="256" height="256" fill="%231C1917" filter="url(%23n)"/></svg>');
-      opacity: 0.025;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /><feColorMatrix type="saturate" values="0" /></filter><rect width="100" height="100" filter="url(%23n)" /></svg>');
+      opacity: 0.018;
       pointer-events: none;
       z-index: 1;
     }
 
     /* Selection */
     ::selection {
-      background-color: var(--terracotta);
+      background-color: var(--accent);
       color: var(--warm-white);
     }
 
@@ -199,7 +230,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background-color: rgba(253, 250, 245, 0.95);
+      background-color: color-mix(in srgb, var(--warm-white) 95%, transparent);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--rule);
       padding: 1rem 0;
@@ -216,10 +247,11 @@
 
     .logo {
       font-family: var(--font-serif);
-      font-size: 1.25rem;
+      font-size: var(--font-size-lg);
       font-weight: 500;
       color: var(--ink);
       letter-spacing: -0.01em;
+      text-decoration: none;
     }
 
     nav ul {
@@ -230,20 +262,37 @@
     }
 
     .nav-phone {
-      font-size: 0.875rem;
+      font-size: var(--font-size-base);
       color: var(--ink-mid);
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s var(--ease);
       white-space: nowrap;
     }
-    .nav-phone:hover { color: var(--terracotta); }
-    @media (max-width: 768px) { .nav-phone { display: none; } }
+    .nav-phone:hover { color: var(--accent); }
+    @media (max-width: 768px) { .nav-phone { font-size: var(--font-size-sm); } }
+
+    .theme-toggle-btn {
+      background: none;
+      border: none;
+      color: var(--ink-mid);
+      font-family: var(--font-sans);
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+      padding: 0.5rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+      transition: color 0.2s var(--ease);
+    }
+    .theme-toggle-btn:hover {
+      color: var(--ink);
+    }
 
     nav a {
       color: var(--ink);
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: var(--font-size-base);
       font-weight: 500;
       transition: color 0.3s var(--ease);
       position: relative;
@@ -256,7 +305,7 @@
       left: 0;
       width: 0;
       height: 1px;
-      background-color: var(--terracotta);
+      background-color: var(--accent);
       transition: width 0.3s var(--ease);
     }
 
@@ -265,7 +314,7 @@
     }
 
     nav a.active {
-      color: var(--terracotta);
+      color: var(--accent);
     }
 
     nav a.active::after {
@@ -280,7 +329,7 @@
 
     .hero h1 {
       font-family: var(--font-serif);
-      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-size: var(--font-size-hero);
       line-height: 1.15;
       letter-spacing: -0.025em;
       margin-bottom: 2rem;
@@ -288,7 +337,7 @@
     }
 
     .hero .subtitle {
-      font-size: 1.15rem;
+      font-size: var(--font-size-md);
       color: var(--ink-mid);
       margin-bottom: 2.5rem;
       max-width: 65%;
@@ -297,43 +346,43 @@
 
     .cta-button {
       display: inline-block;
-      background-color: var(--terracotta);
+      background-color: var(--accent);
       color: var(--warm-white);
       padding: 0.875rem 1.75rem;
       text-decoration: none;
       font-weight: 600;
-      border-radius: 5px;
+      border-radius: 4px;
       transition: all 0.3s var(--ease);
-      font-size: 0.95rem;
-      border: 1px solid var(--terracotta);
+      font-size: var(--font-size-base);
+      border: 1px solid var(--accent);
       cursor: pointer;
     }
 
     .cta-button:hover {
       background-color: transparent;
-      color: var(--terracotta);
+      color: var(--accent);
     }
 
     .cta-button-outline {
       background-color: transparent;
-      color: var(--terracotta);
-      border: 1px solid var(--terracotta);
+      color: var(--accent);
+      border: 1px solid var(--accent);
     }
 
     .cta-button-outline:hover {
-      background-color: var(--terracotta);
+      background-color: var(--accent);
       color: var(--warm-white);
     }
 
     /* Sections */
     section {
-      padding: 5rem 0;
+      padding: 6rem 0;
       border-top: 1px solid var(--rule);
     }
 
     section h2 {
       font-family: var(--font-serif);
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: var(--font-size-h2);
       line-height: 1.2;
       letter-spacing: -0.015em;
       margin-bottom: 3.5rem;
@@ -351,13 +400,13 @@
     /* Portfolio Section */
     .portfolio-intro {
       color: var(--ink-mid);
-      font-size: 1.05rem;
+      font-size: var(--font-size-md);
       margin-bottom: 3rem;
       max-width: 70%;
     }
 
     .portfolio-label {
-      font-size: 0.75rem;
+      font-size: var(--font-size-xs);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--ink-light);
@@ -379,10 +428,10 @@
 
     .demo-link {
       display: inline-block;
-      color: var(--terracotta);
+      color: var(--accent);
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: var(--font-size-base);
       transition: all 0.3s var(--ease);
       position: relative;
       z-index: 2;
@@ -418,7 +467,7 @@
       border-bottom: 2px solid transparent;
       padding: 0.75rem 1.25rem;
       font-family: var(--font-sans);
-      font-size: 0.9rem;
+      font-size: var(--font-size-base);
       font-weight: 500;
       color: var(--ink-mid);
       cursor: pointer;
@@ -432,8 +481,8 @@
     }
 
     .tab-btn.active {
-      color: var(--terracotta);
-      border-bottom-color: var(--terracotta);
+      color: var(--accent);
+      border-bottom-color: var(--accent);
     }
 
     .tab-panel {
@@ -465,7 +514,7 @@
 
     .tab-info h3 {
       font-family: var(--font-serif);
-      font-size: 1.75rem;
+      font-size: var(--font-size-lg);
       margin-bottom: 0.75rem;
       color: var(--ink);
       line-height: 1.3;
@@ -473,7 +522,7 @@
     }
 
     .tab-info p {
-      font-size: 0.95rem;
+      font-size: var(--font-size-md);
       color: var(--ink-mid);
       line-height: 1.75;
       margin-bottom: 1.25rem;
@@ -481,7 +530,7 @@
 
     .tab-frame {
       border: 1px solid var(--rule);
-      border-radius: 8px;
+      border-radius: 4px;
       overflow: hidden;
       background: var(--cream);
     }
@@ -493,6 +542,9 @@
       .tab-content {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+      }
+      .tab-frame {
+        display: none;
       }
     }
 
@@ -521,7 +573,7 @@
 
     .step h3 {
       font-family: var(--font-serif);
-      font-size: 1.5rem;
+      font-size: var(--font-size-lg);
       font-weight: 400;
       margin-bottom: 1rem;
       color: var(--ink);
@@ -530,7 +582,7 @@
 
     .step p {
       color: var(--ink-mid);
-      font-size: 0.95rem;
+      font-size: var(--font-size-md);
       margin-bottom: 0;
     }
 
@@ -555,14 +607,14 @@
     .contact-form-wrap {
       background-color: var(--cream);
       border: 1px solid var(--rule);
-      border-radius: 6px;
+      border-radius: 4px;
       padding: 2.5rem;
       margin-bottom: 3rem;
     }
 
     .contact-form-lead {
       color: var(--ink-mid);
-      font-size: 1rem;
+      font-size: var(--font-size-md);
       margin-bottom: 2rem;
     }
 
@@ -580,7 +632,7 @@
     }
 
     .form-label {
-      font-size: 0.72rem;
+      font-size: var(--font-size-xs);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--ink-light);
@@ -588,7 +640,7 @@
     }
 
     .form-label .required-mark {
-      color: var(--terracotta);
+      color: var(--accent);
       margin-left: 2px;
     }
 
@@ -599,7 +651,7 @@
       border-radius: 4px;
       padding: 0.75rem 1rem;
       font-family: var(--font-sans);
-      font-size: 0.975rem;
+      font-size: var(--font-size-md);
       color: var(--ink);
       width: 100%;
       transition: border-color 0.2s var(--ease);
@@ -616,7 +668,7 @@
 
     .form-input:focus,
     .form-textarea:focus {
-      border-color: var(--terracotta);
+      border-color: var(--accent);
       outline-color: rgba(30, 95, 181, 0.2);
     }
 
@@ -636,7 +688,7 @@
     }
 
     .contact-direct-heading {
-      font-size: 0.75rem;
+      font-size: var(--font-size-sm);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--ink-light);
@@ -657,7 +709,7 @@
     }
 
     .contact-label {
-      font-size: 0.72rem;
+      font-size: var(--font-size-xs);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--ink-light);
@@ -665,14 +717,14 @@
     }
 
     .contact-value {
-      font-size: 0.975rem;
+      font-size: var(--font-size-md);
       color: var(--ink-mid);
       text-decoration: none;
       transition: color 0.3s var(--ease);
     }
 
     .contact-value:hover {
-      color: var(--terracotta);
+      color: var(--accent);
     }
 
     /* Footer */
@@ -695,13 +747,13 @@
 
     .footer-left {
       font-family: var(--font-serif);
-      font-size: 1rem;
+      font-size: var(--font-size-md);
       color: var(--ink);
     }
 
     .footer-right {
       text-align: right;
-      font-size: 0.85rem;
+      font-size: var(--font-size-sm);
       color: var(--ink-light);
     }
 
@@ -852,7 +904,7 @@
 
     /* Pricing note */
     .pricing-note {
-      color: var(--terracotta);
+      color: var(--accent);
       font-size: 0.95rem;
       font-style: italic;
       margin-top: 0.75rem;
@@ -862,7 +914,7 @@
     .outcome-stat {
       font-family: var(--font-sans);
       color: var(--ink-mid);
-      border-left: 3px solid var(--terracotta);
+      border-left: 3px solid var(--accent);
       padding-left: 1rem;
       margin-top: 1.5rem;
       font-style: italic;
@@ -870,13 +922,16 @@
 
     /* Lazy Load Animation for Cards */
     .reveal-card {
-      animation: fadeInUpSmall 0.8s var(--ease) forwards;
       opacity: 0;
     }
 
-    .reveal-card.reveal-stagger-1 { animation-delay: 0.1s; }
-    .reveal-card.reveal-stagger-2 { animation-delay: 0.2s; }
-    .reveal-card.reveal-stagger-3 { animation-delay: 0.3s; }
+    .reveal-card.visible {
+      animation: fadeInUpSmall 0.8s var(--ease) forwards;
+    }
+
+    .reveal-card.visible.reveal-stagger-1 { animation-delay: 0.1s; }
+    .reveal-card.visible.reveal-stagger-2 { animation-delay: 0.2s; }
+    .reveal-card.visible.reveal-stagger-3 { animation-delay: 0.3s; }
 
     /* Skip Link */
     .skip-link {
@@ -907,13 +962,13 @@
     .testimonial-card {
         background: var(--warm-white);
         border: 1px solid var(--rule);
-        border-radius: 8px;
+        border-radius: 4px;
         padding: 2rem;
         margin: 0;
     }
     .testimonial-text {
         font-family: 'Instrument Serif', Georgia, serif;
-        font-size: clamp(1rem, 1.5vw, 1.2rem);
+        font-size: var(--font-size-md);
         line-height: 1.6;
         color: var(--ink);
         font-style: italic;
@@ -928,11 +983,11 @@
     }
     .testimonial-name {
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: var(--font-size-base);
         color: var(--ink);
     }
     .testimonial-business {
-        font-size: 0.8rem;
+        font-size: var(--font-size-sm);
         color: var(--ink-light);
         text-transform: uppercase;
         letter-spacing: 0.08em;
@@ -958,7 +1013,7 @@
 
     .calc-label {
       display: block;
-      font-size: 0.72rem;
+      font-size: var(--font-size-xs);
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--ink-mid);
@@ -984,14 +1039,14 @@
       border: 1px solid var(--rule);
       border-radius: 4px;
       font-family: var(--font-sans);
-      font-size: 1.05rem;
+      font-size: var(--font-size-md);
       background: var(--warm-white);
       color: var(--ink);
       outline: none;
     }
 
     .calc-input:focus {
-      border-color: var(--terracotta);
+      border-color: var(--accent);
     }
 
     .calc-select {
@@ -1000,7 +1055,7 @@
       border: 1px solid var(--rule);
       border-radius: 4px;
       font-family: var(--font-sans);
-      font-size: 1.05rem;
+      font-size: var(--font-size-md);
       background: var(--warm-white);
       color: var(--ink);
       outline: none;
@@ -1009,7 +1064,7 @@
     }
 
     .calc-select:focus {
-      border-color: var(--terracotta);
+      border-color: var(--accent);
     }
 
     .calc-result {
@@ -1023,7 +1078,7 @@
     .calc-punchline {
       font-family: var(--font-serif);
       font-size: clamp(1.4rem, 3vw, 2rem);
-      color: var(--terracotta);
+      color: var(--accent);
       font-weight: 700;
       margin-bottom: 1.5rem;
       line-height: 1.3;
@@ -1044,7 +1099,7 @@
     }
 
     .calc-result-label {
-      font-size: 0.72rem;
+      font-size: var(--font-size-xs);
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--ink-mid);
@@ -1052,7 +1107,7 @@
     }
 
     .calc-result-label-sm {
-      font-size: 0.72rem;
+      font-size: var(--font-size-xs);
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--ink-mid);
@@ -1085,7 +1140,7 @@
   <!-- Navigation -->
   <nav role="navigation" aria-label="Main navigation">
     <div class="nav-container">
-      <a href="/" class="logo" style="text-decoration:none;">Local Praxis</a>
+      <a href="/" class="logo">Local Praxis</a>
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -1096,6 +1151,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="tel:+13613322725" class="nav-phone">(361) 332-2725</a></li>
+        <li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">Dark</button></li>
       </ul>
     </div>
   </nav>
@@ -1105,17 +1161,18 @@
   <section class="hero">
     <div class="container">
       <h1>Stop renting your software. Own it.</h1>
-      <p class="subtitle">I build booking systems, customer portals, and operational tools for Port Aransas businesses. You pay once. You own it forever. No subscriptions. No per-booking fees. No one else's logo on your checkout page.</p>
-      <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+      <p class="subtitle">I build booking systems, customer portals, and operational tools for Port Aransas businesses. You pay once. You own it forever.</p>
+      <p class="subtitle">No subscriptions. No per-booking fees. No one else's logo on your checkout page.</p>
+      <div class="hero-actions">
         <a href="#work" class="cta-button">See the work</a>
         <a href="#contact" class="cta-button cta-button-outline">Get in touch</a>
       </div>
-      <div style="margin-top:2rem;font-size:0.82rem;color:#A8A29E;line-height:1.6;">Port Aransas, TX<br>Previously Apple, Meta, GoDaddy</div>
+      <div class="hero-credential">Port Aransas, TX<br>Previously Apple, Meta, GoDaddy</div>
     </div>
   </section>
 
   <!-- Fee Calculator -->
-  <section id="calculator" style="border-top:none;padding-top:2rem;">
+  <section id="calculator">
     <div class="container">
       <h2>Run your numbers</h2>
       <p class="calc-intro">Enter your annual revenue. See what you're actually handing over. And what it costs to stop.</p>
@@ -1236,7 +1293,7 @@
   <!-- Integrations -->
   <div class="container" style="text-align:center;padding:3rem 1rem;margin-top:-2rem;">
     <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--ink-mid);margin-bottom:0.75rem;">Works with the tools you already use</p>
-    <p style="font-family:var(--font-serif);font-size:clamp(1rem,2vw,1.25rem);color:var(--ink);max-width:580px;margin:0 auto 1.75rem;line-height:1.5;"><strong>I build custom booking experiences on top of the property management system you're already running.</strong></p>
+    <p style="font-family:var(--font-serif);font-size:clamp(1rem,2vw,1.25rem);color:var(--ink);max-width:580px;margin:0 auto 1.75rem;line-height:1.5;"><strong>I integrate with the platforms and tools you're already running. No rip and replace.</strong></p>
     <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2rem 3rem;max-width:680px;margin:0 auto;">
       <img src="/img/escapia-seeklogo.svg" alt="Escapia" style="height:120px;" loading="lazy">
       <img src="/img/Guesty_Guesty_Logo_0.svg" alt="Guesty" style="height:30px;" loading="lazy">
@@ -1248,6 +1305,7 @@
   <!-- How It Works -->
   <section id="process">
     <div class="container">
+      <h2>How it works</h2>
       <div class="how-it-works-grid">
         <div class="step reveal-card reveal-stagger-1">
           <h3>You talk.</h3>
@@ -1302,13 +1360,14 @@
       <div class="about-content">
         <p>I spent a decade building software at Apple, Meta, and GoDaddy. Systems that served millions of users. I learned what good engineering looks like at scale.</p>
 
-        <p>Now I apply that same discipline to local businesses. Custom software that fits how you actually work. Not how some SaaS company thinks you should work. You own the code. You own your data. You own your future.</p>
+        <p>Now I apply that same discipline to local businesses. Custom software that fits how you actually work. Not how some SaaS company thinks you should work.</p>
+        <p>You own the code. You own your data. You own your future.</p>
 
         <p>I'm based in Port Aransas, TX. I grew up here watching my dad build the IT infrastructure for the local school district. I came back because the businesses on this coast deserve better tools than what's available off the shelf.</p>
 
         <p>But I work with businesses everywhere. If your operation runs on spreadsheets, generic platforms, or software that takes a cut of every sale, we should talk.</p>
 
-        <p class="outcome-stat">Every client I've built for still uses their system. No lock-in contracts, no "we're sunsetting your plan" emails.</p>
+        <p class="outcome-stat">Every client I've built for still uses their system. No lock-in contracts, no "we're shutting down your plan" emails.</p>
       </div>
     </div>
   </section>
@@ -1322,7 +1381,7 @@
           <h2>Let's build something</h2>
           <p class="contact-form-lead">Tell me what's costing you time or money. I'll reach back out within one business day.</p>
 
-          <form name="contact" method="POST" action="https://formsubmit.co/JamesAndrewJohnson555@gmail.com" novalidate>
+          <form name="contact" method="POST" action="https://formsubmit.co/jim@localpraxis.com" novalidate>
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
             <input type="text" name="_honey" style="display:none;">
@@ -1338,9 +1397,15 @@
               </div>
             </div>
 
-            <div class="form-field">
-              <label class="form-label" for="contact-phone">Phone <span style="font-style:italic;text-transform:none;letter-spacing:0;font-size:0.7rem;">(optional)</span></label>
-              <input class="form-input" type="tel" id="contact-phone" name="phone" autocomplete="tel" placeholder="(361) 000-0000">
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="contact-email">Email<span class="required-mark" aria-hidden="true">*</span></label>
+                <input class="form-input" type="email" id="contact-email" name="email" autocomplete="email" required placeholder="you@yourbusiness.com">
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="contact-phone">Phone <span style="font-style:italic;text-transform:none;letter-spacing:0;font-size:0.7rem;">(optional)</span></label>
+                <input class="form-input" type="tel" id="contact-phone" name="phone" autocomplete="tel" placeholder="(361) 000-0000">
+              </div>
             </div>
 
             <div class="form-field">
@@ -1363,7 +1428,7 @@
             </div>
             <div class="contact-item">
               <span class="contact-label">Email</span>
-              <a href="mailto:JamesAndrewJohnson555@gmail.com" class="contact-value">JamesAndrewJohnson555@gmail.com</a>
+              <a href="mailto:jim@localpraxis.com" class="contact-value">jim@localpraxis.com</a>
             </div>
           </div>
         </div>
@@ -1411,7 +1476,7 @@
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.style.animation = getComputedStyle(entry.target).animation;
+          entry.target.classList.add('visible');
           observer.unobserve(entry.target);
         }
       });
@@ -1430,23 +1495,29 @@
 
         const name = contactForm.querySelector('#contact-name').value.trim();
         const business = contactForm.querySelector('#contact-business').value.trim();
+        const email = contactForm.querySelector('#contact-email').value.trim();
         const message = contactForm.querySelector('#contact-message').value.trim();
 
         // Highlight missing required fields
-        [['#contact-name', name], ['#contact-business', business], ['#contact-message', message]].forEach(([sel, val]) => {
-          contactForm.querySelector(sel).style.outline = val ? '' : '2px solid var(--terracotta)';
+        let firstInvalid = null;
+        [['#contact-name', name], ['#contact-business', business], ['#contact-email', email], ['#contact-message', message]].forEach(([sel, val]) => {
+          const el = contactForm.querySelector(sel);
+          const missing = !val;
+          el.style.outline = missing ? '2px solid var(--error)' : '';
+          el.setAttribute('aria-invalid', missing);
+          if (missing && !firstInvalid) firstInvalid = el;
         });
-        if (!name || !business || !message) return;
+        if (firstInvalid) { firstInvalid.focus(); return; }
 
         const btn = contactForm.querySelector('button[type="submit"]');
         btn.disabled = true;
         btn.textContent = 'Sending…';
 
         try {
-          const res = await fetch('https://formsubmit.co/ajax/JamesAndrewJohnson555@gmail.com', {
+          const res = await fetch('https://formsubmit.co/ajax/jim@localpraxis.com', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({ name, business, phone: contactForm.querySelector('#contact-phone').value, message })
+            body: JSON.stringify({ name, business, email, phone: contactForm.querySelector('#contact-phone').value, message })
           });
           if (!res.ok) throw new Error();
           const wrap = contactForm.closest('.contact-form-wrap');
@@ -1461,8 +1532,8 @@
           wrap.appendChild(p);
         } catch {
           btn.disabled = false;
-          btn.textContent = 'Send message';
-          btn.style.outline = '2px solid var(--terracotta)';
+          btn.textContent = 'Something went wrong. Try again.';
+          btn.style.outline = '2px solid var(--error)';
         }
       });
     }
@@ -1583,6 +1654,26 @@
       calcRate.addEventListener('change', updateCalc);
       updateCalc();
     }
+
+    // Dark mode toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('lp-theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeToggle.textContent = 'Light';
+    }
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        themeToggle.textContent = 'Dark';
+        localStorage.setItem('lp-theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = 'Light';
+        localStorage.setItem('lp-theme', 'dark');
+      }
+    });
   </script>
 
 </body>

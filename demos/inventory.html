@@ -3,8 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Salt Line Supply - POS & Inventory</title>
+  <title>Retail POS & Inventory Management Demo | Local Praxis</title>
+  <meta name="description" content="Interactive demo of a point-of-sale and inventory management system. Product tracking, sales ring-up, supplier orders, and real-time stock levels. Built by Local Praxis.">
   <link rel="canonical" href="https://localpraxis.com/demos/inventory.html">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Retail POS & Inventory Management Demo | Local Praxis">
+  <meta property="og:description" content="Interactive demo of a point-of-sale and inventory management system. Product tracking, sales ring-up, supplier orders, and real-time stock levels. Built by Local Praxis.">
+  <meta property="og:image" content="https://localpraxis.com/og-image.png">
+  <meta property="og:url" content="https://localpraxis.com/demos/inventory.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Local Praxis">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Retail POS & Inventory Management Demo | Local Praxis">
+  <meta name="twitter:description" content="Interactive demo of a point-of-sale and inventory management system. Product tracking, sales ring-up, supplier orders, and real-time stock levels. Built by Local Praxis.">
+  <meta name="twitter:image" content="https://localpraxis.com/og-image.png">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23367055'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>SL</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,9 +32,9 @@
       --ink: #1C1917;
       --ink-mid: #57534E;
       --ink-light: #A8A29E;
-      --terracotta: #1E5FB5;
-      --terracotta-hover: #184D96;
-      --terracotta-subtle: color-mix(in srgb, #1E5FB5 8%, transparent);
+      --accent: #1E5FB5;
+      --accent-hover: #184D96;
+      --accent-subtle: color-mix(in srgb, #1E5FB5 8%, transparent);
       --rule: #DDD6CC;
       --success: #6B8F71;
       --warning: #B5976B;
@@ -47,7 +60,7 @@
       --ink-mid: #A8A29E;
       --ink-light: #78716C;
       --rule: #44403C;
-      --terracotta-subtle: color-mix(in srgb, var(--terracotta) 12%, transparent);
+      --accent-subtle: color-mix(in srgb, var(--accent) 12%, transparent);
     }
 
     /* ─── Reset + Base ───────────────────────────────────────── */
@@ -83,7 +96,7 @@
     }
 
     ::selection {
-      background: var(--terracotta);
+      background: var(--accent);
       color: var(--warm-white);
     }
 
@@ -149,12 +162,12 @@
 
     .nav-item.active {
       color: var(--ink);
-      border-left: 2px solid var(--terracotta);
+      border-left: 2px solid var(--accent);
       font-weight: 600;
     }
 
     .nav-item:focus-visible {
-      outline: 2px solid var(--terracotta);
+      outline: 2px solid var(--accent);
       outline-offset: -2px;
     }
 
@@ -248,7 +261,7 @@
     }
 
     .stat-card.accent {
-      border-left: 3px solid var(--terracotta);
+      border-left: 3px solid var(--accent);
     }
 
     .stat-label {
@@ -298,7 +311,7 @@
       right: 0;
       width: 40%;
       height: 100%;
-      background: linear-gradient(135deg, transparent 0%, color-mix(in srgb, var(--terracotta) 4%, transparent) 100%);
+      background: linear-gradient(135deg, transparent 0%, color-mix(in srgb, var(--accent) 4%, transparent) 100%);
       pointer-events: none;
     }
 
@@ -418,7 +431,7 @@
     .bar {
       width: 100%;
       max-width: 36px;
-      background: var(--terracotta);
+      background: var(--accent);
       border-radius: 3px 3px 0 0;
       transform-origin: bottom;
       animation: barGrow 0.6s var(--ease) both;
@@ -530,7 +543,7 @@
       justify-content: center;
       margin-bottom: 1rem;
       font-size: 1.2rem;
-      color: var(--terracotta);
+      color: var(--accent);
     }
 
     .product-name {
@@ -625,8 +638,8 @@
     }
 
     .filter-tab.active {
-      color: var(--terracotta);
-      border-bottom-color: var(--terracotta);
+      color: var(--accent);
+      border-bottom-color: var(--accent);
       font-weight: 500;
     }
 
@@ -967,8 +980,8 @@
       justify-content: center;
       gap: 0.4rem;
       background: transparent;
-      border: 1px solid var(--terracotta);
-      color: var(--terracotta);
+      border: 1px solid var(--accent);
+      color: var(--accent);
       font-family: var(--font-body);
       font-size: var(--font-size-base);
       font-weight: 500;
@@ -979,7 +992,7 @@
     }
 
     .btn-primary:hover {
-      background: var(--terracotta-subtle);
+      background: var(--accent-subtle);
     }
 
     .fab {
@@ -991,7 +1004,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: var(--terracotta);
+      background: var(--accent);
       color: var(--cream);
       font-family: var(--font-body);
       font-size: var(--font-size-base);
@@ -1002,13 +1015,13 @@
       border-radius: 60px;
       cursor: pointer;
       z-index: 400;
-      box-shadow: 0 4px 16px color-mix(in srgb, var(--terracotta) 25%, transparent);
+      box-shadow: 0 4px 16px color-mix(in srgb, var(--accent) 25%, transparent);
       transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), opacity 0.2s;
     }
 
     .fab:hover {
       transform: scale(1.03);
-      box-shadow: 0 6px 24px color-mix(in srgb, var(--terracotta) 35%, transparent);
+      box-shadow: 0 6px 24px color-mix(in srgb, var(--accent) 35%, transparent);
     }
 
     .fab:active {
@@ -1032,7 +1045,7 @@
       gap: 0.4rem;
       background: none;
       border: none;
-      color: var(--terracotta);
+      color: var(--accent);
       font-family: var(--font-body);
       font-size: var(--font-size-base);
       font-weight: 500;
@@ -1051,7 +1064,7 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      background: var(--terracotta);
+      background: var(--accent);
       border: none;
       color: var(--warm-white);
       font-family: var(--font-body);
@@ -1065,7 +1078,7 @@
     }
 
     .btn-complete:hover {
-      background: var(--terracotta-hover);
+      background: var(--accent-hover);
     }
 
     .btn-complete:disabled {
@@ -1076,7 +1089,7 @@
     .btn-text {
       background: none;
       border: none;
-      color: var(--terracotta);
+      color: var(--accent);
       font-family: var(--font-body);
       font-size: var(--font-size-base);
       cursor: pointer;
@@ -1115,8 +1128,8 @@
     }
 
     .toggle-track.on {
-      background: var(--terracotta);
-      border-color: var(--terracotta);
+      background: var(--accent);
+      border-color: var(--accent);
     }
 
     .toggle-track.on::after {
@@ -1139,7 +1152,7 @@
     }
 
     .form-input:focus {
-      border-color: var(--terracotta);
+      border-color: var(--accent);
     }
 
     .form-input::placeholder {
@@ -1398,8 +1411,8 @@
     }
 
     .tab-bar-item.active {
-      color: var(--terracotta);
-      border-top-color: var(--terracotta);
+      color: var(--accent);
+      border-top-color: var(--accent);
     }
 
     .tab-bar-item svg {
@@ -1691,7 +1704,7 @@
     }
 
     .payment-toggle.active {
-      border-bottom-color: var(--terracotta);
+      border-bottom-color: var(--accent);
     }
 
     .order-line {

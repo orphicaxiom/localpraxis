@@ -3,8 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Island Wheels | Fleet Manager</title>
+  <title>Golf Cart Rental Fleet Manager Demo | Local Praxis</title>
+  <meta name="description" content="Interactive demo of a golf cart rental management system. Fleet tracking, availability calendar, check-in/out workflows, booking widget, and dynamic pricing. Built by Local Praxis.">
   <link rel="canonical" href="https://localpraxis.com/demos/rental.html">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Golf Cart Rental Fleet Manager Demo | Local Praxis">
+  <meta property="og:description" content="Interactive demo of a golf cart rental management system. Fleet tracking, availability calendar, check-in/out workflows, booking widget, and dynamic pricing. Built by Local Praxis.">
+  <meta property="og:image" content="https://localpraxis.com/og-image.png">
+  <meta property="og:url" content="https://localpraxis.com/demos/rental.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Local Praxis">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Golf Cart Rental Fleet Manager Demo | Local Praxis">
+  <meta name="twitter:description" content="Interactive demo of a golf cart rental management system. Fleet tracking, availability calendar, check-in/out workflows, booking widget, and dynamic pricing. Built by Local Praxis.">
+  <meta name="twitter:image" content="https://localpraxis.com/og-image.png">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23C45D3E'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>IW</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,9 +32,9 @@
   --ink: #1C1917;
   --ink-mid: #57534E;
   --ink-light: #A8A29E;
-  --terracotta: #1E5FB5;
-  --terracotta-hover: #184D96;
-  --terracotta-subtle: color-mix(in srgb, #1E5FB5 8%, transparent);
+  --accent: #1E5FB5;
+  --accent-hover: #184D96;
+  --accent-subtle: color-mix(in srgb, #1E5FB5 8%, transparent);
   --rule: #DDD6CC;
   --status-green: #6B8F71;
   --status-amber: #B5976B;
@@ -41,7 +54,7 @@
   --ink-mid: #A8A29E;
   --ink-light: #78716C;
   --rule: #44403C;
-  --terracotta-subtle: color-mix(in srgb, var(--terracotta) 15%, transparent);
+  --accent-subtle: color-mix(in srgb, var(--accent) 15%, transparent);
 }
 
 /* ── Reset + Base ── */
@@ -79,7 +92,7 @@ body::before {
 }
 
 ::selection {
-  background: var(--terracotta);
+  background: var(--accent);
   color: #fff;
 }
 
@@ -108,7 +121,7 @@ button, input, select, textarea {
 }
 
 *:focus-visible {
-  outline: 2px solid var(--terracotta);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -163,14 +176,14 @@ button, input, select, textarea {
 }
 
 .nav-item:hover {
-  background: var(--terracotta-subtle);
-  color: var(--terracotta);
+  background: var(--accent-subtle);
+  color: var(--accent);
 }
 
 .nav-item.active {
-  color: var(--terracotta);
-  border-left-color: var(--terracotta);
-  background: var(--terracotta-subtle);
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: var(--accent-subtle);
 }
 
 .sidebar-footer {
@@ -187,7 +200,7 @@ button, input, select, textarea {
 }
 
 .dark-toggle:hover {
-  color: var(--terracotta);
+  color: var(--accent);
 }
 
 .sidebar-backdrop {
@@ -218,7 +231,7 @@ button, input, select, textarea {
 }
 
 .demo-banner a {
-  color: var(--terracotta);
+  color: var(--accent);
 }
 
 .demo-banner a:hover {
@@ -272,7 +285,7 @@ button, input, select, textarea {
 }
 
 .stat-card.highlight {
-  border-top-color: var(--terracotta);
+  border-top-color: var(--accent);
 }
 
 .stat-label {
@@ -299,7 +312,7 @@ button, input, select, textarea {
 
 .stat-card.highlight .stat-value,
 .stat-card.highlight .stat-sub {
-  color: var(--terracotta);
+  color: var(--accent);
 }
 
 /* ── Section Titles ── */
@@ -335,7 +348,7 @@ button, input, select, textarea {
 }
 
 .timeline-item:hover {
-  background: var(--terracotta-subtle);
+  background: var(--accent-subtle);
   margin: 0 -0.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -389,7 +402,7 @@ button, input, select, textarea {
   width: 100%;
   min-width: 30px;
   max-width: 50px;
-  background: var(--terracotta);
+  background: var(--accent);
   border-radius: 3px 3px 0 0;
   transition: height 600ms var(--ease), background 0.15s;
   cursor: pointer;
@@ -399,7 +412,7 @@ button, input, select, textarea {
 }
 
 .bar:hover {
-  background: var(--terracotta-hover);
+  background: var(--accent-hover);
 }
 
 .bar-tooltip {
@@ -445,7 +458,7 @@ button, input, select, textarea {
 }
 
 .glance-tile:hover {
-  border-color: var(--terracotta);
+  border-color: var(--accent);
 }
 
 .glance-id {
@@ -579,12 +592,12 @@ button, input, select, textarea {
 }
 
 .filter-tab:hover {
-  color: var(--terracotta);
+  color: var(--accent);
 }
 
 .filter-tab.active {
-  color: var(--terracotta);
-  border-bottom-color: var(--terracotta);
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
 .search-input {
@@ -599,7 +612,7 @@ button, input, select, textarea {
 }
 
 .search-input:focus {
-  border-color: var(--terracotta);
+  border-color: var(--accent);
 }
 
 /* ── Slide-in Panel ── */
@@ -740,7 +753,7 @@ button, input, select, textarea {
 }
 
 .data-table tbody tr:hover {
-  background: var(--terracotta-subtle);
+  background: var(--accent-subtle);
 }
 
 .data-table tbody tr.clickable {
@@ -767,12 +780,12 @@ button, input, select, textarea {
 }
 
 .cal-nav-btn:hover {
-  color: var(--terracotta);
-  background: var(--terracotta-subtle);
+  color: var(--accent);
+  background: var(--accent-subtle);
 }
 
 .cal-nav-btn.active {
-  color: var(--terracotta);
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -801,7 +814,7 @@ button, input, select, textarea {
 }
 
 .gantt-header.today {
-  border-top: 2px solid var(--terracotta);
+  border-top: 2px solid var(--accent);
 }
 
 .gantt-header.past {
@@ -848,7 +861,7 @@ button, input, select, textarea {
 }
 
 .gantt-cell.today {
-  background: var(--terracotta-subtle);
+  background: var(--accent-subtle);
 }
 
 .gantt-bar {
@@ -936,7 +949,7 @@ button, input, select, textarea {
 }
 
 .heatmap-cell:hover {
-  border-color: var(--terracotta);
+  border-color: var(--accent);
 }
 
 .heatmap-cell.empty {
@@ -946,7 +959,7 @@ button, input, select, textarea {
 
 .heatmap-cell.today {
   font-weight: 700;
-  border-color: var(--terracotta);
+  border-color: var(--accent);
 }
 
 /* ── Split View (Check-in/Out) ── */
@@ -972,7 +985,7 @@ button, input, select, textarea {
 }
 
 .cio-item:hover {
-  border-color: var(--terracotta);
+  border-color: var(--accent);
 }
 
 .cio-item-header {
@@ -1027,11 +1040,11 @@ button, input, select, textarea {
 }
 
 .pricing-cell:hover {
-  background: var(--terracotta-subtle);
+  background: var(--accent-subtle);
 }
 
 .pricing-input {
-  border: 1px solid var(--terracotta);
+  border: 1px solid var(--accent);
   padding: 0.35rem 0.5rem;
   font-size: 0.88rem;
   border-radius: 4px;
@@ -1061,7 +1074,7 @@ button, input, select, textarea {
 }
 
 .promo-card:hover {
-  border-color: var(--terracotta);
+  border-color: var(--accent);
 }
 
 .promo-header {
@@ -1118,7 +1131,7 @@ button, input, select, textarea {
 }
 
 .toggle-switch.active {
-  background: var(--terracotta);
+  background: var(--accent);
 }
 
 .toggle-knob {
@@ -1167,9 +1180,9 @@ button, input, select, textarea {
 }
 
 .widget-toggle-btn.active {
-  color: var(--terracotta);
-  border-color: var(--terracotta);
-  background: var(--terracotta-subtle);
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-subtle);
 }
 
 .widget-preview {
@@ -1300,7 +1313,7 @@ button, input, select, textarea {
 }
 
 .guest-card-link {
-  color: var(--terracotta);
+  color: var(--accent);
   font-size: 0.88rem;
   font-weight: 500;
   cursor: pointer;
@@ -1384,7 +1397,7 @@ button, input, select, textarea {
   content: '';
   width: 16px;
   height: 16px;
-  background: var(--terracotta);
+  background: var(--accent);
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
   mask-size: contain;
@@ -1411,7 +1424,7 @@ button, input, select, textarea {
 }
 
 .accordion-header:hover {
-  background: var(--terracotta-subtle);
+  background: var(--accent-subtle);
 }
 
 .accordion-arrow {
@@ -1509,13 +1522,13 @@ button, input, select, textarea {
 }
 
 .btn-primary {
-  border: 1px solid var(--terracotta);
-  color: var(--terracotta);
+  border: 1px solid var(--accent);
+  color: var(--accent);
   background: transparent;
 }
 
 .btn-primary:hover {
-  background: var(--terracotta);
+  background: var(--accent);
   color: #fff;
 }
 
@@ -1538,7 +1551,7 @@ button, input, select, textarea {
 .btn-text {
   border: none;
   background: none;
-  color: var(--terracotta);
+  color: var(--accent);
   padding: 0;
   cursor: pointer;
   font-size: 0.85rem;
@@ -1630,7 +1643,7 @@ button, input, select, textarea {
 }
 
 .form-input:focus, .form-select:focus {
-  border-color: var(--terracotta);
+  border-color: var(--accent);
 }
 
 .form-row {
@@ -1649,7 +1662,7 @@ button, input, select, textarea {
 
 .form-checkbox input[type="checkbox"],
 .form-checkbox input[type="radio"] {
-  accent-color: var(--terracotta);
+  accent-color: var(--accent);
 }
 
 /* ── Step Indicators ── */
@@ -1671,7 +1684,7 @@ button, input, select, textarea {
 
 .step-dot.active,
 .step-dot.completed {
-  background: var(--terracotta);
+  background: var(--accent);
 }
 
 .step-line {
@@ -1681,7 +1694,7 @@ button, input, select, textarea {
 }
 
 .step-line.completed {
-  background: var(--terracotta);
+  background: var(--accent);
 }
 
 .step-container {
@@ -1723,12 +1736,12 @@ button, input, select, textarea {
 }
 
 .cart-select-item:hover {
-  border-color: var(--terracotta);
+  border-color: var(--accent);
 }
 
 .cart-select-item.selected {
-  border-color: var(--terracotta);
-  background: var(--terracotta-subtle);
+  border-color: var(--accent);
+  background: var(--accent-subtle);
 }
 
 .cart-select-name {
@@ -1843,8 +1856,8 @@ button, input, select, textarea {
 }
 
 .more-menu-item:hover {
-  background: var(--terracotta-subtle);
-  color: var(--terracotta);
+  background: var(--accent-subtle);
+  color: var(--accent);
 }
 
 /* ── Responsive ── */
@@ -1918,7 +1931,7 @@ button, input, select, textarea {
   }
 
   .tab-item.active {
-    color: var(--terracotta);
+    color: var(--accent);
   }
 
   .tab-item svg {
@@ -2075,7 +2088,7 @@ button, input, select, textarea {
 .demo-modal button {
   background: none;
   border: none;
-  color: var(--terracotta);
+  color: var(--accent);
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 500;
@@ -2098,7 +2111,7 @@ button, input, select, textarea {
 .panel-utility-actions button {
   background: none;
   border: none;
-  color: var(--terracotta);
+  color: var(--accent);
   font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 500;
@@ -2123,7 +2136,7 @@ button, input, select, textarea {
   }
   .more-menu-item:active,
   .nav-item:active {
-    background: var(--terracotta-subtle);
+    background: var(--accent-subtle);
   }
 }
 
@@ -2304,7 +2317,7 @@ button, input, select, textarea {
   <!-- Guest Booking View -->
   <div class="guest-view" id="guest-view" style="display:none">
     <div class="guest-topbar">
-      <a onclick="closeGuestView()" style="cursor:pointer;color:var(--terracotta);font-size:0.85rem">&larr; Back to Admin</a>
+      <a onclick="closeGuestView()" style="cursor:pointer;color:var(--accent);font-size:0.85rem">&larr; Back to Admin</a>
     </div>
     <div id="guest-content"></div>
   </div>
@@ -2847,7 +2860,7 @@ function openCartPanel(cartId) {
         '<div class="panel-section">' +
           '<div class="panel-section-title">Current Rental</div>' +
           '<div class="panel-row"><span class="panel-row-label">Customer</span><span class="panel-row-value">' + res.customer.name + '</span></div>' +
-          '<div class="panel-row"><span class="panel-row-label">Phone</span><span class="panel-row-value"><a href="tel:' + res.customer.phone + '" style="color:var(--terracotta)">' + res.customer.phone + '</a></span></div>' +
+          '<div class="panel-row"><span class="panel-row-label">Phone</span><span class="panel-row-value"><a href="tel:' + res.customer.phone + '" style="color:var(--accent)">' + res.customer.phone + '</a></span></div>' +
           '<div class="panel-row"><span class="panel-row-label">Pickup</span><span class="panel-row-value">' + fmtDate(res.pickupDate) + ' ' + fmtTime(res.pickupTime) + '</span></div>' +
           '<div class="panel-row"><span class="panel-row-label">Return</span><span class="panel-row-value">' + fmtDate(res.returnDate) + ' ' + fmtTime(res.returnTime) + '</span></div>' +
           '<div class="panel-row"><span class="panel-row-label">Total</span><span class="panel-row-value">' + fmtMoney(res.total) + '</span></div>' +
@@ -2954,7 +2967,7 @@ function renderCalendar() {
     }).length;
     var pct = Math.round((booked / 16) * 100);
     var fillColor = 'var(--status-green)';
-    if (pct > 80) fillColor = 'var(--terracotta)';
+    if (pct > 80) fillColor = 'var(--accent)';
     else if (pct > 50) fillColor = 'var(--status-amber)';
     html += '<div class="gantt-util-cell"><div class="util-strip"><div class="util-fill" style="width:' + pct + '%;background:' + fillColor + '"></div></div></div>';
   });
@@ -3123,7 +3136,7 @@ function openResPanel(resId) {
     '<div class="panel-section">' +
       '<div class="panel-section-title">Customer</div>' +
       '<div style="font-weight:600;font-size:0.95rem;margin-bottom:0.25rem">' + res.customer.name + '</div>' +
-      '<div style="font-size:0.85rem;color:var(--ink-mid)"><a href="tel:' + res.customer.phone + '" style="color:var(--terracotta)">' + res.customer.phone + '</a></div>' +
+      '<div style="font-size:0.85rem;color:var(--ink-mid)"><a href="tel:' + res.customer.phone + '" style="color:var(--accent)">' + res.customer.phone + '</a></div>' +
       '<div style="font-size:0.85rem;color:var(--ink-mid)">' + res.customer.email + '</div>' +
     '</div>' +
     '<hr class="panel-divider">' +
@@ -3917,7 +3930,7 @@ function renderGuestDetail() {
   var html =
     '<div class="guest-detail">' +
       '<div style="margin-bottom:1.5rem">' +
-        '<a onclick="guestBackToList()" style="cursor:pointer;color:var(--terracotta);font-size:0.85rem">&larr; All Carts</a>' +
+        '<a onclick="guestBackToList()" style="cursor:pointer;color:var(--accent);font-size:0.85rem">&larr; All Carts</a>' +
       '</div>' +
       '<div class="guest-detail-hero">' +
         '<div class="guest-detail-img">' + cartSVGLarge(160) + '</div>' +

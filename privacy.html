@@ -35,7 +35,7 @@
       --ink: #1C1917;
       --ink-mid: #57534E;
       --ink-light: #A8A29E;
-      --terracotta: #1E5FB5;
+      --accent: #1E5FB5;
       --rule: #DDD6CC;
       --font-serif: 'Instrument Serif', serif;
       --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -57,7 +57,7 @@
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="4" seed="1"/></filter><rect width="256" height="256" fill="%231C1917" filter="url(%23n)"/></svg>');
       opacity: 0.025; pointer-events: none; z-index: 1;
     }
-    ::selection { background-color: var(--terracotta); color: var(--warm-white); }
+    ::selection { background-color: var(--accent); color: var(--warm-white); }
 
     /* Nav */
     nav {
@@ -80,7 +80,7 @@
       font-size: 0.875rem; color: var(--ink-mid); text-decoration: none;
       font-weight: 500; transition: color 0.3s var(--ease); white-space: nowrap;
     }
-    .nav-phone:hover { color: var(--terracotta); }
+    .nav-phone:hover { color: var(--accent); }
     @media (max-width: 768px) { .nav-phone { display: none; } }
     nav a {
       color: var(--ink); text-decoration: none;
@@ -89,11 +89,11 @@
     }
     nav a::after {
       content: ''; position: absolute; bottom: -4px; left: 0;
-      width: 0; height: 1px; background-color: var(--terracotta);
+      width: 0; height: 1px; background-color: var(--accent);
       transition: width 0.3s var(--ease);
     }
     nav a:hover::after { width: 100%; }
-    nav a.active { color: var(--terracotta); }
+    nav a.active { color: var(--accent); }
     nav a.active::after { width: 100%; }
 
     /* Container */
@@ -112,7 +112,7 @@
       margin-bottom: 2rem;
       transition: color 0.2s;
     }
-    .page-header .back-link:hover { color: var(--terracotta); }
+    .page-header .back-link:hover { color: var(--accent); }
     .page-header h1 {
       font-family: var(--font-serif);
       font-size: clamp(2.4rem, 5vw, 4rem);
@@ -156,7 +156,7 @@
       font-weight: 600;
     }
     .privacy-content a {
-      color: var(--terracotta);
+      color: var(--accent);
       text-decoration: none;
       transition: opacity 0.2s;
     }
@@ -274,7 +274,7 @@
         <p>
           <strong>James Johnson</strong><br>
           Phone: <a href="tel:+13613322725">(361) 332-2725</a><br>
-          Email: <a href="mailto:JamesAndrewJohnson555@gmail.com">JamesAndrewJohnson555@gmail.com</a>
+          Email: <a href="mailto:jim@localpraxis.com">jim@localpraxis.com</a>
         </p>
 
         <p class="updated">Last updated: April 3, 2026</p>

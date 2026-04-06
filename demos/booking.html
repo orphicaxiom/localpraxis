@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redfish Run Charters - Admin Dashboard</title>
+    <title>Fishing Charter Booking System Demo | Local Praxis</title>
+    <meta name="description" content="Interactive demo of a fishing charter booking system. Trip management, guest scheduling, revenue analytics, and a customer-facing booking widget. Built by Local Praxis.">
     <link rel="canonical" href="https://localpraxis.com/demos/booking.html">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Fishing Charter Booking System Demo | Local Praxis">
+    <meta property="og:description" content="Interactive demo of a fishing charter booking system. Trip management, guest scheduling, revenue analytics, and a customer-facing booking widget. Built by Local Praxis.">
+    <meta property="og:image" content="https://localpraxis.com/og-image.png">
+    <meta property="og:url" content="https://localpraxis.com/demos/booking.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Local Praxis">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Fishing Charter Booking System Demo | Local Praxis">
+    <meta name="twitter:description" content="Interactive demo of a fishing charter booking system. Trip management, guest scheduling, revenue analytics, and a customer-facing booking widget. Built by Local Praxis.">
+    <meta name="twitter:image" content="https://localpraxis.com/og-image.png">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232C4A6E'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>RR</text></svg>">
 
@@ -21,8 +34,8 @@
             --ink: #1C1917;
             --ink-mid: #57534E;
             --ink-light: #A8A29E;
-            --terracotta: #1E5FB5;
-            --terracotta-hover: #184D96;
+            --accent: #1E5FB5;
+            --accent-hover: #184D96;
             --on-accent: #FFFFFF;
             --rule: #DDD6CC;
             --success: #16A34A;
@@ -64,7 +77,7 @@
 
         /* Selection color */
         ::selection {
-            background: var(--terracotta);
+            background: var(--accent);
             color: var(--on-accent);
         }
 
@@ -116,14 +129,14 @@
         }
 
         .nav-item:hover {
-            background: color-mix(in srgb, var(--terracotta) 8%, transparent);
-            color: var(--terracotta);
+            background: color-mix(in srgb, var(--accent) 8%, transparent);
+            color: var(--accent);
         }
 
         .nav-item.active {
             background: transparent;
             color: var(--ink);
-            border-left: 3px solid var(--terracotta);
+            border-left: 3px solid var(--accent);
             font-weight: 500;
         }
 
@@ -234,7 +247,7 @@
         }
 
         .attention-count {
-            color: var(--terracotta);
+            color: var(--accent);
             font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
             font-size: 0.95rem;
             font-weight: 600;
@@ -258,7 +271,7 @@
             justify-content: space-between;
             padding: 0.85rem 1rem;
             border-bottom: 1px solid var(--rule);
-            border-left: 2px solid var(--terracotta);
+            border-left: 2px solid var(--accent);
             font-size: 0.95rem;
             gap: 1rem;
             transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
@@ -343,7 +356,7 @@
         }
 
         .attention-action {
-            color: var(--terracotta);
+            color: var(--accent);
             font-size: 0.85rem;
             font-weight: 500;
             cursor: pointer;
@@ -357,7 +370,7 @@
         }
 
         .attention-action:hover {
-            color: var(--terracotta-hover);
+            color: var(--accent-hover);
             text-decoration: underline;
         }
 
@@ -369,7 +382,7 @@
             min-width: 18px;
             height: 18px;
             border-radius: 50%;
-            background: var(--terracotta);
+            background: var(--accent);
             color: var(--on-accent);
             font-size: 0.65rem;
             font-weight: 700;
@@ -380,7 +393,7 @@
         }
 
         .nav-item.active .nav-badge {
-            background: var(--terracotta);
+            background: var(--accent);
             color: var(--warm-white);
         }
 
@@ -426,7 +439,7 @@
         }
 
         .manifest-table tbody tr:hover {
-            background: color-mix(in srgb, var(--terracotta) 4%, transparent);
+            background: color-mix(in srgb, var(--accent) 4%, transparent);
         }
 
         .manifest-table td {
@@ -504,7 +517,7 @@
 
         .chart-bar {
             width: 100%;
-            background: var(--terracotta);
+            background: var(--accent);
             border-radius: 6px 6px 0 0;
             transition: all 0.2s var(--ease);
             min-height: 4px;
@@ -512,15 +525,15 @@
         }
 
         .chart-bar:hover {
-            background: var(--terracotta-hover);
+            background: var(--accent-hover);
             cursor: pointer;
             transform: scaleY(1.03);
             transform-origin: bottom;
         }
 
         .chart-bar.selected {
-            background: var(--terracotta-hover);
-            box-shadow: 0 -2px 8px color-mix(in srgb, var(--terracotta) 30%, transparent);
+            background: var(--accent-hover);
+            box-shadow: 0 -2px 8px color-mix(in srgb, var(--accent) 30%, transparent);
         }
 
         .chart-bar[data-amount]:hover::after {
@@ -606,23 +619,23 @@
         }
 
         .btn-primary {
-            background: var(--terracotta);
+            background: var(--accent);
             color: var(--on-accent);
         }
 
         .btn-primary:hover {
-            background: var(--terracotta-hover);
-            box-shadow: 0 4px 12px color-mix(in srgb, var(--terracotta) 25%, transparent);
+            background: var(--accent-hover);
+            box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 25%, transparent);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--terracotta);
-            border: 1px solid var(--terracotta);
+            color: var(--accent);
+            border: 1px solid var(--accent);
         }
 
         .btn-secondary:hover {
-            background: color-mix(in srgb, var(--terracotta) 8%, transparent);
+            background: color-mix(in srgb, var(--accent) 8%, transparent);
         }
 
         .btn-sm {
@@ -674,7 +687,7 @@
             font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
             font-size: 2rem;
             font-weight: 700;
-            color: var(--terracotta);
+            color: var(--accent);
             line-height: 1;
         }
 
@@ -802,7 +815,7 @@
         }
 
         .widget-progress-step.active {
-            color: var(--terracotta);
+            color: var(--accent);
         }
 
         .widget-progress-step.completed {
@@ -820,8 +833,8 @@
         }
 
         .widget-progress-step.active .widget-progress-dot {
-            border-color: var(--terracotta);
-            background: var(--terracotta);
+            border-color: var(--accent);
+            background: var(--accent);
         }
 
         .widget-progress-step.completed .widget-progress-dot {
@@ -839,7 +852,7 @@
         }
 
         .widget-progress-line.completed {
-            background: var(--terracotta);
+            background: var(--accent);
         }
 
         /* Step transition animation */
@@ -887,17 +900,17 @@
         }
 
         .widget-trip-card:hover {
-            border-left-color: var(--terracotta);
+            border-left-color: var(--accent);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
         .widget-trip-card.selected {
-            border-left-color: var(--terracotta);
+            border-left-color: var(--accent);
             box-shadow: none;
         }
 
         .widget-trip-icon {
-            color: var(--terracotta);
+            color: var(--accent);
             display: flex;
             align-items: center;
             margin-right: 1rem;
@@ -960,7 +973,7 @@
         }
 
         .widget-summary-icon {
-            color: var(--terracotta);
+            color: var(--accent);
             flex-shrink: 0;
         }
 
@@ -1016,14 +1029,14 @@
         }
 
         .widget-cal-day:hover:not(.unavailable):not(.empty) {
-            border-color: var(--terracotta);
+            border-color: var(--accent);
         }
 
         .widget-cal-day.selected {
             background: transparent;
-            color: var(--terracotta);
+            color: var(--accent);
             border-color: transparent;
-            border-bottom: 2px solid var(--terracotta);
+            border-bottom: 2px solid var(--accent);
             border-radius: 2px;
             font-weight: 600;
         }
@@ -1042,11 +1055,11 @@
             width: 4px;
             height: 4px;
             border-radius: 50%;
-            background: var(--terracotta);
+            background: var(--accent);
         }
 
         .widget-cal-day.today.selected::after {
-            background: var(--terracotta);
+            background: var(--accent);
         }
 
         .widget-cal-day.empty {
@@ -1149,7 +1162,7 @@
             display: block;
             width: 100%;
             padding: 0.9rem;
-            background: var(--terracotta);
+            background: var(--accent);
             color: var(--on-accent);
             border: none;
             border-radius: 4px;
@@ -1161,7 +1174,7 @@
         }
 
         .wbm-confirm-btn:hover {
-            background: var(--terracotta-hover);
+            background: var(--accent-hover);
         }
 
         .wbm-confirm-btn:disabled {
@@ -1246,7 +1259,7 @@
         }
 
         .widget-price-row.deposit {
-            color: var(--terracotta);
+            color: var(--accent);
             font-weight: 600;
         }
 
@@ -1254,7 +1267,7 @@
             display: block;
             width: 100%;
             padding: 0.9rem;
-            background: var(--terracotta);
+            background: var(--accent);
             color: var(--on-accent);
             border: none;
             border-radius: 6px;
@@ -1267,7 +1280,7 @@
         }
 
         .widget-confirm-btn:hover {
-            background: var(--terracotta-hover);
+            background: var(--accent-hover);
         }
 
         /* Confirmation */
@@ -1280,7 +1293,7 @@
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: color-mix(in srgb, var(--terracotta) 10%, transparent);
+            background: color-mix(in srgb, var(--accent) 10%, transparent);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1401,8 +1414,8 @@
 
         .widget-nav-continue {
             background: transparent;
-            border: 1px solid var(--terracotta);
-            color: var(--terracotta);
+            border: 1px solid var(--accent);
+            color: var(--accent);
             font-family: 'Satoshi', system-ui, sans-serif;
             font-size: 0.85rem;
             font-weight: 500;
@@ -1413,7 +1426,7 @@
         }
 
         .widget-nav-continue:hover {
-            background: color-mix(in srgb, var(--terracotta) 8%, transparent);
+            background: color-mix(in srgb, var(--accent) 8%, transparent);
         }
 
         .widget-form {
@@ -1447,8 +1460,8 @@
 
         .form-input:focus {
             outline: none;
-            border-color: var(--terracotta);
-            background: color-mix(in srgb, var(--terracotta) 2%, transparent);
+            border-color: var(--accent);
+            background: color-mix(in srgb, var(--accent) 2%, transparent);
         }
 
         /* (Old widget embed/settings CSS removed) */
@@ -1649,14 +1662,14 @@
         }
 
         .filter-btn:hover {
-            border-color: var(--terracotta);
-            color: var(--terracotta);
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
         .filter-btn.active {
-            background: var(--terracotta);
+            background: var(--accent);
             color: var(--on-accent);
-            border-color: var(--terracotta);
+            border-color: var(--accent);
         }
 
         .bookings-table {
@@ -1686,7 +1699,7 @@
         }
 
         .bookings-table tbody tr:hover {
-            background: color-mix(in srgb, var(--terracotta) 4%, transparent);
+            background: color-mix(in srgb, var(--accent) 4%, transparent);
         }
 
         .bookings-table td {
@@ -1803,7 +1816,7 @@
             justify-content: space-between;
             gap: 1rem;
             background: var(--cream);
-            border-left: 3px solid var(--terracotta);
+            border-left: 3px solid var(--accent);
             padding: 0.75rem 1rem;
             margin-bottom: 2rem;
             border-radius: 0 4px 4px 0;
@@ -1833,7 +1846,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: var(--terracotta);
+            background: var(--accent);
             color: var(--on-accent);
             padding: 0.75rem 2rem;
             display: flex;
@@ -1920,7 +1933,7 @@
             transition: color 0.2s var(--ease);
         }
         .section-title-clickable:hover {
-            color: var(--terracotta);
+            color: var(--accent);
         }
 
         /* SVG line chart */
@@ -1933,7 +1946,7 @@
         }
         .ra-line-path {
             fill: none;
-            stroke: var(--terracotta);
+            stroke: var(--accent);
             stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
@@ -1949,7 +1962,7 @@
             opacity: 1;
         }
         .ra-data-point {
-            fill: var(--terracotta);
+            fill: var(--accent);
             r: 3;
             opacity: 0;
             transition: opacity 0.3s ease, r 0.15s var(--ease);
@@ -2032,7 +2045,7 @@
         }
         .ra-hbar-fill {
             height: 100%;
-            background: var(--terracotta);
+            background: var(--accent);
             border-radius: 4px;
             width: 0;
             transition: width 0.8s var(--ease);
@@ -2061,7 +2074,7 @@
         }
         .ra-sparkline-line {
             fill: none;
-            stroke: var(--terracotta);
+            stroke: var(--accent);
             stroke-width: 1.5;
             stroke-linecap: round;
             stroke-linejoin: round;
@@ -2857,7 +2870,7 @@
 
                 <div class="form-group">
                     <label class="form-label">Amount</label>
-                    <div style="font-size: 0.95rem; padding: 0.75rem 0; font-weight: 600; color: var(--terracotta);" id="detail-amount"></div>
+                    <div style="font-size: 0.95rem; padding: 0.75rem 0; font-weight: 600; color: var(--accent);" id="detail-amount"></div>
                 </div>
 
                 <div class="form-group">
@@ -3444,8 +3457,8 @@
             document.getElementById('detail-success-message').style.display = 'none';
 
             document.getElementById('detail-name').textContent = booking.guest;
-            document.getElementById('detail-email').innerHTML = `<a href="mailto:${booking.email}" style="color:var(--terracotta);text-decoration:none;">${booking.email}</a>`;
-            document.getElementById('detail-phone').innerHTML = `<a href="tel:${booking.phone.replace(/\D/g,'')}" style="color:var(--terracotta);text-decoration:none;">${booking.phone}</a>`;
+            document.getElementById('detail-email').innerHTML = `<a href="mailto:${booking.email}" style="color:var(--accent);text-decoration:none;">${booking.email}</a>`;
+            document.getElementById('detail-phone').innerHTML = `<a href="tel:${booking.phone.replace(/\D/g,'')}" style="color:var(--accent);text-decoration:none;">${booking.phone}</a>`;
             document.getElementById('detail-trip').textContent = booking.trip;
             document.getElementById('detail-datetime').textContent = `${booking.date} at ${booking.time}`;
             document.getElementById('detail-party').textContent = `${booking.party} ${booking.party === 1 ? 'guest' : 'guests'}`;
@@ -3917,8 +3930,8 @@
             const svg = `<svg class="ra-line-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
                 <defs>
                     <linearGradient id="ra-area-gradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="var(--terracotta)" stop-opacity="0.15" />
-                        <stop offset="100%" stop-color="var(--terracotta)" stop-opacity="0.01" />
+                        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.15" />
+                        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.01" />
                     </linearGradient>
                 </defs>
                 ${gridHtml}
