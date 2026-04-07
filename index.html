@@ -115,6 +115,7 @@
       --error: #B91C1C;
       --mta-blue: #005A9C;
       --knoll-orange: #F24822;
+      --absolute-black: #000000;
       --radius: 0;
     }
 
@@ -148,16 +149,13 @@
     /* Dark mode overrides for hardcoded colors */
     [data-theme="dark"] .form-input,
     [data-theme="dark"] .form-textarea {
-      background-color: var(--cream);
-      border-color: var(--ink-light);
+      background: transparent;
+      border-bottom-color: var(--ink-light);
     }
     [data-theme="dark"] .calc-input,
     [data-theme="dark"] .calc-select {
       background-color: transparent;
       border-bottom-color: var(--ink-light);
-    }
-    [data-theme="dark"] .contact-form-wrap {
-      border-color: var(--ink-light);
     }
     [data-theme="dark"] .tab-btn {
       color: var(--ink-light);
@@ -170,13 +168,7 @@
       border-bottom-color: var(--rule);
     }
     [data-theme="dark"] footer {
-      background-color: #111111;
-    }
-    [data-theme="dark"] .footer-left {
-      color: #FDFAF5;
-    }
-    [data-theme="dark"] .footer-right {
-      color: rgba(253, 250, 245, 0.7);
+      background-color: var(--absolute-black, #000000);
     }
 
     *, *::before, *::after {
@@ -484,6 +476,14 @@
       padding: 0;
     }
 
+    #calculator,
+    #work,
+    #process,
+    #about,
+    #contact {
+      scroll-margin-top: 80px;
+    }
+
     #calculator > .container,
     #work > .container,
     #process > .container,
@@ -492,6 +492,10 @@
       border-top: 1px solid var(--rule);
       margin-top: clamp(3rem, 8vh, 5rem);
       padding-top: clamp(3rem, 8vh, 5rem);
+      padding-bottom: clamp(3rem, 8vh, 5rem);
+    }
+
+    #contact > .container {
       padding-bottom: clamp(3rem, 8vh, 5rem);
     }
 
@@ -734,19 +738,19 @@
       display: grid;
       grid-template-columns: 160px 1fr;
       padding: 16px 0;
-      border-bottom: 1px solid var(--ink);
+      border-bottom: 2px solid var(--absolute-black, #000000);
     }
 
     .about-row:last-child {
-      border-bottom: none;
+      border-bottom: 2px solid var(--absolute-black, #000000);
     }
 
     .about-label {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--ink-light);
+      letter-spacing: 0.05em;
+      color: var(--absolute-black, #000000);
       font-weight: 700;
       padding-top: 2px;
     }
@@ -754,7 +758,9 @@
     .about-value {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 12px;
-      color: var(--ink);
+      text-transform: uppercase;
+      color: var(--absolute-black, #000000);
+      letter-spacing: 0.05em;
       font-weight: 700;
       line-height: 1.6;
     }
@@ -766,9 +772,9 @@
 
     .contact-form-wrap {
       background-color: transparent;
-      border: 2px solid #2A2A2A;
+      border: none;
       border-radius: 0;
-      padding: 2.5rem;
+      padding: 0;
       margin-bottom: 3rem;
     }
 
@@ -800,17 +806,18 @@
     }
 
     .form-label .required-mark {
-      color: var(--accent);
+      color: var(--knoll-orange);
       margin-left: 2px;
     }
 
     .form-input,
     .form-textarea {
-      background-color: #FFFFFF;
-      border: 2px solid #2A2A2A;
+      background: transparent;
+      border: none;
+      border-bottom: 4px solid var(--absolute-black, #000000);
       border-radius: 0;
-      padding: 12px 16px;
-      font-family: var(--font-sans);
+      padding: 12px 0 8px 0;
+      font-family: 'IBM Plex Mono', monospace;
       font-size: var(--font-size-md);
       color: var(--ink);
       width: 100%;
@@ -827,7 +834,7 @@
 
     .form-input:focus,
     .form-textarea:focus {
-      border-color: #1E5FB5;
+      border-bottom-color: var(--mta-blue);
       outline: none;
       box-shadow: none;
     }
@@ -842,17 +849,35 @@
       margin-top: 1.75rem;
     }
 
+    .form-submit-row .cta-button {
+      background-color: var(--absolute-black, #000000);
+      color: #FFFFFF;
+      padding: 16px 48px;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      border: none;
+      border-radius: 0;
+      font-size: var(--font-size-base);
+    }
+
+    .form-submit-row .cta-button:hover {
+      background-color: var(--mta-blue);
+      color: #FFFFFF;
+    }
+
     .contact-direct {
-      border-top: 1px solid var(--rule);
-      padding-top: 2rem;
+      border-top: none;
+      padding-top: 0;
     }
 
     .contact-direct-heading {
-      font-size: 13px;
-      letter-spacing: 0.08em;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--ink-light);
-      font-weight: 600;
+      color: #888888;
+      font-weight: 400;
       margin-bottom: 1.25rem;
     }
 
@@ -869,29 +894,31 @@
     }
 
     .contact-label {
-      font-size: 13px;
-      letter-spacing: 0.08em;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--ink-light);
-      font-weight: 600;
+      color: #888888;
+      font-weight: 400;
     }
 
     .contact-value {
+      font-family: 'IBM Plex Mono', monospace;
       font-size: var(--font-size-md);
-      color: var(--ink-mid);
+      color: #FFFFFF;
       text-decoration: none;
       transition: color 0.1s ease;
     }
 
     .contact-value:hover {
-      color: var(--accent);
+      color: var(--mta-blue);
     }
 
-    /* Footer */
+    /* Footer — Black Void */
     footer {
-      background-color: #111111;
+      background-color: var(--absolute-black, #000000);
       padding: 3rem 0;
-      margin-top: 3rem;
+      margin-top: 0;
     }
 
     .footer-content {
@@ -907,13 +934,13 @@
     .footer-left {
       font-family: var(--font-sans);
       font-size: var(--font-size-md);
-      color: #FDFAF5;
+      color: #FFFFFF;
     }
 
     .footer-right {
       text-align: right;
       font-size: var(--font-size-sm);
-      color: rgba(253, 250, 245, 0.7);
+      color: #888888;
     }
 
     .hamburger {
@@ -1041,6 +1068,15 @@
 
       .contact-content {
         max-width: 100%;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-info {
+        flex-direction: column;
+        gap: 1.5rem;
       }
 
       .portfolio-intro {
@@ -1190,7 +1226,7 @@
       letter-spacing: 0.05em;
       font-weight: 600;
       color: var(--ink-mid);
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       margin-bottom: 0.5rem;
     }
 
@@ -1637,31 +1673,32 @@
           </form>
         </div>
 
-        <div class="contact-direct">
-          <p class="contact-direct-heading">Prefer to reach out directly?</p>
-          <div class="contact-info">
-            <div class="contact-item">
-              <span class="contact-label">Phone</span>
-              <a href="tel:+13613322725" class="contact-value">(361) 332-2725</a>
-            </div>
-            <div class="contact-item">
-              <span class="contact-label">Email</span>
-              <a href="mailto:jim@localpraxis.com" class="contact-value">jim@localpraxis.com</a>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
 
   </main>
 
-  <!-- Footer -->
+  <!-- Footer — Black Void -->
   <footer>
-    <div class="footer-content">
+    <div class="footer-content" style="grid-template-columns: 1fr; gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid #333333;">
+      <div class="contact-direct">
+        <p class="contact-direct-heading">Prefer to reach out directly?</p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="contact-label">Phone</span>
+            <a href="tel:+13613322725" class="contact-value">(361) 332-2725</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Email</span>
+            <a href="mailto:jim@localpraxis.com" class="contact-value">jim@localpraxis.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-content" style="padding-top: 2rem;">
       <div class="footer-left">Local Praxis. Based in Port Aransas, TX.</div>
-      <div class="footer-right"><a href="/privacy.html" style="color:#FDFAF5;opacity:0.7;text-decoration:none;">Privacy</a> &middot; &copy; 2026 James Johnson</div>
+      <div class="footer-right"><a href="/privacy.html" style="color:#888888;text-decoration:none;">Privacy</a> &middot; &copy; 2026 James Johnson</div>
     </div>
   </footer>
 
