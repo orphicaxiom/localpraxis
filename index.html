@@ -2058,47 +2058,65 @@
     // Fee calculator
     const calcRevenue = document.getElementById('calc-revenue');
     const calcRate = document.getElementById('calc-rate');
-    let calcAnimFrame = null;
-    let calcCurrentVal = 0;
 
-    function animateValue(el, target) {
-      if (calcAnimFrame) cancelAnimationFrame(calcAnimFrame);
-      const start = calcCurrentVal;
-      const diff = target - start;
-      const duration = 400;
-      const startTime = performance.now();
-
-      function step(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const current = Math.round(start + diff * eased);
-        el.textContent = '$' + current.toLocaleString('en-US', {maximumFractionDigits: 0});
-        if (progress < 1) {
-          calcAnimFrame = requestAnimationFrame(step);
-        } else {
-          calcCurrentVal = target;
-          calcAnimFrame = null;
+    function createAnimator() {
+      let frame = null;
+      let currentVal = 0;
+      return function(el, target, formatFn) {
+        if (frame) cancelAnimationFrame(frame);
+        const start = currentVal;
+        const diff = target - start;
+        const duration = 400;
+        const startTime = performance.now();
+        function step(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(start + diff * eased);
+          formatFn(el, current);
+          if (progress < 1) {
+            frame = requestAnimationFrame(step);
+          } else {
+            currentVal = target;
+            frame = null;
+          }
         }
-      }
-      calcAnimFrame = requestAnimationFrame(step);
+        frame = requestAnimationFrame(step);
+      };
+    }
+
+    const animateThreeYear = createAnimator();
+    const animateAnnual = createAnimator();
+
+    function fmtDollar(n) {
+      return '$' + n.toLocaleString('en-US', {maximumFractionDigits: 0});
     }
 
     function updateCalc() {
       const raw = calcRevenue.value.replace(/[^0-9]/g, '');
       const revenue = parseInt(raw, 10);
+      const punchline = document.getElementById('calc-punchline');
+      const threeYearEl = document.getElementById('calc-threeyear');
       if (!revenue || revenue < 1000) {
-        document.getElementById('calc-punchline').textContent = '';
-        document.getElementById('calc-threeyear').textContent = '\u2014';
-        calcCurrentVal = 0;
+        punchline.textContent = '';
+        threeYearEl.textContent = '\u2014';
         return;
       }
       const rate = parseFloat(calcRate.value);
       const annual = revenue * rate;
       const threeYear = annual * 3;
-      const fmtAnnual = '$' + annual.toLocaleString('en-US', {maximumFractionDigits: 0});
-      document.getElementById('calc-punchline').textContent = 'You\u2019re paying ' + fmtAnnual + '/year in platform fees.';
-      animateValue(document.getElementById('calc-threeyear'), threeYear);
+
+      // Animate the punchline annual figure in place
+      punchline.innerHTML = 'You\u2019re paying <span id="calc-annual-val"></span>/year in platform fees.';
+      const annualSpan = document.getElementById('calc-annual-val');
+      animateAnnual(annualSpan, annual, function(el, val) {
+        el.textContent = fmtDollar(val);
+      });
+
+      // Animate the three-year figure
+      animateThreeYear(threeYearEl, threeYear, function(el, val) {
+        el.textContent = fmtDollar(val);
+      });
     }
     if (calcRevenue) {
       calcRevenue.addEventListener('input', updateCalc);
