@@ -149,8 +149,11 @@
     /* Dark mode overrides for hardcoded colors */
     [data-theme="dark"] .form-input,
     [data-theme="dark"] .form-textarea {
-      background: transparent;
-      border-bottom-color: var(--ink-light);
+      background-color: var(--cream);
+      border-color: var(--ink-light);
+    }
+    [data-theme="dark"] .contact-form-wrap {
+      border-color: var(--ink-light);
     }
     [data-theme="dark"] .calc-input,
     [data-theme="dark"] .calc-select {
@@ -772,9 +775,9 @@
 
     .contact-form-wrap {
       background-color: transparent;
-      border: none;
+      border: 2px solid #2A2A2A;
       border-radius: 0;
-      padding: 0;
+      padding: 2.5rem;
       margin-bottom: 3rem;
     }
 
@@ -806,18 +809,17 @@
     }
 
     .form-label .required-mark {
-      color: var(--knoll-orange);
+      color: var(--accent);
       margin-left: 2px;
     }
 
     .form-input,
     .form-textarea {
-      background: transparent;
-      border: none;
-      border-bottom: 4px solid var(--absolute-black, #000000);
+      background-color: #FFFFFF;
+      border: 2px solid #2A2A2A;
       border-radius: 0;
-      padding: 12px 0 8px 0;
-      font-family: 'IBM Plex Mono', monospace;
+      padding: 12px 16px;
+      font-family: var(--font-sans);
       font-size: var(--font-size-md);
       color: var(--ink);
       width: 100%;
@@ -834,7 +836,7 @@
 
     .form-input:focus,
     .form-textarea:focus {
-      border-bottom-color: var(--mta-blue);
+      border-color: #1E5FB5;
       outline: none;
       box-shadow: none;
     }
@@ -847,23 +849,6 @@
 
     .form-submit-row {
       margin-top: 1.75rem;
-    }
-
-    .form-submit-row .cta-button {
-      background-color: var(--absolute-black, #000000);
-      color: #FFFFFF;
-      padding: 16px 48px;
-      text-transform: uppercase;
-      font-weight: 900;
-      letter-spacing: 0.05em;
-      border: none;
-      border-radius: 0;
-      font-size: var(--font-size-base);
-    }
-
-    .form-submit-row .cta-button:hover {
-      background-color: var(--mta-blue);
-      color: #FFFFFF;
     }
 
     .contact-direct {
