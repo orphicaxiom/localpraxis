@@ -114,6 +114,9 @@
       --accent-subtle: color-mix(in srgb, #1E5FB5 8%, transparent);
       --error: #B91C1C;
       --vignelli-red: #D92B1C;
+      --mta-blue: #005A9C;
+      --knoll-orange: #F24822;
+      --mta-green: #009639;
       --radius: 0;
       --font-size-xs: 0.65rem;
       --font-size-sm: 0.75rem;
@@ -268,8 +271,31 @@
       text-decoration: none;
       text-transform: uppercase;
     }
-    .logo-red { color: var(--vignelli-red); }
-    .red-index { color: var(--vignelli-red); }
+    .logo-red { color: var(--knoll-orange); }
+
+    .manifesto-block {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      line-height: 1.6;
+      max-width: 400px;
+    }
+    .manifesto-block .intro-text,
+    .manifesto-block .punchline {
+      color: var(--ink);
+    }
+    .transit-legend {
+      list-style-type: none;
+      padding: 0;
+      margin: 4px 0 16px 0;
+    }
+    .transit-legend li {
+      border-left: 4px solid currentColor;
+      padding-left: 8px;
+      margin-bottom: 4px;
+    }
 
     nav ul {
       list-style: none;
@@ -346,7 +372,7 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: 80px;
+      gap: 64px;
       max-width: 700px;
       margin-top: 24px;
     }
@@ -362,6 +388,7 @@
       color: var(--ink);
       margin-bottom: 0;
     }
+
 
     .cta-button {
       display: inline-block;
@@ -1266,7 +1293,15 @@
     <div class="container">
       <h1 class="hero-title">OWN IT.</h1>
       <div class="hero-sub">
-        <p class="hero-tagline">I build <span class="red-index">booking systems</span>, <span class="red-index">customer portals</span>, and <span class="red-index">operational tools</span> for local businesses.<br><br>You pay once. You own it forever.</p>
+        <div class="manifesto-block">
+          <span class="intro-text">I build:</span>
+          <ul class="transit-legend">
+            <li style="color: var(--mta-blue);">Booking systems</li>
+            <li style="color: var(--knoll-orange);">Customer portals</li>
+            <li style="color: var(--mta-green);">Operational tools</li>
+          </ul>
+          <span class="punchline">For local businesses.<br><br>You pay once.<br>You own it forever.</span>
+        </div>
         <a href="#contact" class="cta-button">Get in touch</a>
       </div>
     </div>
