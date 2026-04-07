@@ -185,6 +185,22 @@
     [data-theme="dark"] .calc-result-value--own {
       color: #E7E5E4;
     }
+    [data-theme="dark"] .calc-result-card:first-child {
+      border-right-color: #44403C;
+    }
+    [data-theme="dark"] .calc-result-card:last-child {
+      background-color: rgba(59, 130, 246, 0.1);
+    }
+    [data-theme="dark"] .calc-result-card:last-child .calc-result-label {
+      color: #E7E5E4;
+    }
+    [data-theme="dark"] .calc-cta {
+      background-color: #E7E5E4;
+      color: #1C1917;
+    }
+    [data-theme="dark"] .calc-cta:hover {
+      background-color: #D6D3D1;
+    }
     [data-theme="dark"] .tab-btn {
       color: var(--ink-light);
     }
@@ -1106,6 +1122,8 @@
       .calc-card-inputs { padding: 24px; }
       .calc-result { padding: 24px; }
       .calc-result-grid { flex-direction: column; gap: 24px; }
+      .calc-result-card:first-child { border-right: none; border-bottom: 1px solid #D1D5DB; padding: 0 0 24px 0; }
+      .calc-result-card:last-child { margin-left: 0; padding: 20px 24px; }
       .calc-result-value { font-size: 36px; }
     }
 
@@ -1329,30 +1347,34 @@
     .calc-result-grid {
       display: flex;
       flex-direction: row;
-      gap: 40px;
-      justify-content: flex-start;
+      align-items: stretch;
       width: 100%;
       border: none;
       padding: 0;
+      gap: 0;
     }
 
     .calc-result-card {
-      flex: 0 1 auto;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-      padding: 0;
       min-height: auto;
     }
 
     .calc-result-card:first-child {
+      flex: 1 1 auto;
       background: transparent;
-      border-right: none;
+      border-right: 1px solid #D1D5DB;
+      padding: 0 40px 0 0;
     }
 
     .calc-result-card:last-child {
-      background-color: transparent;
+      flex: 1 1 auto;
+      background-color: #EFF6FF;
+      border-radius: 8px;
+      padding: 24px 32px;
+      margin-left: 24px;
     }
 
     .calc-result-label {
@@ -1381,6 +1403,35 @@
 
     .calc-result-value--own {
       color: #111827;
+    }
+
+    .calc-result-card:last-child .calc-result-label {
+      color: #111827;
+      font-weight: 700;
+    }
+
+    .calc-cta {
+      display: inline-block;
+      background-color: var(--ink);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 24px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: background-color 0.15s ease;
+      text-align: center;
+      width: 100%;
+    }
+
+    .calc-cta:hover {
+      background-color: #374151;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1481,6 +1532,7 @@
             <div class="calc-result-card">
               <div class="calc-result-label">Local Praxis (own it)</div>
               <div class="calc-result-value calc-result-value--own">$1,200</div>
+              <a href="#contact" class="calc-cta">Start your build</a>
             </div>
           </div>
         </div>
