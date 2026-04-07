@@ -1324,7 +1324,9 @@
     <div class="container">
       <div id="strike-container" style="position: relative; display: inline-block; margin-top: 40px; margin-bottom: 8px;">
         <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900; font-size: 20px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink);">Stop renting your software.</span>
-        <span id="strike-line" style="position: absolute; top: 50%; left: 0; width: 0%; height: 4px; background-color: var(--knoll-orange); z-index: 2;"></span>
+        <svg id="strike-line" style="position: absolute; top: 0; left: -4px; width: calc(100% + 8px); height: 100%; z-index: 2; pointer-events: none;" preserveAspectRatio="none">
+          <path d="M 0,14 Q 25,8 50,13 Q 75,18 100,11 Q 125,7 150,14 Q 175,17 200,12 Q 225,8 250,13 Q 275,17 300,11" stroke="var(--knoll-orange)" stroke-width="3.5" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke" id="strike-path" style="stroke-dasharray: 305; stroke-dashoffset: 305;" />
+        </svg>
       </div>
       <h1 class="hero-title">OWN IT.</h1>
       <div class="hero-sub">
@@ -1888,19 +1890,20 @@
       }, { passive: true });
     }
 
-    // Strikethrough scroll animation
-    const strikeLine = document.getElementById('strike-line');
-    if (strikeLine) {
+    // Strikethrough scroll animation (SVG pen strike)
+    const strikePath = document.getElementById('strike-path');
+    if (strikePath) {
+      const pathLength = 305;
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (prefersReducedMotion) {
-        strikeLine.style.width = '100%';
+        strikePath.style.strokeDashoffset = '0';
       } else {
         let strikeTicking = false;
         window.addEventListener('scroll', () => {
           if (!strikeTicking) {
             requestAnimationFrame(() => {
               const progress = Math.min(window.scrollY / 300, 1);
-              strikeLine.style.width = (progress * 100) + '%';
+              strikePath.style.strokeDashoffset = pathLength * (1 - progress);
               strikeTicking = false;
             });
             strikeTicking = true;
