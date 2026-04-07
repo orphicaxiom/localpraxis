@@ -471,7 +471,7 @@
 
     /* Sections */
     section {
-      padding: 3rem 0;
+      padding: 0;
       border-top: none;
     }
 
@@ -480,9 +480,8 @@
     #process,
     #about,
     #contact {
-      margin-top: 0;
-      padding-top: 0;
-      padding-bottom: clamp(3rem, 8vh, 5rem);
+      margin: 0;
+      padding: 0;
     }
 
     #calculator > .container,
@@ -491,7 +490,9 @@
     #about > .container,
     #contact > .container {
       border-top: 1px solid var(--rule);
+      margin-top: clamp(3rem, 8vh, 5rem);
       padding-top: clamp(3rem, 8vh, 5rem);
+      padding-bottom: clamp(3rem, 8vh, 5rem);
     }
 
     .testimonials-section {
@@ -720,6 +721,9 @@
       max-width: 680px;
       margin-bottom: 2rem;
       line-height: 1.65;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding: 1.25rem 0;
     }
 
     .about-grid {
@@ -729,8 +733,8 @@
     .about-row {
       display: grid;
       grid-template-columns: 160px 1fr;
-      padding: 8px 0;
-      border-bottom: 1px solid #E0E0E0;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--ink);
     }
 
     .about-row:last-child {
@@ -741,8 +745,8 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #666666;
+      letter-spacing: 0.12em;
+      color: var(--ink-light);
       font-weight: 700;
       padding-top: 2px;
     }
@@ -750,7 +754,7 @@
     .about-value {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 12px;
-      color: #111111;
+      color: var(--ink);
       font-weight: 700;
       line-height: 1.6;
     }
@@ -1168,14 +1172,14 @@
     /* ─── Fee Calculator ─────────────────────────────────────── */
     .calc-intro {
       color: var(--ink-mid);
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
 
     .calc-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .calc-label {
@@ -1186,6 +1190,7 @@
       letter-spacing: 0.05em;
       font-weight: 600;
       color: var(--ink-mid);
+      margin-top: 0.25rem;
       margin-bottom: 0.5rem;
     }
 
@@ -1247,7 +1252,7 @@
     .calc-result {
       background: transparent;
       border: none;
-      padding: 2rem 0 0;
+      padding: 1.5rem 0 0;
       margin: 0;
     }
 
@@ -1258,7 +1263,7 @@
       font-weight: 400;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      margin: 0 0 2rem;
+      margin: 0 0 1.5rem;
       padding: 0;
       line-height: 1.6;
     }
