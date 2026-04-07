@@ -155,10 +155,12 @@
     [data-theme="dark"] .tab-btn {
       color: var(--ink-light);
     }
-    [data-theme="dark"] .tab-btn:hover,
-    [data-theme="dark"] .tab-btn.active {
+    [data-theme="dark"] .tab-btn:hover {
       color: var(--ink);
     }
+    [data-theme="dark"] .tab-btn.active[data-transit-color="blue"] { color: var(--mta-blue); }
+    [data-theme="dark"] .tab-btn.active[data-transit-color="orange"] { color: var(--knoll-orange); }
+    [data-theme="dark"] .tab-btn.active[data-transit-color="green"] { color: var(--mta-green); }
     [data-theme="dark"] .tabs-nav {
       border-bottom-color: var(--rule);
     }
@@ -371,9 +373,10 @@
     .hero-sub {
       display: flex;
       flex-direction: row;
-      align-items: center;
-      gap: 64px;
-      max-width: 700px;
+      align-items: flex-end;
+      justify-content: space-between;
+      width: 100%;
+      max-width: none;
       margin-top: 24px;
     }
 
@@ -546,7 +549,20 @@
     .tab-btn.active {
       color: #111111;
       font-weight: 700;
-      border-bottom-color: #1E5FB5;
+    }
+
+    /* Wayfinding: transit colors on active tabs */
+    .tab-btn.active[data-transit-color="blue"] {
+      border-bottom-color: var(--mta-blue);
+      color: var(--mta-blue);
+    }
+    .tab-btn.active[data-transit-color="orange"] {
+      border-bottom-color: var(--knoll-orange);
+      color: var(--knoll-orange);
+    }
+    .tab-btn.active[data-transit-color="green"] {
+      border-bottom-color: var(--mta-green);
+      color: var(--mta-green);
     }
 
     .tab-panel {
@@ -1353,10 +1369,10 @@
       <p class="portfolio-intro">Working demos built for real business types. Click any tab to explore. <em>Best viewed on desktop.</em></p>
 
       <div class="tabs-nav" role="tablist" aria-label="Product demos">
-        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-rental" id="btn-rental" data-tab="tab-rental">Rental Fleets</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-booking" id="btn-booking" data-tab="tab-booking">Booking Systems</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-inventory" id="btn-inventory" data-tab="tab-inventory">Inventory & POS</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-portal" id="btn-portal" data-tab="tab-portal">Client Portals</button>
+        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-rental" id="btn-rental" data-tab="tab-rental" data-transit-color="green">Rental Fleets</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-booking" id="btn-booking" data-tab="tab-booking" data-transit-color="blue">Booking Systems</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-inventory" id="btn-inventory" data-tab="tab-inventory" data-transit-color="green">Inventory & POS</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-portal" id="btn-portal" data-tab="tab-portal" data-transit-color="orange">Customer Portals</button>
       </div>
 
       <div class="tab-panel active" id="tab-rental" role="tabpanel" aria-labelledby="btn-rental">
