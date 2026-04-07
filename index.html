@@ -1310,6 +1310,10 @@
   <main id="main-content">
   <section class="hero">
     <div class="container">
+      <div id="strike-container" style="position: relative; display: inline-block; margin-bottom: 12px;">
+        <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink);">Stop renting your software.</span>
+        <span id="strike-line" style="position: absolute; top: 50%; left: 0; width: 0%; height: 4px; background-color: var(--knoll-orange); z-index: 2;"></span>
+      </div>
       <h1 class="hero-title">OWN IT.</h1>
       <div class="hero-sub">
         <div class="manifesto-block">
@@ -1869,6 +1873,27 @@
           ticking = true;
         }
       }, { passive: true });
+    }
+
+    // Strikethrough scroll animation
+    const strikeLine = document.getElementById('strike-line');
+    if (strikeLine) {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        strikeLine.style.width = '100%';
+      } else {
+        let strikeTicking = false;
+        window.addEventListener('scroll', () => {
+          if (!strikeTicking) {
+            requestAnimationFrame(() => {
+              const progress = Math.min(window.scrollY / 300, 1);
+              strikeLine.style.width = (progress * 100) + '%';
+              strikeTicking = false;
+            });
+            strikeTicking = true;
+          }
+        }, { passive: true });
+      }
     }
   </script>
 
