@@ -195,6 +195,9 @@
     [data-theme="dark"] .calc-result-value--own {
       color: #1C1917;
     }
+    [data-theme="dark"] .calc-result-note {
+      color: rgba(28, 25, 23, 0.5);
+    }
     [data-theme="dark"] .calc-cta {
       background-color: #1C1917;
       color: #E7E5E4;
@@ -1413,6 +1416,14 @@
       color: #DC2626;
     }
 
+    .calc-result-note {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
     .calc-result-value--own {
       color: #FFFFFF;
     }
@@ -1512,7 +1523,7 @@
   <section id="calculator">
     <div class="container">
       <h2>Run your <span id="cypher-target">numbers</span></h2>
-      <p class="calc-intro">Enter your annual revenue. See what you're actually handing over. And what it costs to stop.</p>
+      <p class="calc-intro">Every booking platform takes a cut. Enter your revenue and see what that actually costs you over three years. Then see what it costs to stop.</p>
       <div class="calc-card">
         <div class="calc-card-inputs">
           <div class="calc-grid">
@@ -1544,8 +1555,9 @@
             </div>
             <div class="calc-result-card">
               <div class="calc-price-group">
-                <div class="calc-result-label">Local Praxis (own it)</div>
+                <div class="calc-result-label">A Local Praxis build (one-time)</div>
                 <div class="calc-result-value calc-result-value--own">$1,200</div>
+                <div class="calc-result-note">Includes hosting setup. You own the code.</div>
               </div>
               <a href="#contact" class="calc-cta">Start your build</a>
             </div>
