@@ -143,11 +143,14 @@
 
     /* Dark mode overrides for hardcoded colors */
     [data-theme="dark"] .form-input,
-    [data-theme="dark"] .form-textarea,
-    [data-theme="dark"] .calc-input,
-    [data-theme="dark"] .calc-select {
+    [data-theme="dark"] .form-textarea {
       background-color: var(--cream);
       border-color: var(--ink-light);
+    }
+    [data-theme="dark"] .calc-input,
+    [data-theme="dark"] .calc-select {
+      background-color: transparent;
+      border-bottom-color: var(--ink-light);
     }
     [data-theme="dark"] .contact-form-wrap {
       border-color: var(--ink-light);
@@ -417,14 +420,14 @@
 
     .cta-button-outline {
       background-color: transparent;
-      color: #1E5FB5;
-      border: 2px solid #1E5FB5;
+      color: var(--ink);
+      border-color: var(--ink);
       font-weight: 700;
     }
 
     .cta-button-outline:hover {
-      background-color: #1E5FB5;
-      color: #FFFFFF;
+      background-color: var(--ink);
+      color: var(--warm-white);
     }
 
     /* Sections */
@@ -433,12 +436,13 @@
       border-top: none;
     }
 
+    #calculator,
     #work,
     #process,
     .testimonials-section,
     #about,
     #contact {
-      border-top: 2px solid var(--ink);
+      padding: clamp(5rem, 12vh, 8rem) 0;
     }
 
     section h2 {
@@ -1142,7 +1146,7 @@
 
     .calc-input-prefix {
       position: absolute;
-      left: 1rem;
+      left: 0;
       top: 50%;
       transform: translateY(-50%);
       color: var(--ink-mid);
@@ -1151,49 +1155,50 @@
 
     .calc-input {
       width: 100%;
-      padding: 12px 16px 12px 2rem;
-      border: 2px solid #2A2A2A;
+      padding: 12px 0 8px 1.2rem;
+      border: none;
+      border-bottom: 3px solid var(--ink);
       border-radius: 0;
       font-family: 'IBM Plex Mono', monospace;
       font-size: 16px;
-      background: #FFFFFF;
+      background: transparent;
       color: var(--ink);
       outline: none;
-      transition: border-color 0.1s ease;
+      transition: border-color 0.2s ease;
     }
 
     .calc-input:focus {
-      border-color: #1E5FB5;
+      border-bottom-color: var(--knoll-orange);
       outline: none;
       box-shadow: none;
     }
 
     .calc-select {
       width: 100%;
-      padding: 12px 16px;
-      border: 2px solid #2A2A2A;
+      padding: 12px 0 8px 0;
+      border: none;
+      border-bottom: 3px solid var(--ink);
       border-radius: 0;
       font-family: 'IBM Plex Mono', monospace;
       font-size: 16px;
-      background: #FFFFFF;
+      background: transparent;
       color: var(--ink);
       outline: none;
       appearance: none;
       -webkit-appearance: none;
-      transition: border-color 0.1s ease;
+      transition: border-color 0.2s ease;
     }
 
     .calc-select:focus {
-      border-color: #1E5FB5;
+      border-bottom-color: var(--knoll-orange);
       outline: none;
       box-shadow: none;
     }
 
     .calc-result {
-      background: #FFFFFF;
-      border: 2px solid #2A2A2A;
-      border-radius: 0;
-      padding: 2rem;
+      background: transparent;
+      border: none;
+      padding: 2rem 0;
       max-width: 680px;
     }
 
@@ -1215,10 +1220,9 @@
 
     .calc-result-card {
       flex: 1;
-      padding: 24px;
-      background: var(--warm-white);
-      border: 2px solid #2A2A2A;
-      border-radius: 0;
+      padding: 24px 0;
+      background: transparent;
+      border: none;
       min-height: 120px;
       display: flex;
       flex-direction: column;
@@ -1247,10 +1251,10 @@
 
     .calc-result-value {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 32px;
+      font-size: clamp(36px, 5vw, 56px);
       color: var(--ink);
       font-weight: 700;
-      text-align: right;
+      text-align: left;
     }
 
     .calc-result-card:first-child .calc-result-label,
@@ -1317,14 +1321,14 @@
           </ul>
           <span class="punchline">For local businesses.<br><br>You pay once.<br>You own it forever.</span>
         </div>
-        <a href="#contact" class="cta-button">Get in touch</a>
+        <a href="#contact" class="cta-button cta-button-outline">Get in touch</a>
       </div>
     </div>
   </section>
 
   <!-- Fee Calculator -->
-  <section id="calculator" style="border-top: 2px solid #111111; margin-top: 3rem; padding-top: 0;">
-    <div class="container" style="padding-top: 32px;">
+  <section id="calculator">
+    <div class="container">
       <h2>Run your numbers</h2>
       <p class="calc-intro">Enter your annual revenue. See what you're actually handing over. And what it costs to stop.</p>
       <div class="calc-grid">
