@@ -675,8 +675,9 @@
     }
 
     .step p {
-      color: var(--ink-mid);
+      color: var(--ink);
       font-size: var(--font-size-md);
+      font-weight: 500;
       margin-bottom: 0;
     }
 
@@ -974,7 +975,7 @@
 
       .step {
         padding: 0 0 2rem 0;
-        border-bottom: 1px solid var(--rule);
+        border-bottom: 2px solid var(--ink);
         margin-bottom: 2rem;
       }
 
@@ -1036,9 +1037,11 @@
 
     /* Pricing note */
     .pricing-note {
-      color: var(--accent);
-      font-size: 0.95rem;
-      font-style: italic;
+      font-family: 'IBM Plex Mono', monospace;
+      font-style: normal;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--ink);
       margin-top: 0.75rem;
     }
 
@@ -1452,14 +1455,12 @@
   </section>
 
   <!-- Integrations -->
-  <div class="container" style="text-align:center;padding:3rem 1rem;margin-top:-2rem;">
-    <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--ink-mid);margin-bottom:0.75rem;">Works with the tools you already use</p>
-    <p style="font-family:var(--font-sans);font-size:clamp(1rem,2vw,1.25rem);color:var(--ink);max-width:580px;margin:0 auto 1.75rem;line-height:1.5;font-weight:700;"><strong>I integrate with the platforms and tools you're already running. No rip and replace.</strong></p>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2rem 3rem;max-width:680px;margin:0 auto;">
-      <img src="/img/escapia-seeklogo.svg" alt="Escapia" style="height:120px;" loading="lazy">
-      <img src="/img/Guesty_Guesty_Logo_0.svg" alt="Guesty" style="height:30px;" loading="lazy">
-      <img src="/img/Logo%20transparent%20dark%402x.svg" alt="Hospitable" style="height:33px;" loading="lazy">
-      <img src="/img/Beds24_idInjCFwcY_1.svg" alt="Beds24" style="height:25px;" loading="lazy">
+  <div class="container" style="padding:3rem 1rem;margin-top:-2rem;">
+    <div class="integration-block" style="margin-bottom: 120px;">
+      <h3 style="font-family: 'Helvetica Neue', sans-serif; font-weight: 900; text-transform: uppercase; font-size: 16px; margin-bottom: 8px; color: var(--ink);">Works with your existing tools. No rip and replace.</h3>
+      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-transform: uppercase; color: var(--ink); line-height: 1.6; max-width: 600px;">
+        INTEGRATIONS_ // ESCAPIA, GUESTY, HOSPITABLE, BEDS24, FAREHARBOR, CHECKFRONT, STRIPE, SQUARE.
+      </p>
     </div>
   </div>
 
@@ -1470,22 +1471,22 @@
       <div class="how-it-works-grid">
         <div class="step reveal-card reveal-stagger-1">
           <h3>You talk.</h3>
-          <p>Tell me what your business does. What takes time. What costs money. What frustrates you. I listen.</p>
+          <p>Tell me what your business does. What takes time. <span class="highlight-pain">What costs money.</span> What frustrates you. I listen.</p>
         </div>
 
         <div class="rule reveal-card reveal-stagger-1"></div>
 
         <div class="step reveal-card reveal-stagger-2">
           <h3>I build it.</h3>
-          <p>You get a system that's built for exactly how you work. Not how some SaaS company thinks you should work. You own it.</p>
+          <p>You get a system that's built for exactly how you work. Not how some SaaS company thinks you should work. <span class="highlight-solution">You own it.</span></p>
         </div>
 
         <div class="rule reveal-card reveal-stagger-2"></div>
 
         <div class="step reveal-card reveal-stagger-3">
           <h3>Low monthly rate.</h3>
-          <p>No subscriptions per user. No surprise billing. One flat monthly rate for maintenance and updates.</p>
-          <p class="pricing-note">Most projects run $25 to $50/month. Less than your cable bill.</p>
+          <p><span class="highlight-solution">No subscriptions per user.</span> No surprise billing. One flat monthly rate for maintenance and updates.</p>
+          <p class="pricing-note">Most projects run <span class="highlight-solution">$25 to $50/month</span>. Less than your cable bill.</p>
         </div>
       </div>
     </div>
