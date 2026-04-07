@@ -113,7 +113,7 @@
       --accent-hover: #184D96;
       --accent-subtle: color-mix(in srgb, #1E5FB5 8%, transparent);
       --error: #B91C1C;
-      --color-cost: #C23B22;
+      --vignelli-red: #D92B1C;
       --radius: 0;
       --font-size-xs: 0.65rem;
       --font-size-sm: 0.75rem;
@@ -246,7 +246,7 @@
       z-index: 100;
       background-color: color-mix(in srgb, var(--warm-white) 95%, transparent);
       backdrop-filter: blur(10px);
-      border-bottom: 3px solid #1E5FB5;
+      border-bottom: 3px solid var(--ink);
       padding: 1rem 0;
     }
 
@@ -268,6 +268,8 @@
       text-decoration: none;
       text-transform: uppercase;
     }
+    .logo-red { color: var(--vignelli-red); }
+    .red-index { color: var(--vignelli-red); }
 
     nav ul {
       list-style: none;
@@ -345,27 +347,27 @@
       flex-direction: row;
       align-items: center;
       gap: 48px;
-      max-width: 650px;
+      max-width: 700px;
       margin-top: 24px;
     }
 
     .hero-tagline {
       font-family: var(--font-sans);
       text-transform: uppercase;
-      font-size: 12px;
+      font-size: 13px;
       letter-spacing: 0.05em;
       font-weight: 700;
       line-height: 1.6;
       max-width: 400px;
-      color: #111111;
+      color: var(--ink);
       margin-bottom: 0;
     }
 
     .cta-button {
       display: inline-block;
       flex-shrink: 0;
-      background-color: #1E5FB5;
-      color: #FFFFFF;
+      background-color: var(--ink);
+      color: var(--warm-white);
       padding: 16px 32px;
       text-decoration: none;
       font-weight: 700;
@@ -374,14 +376,14 @@
       border-radius: 0;
       transition: all 0.1s ease;
       font-size: var(--font-size-base);
-      border: 2px solid #1E5FB5;
+      border: 2px solid var(--ink);
       cursor: pointer;
       white-space: nowrap;
     }
 
     .cta-button:hover {
       background-color: var(--warm-white);
-      color: #1E5FB5;
+      color: var(--ink);
     }
 
     .cta-button-outline {
@@ -407,7 +409,7 @@
     .testimonials-section,
     #about,
     #contact {
-      border-top: 2px solid var(--accent);
+      border-top: 2px solid var(--ink);
     }
 
     section h2 {
@@ -1156,7 +1158,7 @@
     .calc-punchline {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: clamp(1.4rem, 3vw, 2rem);
-      color: var(--color-cost);
+      color: var(--vignelli-red);
       font-weight: 700;
       text-transform: none;
       letter-spacing: -0.01em;
@@ -1211,16 +1213,16 @@
 
     .calc-result-card:first-child .calc-result-label,
     .calc-result-card:first-child .calc-result-value {
-      color: var(--color-cost);
+      color: var(--vignelli-red);
     }
 
     .calc-result-card:last-child .calc-result-label,
     .calc-result-card:last-child .calc-result-label-sm {
-      color: var(--accent);
+      color: var(--ink);
     }
 
     .calc-result-card:last-child .calc-result-value {
-      color: var(--accent);
+      color: var(--ink);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1242,7 +1244,7 @@
   <!-- Navigation -->
   <nav role="navigation" aria-label="Main navigation">
     <div class="nav-container">
-      <a href="/" class="logo">LocalPraxis</a>
+      <a href="/" class="logo">Local<span class="logo-red">Praxis</span></a>
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -1264,7 +1266,7 @@
     <div class="container">
       <h1 class="hero-title">OWN IT.</h1>
       <div class="hero-sub">
-        <p class="hero-tagline">I build booking systems, customer portals, and operational tools for local businesses. You pay once. You own it forever.</p>
+        <p class="hero-tagline">I build <span class="red-index">booking systems</span>, <span class="red-index">customer portals</span>, and <span class="red-index">operational tools</span> for local businesses. You pay once. You own it forever.</p>
         <a href="#contact" class="cta-button">Get in touch</a>
       </div>
     </div>
