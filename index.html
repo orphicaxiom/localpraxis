@@ -1972,32 +1972,62 @@
       });
     }
 
-    // Cypher scramble animation
+    // Cypher scramble animation — letter-by-letter resolve
     (function() {
       var target = document.getElementById('cypher-target');
       if (!target) return;
       var original = target.textContent;
-      var len = original.length;
+      var chars = original.split('');
+      var len = chars.length;
       var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (prefersReduced) return;
+
+      // Replace text with individual spans for per-character control
+      target.textContent = '';
+      var spans = [];
+      for (var i = 0; i < len; i++) {
+        var span = document.createElement('span');
+        span.textContent = chars[i];
+        span.style.display = 'inline-block';
+        span.style.minWidth = '0.6em';
+        span.style.textAlign = 'center';
+        target.appendChild(span);
+        spans.push(span);
+      }
 
       var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             observer.unobserve(target);
-            var duration = 600;
-            var interval = 30;
+
+            var chaosLength = 1000;   // 1s of pure scramble
+            var resolveGap = 200;     // 200ms between each letter locking in
+            var scrambleRate = 30;    // refresh every 30ms
+            var resolved = new Array(len).fill(false);
+
+            // Start scrambling all characters
             var timer = setInterval(function() {
-              var scrambled = '';
-              for (var i = 0; i < len; i++) {
-                scrambled += Math.floor(Math.random() * 10);
+              for (var j = 0; j < len; j++) {
+                if (!resolved[j]) {
+                  spans[j].textContent = String(Math.floor(Math.random() * 10));
+                }
               }
-              target.textContent = scrambled;
-            }, interval);
+            }, scrambleRate);
+
+            // After chaos phase, resolve one character at a time
+            for (var k = 0; k < len; k++) {
+              (function(idx) {
+                setTimeout(function() {
+                  resolved[idx] = true;
+                  spans[idx].textContent = chars[idx];
+                }, chaosLength + (idx * resolveGap));
+              })(k);
+            }
+
+            // Clean up interval after the last character resolves
             setTimeout(function() {
               clearInterval(timer);
-              target.textContent = original;
-            }, duration);
+            }, chaosLength + (len * resolveGap) + scrambleRate);
           }
         });
       }, { threshold: 0.5 });
