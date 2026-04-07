@@ -1167,7 +1167,6 @@
     /* ─── Fee Calculator ─────────────────────────────────────── */
     .calc-intro {
       color: var(--ink-mid);
-      max-width: 680px;
       margin-bottom: 2.5rem;
     }
 
@@ -1175,7 +1174,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
-      max-width: 680px;
       margin-bottom: 2rem;
     }
 
@@ -1248,9 +1246,8 @@
     .calc-result {
       background: transparent;
       border: none;
-      padding: 2rem 0;
-      margin-left: 0;
-      padding-left: 0;
+      padding: 2rem 0 0;
+      margin: 0;
     }
 
     .calc-punchline {
@@ -1260,15 +1257,15 @@
       font-weight: 400;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      margin-bottom: 2rem;
+      margin: 0 0 2rem;
+      padding: 0;
       line-height: 1.6;
-      margin-left: 0;
-      padding-left: 0;
     }
 
     .calc-result-grid {
       display: flex;
       flex-direction: row;
+      align-items: flex-end;
       width: 100%;
       border: 1px solid var(--ink);
       border-radius: 0;
@@ -1280,6 +1277,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      align-items: flex-start;
       padding: 32px;
       min-height: 200px;
     }
