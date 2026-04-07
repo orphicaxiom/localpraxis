@@ -1995,43 +1995,54 @@
         spans.push(span);
       }
 
+      var animating = false;
+
+      function runScramble() {
+        if (animating) return;
+        animating = true;
+
+        var chaosLength = 1000;
+        var resolveGap = 200;
+        var scrambleRate = 30;
+        var resolved = new Array(len).fill(false);
+
+        var timer = setInterval(function() {
+          for (var j = 0; j < len; j++) {
+            if (!resolved[j]) {
+              spans[j].textContent = String(Math.floor(Math.random() * 10));
+            }
+          }
+        }, scrambleRate);
+
+        for (var k = 0; k < len; k++) {
+          (function(idx) {
+            setTimeout(function() {
+              resolved[idx] = true;
+              spans[idx].textContent = chars[idx];
+            }, chaosLength + (idx * resolveGap));
+          })(k);
+        }
+
+        setTimeout(function() {
+          clearInterval(timer);
+          animating = false;
+        }, chaosLength + (len * resolveGap) + scrambleRate);
+      }
+
+      // Trigger on scroll into view (once)
       var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             observer.unobserve(target);
-
-            var chaosLength = 1000;   // 1s of pure scramble
-            var resolveGap = 200;     // 200ms between each letter locking in
-            var scrambleRate = 30;    // refresh every 30ms
-            var resolved = new Array(len).fill(false);
-
-            // Start scrambling all characters
-            var timer = setInterval(function() {
-              for (var j = 0; j < len; j++) {
-                if (!resolved[j]) {
-                  spans[j].textContent = String(Math.floor(Math.random() * 10));
-                }
-              }
-            }, scrambleRate);
-
-            // After chaos phase, resolve one character at a time
-            for (var k = 0; k < len; k++) {
-              (function(idx) {
-                setTimeout(function() {
-                  resolved[idx] = true;
-                  spans[idx].textContent = chars[idx];
-                }, chaosLength + (idx * resolveGap));
-              })(k);
-            }
-
-            // Clean up interval after the last character resolves
-            setTimeout(function() {
-              clearInterval(timer);
-            }, chaosLength + (len * resolveGap) + scrambleRate);
+            runScramble();
           }
         });
       }, { threshold: 0.5 });
       observer.observe(target);
+
+      // Trigger on hover (repeatable)
+      target.style.cursor = 'default';
+      target.addEventListener('mouseenter', runScramble);
     })();
 
     // Fee calculator
