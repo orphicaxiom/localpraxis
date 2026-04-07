@@ -372,16 +372,16 @@
       letter-spacing: 0;
       color: var(--ink);
       margin: 0;
-      margin-left: -0.045em;
+      margin-left: -0.5vw;
       padding: 0;
       white-space: nowrap;
     }
 
     .hero-sub {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 32px;
+      flex-direction: row;
+      align-items: flex-end;
+      gap: 12vw;
       margin-top: 24px;
       margin-left: 0;
       padding-left: 0;
@@ -424,7 +424,19 @@
     }
 
     .hero-cta {
-      margin-top: 40px;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      width: 280px;
+    }
+
+    .hero-cta::after {
+      content: '\2192';
+      font-size: 1.4em;
+      font-weight: 900;
+      margin-left: 24px;
     }
 
     .cta-button-outline {
@@ -1310,8 +1322,8 @@
   <main id="main-content">
   <section class="hero">
     <div class="container">
-      <div id="strike-container" style="position: relative; display: inline-block; margin-bottom: 12px;">
-        <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink);">Stop renting your software.</span>
+      <div id="strike-container" style="position: relative; display: inline-block; margin-top: 40px; margin-bottom: 8px;">
+        <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900; font-size: 20px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink);">Stop renting your software.</span>
         <span id="strike-line" style="position: absolute; top: 50%; left: 0; width: 0%; height: 4px; background-color: var(--knoll-orange); z-index: 2;"></span>
       </div>
       <h1 class="hero-title">OWN IT.</h1>
@@ -1325,8 +1337,9 @@
           </ul>
           <span class="punchline">For local businesses.<br><br>You pay once.<br>You own it forever.</span>
         </div>
+        <a href="#contact" class="cta-button cta-button-outline hero-cta">Get in touch</a>
       </div>
-      <a href="#contact" class="cta-button cta-button-outline hero-cta">Get in touch</a>
+
     </div>
   </section>
 
