@@ -365,6 +365,11 @@
       padding: 0.5rem 0 120px;
     }
 
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.015); }
+    }
+
     .hero-title {
       font-family: Impact, 'Helvetica Neue Condensed Black', sans-serif;
       font-size: 18vw;
@@ -375,6 +380,8 @@
       margin-left: -0.5vw;
       padding: 0;
       white-space: nowrap;
+      transform-origin: left bottom;
+      animation: breathe 4s ease-in-out infinite;
     }
 
     .hero-sub {
@@ -463,10 +470,17 @@
     #process,
     #about,
     #contact {
-      border-top: 2px solid var(--ink);
-      margin-top: 160px;
-      padding-top: 32px;
+      margin-top: 6rem;
       padding-bottom: clamp(3rem, 8vh, 5rem);
+    }
+
+    #calculator > .container,
+    #work > .container,
+    #process > .container,
+    #about > .container,
+    #contact > .container {
+      border-top: 1px solid var(--rule);
+      padding-top: 2rem;
     }
 
     .testimonials-section {
@@ -969,8 +983,7 @@
       #process,
       #about,
       #contact {
-        margin-top: 80px;
-        padding-top: 24px;
+        margin-top: 3rem;
       }
 
       section h2 {
