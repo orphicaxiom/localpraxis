@@ -296,7 +296,7 @@
       z-index: 100;
       background-color: color-mix(in srgb, var(--warm-white) 95%, transparent);
       backdrop-filter: blur(10px);
-      border-bottom: 3px solid var(--ink);
+      border-bottom: 2px solid var(--absolute-black);
       padding: 1rem 0;
     }
 
@@ -369,13 +369,13 @@
       background: none;
       border: none;
       color: var(--ink-mid);
-      font-family: var(--font-sans);
-      font-size: 13px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
       cursor: pointer;
       padding: 0.5rem 0;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      font-weight: 600;
+      font-weight: 700;
       transition: color 0.1s ease;
     }
     .theme-toggle-btn:hover {
@@ -1373,7 +1373,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: flex-start;
       border-radius: 8px;
       padding: 32px 24px;
@@ -1424,6 +1424,15 @@
       line-height: 1.4;
     }
 
+    .calc-sunk-cost {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      color: #6B7280;
+      margin: 8px 0 0;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
     .calc-result-value--own {
       color: #FFFFFF;
     }
@@ -1446,7 +1455,7 @@
       text-transform: uppercase;
       text-decoration: none;
       cursor: pointer;
-      margin-top: 20px;
+      margin-top: auto;
       transition: background-color 0.1s ease;
       text-align: center;
       width: 100%;
@@ -1486,7 +1495,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="tel:+13613322725" class="nav-phone">(361) 332-2725</a></li>
-        <li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">Dark</button></li>
+        <li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">DARK_MODE</button></li>
       </ul>
     </div>
   </nav>
@@ -1551,6 +1560,7 @@
               <div class="calc-price-group">
                 <div class="calc-result-label">Their cut (3 years)</div>
                 <div id="calc-threeyear" class="calc-result-value calc-result-value--loss"></div>
+                <p class="calc-sunk-cost">100% sunk cost. You own nothing.</p>
               </div>
             </div>
             <div class="calc-result-card">
@@ -2129,17 +2139,17 @@
     const savedTheme = localStorage.getItem('lp-theme');
     if (savedTheme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
-      themeToggle.textContent = 'Light';
+      themeToggle.textContent = 'LIGHT_MODE';
     }
     themeToggle.addEventListener('click', () => {
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       if (isDark) {
         document.documentElement.removeAttribute('data-theme');
-        themeToggle.textContent = 'Dark';
+        themeToggle.textContent = 'DARK_MODE';
         localStorage.setItem('lp-theme', 'light');
       } else {
         document.documentElement.setAttribute('data-theme', 'dark');
-        themeToggle.textContent = 'Light';
+        themeToggle.textContent = 'LIGHT_MODE';
         localStorage.setItem('lp-theme', 'dark');
       }
     });
