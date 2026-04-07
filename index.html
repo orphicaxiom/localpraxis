@@ -158,7 +158,7 @@
     [data-theme="dark"] .calc-card {
       background-color: #1C1917;
       border-color: #E7E5E4;
-      box-shadow: 4px 4px 0px #E7E5E4;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 25px 50px -12px rgba(0, 0, 0, 0.4);
     }
     [data-theme="dark"] .calc-card-inputs {
       border-bottom-color: #44403C;
@@ -214,6 +214,21 @@
     [data-theme="dark"] .tab-btn.active { color: var(--mta-blue); }
     [data-theme="dark"] .tabs-nav {
       border-bottom-color: var(--rule);
+    }
+    [data-theme="dark"] .theme-toggle-btn {
+      color: #E7E5E4 !important;
+      border-color: #E7E5E4 !important;
+    }
+    [data-theme="dark"] .theme-toggle-btn:hover {
+      background-color: #E7E5E4 !important;
+      color: #1C1917 !important;
+    }
+    [data-theme="dark"] .about-row {
+      border-bottom-color: #E7E5E4;
+    }
+    [data-theme="dark"] .about-label,
+    [data-theme="dark"] .about-value {
+      color: #E7E5E4;
     }
     [data-theme="dark"] footer {
       background-color: var(--absolute-black, #000000);
@@ -367,19 +382,26 @@
 
     .theme-toggle-btn {
       background: none;
-      border: none;
-      color: var(--ink-mid);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
+      font-family: 'IBM Plex Mono', monospace !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      color: var(--absolute-black) !important;
+      border: 2px solid var(--absolute-black) !important;
+      padding: 4px 8px !important;
+      border-radius: 4px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
       cursor: pointer;
-      padding: 0.5rem 0;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      font-weight: 700;
-      transition: color 0.1s ease;
+      transition: background-color 0.1s ease, color 0.1s ease;
     }
     .theme-toggle-btn:hover {
-      color: var(--ink);
+      background-color: var(--absolute-black) !important;
+      color: #FFFFFF !important;
     }
 
     nav a {
@@ -1123,7 +1145,7 @@
       }
 
       .calc-grid { grid-template-columns: 1fr; }
-      .calc-card { box-shadow: 3px 3px 0px var(--ink); }
+      .calc-card { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
       .calc-card-inputs { padding: 24px; }
       .calc-result { padding: 24px; }
       .calc-result-grid { flex-direction: column; gap: 16px; }
@@ -1258,10 +1280,16 @@
       background-color: #FFFFFF;
       border: 3px solid var(--ink);
       border-radius: 12px;
-      box-shadow: 4px 4px 0px var(--ink);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 25px 50px -12px rgba(0, 0, 0, 0.15);
       overflow: hidden;
       max-width: 800px;
       margin: 40px 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .calc-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 30px 60px -15px rgba(0, 0, 0, 0.2);
     }
 
     .calc-card-inputs {
@@ -1495,7 +1523,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="tel:+13613322725" class="nav-phone">(361) 332-2725</a></li>
-        <li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">DARK_MODE</button></li>
+        <li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">DARK</button></li>
       </ul>
     </div>
   </nav>
@@ -2139,17 +2167,17 @@
     const savedTheme = localStorage.getItem('lp-theme');
     if (savedTheme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
-      themeToggle.textContent = 'LIGHT_MODE';
+      themeToggle.textContent = 'LIGHT';
     }
     themeToggle.addEventListener('click', () => {
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       if (isDark) {
         document.documentElement.removeAttribute('data-theme');
-        themeToggle.textContent = 'DARK_MODE';
+        themeToggle.textContent = 'DARK';
         localStorage.setItem('lp-theme', 'light');
       } else {
         document.documentElement.setAttribute('data-theme', 'dark');
-        themeToggle.textContent = 'LIGHT_MODE';
+        themeToggle.textContent = 'LIGHT';
         localStorage.setItem('lp-theme', 'dark');
       }
     });
