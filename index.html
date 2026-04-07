@@ -205,15 +205,21 @@
     [data-theme="dark"] .calc-cta:hover {
       background-color: #292524;
     }
-    [data-theme="dark"] .tab-btn {
+    [data-theme="dark"] .system-tab {
       color: var(--ink-light);
     }
-    [data-theme="dark"] .tab-btn:hover {
+    [data-theme="dark"] .system-tab:hover {
       color: var(--ink);
     }
-    [data-theme="dark"] .tab-btn.active { color: var(--mta-blue); }
-    [data-theme="dark"] .tabs-nav {
+    [data-theme="dark"] .system-tab.active { color: var(--mta-blue); }
+    [data-theme="dark"] .systems-nav {
       border-bottom-color: var(--rule);
+    }
+    [data-theme="dark"] .system-frame {
+      border-color: var(--rule);
+    }
+    [data-theme="dark"] .systems-proof {
+      border-top-color: var(--rule);
     }
     [data-theme="dark"] .theme-toggle-btn {
       color: #E7E5E4 !important;
@@ -229,15 +235,6 @@
     [data-theme="dark"] .about-label,
     [data-theme="dark"] .about-value {
       color: #E7E5E4;
-    }
-    [data-theme="dark"] .case-study-separator {
-      border-top-color: #E7E5E4;
-    }
-    [data-theme="dark"] .case-study-press a {
-      color: var(--ink-mid);
-    }
-    [data-theme="dark"] .case-study-press a:hover {
-      color: var(--ink);
     }
     [data-theme="dark"] footer {
       background-color: var(--absolute-black, #000000);
@@ -601,86 +598,22 @@
       margin-bottom: 0;
     }
 
-    /* Portfolio Section */
-    .portfolio-intro {
+    /* Selected Systems Section */
+    .systems-intro {
       color: var(--ink-mid);
       font-size: var(--font-size-md);
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
       max-width: 680px;
+      line-height: 1.75;
     }
 
-    .portfolio-label {
+    .system-label {
       font-size: 13px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--ink-light);
       margin-bottom: 1rem;
       font-weight: 600;
-    }
-
-    /* Case Study */
-    .case-study {
-      margin-bottom: 3rem;
-    }
-
-    .case-study h3 {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-    }
-
-    .case-study .demo-link {
-      color: var(--ink);
-    }
-
-    .case-study .demo-link:hover {
-      color: var(--ink-mid);
-    }
-
-    .case-study-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-
-    .case-study-press {
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .case-study-press a {
-      color: var(--ink-mid);
-      text-decoration: none;
-      transition: color 0.1s ease;
-    }
-
-    .case-study-press a:hover {
-      color: var(--ink);
-    }
-
-    .case-study-press a::after {
-      content: ' \2192';
-      position: relative;
-      left: 0;
-      transition: left 0.1s ease;
-    }
-
-    .case-study-press a:hover::after {
-      left: 4px;
-    }
-
-    .case-study-separator {
-      border: none;
-      border-top: 2px solid #111111;
-      margin: 3rem 0;
     }
 
     .demo-frame-wrapper {
@@ -707,7 +640,7 @@
     }
 
     .demo-link::after {
-      content: ' →';
+      content: ' \2192';
       position: relative;
       left: 0;
       transition: left 0.1s ease;
@@ -717,17 +650,15 @@
       left: 4px;
     }
 
-    /* Tabbed demos */
-
-    .tabs-nav {
+    /* System Category Tabs */
+    .systems-nav {
       display: flex;
       gap: 0;
-      border-bottom: 1px solid #E0E0E0;
+      border-bottom: 2px solid var(--ink);
       margin-bottom: 2.5rem;
-      margin-top: 2rem;
     }
 
-    .tab-btn {
+    .system-tab {
       background: none;
       border: none;
       border-bottom: 3px solid transparent;
@@ -735,53 +666,54 @@
       font-family: var(--font-sans);
       font-size: var(--font-size-base);
       font-weight: 400;
-      color: #666666;
+      color: var(--ink-light);
       cursor: pointer;
-      margin-bottom: -1px;
-      transition: all 0.1s ease;
+      margin-bottom: -2px;
+      transition: color 0.1s ease, border-bottom-color 0.1s ease;
       border-radius: 0;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
-    .tab-btn:hover {
-      color: #111111;
+    .system-tab:hover {
+      color: var(--ink);
     }
 
-    .tab-btn.active {
+    .system-tab.active {
       border-bottom-color: var(--mta-blue);
       color: var(--mta-blue);
       font-weight: 700;
     }
 
-    .tab-panel {
+    /* Active System Panel */
+    .selected-system-panel {
       display: none;
       opacity: 0;
       transform: translateY(12px);
     }
 
-    .tab-panel.active {
+    .selected-system-panel.active {
       display: block;
-      animation: tabFadeIn 0.4s ease forwards;
+      animation: systemFadeIn 0.4s var(--ease) forwards;
     }
 
-    @keyframes tabFadeIn {
+    @keyframes systemFadeIn {
       from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .tab-content {
+    .system-content {
       display: grid;
       grid-template-columns: 1fr 2fr;
       gap: 3rem;
       align-items: start;
     }
 
-    .tab-info {
+    .system-info {
       padding-top: 0.5rem;
     }
 
-    .tab-info h3 {
+    .system-info h3 {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: var(--font-size-lg);
       font-weight: 900;
@@ -793,30 +725,103 @@
       margin-top: 0.5rem;
     }
 
-    .tab-info p {
+    .system-info p {
       font-size: var(--font-size-md);
       color: var(--ink-mid);
       line-height: 1.75;
       margin-bottom: 1.25rem;
     }
 
-    .tab-frame {
-      border: 2px solid #2A2A2A;
+    .system-value {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--font-size-sm);
+      color: var(--ink-light);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .system-links {
+      margin-top: 0.5rem;
+    }
+
+    .system-frame {
+      border: 2px solid var(--ink);
       border-radius: 0;
       overflow: hidden;
       background: var(--cream);
     }
 
+    .selected-system-panel.active .system-frame {
+      animation: frameReveal 0.5s var(--ease) 0.15s forwards;
+      opacity: 0;
+    }
+
+    @keyframes frameReveal {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Proof / Compatibility Row */
+    .systems-proof {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+      text-align: center;
+    }
+
+    .systems-proof-label {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+
+    .systems-proof-list {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+
     @media (max-width: 768px) {
-      .tabs-nav {
+      .systems-nav {
         flex-wrap: wrap;
       }
-      .tab-content {
+      .system-tab {
+        flex: 1 1 auto;
+        text-align: center;
+        padding: 0.6rem 0.75rem;
+        font-size: var(--font-size-sm);
+      }
+      .system-content {
         grid-template-columns: 1fr;
         gap: 1.5rem;
       }
-      .tab-frame {
-        display: none;
+      .system-frame {
+        max-height: 300px;
+        overflow: hidden;
+        position: relative;
+      }
+      .system-frame::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: linear-gradient(transparent, var(--warm-white));
+        pointer-events: none;
+        z-index: 1;
+      }
+      .systems-proof-list {
+        font-size: 12px;
       }
     }
 
@@ -1188,12 +1193,6 @@
         gap: 2px;
       }
 
-      .case-study-links {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-      }
-
       .about-grid {
         max-width: 100%;
       }
@@ -1211,7 +1210,7 @@
         gap: 1.5rem;
       }
 
-      .portfolio-intro {
+      .systems-intro {
         max-width: 100%;
       }
 
@@ -1685,111 +1684,102 @@
     </div>
   </section>
 
-  <!-- What I Build (tabbed demos) -->
+  <!-- Selected Systems -->
   <section id="work">
     <div class="container">
-      <h2>What I build</h2>
+      <h2>Selected Systems</h2>
+      <p class="systems-intro reveal-card reveal-stagger-1">Production systems and working prototypes for Gulf Coast businesses. Each solves a real operational problem.</p>
 
-      <!-- Case Study -->
-      <div class="case-study">
-        <div class="portfolio-label">Case Study</div>
-        <h3>Port A Vacation Company</h3>
-        <p>Booking engine, CRM, owner portal, automated guest messaging, unified checkout. Vacation rentals, vehicle rentals, and activity bookings through a single transaction. Built the entire technology platform solo.</p>
-        <div class="case-study-links">
-          <a class="demo-link" href="https://portavacation.co" rel="noopener noreferrer">portavacation.co</a>
-          <div class="case-study-press">
-            <a href="https://www.portasouthjetty.com/articles/port-a-vacation-company-starts-multi-faceted-website/" rel="noopener noreferrer">As featured in the Port Aransas South Jetty</a>
-          </div>
-        </div>
+      <div class="systems-nav reveal-card reveal-stagger-2" role="tablist" aria-label="System categories">
+        <button class="system-tab active" role="tab" aria-selected="true" aria-controls="tab-rental" id="btn-rental" data-tab="tab-rental">Rental Fleets</button>
+        <button class="system-tab" role="tab" aria-selected="false" aria-controls="tab-booking" id="btn-booking" data-tab="tab-booking">Booking Systems</button>
+        <button class="system-tab" role="tab" aria-selected="false" aria-controls="tab-inventory" id="btn-inventory" data-tab="tab-inventory">Inventory &amp; POS</button>
+        <button class="system-tab" role="tab" aria-selected="false" aria-controls="tab-portal" id="btn-portal" data-tab="tab-portal">Customer Portals</button>
       </div>
 
-      <hr class="case-study-separator">
-
-      <p class="portfolio-intro">Custom-built demos for four business types on the Gulf Coast. Each one is a working prototype. <em>Best viewed on desktop.</em></p>
-
-      <div class="tabs-nav" role="tablist" aria-label="Product demos">
-        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-rental" id="btn-rental" data-tab="tab-rental">Rental Fleets</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-booking" id="btn-booking" data-tab="tab-booking">Booking Systems</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-inventory" id="btn-inventory" data-tab="tab-inventory">Inventory & POS</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-portal" id="btn-portal" data-tab="tab-portal">Customer Portals</button>
-      </div>
-
-      <div class="tab-panel active" id="tab-rental" role="tabpanel" aria-labelledby="btn-rental">
-        <div class="tab-content">
-          <div class="tab-info">
-            <div class="portfolio-label">Rental Fleet</div>
+      <div class="selected-system-panel active" id="tab-rental" role="tabpanel" aria-labelledby="btn-rental">
+        <div class="system-content">
+          <div class="system-info">
+            <div class="system-label">Rental Fleet Management</div>
             <h3>Island Wheels Golf Carts</h3>
-            <p>Fleet management with availability calendar, dynamic pricing, digital waivers with signature capture, check-in/check-out workflows, promo codes, and gift certificates. Everything a rental operator needs. Without the 6% booking fee.</p>
-            <a class="demo-link" href="/demos/rental.html">Open full demo</a>
+            <p>Availability calendars, dynamic pricing, digital waivers with signature capture, and automated check-in/check-out workflows. Replaces the spreadsheet-and-phone-calls approach most fleet operators run on.</p>
+            <p class="system-value">Eliminates per-booking platform fees. Operators keep 100% of revenue.</p>
+            <div class="system-links">
+              <a class="demo-link" href="/demos/rental.html">Open full demo</a>
+            </div>
           </div>
-          <div class="tab-frame">
+          <div class="system-frame">
             <div class="demo-frame-wrapper">
-              <iframe src="/demos/rental.html" loading="lazy" title="Rental fleet management demo" scrolling="no" tabindex="-1"></iframe>
+              <iframe src="/demos/rental.html" loading="lazy" title="Rental fleet management system" scrolling="no" tabindex="-1"></iframe>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="tab-panel" id="tab-booking" role="tabpanel" aria-labelledby="btn-booking" hidden>
-        <div class="tab-content">
-          <div class="tab-info">
-            <div class="portfolio-label">Booking System</div>
+      <div class="selected-system-panel" id="tab-booking" role="tabpanel" aria-labelledby="btn-booking" hidden>
+        <div class="system-content">
+          <div class="system-info">
+            <div class="system-label">Booking System</div>
             <h3>Redfish Run Charters</h3>
-            <p>Fishing charters need bookings, waivers, and captain scheduling. Customers see available dates, book with a credit card, and get confirmation emails. The captain has a dashboard to manage the day.</p>
-            <a class="demo-link" href="/demos/booking.html">Open full demo</a>
+            <p>Online booking with real-time availability, integrated waivers, and captain scheduling. Customers book and pay in under two minutes. Captains see a clean daily manifest. The same architecture powers Port A Vacation Company's multi-service booking engine.</p>
+            <p class="system-value">Replaces third-party booking platforms that take 10-20% per transaction.</p>
+            <div class="system-links">
+              <a class="demo-link" href="/demos/booking.html">Open full demo</a>
+            </div>
           </div>
-          <div class="tab-frame">
+          <div class="system-frame">
             <div class="demo-frame-wrapper">
-              <iframe src="/demos/booking.html" loading="lazy" title="Booking system demo" scrolling="no" tabindex="-1"></iframe>
+              <iframe src="/demos/booking.html" loading="lazy" title="Booking system" scrolling="no" tabindex="-1"></iframe>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="tab-panel" id="tab-inventory" role="tabpanel" aria-labelledby="btn-inventory" hidden>
-        <div class="tab-content">
-          <div class="tab-info">
-            <div class="portfolio-label">Inventory & POS</div>
+      <div class="selected-system-panel" id="tab-inventory" role="tabpanel" aria-labelledby="btn-inventory" hidden>
+        <div class="system-content">
+          <div class="system-info">
+            <div class="system-label">Inventory &amp; Point of Sale</div>
             <h3>Salt Line Supply</h3>
-            <p>Real-time stock tracking across locations, sales ring-up, reorder signals. Built for how a local shop actually works, not how some SaaS company thinks it does.</p>
-            <a class="demo-link" href="/demos/inventory.html">Open full demo</a>
+            <p>Real-time stock tracking across locations, sales ring-up, and automated reorder signals. Designed for how coastal retail actually works. Seasonal swings, weather closures, multi-location stock transfers.</p>
+            <p class="system-value">No monthly SaaS fees. No per-transaction percentage. One price, you own it.</p>
+            <div class="system-links">
+              <a class="demo-link" href="/demos/inventory.html">Open full demo</a>
+            </div>
           </div>
-          <div class="tab-frame">
+          <div class="system-frame">
             <div class="demo-frame-wrapper">
-              <iframe src="/demos/inventory.html" loading="lazy" title="Inventory management demo" scrolling="no" tabindex="-1"></iframe>
+              <iframe src="/demos/inventory.html" loading="lazy" title="Inventory and POS system" scrolling="no" tabindex="-1"></iframe>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="tab-panel" id="tab-portal" role="tabpanel" aria-labelledby="btn-portal" hidden>
-        <div class="tab-content">
-          <div class="tab-info">
-            <div class="portfolio-label">Client Portal</div>
+      <div class="selected-system-panel" id="tab-portal" role="tabpanel" aria-labelledby="btn-portal" hidden>
+        <div class="system-content">
+          <div class="system-info">
+            <div class="system-label">Client Portal</div>
             <h3>Island Key Properties</h3>
-            <p>Tenants log in to pay rent, submit maintenance requests, and see lease documents. Property managers stop drowning in emails and have a dashboard to track everything.</p>
-            <a class="demo-link" href="/demos/portal.html">Open full demo</a>
+            <p>Tenants pay rent, submit maintenance requests, and access lease documents through a single login. Property managers get a dashboard that replaces the email chain and the filing cabinet.</p>
+            <p class="system-value">Reduces admin overhead and tenant response time. Scales from 10 units to 200.</p>
+            <div class="system-links">
+              <a class="demo-link" href="/demos/portal.html">Open full demo</a>
+            </div>
           </div>
-          <div class="tab-frame">
+          <div class="system-frame">
             <div class="demo-frame-wrapper">
-              <iframe src="/demos/portal.html" loading="lazy" title="Client portal demo" scrolling="no" tabindex="-1"></iframe>
+              <iframe src="/demos/portal.html" loading="lazy" title="Client portal system" scrolling="no" tabindex="-1"></iframe>
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="systems-proof">
+        <span class="systems-proof-label">Compatible with</span>
+        <span class="systems-proof-list">Escapia / Guesty / Hospitable / Beds24 / FareHarbor / Checkfront / Stripe / Square</span>
       </div>
 
     </div>
   </section>
-
-  <!-- Integrations -->
-  <div style="margin: 48px auto; text-align: center; max-width: 800px; padding: 0 20px;">
-    <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 16px; color: var(--ink);">
-      Works with your existing tools
-    </span>
-    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 1.8; text-transform: uppercase; color: var(--ink);">
-      Escapia / Guesty / Hospitable / Beds24 / FareHarbor / Checkfront / Stripe / Square
-    </span>
-  </div>
 
   <!-- How It Works -->
   <section id="process">
@@ -2063,14 +2053,14 @@
     }, { passive: true });
 
     // Tab switching
-    document.querySelectorAll('.tab-btn').forEach(btn => {
+    document.querySelectorAll('.system-tab').forEach(btn => {
       btn.addEventListener('click', () => {
         const target = btn.dataset.tab;
-        document.querySelectorAll('.tab-btn').forEach(b => {
+        document.querySelectorAll('.system-tab').forEach(b => {
           b.classList.remove('active');
           b.setAttribute('aria-selected', 'false');
         });
-        document.querySelectorAll('.tab-panel').forEach(p => {
+        document.querySelectorAll('.selected-system-panel').forEach(p => {
           p.classList.remove('active');
           p.hidden = true;
         });
@@ -2086,7 +2076,7 @@
     // Scale demo iframes to fill their container exactly
     function scaleFrames() {
       document.querySelectorAll('.demo-frame-wrapper').forEach(wrapper => {
-        const frame = wrapper.closest('.tab-frame');
+        const frame = wrapper.closest('.system-frame');
         if (!frame) return;
         const w = frame.offsetWidth;
         if (!w) return;
