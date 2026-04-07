@@ -155,10 +155,35 @@
     [data-theme="dark"] .contact-form-wrap {
       border-color: var(--ink-light);
     }
+    [data-theme="dark"] .calc-card {
+      background-color: #1C1917;
+      border-color: #44403C;
+    }
+    [data-theme="dark"] .calc-card-inputs {
+      border-bottom-color: #44403C;
+    }
     [data-theme="dark"] .calc-input,
     [data-theme="dark"] .calc-select {
-      background-color: transparent;
-      border-bottom-color: var(--ink-light);
+      background-color: #292524;
+      border-color: #44403C;
+      color: #E7E5E4;
+    }
+    [data-theme="dark"] .calc-input:focus,
+    [data-theme="dark"] .calc-select:focus {
+      border-color: #E7E5E4;
+      box-shadow: 0 0 0 3px rgba(231, 229, 228, 0.1);
+    }
+    [data-theme="dark"] .calc-result {
+      background-color: #1A1918;
+    }
+    [data-theme="dark"] .calc-punchline {
+      color: #E7E5E4;
+    }
+    [data-theme="dark"] .calc-result-label {
+      color: #A8A29E;
+    }
+    [data-theme="dark"] .calc-result-value--own {
+      color: #E7E5E4;
     }
     [data-theme="dark"] .tab-btn {
       color: var(--ink-light);
@@ -1078,10 +1103,10 @@
       }
 
       .calc-grid { grid-template-columns: 1fr; }
-      .calc-result-grid { flex-direction: column; }
-      .calc-result-card { flex: 1 1 100%; }
-      .calc-result-card:first-child { border-right: none; border-bottom: 2px solid var(--ink); }
-      .calc-result-value { font-size: 48px; }
+      .calc-card-inputs { padding: 24px; }
+      .calc-result { padding: 24px; }
+      .calc-result-grid { flex-direction: column; gap: 24px; }
+      .calc-result-value { font-size: 36px; }
     }
 
     /* Page transitions */
@@ -1190,29 +1215,42 @@
         .testimonials-grid { grid-template-columns: 1fr; }
     }
 
-    /* ─── Fee Calculator ─────────────────────────────────────── */
+    /* ─── Fee Calculator (Premium Trust Card) ──────────────── */
     .calc-intro {
       color: var(--ink-mid);
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .calc-card {
+      background-color: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      max-width: 800px;
+      margin: 40px 0;
+    }
+
+    .calc-card-inputs {
+      padding: 32px;
+      border-bottom: 1px solid #E5E7EB;
     }
 
     .calc-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
-      margin-bottom: 1.5rem;
     }
 
     .calc-label {
       display: block;
-      font-family: 'IBM Plex Sans', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       font-weight: 600;
-      color: var(--ink-mid);
-      margin-top: 1.5rem;
-      margin-bottom: 0.5rem;
+      color: #6B7280;
+      margin-bottom: 8px;
     }
 
     .calc-input-wrap {
@@ -1221,136 +1259,128 @@
 
     .calc-input-prefix {
       position: absolute;
-      left: 0;
+      left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--ink-mid);
-      font-size: 1.1rem;
+      color: #6B7280;
+      font-size: 16px;
+      pointer-events: none;
     }
 
     .calc-input {
       width: 100%;
-      padding: 12px 0 8px 1.2rem;
-      border: none;
-      border-bottom: 2px solid #E5E7EB;
-      border-radius: 0;
-      font-family: 'IBM Plex Mono', monospace;
+      padding: 12px 16px 12px 28px;
+      border: 1px solid #D1D5DB;
+      border-radius: 6px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 16px;
-      background: transparent;
+      background-color: #F9FAFB;
       color: var(--ink);
       outline: none;
-      transition: border-color 0.2s ease;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
     .calc-input:focus {
-      border-bottom-color: var(--ink);
-      outline: none;
-      box-shadow: none;
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
     }
 
     .calc-select {
       width: 100%;
-      padding: 12px 0 8px 0;
-      border: none;
-      border-bottom: 2px solid #E5E7EB;
-      border-radius: 0;
-      font-family: 'IBM Plex Mono', monospace;
+      padding: 12px 16px;
+      border: 1px solid #D1D5DB;
+      border-radius: 6px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 16px;
-      background: transparent;
+      background-color: #F9FAFB;
       color: var(--ink);
       outline: none;
       appearance: none;
       -webkit-appearance: none;
-      transition: border-color 0.2s ease;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%236B7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
     .calc-select:focus {
-      border-bottom-color: var(--ink);
-      outline: none;
-      box-shadow: none;
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
     }
 
     .calc-result {
-      background: transparent;
-      border: none;
-      padding: 1.5rem 0 0;
-      margin: 0;
+      background-color: #FAFAFA;
+      padding: 32px;
     }
 
     .calc-punchline {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 24px;
-      color: #374151;
+      font-size: 18px;
+      color: #111827;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
-      margin: 48px 0 24px;
+      text-transform: none;
+      letter-spacing: normal;
+      margin: 0 0 24px;
       padding: 0;
-      line-height: 1.2;
+      line-height: 1.4;
     }
 
     .calc-result-grid {
       display: flex;
       flex-direction: row;
-      align-items: flex-end;
+      gap: 40px;
+      justify-content: flex-start;
       width: 100%;
-      border: 2px solid var(--ink);
-      border-radius: 0;
+      border: none;
       padding: 0;
     }
 
     .calc-result-card {
-      flex: 1 1 50%;
+      flex: 0 1 auto;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: flex-start;
-      padding: 32px;
-      min-height: 200px;
+      padding: 0;
+      min-height: auto;
     }
 
     .calc-result-card:first-child {
       background: transparent;
-      border-right: 2px solid var(--ink);
+      border-right: none;
     }
 
     .calc-result-card:last-child {
-      background-color: #18181B;
+      background-color: transparent;
     }
 
     .calc-result-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
-      font-weight: 400;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      color: #6B7280;
       margin-bottom: 8px;
     }
 
     .calc-result-value {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 72px;
-      font-weight: 900;
+      font-size: 48px;
+      font-weight: 800;
       letter-spacing: -0.02em;
       line-height: 1;
       margin: 0;
       text-align: left;
     }
 
-    .calc-result-card:first-child .calc-result-label {
-      color: var(--ink);
-    }
-
-    .calc-result-card:first-child .calc-result-value {
+    .calc-result-value--loss {
       color: #DC2626;
     }
 
-    .calc-result-card:last-child .calc-result-label {
-      color: #FFFFFF;
-    }
-
-    .calc-result-card:last-child .calc-result-value {
-      color: #FFFFFF;
+    .calc-result-value--own {
+      color: #111827;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1421,33 +1451,37 @@
     <div class="container">
       <h2>Run your numbers</h2>
       <p class="calc-intro">Enter your annual revenue. See what you're actually handing over. And what it costs to stop.</p>
-      <div class="calc-grid">
-        <div>
-          <label class="calc-label">Annual booking revenue</label>
-          <div class="calc-input-wrap">
-            <span class="calc-input-prefix">$</span>
-            <input type="text" id="calc-revenue" class="calc-input" placeholder="200,000" value="200,000" inputmode="numeric">
+      <div class="calc-card">
+        <div class="calc-card-inputs">
+          <div class="calc-grid">
+            <div>
+              <label class="calc-label">Annual booking revenue</label>
+              <div class="calc-input-wrap">
+                <span class="calc-input-prefix">$</span>
+                <input type="text" id="calc-revenue" class="calc-input" placeholder="200,000" value="200,000" inputmode="numeric">
+              </div>
+            </div>
+            <div>
+              <label class="calc-label">Platform fee rate</label>
+              <select id="calc-rate" class="calc-select">
+                <option value="0.03">3% (Checkfront)</option>
+                <option value="0.05">5% (FishingBooker)</option>
+                <option value="0.06" selected>6% (FareHarbor)</option>
+              </select>
+            </div>
           </div>
         </div>
-        <div>
-          <label class="calc-label">Platform fee rate</label>
-          <select id="calc-rate" class="calc-select">
-            <option value="0.03">3% (Checkfront)</option>
-            <option value="0.05">5% (FishingBooker)</option>
-            <option value="0.06" selected>6% (FareHarbor)</option>
-          </select>
-        </div>
-      </div>
-      <div id="calc-result" class="calc-result">
-        <div id="calc-punchline" class="calc-punchline"></div>
-        <div class="calc-result-grid">
-          <div class="calc-result-card">
-            <div class="calc-result-label">Their cut (3 years)</div>
-            <div id="calc-threeyear" class="calc-result-value"></div>
-          </div>
-          <div class="calc-result-card">
-            <div class="calc-result-label">Local Praxis (own it)</div>
-            <div class="calc-result-value">$1,200</div>
+        <div id="calc-result" class="calc-result">
+          <div id="calc-punchline" class="calc-punchline"></div>
+          <div class="calc-result-grid">
+            <div class="calc-result-card">
+              <div class="calc-result-label">Their cut (3 years)</div>
+              <div id="calc-threeyear" class="calc-result-value calc-result-value--loss"></div>
+            </div>
+            <div class="calc-result-card">
+              <div class="calc-result-label">Local Praxis (own it)</div>
+              <div class="calc-result-value calc-result-value--own">$1,200</div>
+            </div>
           </div>
         </div>
       </div>
