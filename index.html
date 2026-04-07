@@ -25,15 +25,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
-  </noscript>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -114,8 +106,8 @@
       --accent: #1E5FB5;
       --rule: #DDD6CC;
 
-      --font-serif: 'Instrument Serif', serif;
-      --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
       --accent-hover: #184D96;
@@ -268,13 +260,13 @@
     }
 
     .logo {
-      font-family: var(--font-serif);
+      font-family: var(--font-sans);
       font-size: 1.5rem;
-      font-weight: 500;
+      font-weight: 900;
       color: var(--ink);
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
       text-decoration: none;
-      text-transform: none;
+      text-transform: uppercase;
     }
 
     nav ul {
@@ -410,8 +402,10 @@
     }
 
     section h2 {
-      font-family: var(--font-serif);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: var(--font-size-h2);
+      font-weight: 900;
+      text-transform: uppercase;
       line-height: 1.0;
       letter-spacing: -0.02em;
       margin-bottom: 12px;
@@ -545,8 +539,11 @@
     }
 
     .tab-info h3 {
-      font-family: var(--font-serif);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: var(--font-size-lg);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
       margin-bottom: 0.75rem;
       color: var(--ink);
       line-height: 1.3;
@@ -604,9 +601,11 @@
     }
 
     .step h3 {
-      font-family: var(--font-serif);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 1.5rem;
-      font-weight: 700;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
       margin-bottom: 1rem;
       color: var(--ink);
       line-height: 1.3;
@@ -644,7 +643,7 @@
     }
 
     .about-label {
-      font-family: 'Roboto Mono', monospace;
+      font-family: 'IBM Plex Mono', monospace;
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -654,7 +653,7 @@
     }
 
     .about-value {
-      font-family: 'Roboto Mono', monospace;
+      font-family: 'IBM Plex Mono', monospace;
       font-size: 12px;
       color: #111111;
       font-weight: 700;
@@ -807,7 +806,7 @@
     }
 
     .footer-left {
-      font-family: var(--font-serif);
+      font-family: var(--font-sans);
       font-size: var(--font-size-md);
       color: #FDFAF5;
     }
@@ -1025,7 +1024,7 @@
         margin: 0;
     }
     .testimonial-text {
-        font-family: 'Instrument Serif', Georgia, serif;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-size: var(--font-size-md);
         line-height: 1.6;
         color: var(--ink);
@@ -1072,9 +1071,10 @@
 
     .calc-label {
       display: block;
-      font-size: 13px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       font-weight: 600;
       color: var(--ink-mid);
       margin-bottom: 0.5rem;
@@ -1098,8 +1098,8 @@
       padding: 12px 16px 12px 2rem;
       border: 2px solid #2A2A2A;
       border-radius: 0;
-      font-family: var(--font-sans);
-      font-size: var(--font-size-md);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 16px;
       background: #FFFFFF;
       color: var(--ink);
       outline: none;
@@ -1117,8 +1117,8 @@
       padding: 12px 16px;
       border: 2px solid #2A2A2A;
       border-radius: 0;
-      font-family: var(--font-sans);
-      font-size: var(--font-size-md);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 16px;
       background: #FFFFFF;
       color: var(--ink);
       outline: none;
@@ -1142,10 +1142,12 @@
     }
 
     .calc-punchline {
-      font-family: var(--font-serif);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: clamp(1.4rem, 3vw, 2rem);
       color: var(--color-cost);
-      font-weight: 700;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
       margin-bottom: 1.5rem;
       line-height: 1.3;
     }
@@ -1168,25 +1170,27 @@
     }
 
     .calc-result-label {
-      font-size: 13px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       font-weight: 600;
       color: var(--ink-mid);
       margin-bottom: 0.5rem;
     }
 
     .calc-result-label-sm {
-      font-size: 13px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       font-weight: 600;
       color: var(--ink-mid);
       margin-bottom: 0.25rem;
     }
 
     .calc-result-value {
-      font-family: 'Roboto Mono', monospace;
+      font-family: 'IBM Plex Mono', monospace;
       font-size: 32px;
       color: var(--ink);
       font-weight: 700;
@@ -1226,7 +1230,7 @@
   <!-- Navigation -->
   <nav role="navigation" aria-label="Main navigation">
     <div class="nav-container">
-      <a href="/" class="logo">Local Praxis</a>
+      <a href="/" class="logo">LocalPraxis</a>
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -1255,8 +1259,8 @@
   </section>
 
   <!-- Fee Calculator -->
-  <section id="calculator">
-    <div class="container">
+  <section id="calculator" style="border-top: 2px solid #111111; margin-top: 3rem; padding-top: 0;">
+    <div class="container" style="padding-top: 32px;">
       <h2>Run your numbers</h2>
       <p class="calc-intro">Enter your annual revenue. See what you're actually handing over. And what it costs to stop.</p>
       <div class="calc-grid">
@@ -1376,7 +1380,7 @@
   <!-- Integrations -->
   <div class="container" style="text-align:center;padding:3rem 1rem;margin-top:-2rem;">
     <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--ink-mid);margin-bottom:0.75rem;">Works with the tools you already use</p>
-    <p style="font-family:var(--font-serif);font-size:clamp(1rem,2vw,1.25rem);color:var(--ink);max-width:580px;margin:0 auto 1.75rem;line-height:1.5;"><strong>I integrate with the platforms and tools you're already running. No rip and replace.</strong></p>
+    <p style="font-family:var(--font-sans);font-size:clamp(1rem,2vw,1.25rem);color:var(--ink);max-width:580px;margin:0 auto 1.75rem;line-height:1.5;font-weight:700;"><strong>I integrate with the platforms and tools you're already running. No rip and replace.</strong></p>
     <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2rem 3rem;max-width:680px;margin:0 auto;">
       <img src="/img/escapia-seeklogo.svg" alt="Escapia" style="height:120px;" loading="lazy">
       <img src="/img/Guesty_Guesty_Logo_0.svg" alt="Guesty" style="height:30px;" loading="lazy">
