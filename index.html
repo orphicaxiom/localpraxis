@@ -113,10 +113,8 @@
       --accent-hover: #184D96;
       --accent-subtle: color-mix(in srgb, #1E5FB5 8%, transparent);
       --error: #B91C1C;
-      --vignelli-red: #D92B1C;
       --mta-blue: #005A9C;
       --knoll-orange: #F24822;
-      --mta-green: #009639;
       --radius: 0;
     }
 
@@ -167,9 +165,7 @@
     [data-theme="dark"] .tab-btn:hover {
       color: var(--ink);
     }
-    [data-theme="dark"] .tab-btn.active[data-transit-color="blue"] { color: var(--mta-blue); }
-    [data-theme="dark"] .tab-btn.active[data-transit-color="orange"] { color: var(--knoll-orange); }
-    [data-theme="dark"] .tab-btn.active[data-transit-color="green"] { color: var(--mta-green); }
+    [data-theme="dark"] .tab-btn.active { color: var(--mta-blue); }
     [data-theme="dark"] .tabs-nav {
       border-bottom-color: var(--rule);
     }
@@ -282,7 +278,7 @@
       text-decoration: none;
       text-transform: uppercase;
     }
-    .logo-red { color: var(--knoll-orange); }
+    .logo-accent { color: var(--mta-blue); }
 
     .manifesto-block {
       font-family: var(--font-sans);
@@ -303,7 +299,8 @@
       margin: 4px 0 16px 0;
     }
     .transit-legend li {
-      border-left: 4px solid currentColor;
+      color: var(--ink);
+      border-left: 4px solid var(--mta-blue);
       padding-left: 8px;
       margin-bottom: 4px;
     }
@@ -382,9 +379,9 @@
     .hero-sub {
       display: flex;
       flex-direction: row;
-      align-items: flex-end;
+      align-items: flex-start;
       justify-content: flex-start;
-      gap: 64px;
+      gap: 80px;
       margin-top: 24px;
     }
 
@@ -427,8 +424,10 @@
     .cta-button-outline {
       background-color: transparent;
       color: var(--ink);
-      border-color: var(--ink);
+      border: 2px solid var(--ink);
+      padding: 14px 32px;
       font-weight: 700;
+      margin-top: -2px;
     }
 
     .cta-button-outline:hover {
@@ -556,22 +555,9 @@
     }
 
     .tab-btn.active {
-      color: #111111;
-      font-weight: 700;
-    }
-
-    /* Wayfinding: transit colors on active tabs */
-    .tab-btn.active[data-transit-color="blue"] {
       border-bottom-color: var(--mta-blue);
       color: var(--mta-blue);
-    }
-    .tab-btn.active[data-transit-color="orange"] {
-      border-bottom-color: var(--knoll-orange);
-      color: var(--knoll-orange);
-    }
-    .tab-btn.active[data-transit-color="green"] {
-      border-bottom-color: var(--mta-green);
-      color: var(--mta-green);
+      font-weight: 700;
     }
 
     .tab-panel {
@@ -1214,7 +1200,7 @@
     .calc-punchline {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: clamp(1.4rem, 3vw, 2rem);
-      color: var(--vignelli-red);
+      color: var(--knoll-orange);
       font-weight: 700;
       text-transform: none;
       letter-spacing: -0.01em;
@@ -1268,7 +1254,7 @@
 
     .calc-result-card:first-child .calc-result-label,
     .calc-result-card:first-child .calc-result-value {
-      color: var(--vignelli-red);
+      color: var(--knoll-orange);
     }
 
     .calc-result-card:last-child .calc-result-label,
@@ -1299,7 +1285,7 @@
   <!-- Navigation -->
   <nav role="navigation" aria-label="Main navigation">
     <div class="nav-container">
-      <a href="/" class="logo">Local<span class="logo-red">Praxis</span></a>
+      <a href="/" class="logo">Local<span class="logo-accent">Praxis</span></a>
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -1324,13 +1310,13 @@
         <div class="manifesto-block">
           <span class="intro-text">I build:</span>
           <ul class="transit-legend">
-            <li style="color: var(--mta-blue);">Booking systems</li>
-            <li style="color: var(--knoll-orange);">Customer portals</li>
-            <li style="color: var(--mta-green);">Operational tools</li>
+            <li>Booking systems</li>
+            <li>Customer portals</li>
+            <li>Operational tools</li>
           </ul>
           <span class="punchline">For local businesses.<br><br>You pay once.<br>You own it forever.</span>
         </div>
-        <a href="#contact" class="cta-button">Get in touch</a>
+        <a href="#contact" class="cta-button cta-button-outline">Get in touch</a>
       </div>
     </div>
   </section>
@@ -1381,10 +1367,10 @@
       <p class="portfolio-intro">Working demos built for real business types. Click any tab to explore. <em>Best viewed on desktop.</em></p>
 
       <div class="tabs-nav" role="tablist" aria-label="Product demos">
-        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-rental" id="btn-rental" data-tab="tab-rental" data-transit-color="green">Rental Fleets</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-booking" id="btn-booking" data-tab="tab-booking" data-transit-color="blue">Booking Systems</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-inventory" id="btn-inventory" data-tab="tab-inventory" data-transit-color="green">Inventory & POS</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-portal" id="btn-portal" data-tab="tab-portal" data-transit-color="orange">Customer Portals</button>
+        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-rental" id="btn-rental" data-tab="tab-rental">Rental Fleets</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-booking" id="btn-booking" data-tab="tab-booking">Booking Systems</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-inventory" id="btn-inventory" data-tab="tab-inventory">Inventory & POS</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-portal" id="btn-portal" data-tab="tab-portal">Customer Portals</button>
       </div>
 
       <div class="tab-panel active" id="tab-rental" role="tabpanel" aria-labelledby="btn-rental">
