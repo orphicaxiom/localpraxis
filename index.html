@@ -118,6 +118,12 @@
       --knoll-orange: #F24822;
       --mta-green: #009639;
       --radius: 0;
+    }
+
+    .highlight-pain { color: var(--knoll-orange) !important; font-weight: 700; }
+    .highlight-solution { color: var(--mta-blue) !important; font-weight: 700; }
+
+    :root {
       --font-size-xs: 0.65rem;
       --font-size-sm: 0.75rem;
       --font-size-base: 0.875rem;
@@ -378,7 +384,7 @@
       flex-direction: row;
       align-items: flex-end;
       justify-content: flex-start;
-      gap: 8vw;
+      gap: 64px;
       margin-top: 24px;
     }
 
@@ -637,16 +643,16 @@
     /* How It Works */
     .how-it-works-grid {
       display: grid;
-      grid-template-columns: 1fr 1px 1fr 1px 1fr;
+      grid-template-columns: 1fr 2px 1fr 2px 1fr;
       gap: 0;
     }
 
     .how-it-works-grid .rule {
-      background: var(--rule);
+      background: var(--ink);
     }
 
     .step {
-      padding: 0 2.5rem;
+      padding: 0 2.5rem 0 32px;
     }
 
     .step:first-child {
@@ -1168,7 +1174,7 @@
     }
 
     .calc-input:focus {
-      border-bottom-color: var(--knoll-orange);
+      border-bottom-color: var(--mta-blue);
       outline: none;
       box-shadow: none;
     }
@@ -1190,7 +1196,7 @@
     }
 
     .calc-select:focus {
-      border-bottom-color: var(--knoll-orange);
+      border-bottom-color: var(--mta-blue);
       outline: none;
       box-shadow: none;
     }
@@ -1251,7 +1257,7 @@
 
     .calc-result-value {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: clamp(36px, 5vw, 56px);
+      font-size: clamp(48px, 6vw, 64px);
       color: var(--ink);
       font-weight: 700;
       text-align: left;
@@ -1264,11 +1270,11 @@
 
     .calc-result-card:last-child .calc-result-label,
     .calc-result-card:last-child .calc-result-label-sm {
-      color: var(--ink);
+      color: var(--mta-blue);
     }
 
     .calc-result-card:last-child .calc-result-value {
-      color: var(--ink);
+      color: var(--mta-blue);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1321,7 +1327,7 @@
           </ul>
           <span class="punchline">For local businesses.<br><br>You pay once.<br>You own it forever.</span>
         </div>
-        <a href="#contact" class="cta-button cta-button-outline">Get in touch</a>
+        <a href="#contact" class="cta-button">Get in touch</a>
       </div>
     </div>
   </section>
