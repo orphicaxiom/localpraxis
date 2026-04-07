@@ -1370,10 +1370,14 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: space-between;
       align-items: flex-start;
       border-radius: 8px;
       padding: 32px 24px;
+    }
+
+    .calc-price-group {
+      width: 100%;
     }
 
     .calc-result-card:first-child {
@@ -1507,7 +1511,7 @@
   <!-- Fee Calculator -->
   <section id="calculator">
     <div class="container">
-      <h2>Run your numbers</h2>
+      <h2>Run your <span id="cypher-target">numbers</span></h2>
       <p class="calc-intro">Enter your annual revenue. See what you're actually handing over. And what it costs to stop.</p>
       <div class="calc-card">
         <div class="calc-card-inputs">
@@ -1533,12 +1537,16 @@
           <div id="calc-punchline" class="calc-punchline"></div>
           <div class="calc-result-grid">
             <div class="calc-result-card">
-              <div class="calc-result-label">Their cut (3 years)</div>
-              <div id="calc-threeyear" class="calc-result-value calc-result-value--loss"></div>
+              <div class="calc-price-group">
+                <div class="calc-result-label">Their cut (3 years)</div>
+                <div id="calc-threeyear" class="calc-result-value calc-result-value--loss"></div>
+              </div>
             </div>
             <div class="calc-result-card">
-              <div class="calc-result-label">Local Praxis (own it)</div>
-              <div class="calc-result-value calc-result-value--own">$1,200</div>
+              <div class="calc-price-group">
+                <div class="calc-result-label">Local Praxis (own it)</div>
+                <div class="calc-result-value calc-result-value--own">$1,200</div>
+              </div>
               <a href="#contact" class="calc-cta">Start your build</a>
             </div>
           </div>
@@ -1963,6 +1971,38 @@
         });
       });
     }
+
+    // Cypher scramble animation
+    (function() {
+      var target = document.getElementById('cypher-target');
+      if (!target) return;
+      var original = target.textContent;
+      var len = original.length;
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            observer.unobserve(target);
+            var duration = 600;
+            var interval = 30;
+            var timer = setInterval(function() {
+              var scrambled = '';
+              for (var i = 0; i < len; i++) {
+                scrambled += Math.floor(Math.random() * 10);
+              }
+              target.textContent = scrambled;
+            }, interval);
+            setTimeout(function() {
+              clearInterval(timer);
+              target.textContent = original;
+            }, duration);
+          }
+        });
+      }, { threshold: 0.5 });
+      observer.observe(target);
+    })();
 
     // Fee calculator
     const calcRevenue = document.getElementById('calc-revenue');
