@@ -230,6 +230,15 @@
     [data-theme="dark"] .about-value {
       color: #E7E5E4;
     }
+    [data-theme="dark"] .case-study-separator {
+      border-top-color: #E7E5E4;
+    }
+    [data-theme="dark"] .case-study-press a {
+      color: var(--ink-mid);
+    }
+    [data-theme="dark"] .case-study-press a:hover {
+      color: var(--ink);
+    }
     [data-theme="dark"] footer {
       background-color: var(--absolute-black, #000000);
     }
@@ -607,6 +616,71 @@
       color: var(--ink-light);
       margin-bottom: 1rem;
       font-weight: 600;
+    }
+
+    /* Case Study */
+    .case-study {
+      margin-bottom: 3rem;
+    }
+
+    .case-study h3 {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .case-study .demo-link {
+      color: var(--ink);
+    }
+
+    .case-study .demo-link:hover {
+      color: var(--ink-mid);
+    }
+
+    .case-study-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .case-study-press {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .case-study-press a {
+      color: var(--ink-mid);
+      text-decoration: none;
+      transition: color 0.1s ease;
+    }
+
+    .case-study-press a:hover {
+      color: var(--ink);
+    }
+
+    .case-study-press a::after {
+      content: ' \2192';
+      position: relative;
+      left: 0;
+      transition: left 0.1s ease;
+    }
+
+    .case-study-press a:hover::after {
+      left: 4px;
+    }
+
+    .case-study-separator {
+      border: none;
+      border-top: 2px solid #111111;
+      margin: 3rem 0;
     }
 
     .demo-frame-wrapper {
@@ -1114,6 +1188,12 @@
         gap: 2px;
       }
 
+      .case-study-links {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
       .about-grid {
         max-width: 100%;
       }
@@ -1609,7 +1689,23 @@
   <section id="work">
     <div class="container">
       <h2>What I build</h2>
-      <p class="portfolio-intro">Working demos built for real business types. Click any tab to explore. <em>Best viewed on desktop.</em></p>
+
+      <!-- Case Study -->
+      <div class="case-study">
+        <div class="portfolio-label">Case Study</div>
+        <h3>Port A Vacation Company</h3>
+        <p>Booking engine, CRM, owner portal, automated guest messaging, unified checkout. Vacation rentals, vehicle rentals, and activity bookings through a single transaction. Built the entire technology platform solo.</p>
+        <div class="case-study-links">
+          <a class="demo-link" href="https://portavacation.co" rel="noopener noreferrer">portavacation.co</a>
+          <div class="case-study-press">
+            <a href="https://www.portasouthjetty.com/articles/port-a-vacation-company-starts-multi-faceted-website/" rel="noopener noreferrer">As featured in the Port Aransas South Jetty</a>
+          </div>
+        </div>
+      </div>
+
+      <hr class="case-study-separator">
+
+      <p class="portfolio-intro">Custom-built demos for four business types on the Gulf Coast. Each one is a working prototype. <em>Best viewed on desktop.</em></p>
 
       <div class="tabs-nav" role="tablist" aria-label="Product demos">
         <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-rental" id="btn-rental" data-tab="tab-rental">Rental Fleets</button>
@@ -1755,7 +1851,7 @@
         <div class="about-row"><span class="about-label">FOUNDER</span><span class="about-value">James Johnson</span></div>
         <div class="about-row"><span class="about-label">LOCATION</span><span class="about-value">Port Aransas, TX</span></div>
         <div class="about-row"><span class="about-label">EXPERIENCE</span><span class="about-value">Apple, Meta, GoDaddy</span></div>
-        <div class="about-row"><span class="about-label">PRIOR BUILD</span><span class="about-value">Port A Vacation Company. Booking engine, CRM, owner portal, automated messaging, unified checkout.</span></div>
+        <div class="about-row"><span class="about-label">FEATURED BUILD</span><span class="about-value">Port A Vacation Company</span></div>
         <div class="about-row"><span class="about-label">FOCUS</span><span class="about-value">Custom operations software for small business</span></div>
         <div class="about-row"><span class="about-label">STATUS</span><span class="about-value">Accepting clients</span></div>
       </div>
