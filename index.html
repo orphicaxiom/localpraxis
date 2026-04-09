@@ -1095,6 +1095,11 @@
     .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     @media (max-width: 768px) {
+      nav {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background-color: var(--warm-white);
+      }
       .hamburger { display: block; }
       nav ul {
         display: none;
@@ -1138,6 +1143,10 @@
 
       .hero-title {
         font-size: 18vw;
+      }
+
+      #strike-line {
+        display: none;
       }
 
       .hero-sub {
@@ -1227,9 +1236,6 @@
       .calc-card { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
       .calc-card-inputs { padding: 24px; }
       .calc-result { padding: 24px; }
-      .calc-result-grid { flex-direction: column; gap: 16px; }
-      .calc-result-card { padding: 24px 20px; }
-      .calc-result-value { font-size: 36px; }
       #calculator h2 { font-size: clamp(36px, 10vw, 56px); }
     }
 
@@ -1570,6 +1576,19 @@
 
     .calc-cta:hover {
       background-color: #F3F4F6;
+    }
+
+    @media (max-width: 768px) {
+      .calc-result-grid {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .calc-result-card {
+        padding: 24px 20px;
+      }
+      .calc-result-value {
+        font-size: 36px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
