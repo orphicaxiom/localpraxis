@@ -1095,31 +1095,47 @@
     .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     @media (max-width: 768px) {
-      nav {
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        background-color: var(--warm-white);
-      }
       .hamburger { display: block; }
       nav ul {
         display: none;
+      }
+      nav.menu-open {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: var(--warm-white);
+        width: 100%;
+        height: 100%;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background-color: var(--warm-white);
+        border-bottom: none;
+        z-index: 9999;
+      }
+      nav.menu-open .nav-container {
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+      }
+      nav.menu-open ul {
+        display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         gap: 2rem;
-        z-index: 1000;
       }
-      nav ul.open {
-        display: flex;
-      }
-      nav ul li a {
+      nav.menu-open ul li a {
         font-size: 1.2rem;
+      }
+      nav.menu-open .hamburger {
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+      }
+      nav.menu-open .logo {
+        position: absolute;
+        top: 1rem;
+        left: 1.5rem;
       }
     }
 
@@ -2109,18 +2125,20 @@
 
     // Mobile menu
     const hamburger = document.querySelector('.hamburger');
+    const navEl = document.querySelector('nav');
     const navUl = document.querySelector('nav ul');
-    if (hamburger) {
+    if (hamburger && navEl) {
       hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
-        navUl.classList.toggle('open');
-        hamburger.setAttribute('aria-expanded', navUl.classList.contains('open'));
-        document.body.style.overflow = navUl.classList.contains('open') ? 'hidden' : '';
+        navEl.classList.toggle('menu-open');
+        const isOpen = navEl.classList.contains('menu-open');
+        hamburger.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
       });
       navUl.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
           hamburger.classList.remove('active');
-          navUl.classList.remove('open');
+          navEl.classList.remove('menu-open');
           hamburger.setAttribute('aria-expanded', 'false');
           document.body.style.overflow = '';
         });
