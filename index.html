@@ -2138,14 +2138,21 @@
       if (prefersReduced) return;
 
       // Replace text with individual spans for per-character control
+      // Measure each character's width first to prevent layout jitter during scramble
       target.textContent = '';
       var spans = [];
       for (var i = 0; i < len; i++) {
         var span = document.createElement('span');
         span.textContent = chars[i];
-        span.style.display = 'inline';
+        span.style.display = 'inline-block';
+        span.style.textAlign = 'center';
         target.appendChild(span);
         spans.push(span);
+      }
+      // Lock each span to its measured width so digit substitution doesn't reflow
+      for (var i = 0; i < len; i++) {
+        var w = spans[i].getBoundingClientRect().width;
+        spans[i].style.width = w + 'px';
       }
 
       var animating = false;
