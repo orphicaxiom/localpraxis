@@ -828,7 +828,7 @@ button, input, select, textarea {
 
 .gantt-grid {
   display: grid;
-  grid-template-columns: 100px repeat(7, 1fr);
+  grid-template-columns: 180px repeat(7, 1fr);
   border: 1px solid var(--rule);
   border-radius: 6px;
   overflow: hidden;
@@ -859,22 +859,122 @@ button, input, select, textarea {
   background: rgba(68, 64, 60, 0.15);
 }
 
-.gantt-label {
+/* Type group header row (collapsible) */
+.gantt-type-label {
   font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--cream);
+  cursor: pointer;
+  user-select: none;
+  transition: background 200ms var(--ease);
+}
+
+.gantt-type-label:hover {
+  background: color-mix(in srgb, var(--cream) 80%, var(--ink) 5%);
+}
+
+.gantt-type-label .type-chevron {
+  display: inline-block;
+  width: 12px;
+  font-size: 0.7rem;
+  color: var(--ink-light);
+  transition: transform 200ms var(--ease);
+  flex-shrink: 0;
+}
+
+.gantt-type-label .type-chevron.open {
+  transform: rotate(90deg);
+}
+
+.gantt-type-label .type-count {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--ink-light);
+  margin-left: auto;
+}
+
+/* Availability summary cell (shown on type row) */
+.gantt-avail-cell {
+  border-bottom: 1px solid var(--rule);
+  border-right: 1px solid rgba(221, 214, 204, 0.3);
+  position: relative;
+  min-height: 36px;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 200ms var(--ease);
+}
+
+.gantt-avail-cell:hover {
+  background: color-mix(in srgb, var(--cream) 80%, var(--ink) 5%);
+}
+
+.gantt-avail-cell.weekend {
+  background: rgba(221, 214, 204, 0.15);
+}
+
+.gantt-avail-cell.today {
+  background: var(--accent-subtle);
+}
+
+.avail-badge {
+  font-size: 0.72rem;
   font-weight: 600;
-  padding: 0.5rem 0.75rem;
+  border-radius: 3px;
+  padding: 1px 6px;
+  line-height: 1.4;
+}
+
+.avail-badge.avail-full { color: var(--status-green); }
+.avail-badge.avail-partial { color: var(--status-amber); }
+.avail-badge.avail-none { color: var(--status-red); font-weight: 700; }
+
+/* Individual cart row (nested under type) */
+.gantt-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.4rem 0.75rem 0.4rem 1.5rem;
   border-bottom: 1px solid var(--rule);
   border-right: 1px solid var(--rule);
   display: flex;
   align-items: center;
   background: var(--warm-white);
+  color: var(--ink-mid);
+}
+
+.gantt-label .cart-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.gantt-label .cart-status-dot.s-available { background: var(--status-green); }
+.gantt-label .cart-status-dot.s-rented { background: var(--accent); }
+.gantt-label .cart-status-dot.s-reserved { background: var(--status-amber); }
+.gantt-label .cart-status-dot.s-overdue { background: var(--status-red); }
+.gantt-label .cart-status-dot.s-maintenance { background: var(--status-charcoal); }
+
+.gantt-label .cart-plate {
+  font-size: 0.68rem;
+  color: var(--ink-light);
+  margin-left: auto;
 }
 
 .gantt-cell {
   border-bottom: 1px solid var(--rule);
   border-right: 1px solid rgba(221, 214, 204, 0.3);
   position: relative;
-  min-height: 36px;
+  min-height: 34px;
   cursor: pointer;
 }
 
@@ -896,8 +996,8 @@ button, input, select, textarea {
 
 .gantt-bar {
   position: absolute;
-  top: 4px;
-  bottom: 4px;
+  top: 3px;
+  bottom: 3px;
   border-radius: 4px;
   font-size: 0.72rem;
   padding: 0 6px;
@@ -2397,7 +2497,7 @@ button, input, select, textarea {
     <div class="view" id="view-calendar">
       <div class="header">
         <h1>Calendar</h1>
-        <p>Weekly reservation overview</p>
+        <p>Availability by vehicle type — click a type to see individual carts</p>
       </div>
       <div class="cal-toolbar" id="cal-toolbar"></div>
       <div id="cal-container"></div>
@@ -2544,9 +2644,9 @@ const TODAY_DATE = new Date(2026, 3, 5);
 
 const store = {
   vehicleTypes: [
-    { id:'standard', slug:'4-pass-standard', passengerCount:4, name:'4-Passenger Standard', description:'Perfect for couples and small groups exploring the island.', rates:{hourly:25,daily:75,twoDay:130,weekly:420}, maxSpeed:'15 mph', range:'25 miles', features:['Weather canopy','GPS tracking','LED headlights','Cup holders','Windshield'], featureSummary:'Canopy. GPS. Headlights', imageUrl:'../img/4cart.jpeg', posterUrl:'../img/4posternew.png', sortOrder:1, isActive:true },
-    { id:'deluxe', slug:'6-pass-deluxe', passengerCount:6, name:'6-Passenger Deluxe', description:'Room for the whole family with premium comfort features.', rates:{hourly:35,daily:110,twoDay:190,weekly:615}, maxSpeed:'15 mph', range:'30 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Cup holders','Windshield','Rearview mirror'], featureSummary:'Canopy. GPS. Headlights. USB Charging', imageUrl:'../img/6cart.jpeg', posterUrl:'../img/6posternew.png', sortOrder:2, isActive:true },
-    { id:'premium', slug:'8-pass-premium', passengerCount:8, name:'8-Passenger Premium', description:'Our largest cart with all the extras for big groups.', rates:{hourly:50,daily:150,twoDay:260,weekly:840}, maxSpeed:'15 mph', range:'35 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Bluetooth speaker','Cup holders','Windshield','Side mirrors','Turn signals'], featureSummary:'Canopy. GPS. Headlights. USB Charging. Bluetooth Speaker', imageUrl:'../img/8cart.jpeg', posterUrl:'../img/8posternew.png', sortOrder:3, isActive:true },
+    { id:'standard', slug:'4-pass-standard', passengerCount:4, name:'4-Passenger Standard', description:'Perfect for couples and small groups exploring the island.', rates:{hourly:25,daily:75,twoDay:130,weekly:420}, maxSpeed:'15 mph', range:'25 miles', features:['Weather canopy','GPS tracking','LED headlights','Cup holders','Windshield'], featureSummary:'Canopy. GPS. Headlights', imageUrl:'../img/4cart.jpeg', posterUrl:'../img/4poster.jpeg', sortOrder:1, isActive:true },
+    { id:'deluxe', slug:'6-pass-deluxe', passengerCount:6, name:'6-Passenger Deluxe', description:'Room for the whole family with premium comfort features.', rates:{hourly:35,daily:110,twoDay:190,weekly:615}, maxSpeed:'15 mph', range:'30 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Cup holders','Windshield','Rearview mirror'], featureSummary:'Canopy. GPS. Headlights. USB Charging', imageUrl:'../img/6cart.jpeg', posterUrl:'../img/6poster.jpeg', sortOrder:2, isActive:true },
+    { id:'premium', slug:'8-pass-premium', passengerCount:8, name:'8-Passenger Premium', description:'Our largest cart with all the extras for big groups.', rates:{hourly:50,daily:150,twoDay:260,weekly:840}, maxSpeed:'15 mph', range:'35 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Bluetooth speaker','Cup holders','Windshield','Side mirrors','Turn signals'], featureSummary:'Canopy. GPS. Headlights. USB Charging. Bluetooth Speaker', imageUrl:'../img/8cart.jpeg', posterUrl:'../img/8poster.jpeg', sortOrder:3, isActive:true },
   ],
 
   fleet: [
@@ -2667,7 +2767,7 @@ function cartImage(typeId) {
 
 function cartPoster(typeId) {
   var vt = getVehicleType(typeId);
-  var src = vt ? vt.posterUrl : '../img/4posternew.png';
+  var src = vt ? vt.posterUrl : '../img/4poster.jpeg';
   var alt = vt ? vt.name + ' golf cart' : 'golf cart';
   return '<img class="poster" src="' + src + '" alt="' + alt + '" loading="lazy">';
 }
@@ -3132,6 +3232,7 @@ function tagForMaintenance(cartId) {
    ══════════════════════════════════════════════════════ */
 var calWeekStart = new Date(2026, 2, 30); // Mon March 30, 2026
 var calShowHeatmap = false;
+var calExpandedTypes = {}; // track which vehicle types are expanded
 
 function renderCalendar() {
   var weekEnd = new Date(calWeekStart);
@@ -3174,51 +3275,115 @@ function renderCalendar() {
     html += '<div class="' + cls + '">' + dayNames[i] + '<br>' + (d.getMonth()+1) + '/' + d.getDate() + '</div>';
   });
 
-  // Utilization row
-  html += '<div class="gantt-util-label">Util.</div>';
+  // Overall utilization row
+  html += '<div class="gantt-util-label">Fleet Util.</div>';
+  var totalActive = store.fleet.filter(function(c) { return c.status !== 'maintenance'; }).length;
   days.forEach(function(d) {
     var ds = dateStr(d);
     var booked = store.reservations.filter(function(r) {
       return (r.status === 'checked-in' || r.status === 'confirmed' || r.status === 'completed') &&
         r.pickupDate <= ds && r.returnDate >= ds;
     }).length;
-    var pct = Math.round((booked / 16) * 100);
+    var pct = Math.round((booked / totalActive) * 100);
     var fillColor = 'var(--status-green)';
     if (pct > 80) fillColor = 'var(--accent)';
     else if (pct > 50) fillColor = 'var(--status-amber)';
     html += '<div class="gantt-util-cell"><div class="util-strip"><div class="util-fill" style="width:' + pct + '%;background:' + fillColor + '"></div></div></div>';
   });
 
-  // Cart rows
-  store.fleet.forEach(function(cart) {
-    html += '<div class="gantt-label">' + cart.name + '</div>';
+  // Group carts by vehicle type, render type-first collapsible rows
+  store.vehicleTypes.filter(function(vt) { return vt.isActive; }).forEach(function(vt) {
+    var typeCarts = store.fleet.filter(function(c) { return c.typeId === vt.id; });
+    var activeCarts = typeCarts.filter(function(c) { return c.status !== 'maintenance'; });
+    var isExpanded = !!calExpandedTypes[vt.id];
+
+    // Type summary row — shows availability counts per day
+    var chevronCls = 'type-chevron' + (isExpanded ? ' open' : '');
+    html += '<div class="gantt-type-label" onclick="calToggleType(\'' + vt.id + '\')">' +
+      '<span class="' + chevronCls + '">&#9654;</span>' +
+      '<span>' + vt.name + '</span>' +
+      '<span class="type-count">' + typeCarts.length + ' units</span>' +
+      '</div>';
+
     days.forEach(function(d, i) {
       var ds = dateStr(d);
       var isToday = ds === TODAY;
       var isWeekend = i >= 5;
-      var cellCls = 'gantt-cell';
+      var cellCls = 'gantt-avail-cell';
       if (isToday) cellCls += ' today';
       if (isWeekend) cellCls += ' weekend';
 
-      var res = store.reservations.find(function(r) {
-        return r.cartId === cart.id &&
-          (r.status === 'checked-in' || r.status === 'confirmed' || r.status === 'completed') &&
-          r.pickupDate <= ds && r.returnDate >= ds;
+      // Count how many of this type are booked on this day
+      var bookedCount = 0;
+      typeCarts.forEach(function(cart) {
+        var hasRes = store.reservations.some(function(r) {
+          return r.cartId === cart.id &&
+            (r.status === 'checked-in' || r.status === 'confirmed' || r.status === 'completed') &&
+            r.pickupDate <= ds && r.returnDate >= ds;
+        });
+        if (hasRes || cart.status === 'maintenance') bookedCount++;
       });
 
-      var barHTML = '';
-      if (res) {
-        var cvt = getVehicleTypeForCart(cart);
-        var typeCls = 'type-' + cvt.passengerCount;
-        barHTML = '<div class="gantt-bar ' + typeCls + '" onclick="event.stopPropagation();openResPanel(' + res.id + ')" title="' + res.customer.name + '">' + res.customer.name.split(' ').pop() + '</div>';
-      }
+      var available = typeCarts.length - bookedCount;
+      var badgeCls = 'avail-badge';
+      if (available === 0) badgeCls += ' avail-none';
+      else if (available <= Math.ceil(typeCarts.length * 0.3)) badgeCls += ' avail-partial';
+      else badgeCls += ' avail-full';
 
-      html += '<div class="' + cellCls + '" onclick="openNewReservation(\'' + ds + '\')">' + barHTML + '</div>';
+      var badgeText = available === 0 ? 'Full' : available + ' open';
+
+      html += '<div class="' + cellCls + '" onclick="openNewReservation(\'' + ds + '\')">' +
+        '<span class="' + badgeCls + '">' + badgeText + '</span>' +
+        '</div>';
     });
+
+    // Individual cart rows (only if expanded)
+    if (isExpanded) {
+      typeCarts.forEach(function(cart) {
+        var statusDot = 's-' + (cart.status === 'overdue' ? 'overdue' : cart.status);
+        html += '<div class="gantt-label">' +
+          '<span class="cart-status-dot ' + statusDot + '"></span>' +
+          cart.name +
+          (cart.licensePlate ? '<span class="cart-plate">' + cart.licensePlate + '</span>' : '') +
+          '</div>';
+
+        days.forEach(function(d, i) {
+          var ds = dateStr(d);
+          var isToday = ds === TODAY;
+          var isWeekend = i >= 5;
+          var cellCls = 'gantt-cell';
+          if (isToday) cellCls += ' today';
+          if (isWeekend) cellCls += ' weekend';
+
+          var res = store.reservations.find(function(r) {
+            return r.cartId === cart.id &&
+              (r.status === 'checked-in' || r.status === 'confirmed' || r.status === 'completed') &&
+              r.pickupDate <= ds && r.returnDate >= ds;
+          });
+
+          var barHTML = '';
+          if (res) {
+            var typeCls = 'type-' + vt.passengerCount;
+            barHTML = '<div class="gantt-bar ' + typeCls + '" onclick="event.stopPropagation();openResPanel(' + res.id + ')" title="' + res.customer.name + '">' + res.customer.name.split(' ').pop() + '</div>';
+          }
+
+          if (cart.status === 'maintenance') {
+            barHTML = barHTML || '<div class="gantt-bar" style="background:var(--status-charcoal);opacity:0.5;font-style:italic">maint.</div>';
+          }
+
+          html += '<div class="' + cellCls + '" onclick="openNewReservation(\'' + ds + '\')">' + barHTML + '</div>';
+        });
+      });
+    }
   });
 
   html += '</div>';
   document.getElementById('cal-container').innerHTML = html;
+}
+
+function calToggleType(typeId) {
+  calExpandedTypes[typeId] = !calExpandedTypes[typeId];
+  renderCalendar();
 }
 
 function renderHeatmap() {
@@ -3312,24 +3477,30 @@ function renderReservations() {
   if (resFilter !== 'all') resos = resos.filter(function(r) { return r.status === resFilter; });
   if (search) {
     resos = resos.filter(function(r) {
-      var cart = getCart(r.cartId);
+      var cart = r.cartId ? getCart(r.cartId) : null;
+      var vt = r.vehicleTypeId ? getVehicleType(r.vehicleTypeId) : null;
       return r.customer.name.toLowerCase().indexOf(search) !== -1 ||
-        (cart && cart.name.toLowerCase().indexOf(search) !== -1);
+        (cart && cart.name.toLowerCase().indexOf(search) !== -1) ||
+        (vt && vt.name.toLowerCase().indexOf(search) !== -1);
     });
   }
 
   var html = '<table class="data-table">' +
     '<thead><tr>' +
-      '<th>#</th><th>Customer</th><th>Cart</th><th>Pickup</th><th>Return</th><th>Duration</th><th>Total</th><th>Status</th>' +
+      '<th>#</th><th>Customer</th><th>Vehicle</th><th>Pickup</th><th>Return</th><th>Duration</th><th>Total</th><th>Status</th>' +
     '</tr></thead><tbody>';
 
   resos.forEach(function(r) {
-    var cart = getCart(r.cartId);
+    var cart = r.cartId ? getCart(r.cartId) : null;
+    var vt = r.vehicleTypeId ? getVehicleType(r.vehicleTypeId) : (cart ? getVehicleTypeForCart(cart) : null);
+    var vehicleCol = vt ? vt.name : '';
+    if (cart) vehicleCol = cart.name + ' <span style="color:var(--ink-light);font-size:0.78rem">(' + (vt ? vt.passengerCount + '-pass' : '') + ')</span>';
+    else if (vt) vehicleCol = '<span style="color:var(--ink-mid)">' + vt.name + '</span> <span style="color:var(--ink-light);font-size:0.72rem">unassigned</span>';
     var dur = durationText(r.pickupDate, r.pickupTime, r.returnDate, r.returnTime);
     html += '<tr class="clickable" onclick="openResPanel(' + r.id + ')">' +
       '<td>' + r.id + '</td>' +
       '<td>' + r.customer.name + '</td>' +
-      '<td>' + (cart ? cart.name : '') + '</td>' +
+      '<td>' + vehicleCol + '</td>' +
       '<td>' + fmtDate(r.pickupDate) + ' ' + fmtTime(r.pickupTime) + '</td>' +
       '<td>' + fmtDate(r.returnDate) + ' ' + fmtTime(r.returnTime) + '</td>' +
       '<td>' + dur + '</td>' +
@@ -3345,11 +3516,14 @@ function renderReservations() {
 function openResPanel(resId) {
   var res = getRes(resId);
   if (!res) return;
-  var cart = getCart(res.cartId);
-  var vt = cart ? getVehicleTypeForCart(cart) : null;
+  var cart = res.cartId ? getCart(res.cartId) : null;
+  var vt = res.vehicleTypeId ? getVehicleType(res.vehicleTypeId) : (cart ? getVehicleTypeForCart(cart) : null);
   var dur = durationText(res.pickupDate, res.pickupTime, res.returnDate, res.returnTime);
   var depositPaid = res.total * (store.settings.depositPct / 100);
   var balance = res.total - depositPaid;
+
+  var vehicleDisplay = vt ? vt.name : '';
+  if (cart) vehicleDisplay = cart.name + ' (' + (vt ? vt.passengerCount + '-pass' : '') + ')';
 
   var html =
     '<div class="panel-section">' +
@@ -3361,7 +3535,8 @@ function openResPanel(resId) {
     '<hr class="panel-divider">' +
     '<div class="panel-section">' +
       '<div class="panel-section-title">Reservation Details</div>' +
-      '<div class="panel-row"><span class="panel-row-label">Cart</span><span class="panel-row-value">' + (cart ? cart.name + ' (' + (vt ? vt.passengerCount : '') + '-pass)' : '') + '</span></div>' +
+      '<div class="panel-row"><span class="panel-row-label">Vehicle Type</span><span class="panel-row-value">' + (vt ? vt.name : '') + '</span></div>' +
+      '<div class="panel-row"><span class="panel-row-label">Assigned Cart</span><span class="panel-row-value">' + (cart ? cart.name : '<span style="color:var(--status-amber)">Not yet assigned</span>') + '</span></div>' +
       '<div class="panel-row"><span class="panel-row-label">Pickup</span><span class="panel-row-value">' + fmtDate(res.pickupDate) + ' ' + fmtTime(res.pickupTime) + '</span></div>' +
       '<div class="panel-row"><span class="panel-row-label">Return</span><span class="panel-row-value">' + fmtDate(res.returnDate) + ' ' + fmtTime(res.returnTime) + '</span></div>' +
       '<div class="panel-row"><span class="panel-row-label">Duration</span><span class="panel-row-value">' + dur + '</span></div>' +
@@ -3425,6 +3600,19 @@ function openResPanel(resId) {
 function checkOutRes(resId) {
   var res = getRes(resId);
   if (!res) return;
+
+  // If no specific cart assigned, auto-assign the first available cart of this type
+  if (!res.cartId && res.vehicleTypeId) {
+    var availCarts = store.fleet.filter(function(c) {
+      return c.typeId === res.vehicleTypeId && c.status === 'available';
+    });
+    if (availCarts.length === 0) {
+      showToast('No available ' + (getVehicleType(res.vehicleTypeId) || {}).name + ' carts. Assign one manually.');
+      return;
+    }
+    res.cartId = availCarts[0].id;
+  }
+
   res.status = 'checked-in';
   res.waiverStatus = 'signed';
   res.depositStatus = 'paid';
@@ -3437,7 +3625,7 @@ function checkOutRes(resId) {
   }
   closePanel();
   renderActiveView();
-  showToast(res.customer.name + ' checked out');
+  showToast(res.customer.name + ' checked out' + (cart ? ' on ' + cart.name : ''));
 }
 
 function checkInRes(resId) {
@@ -3476,13 +3664,13 @@ function cancelRes(resId) {
 /* ══════════════════════════════════════════════════════
    NEW RESERVATION
    ══════════════════════════════════════════════════════ */
-var newResState = { step: 1, name: '', phone: '', email: '', cartId: null, pickupDate: TODAY, pickupTime: '09:00', returnDate: '', returnTime: '17:00', delivery: false, deliveryAddress: '' };
+var newResState = { step: 1, name: '', phone: '', email: '', vehicleTypeId: null, cartId: null, pickupDate: TODAY, pickupTime: '09:00', returnDate: '', returnTime: '17:00', delivery: false, deliveryAddress: '' };
 
 function openNewReservation(prefilledDate) {
   var nextDay = new Date((prefilledDate || TODAY) + 'T12:00:00');
   nextDay.setDate(nextDay.getDate() + 1);
   newResState = {
-    step: 1, name: '', phone: '', email: '', cartId: null,
+    step: 1, name: '', phone: '', email: '', vehicleTypeId: null, cartId: null,
     pickupDate: prefilledDate || TODAY, pickupTime: '09:00',
     returnDate: dateStr(nextDay), returnTime: '17:00',
     delivery: false, deliveryAddress: ''
@@ -3528,17 +3716,48 @@ function renderNewResStep() {
     var available = getAvailableCarts(s.pickupDate);
     content +=
       '<div class="step active">' +
-        '<div style="font-weight:500;margin-bottom:1rem;font-size:0.88rem">Select Cart</div>' +
+        '<div style="font-weight:500;margin-bottom:1rem;font-size:0.88rem">Select Vehicle Type</div>' +
         '<div class="cart-select-grid">';
-    available.forEach(function(c) {
-      var cvt = getVehicleTypeForCart(c);
+
+    // Group by vehicle type — show availability count per type
+    store.vehicleTypes.filter(function(vt) { return vt.isActive; }).forEach(function(vt) {
+      var typeAvail = available.filter(function(c) { return c.typeId === vt.id; });
+      var isSelected = s.vehicleTypeId === vt.id;
+      var isDisabled = typeAvail.length === 0;
       content +=
-        '<div class="cart-select-item ' + (s.cartId === c.id ? 'selected' : '') + '" onclick="nrSelectCart(' + c.id + ')">' +
-          '<div class="cart-select-name">' + c.name + '</div>' +
-          '<div class="cart-select-type">' + cvt.passengerCount + '-Pass. ' + fmtMoney(cvt.rates.daily) + '/day</div>' +
+        '<div class="cart-select-item ' + (isSelected ? 'selected' : '') + (isDisabled ? ' disabled' : '') + '" ' +
+          (isDisabled ? '' : 'onclick="nrSelectType(\'' + vt.id + '\')"') + ' style="' + (isDisabled ? 'opacity:0.5;cursor:not-allowed' : '') + '">' +
+          '<div class="cart-select-name">' + vt.name + '</div>' +
+          '<div class="cart-select-type">' + fmtMoney(vt.rates.daily) + '/day</div>' +
+          '<div style="font-size:0.72rem;margin-top:2px;color:' + (typeAvail.length === 0 ? 'var(--status-red)' : 'var(--status-green)') + '">' +
+            (typeAvail.length === 0 ? 'None available' : typeAvail.length + ' available') +
+          '</div>' +
         '</div>';
     });
-    content += '</div>' +
+    content += '</div>';
+
+    // If a type is selected, optionally show specific carts to pre-assign
+    if (s.vehicleTypeId) {
+      var typeAvail = available.filter(function(c) { return c.typeId === s.vehicleTypeId; });
+      if (typeAvail.length > 0) {
+        content += '<div style="margin-top:0.75rem;font-size:0.82rem;color:var(--ink-mid)">Assign specific cart <span style="font-size:0.72rem">(optional — can assign at check-in)</span></div>' +
+          '<div class="cart-select-grid" style="margin-top:0.5rem">';
+        content += '<div class="cart-select-item ' + (!s.cartId ? 'selected' : '') + '" onclick="nrSelectCart(null)" style="font-style:italic">' +
+          '<div class="cart-select-name">Auto-assign</div>' +
+          '<div class="cart-select-type">Assigned at check-in</div>' +
+          '</div>';
+        typeAvail.forEach(function(c) {
+          content +=
+            '<div class="cart-select-item ' + (s.cartId === c.id ? 'selected' : '') + '" onclick="nrSelectCart(' + c.id + ')">' +
+              '<div class="cart-select-name">' + c.name + '</div>' +
+              '<div class="cart-select-type">' + c.condition + ' &middot; ' + c.mileage + ' mi</div>' +
+            '</div>';
+        });
+        content += '</div>';
+      }
+    }
+
+    content +=
         '<div class="step-nav">' +
           '<button class="btn btn-sm" style="border:1px solid var(--rule);color:var(--ink-mid)" onclick="nrBack()">Back</button>' +
           '<button class="btn btn-primary btn-sm" onclick="nrNext()">Next</button>' +
@@ -3580,12 +3799,18 @@ function renderNewResStep() {
         '</div>' +
       '</div>';
   } else if (s.step === 4) {
-    var cart = getCart(s.cartId);
-    var vt = cart ? getVehicleTypeForCart(cart) : null;
-    var calc = calculateTotal(s.cartId, s.pickupDate, s.returnDate, null);
+    var vt = getVehicleType(s.vehicleTypeId);
+    var cart = s.cartId ? getCart(s.cartId) : null;
+    // Calculate total based on vehicle type rates
+    var calcCartId = s.cartId || (store.fleet.find(function(c) { return c.typeId === s.vehicleTypeId; }) || {}).id;
+    var calc = calculateTotal(calcCartId, s.pickupDate, s.returnDate, null);
     var dur = durationText(s.pickupDate, s.pickupTime, s.returnDate, s.returnTime);
     var deliveryFee = s.delivery ? store.settings.deliveryFee : 0;
     var grandTotal = calc.total + deliveryFee;
+
+    var vehicleLabel = vt ? vt.name : '';
+    if (cart) vehicleLabel += ' (' + cart.name + ')';
+    else vehicleLabel += ' (auto-assign at check-in)';
 
     content +=
       '<div class="step active">' +
@@ -3593,7 +3818,7 @@ function renderNewResStep() {
         '<div class="panel-section">' +
           '<div class="panel-row"><span class="panel-row-label">Customer</span><span class="panel-row-value">' + s.name + '</span></div>' +
           '<div class="panel-row"><span class="panel-row-label">Phone</span><span class="panel-row-value">' + s.phone + '</span></div>' +
-          '<div class="panel-row"><span class="panel-row-label">Cart</span><span class="panel-row-value">' + (cart ? cart.name + ' (' + (vt ? vt.passengerCount : '') + '-pass)' : '') + '</span></div>' +
+          '<div class="panel-row"><span class="panel-row-label">Vehicle</span><span class="panel-row-value">' + vehicleLabel + '</span></div>' +
           '<div class="panel-row"><span class="panel-row-label">Pickup</span><span class="panel-row-value">' + fmtDate(s.pickupDate) + ' ' + fmtTime(s.pickupTime) + '</span></div>' +
           '<div class="panel-row"><span class="panel-row-label">Return</span><span class="panel-row-value">' + fmtDate(s.returnDate) + ' ' + fmtTime(s.returnTime) + '</span></div>' +
           '<div class="panel-row"><span class="panel-row-label">Duration</span><span class="panel-row-value">' + dur + '</span></div>' +
@@ -3624,7 +3849,7 @@ function nrNext() {
     s.email = document.getElementById('nr-email').value;
     if (!s.name) { showToast('Please enter a name'); return; }
   } else if (s.step === 2) {
-    if (!s.cartId) { showToast('Please select a cart'); return; }
+    if (!s.vehicleTypeId) { showToast('Please select a vehicle type'); return; }
   } else if (s.step === 3) {
     s.pickupDate = document.getElementById('nr-pickup-date').value;
     s.pickupTime = document.getElementById('nr-pickup-time').value;
@@ -3645,6 +3870,12 @@ function nrBack() {
   renderNewResStep();
 }
 
+function nrSelectType(typeId) {
+  newResState.vehicleTypeId = typeId;
+  newResState.cartId = null; // reset cart selection when type changes
+  renderNewResStep();
+}
+
 function nrSelectCart(id) {
   newResState.cartId = id;
   renderNewResStep();
@@ -3657,13 +3888,15 @@ function nrToggleDelivery() {
 
 function nrConfirm() {
   var s = newResState;
-  var calc = calculateTotal(s.cartId, s.pickupDate, s.returnDate, null);
+  var calcCartId = s.cartId || (store.fleet.find(function(c) { return c.typeId === s.vehicleTypeId; }) || {}).id;
+  var calc = calculateTotal(calcCartId, s.pickupDate, s.returnDate, null);
   var deliveryFee = s.delivery ? store.settings.deliveryFee : 0;
 
   var newRes = {
     id: store.reservations.length + 1,
     customer: { name: s.name, phone: s.phone, email: s.email },
-    cartId: s.cartId,
+    vehicleTypeId: s.vehicleTypeId,
+    cartId: s.cartId || null,
     pickupDate: s.pickupDate,
     pickupTime: s.pickupTime,
     returnDate: s.returnDate,
@@ -3681,7 +3914,7 @@ function nrConfirm() {
   store.reservations.push(newRes);
   closeModal('new-res-modal');
   renderActiveView();
-  showToast('Reservation #' + newRes.id + ' created');
+  showToast('Reservation #' + newRes.id + ' created for ' + (getVehicleType(s.vehicleTypeId) || {}).name);
 }
 
 /* ══════════════════════════════════════════════════════
@@ -3708,14 +3941,18 @@ function renderCheckInOut() {
     leftHTML += '<div style="color:var(--ink-light);font-size:0.88rem;padding:1rem 0">No pickups remaining today</div>';
   }
   checkouts.forEach(function(r) {
-    var cart = getCart(r.cartId);
+    var cart = r.cartId ? getCart(r.cartId) : null;
+    var vt = r.vehicleTypeId ? getVehicleType(r.vehicleTypeId) : (cart ? getVehicleTypeForCart(cart) : null);
+    var vehicleInfo = vt ? vt.name : '';
+    if (cart) vehicleInfo = cart.name + ' (' + vt.passengerCount + '-pass)';
+    else vehicleInfo += ' <span style="color:var(--status-amber);font-size:0.78rem">(auto-assign)</span>';
     leftHTML +=
       '<div class="cio-item">' +
         '<div class="cio-item-header">' +
           '<div class="cio-customer">' + r.customer.name + '</div>' +
           '<div class="cio-time">' + fmtTime(r.pickupTime) + '</div>' +
         '</div>' +
-        '<div class="cio-details">' + (cart ? cart.name : '') + ' (' + (cart ? (getVehicleTypeForCart(cart) || {}).passengerCount : '') + '-pass)</div>' +
+        '<div class="cio-details">' + vehicleInfo + '</div>' +
         '<div class="cio-status-row">' +
           '<span style="color:' + (r.waiverStatus === 'signed' ? 'var(--status-green)' : 'var(--status-amber)') + '">' +
             '<span class="status-dot" style="background:' + (r.waiverStatus === 'signed' ? 'var(--status-green)' : 'var(--status-amber)') + '"></span> Waiver ' + r.waiverStatus +
@@ -4395,6 +4632,16 @@ document.addEventListener('keydown', function(e) {
     if (document.getElementById('guest-view').style.display === 'block') closeGuestView();
     closeDemoModal();
     closeMoreMenu();
+  }
+});
+
+/* ══════════════════════════════════════════════════════
+   DATA MIGRATION — backfill vehicleTypeId on reservations
+   ══════════════════════════════════════════════════════ */
+store.reservations.forEach(function(r) {
+  if (!r.vehicleTypeId && r.cartId) {
+    var cart = getCart(r.cartId);
+    if (cart) r.vehicleTypeId = cart.typeId;
   }
 });
 
