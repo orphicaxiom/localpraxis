@@ -3885,6 +3885,8 @@ button, input, select, textarea {
 
   .main {
     margin-left: 0;
+    width: 100%;
+    max-width: 100%;
     padding: 1rem;
     padding-top: 1.25rem;
     padding-bottom: 72px;
@@ -4329,7 +4331,7 @@ button, input, select, textarea {
   <button class="hamburger" onclick="toggleMobileSidebar()" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
-  <div class="sidebar-backdrop" onclick="toggleMobileSidebar()"></div>
+  <div class="sidebar-backdrop" onclick="closeMobileSidebar()"></div>
 
   <!-- Sidebar -->
   <nav class="sidebar" id="sidebar">
@@ -5080,8 +5082,7 @@ function switchView(view) {
     requestAnimationFrame(function() { target.classList.add('active'); });
   }
   renderView(view);
-  document.getElementById('sidebar').classList.remove('open');
-  document.querySelector('.sidebar-backdrop').classList.remove('active');
+  closeMobileSidebar();
   closeMoreMenu();
 }
 
@@ -9107,8 +9108,41 @@ function toggleMobileSidebar() {
   var sidebar = document.getElementById('sidebar');
   var isOpen = sidebar.classList.toggle('open');
   document.querySelector('.sidebar-backdrop').classList.toggle('active');
+  document.querySelector('.hamburger').style.display = isOpen ? 'none' : '';
   document.body.style.overflow = isOpen ? 'hidden' : '';
 }
+
+function closeMobileSidebar() {
+  var sidebar = document.getElementById('sidebar');
+  if (!sidebar.classList.contains('open')) return;
+  sidebar.classList.remove('open');
+  document.querySelector('.sidebar-backdrop').classList.remove('active');
+  document.querySelector('.hamburger').style.display = '';
+  document.body.style.overflow = '';
+}
+
+// Swipe-to-close on sidebar
+(function() {
+  var sidebar = document.getElementById('sidebar');
+  var startX = 0, startY = 0, tracking = false;
+  sidebar.addEventListener('touchstart', function(e) {
+    var t = e.touches[0];
+    startX = t.clientX;
+    startY = t.clientY;
+    tracking = true;
+  }, { passive: true });
+  sidebar.addEventListener('touchmove', function(e) {
+    if (!tracking) return;
+    var dx = e.touches[0].clientX - startX;
+    var dy = Math.abs(e.touches[0].clientY - startY);
+    // Swiping left with more horizontal than vertical movement
+    if (dx < -60 && dy < 40) {
+      tracking = false;
+      closeMobileSidebar();
+    }
+  }, { passive: true });
+  sidebar.addEventListener('touchend', function() { tracking = false; }, { passive: true });
+})();
 
 var moreMenuOpen = false;
 function toggleMoreMenu() {
