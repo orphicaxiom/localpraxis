@@ -32,9 +32,9 @@
   --ink: #1C1917;
   --ink-mid: #57534E;
   --ink-light: #A8A29E;
-  --accent: #1E5FB5;
-  --accent-hover: #184D96;
-  --accent-subtle: color-mix(in srgb, #1E5FB5 8%, transparent);
+  --accent: #2D6A4F;
+  --accent-hover: #245840;
+  --accent-subtle: color-mix(in srgb, #2D6A4F 8%, transparent);
   --rule: #DDD6CC;
   --status-green: #6B8F71;
   --status-amber: #B5976B;
@@ -2022,11 +2022,14 @@ button, input, select, textarea {
 
 .guest-card-img {
   overflow: hidden;
+  aspect-ratio: 3/4;
 }
 
 .guest-card-img img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
   display: block;
 }
 
@@ -2042,13 +2045,15 @@ button, input, select, textarea {
 }
 
 .guest-card-price {
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
 }
 
 .guest-card-price .from {
   font-size: 0.75rem;
   color: var(--ink-light);
+  font-weight: 400;
 }
 
 .guest-card-features {
@@ -2269,12 +2274,13 @@ button, input, select, textarea {
 
 .btn-primary {
   border: 1px solid var(--accent);
-  color: var(--accent);
-  background: transparent;
+  color: #fff;
+  background: var(--accent);
 }
 
 .btn-primary:hover {
-  background: var(--accent);
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
   color: #fff;
 }
 
@@ -2306,6 +2312,11 @@ button, input, select, textarea {
 
 .btn-text:hover {
   text-decoration: underline;
+}
+
+.btn-block {
+  width: 100%;
+  justify-content: center;
 }
 
 /* ── Modal ── */
