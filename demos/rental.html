@@ -1638,6 +1638,87 @@ button, input, select, textarea {
 .gantt-bar.type-8 { background: var(--yellow); color: var(--ink); }
 .gantt-bar.bar-overdue { background: var(--status-red); color: #fff; }
 
+/* Multi-day span bars and cart row container */
+.gantt-cart-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-column: 2 / -1;
+  position: relative;
+  min-height: 34px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.gantt-cart-row .gantt-bg-cell {
+  border-right: 1px solid var(--ink);
+  min-height: 34px;
+  cursor: pointer;
+  position: relative;
+}
+
+.gantt-cart-row .gantt-bg-cell:last-of-type {
+  border-right: none;
+}
+
+.gantt-cart-row .gantt-bg-cell.weekend {
+  background: rgba(221, 214, 204, 0.08);
+}
+
+[data-theme="dark"] .gantt-cart-row .gantt-bg-cell.weekend {
+  background: rgba(68, 64, 60, 0.08);
+}
+
+.gantt-cart-row .gantt-bg-cell.today {
+  background: var(--accent-subtle);
+}
+
+.gantt-span-bar {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  padding: 0 8px;
+  line-height: 30px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  z-index: 2;
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.gantt-span-bar.type-4 { background: var(--yellow); color: var(--ink); }
+.gantt-span-bar.type-6 { background: var(--yellow); color: var(--ink); }
+.gantt-span-bar.type-8 { background: var(--yellow); color: var(--ink); }
+
+.gantt-span-bar.bar-maint {
+  background: var(--accent);
+  color: #fff;
+}
+
+.gantt-span-bar.bar-overdue {
+  background: var(--status-red);
+  color: #fff;
+}
+
+.gantt-span-bar.bleed-left {
+  border-left: none;
+  border-radius: 0 2px 2px 0;
+}
+
+.gantt-span-bar.bleed-right {
+  border-right: none;
+  border-radius: 2px 0 0 2px;
+}
+
+.gantt-span-bar.bleed-left.bleed-right {
+  border-radius: 0;
+}
+
 .util-strip {
   height: 4px;
   border-radius: 2px;
@@ -3768,6 +3849,11 @@ button, input, select, textarea {
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
   .sidebar {
     transform: translateX(-100%);
     transition: transform 220ms var(--ease);
@@ -3835,12 +3921,11 @@ button, input, select, textarea {
     bottom: 0;
     left: 0;
     right: 0;
-    width: 100%;
+    width: 100vw;
     height: 54px;
     background: #fff;
     border-top: 2px solid var(--ink);
     display: flex;
-    justify-content: stretch;
     align-items: stretch;
     z-index: 100;
     box-sizing: border-box;
@@ -5717,33 +5802,92 @@ function renderCalendar() {
           (cart.licensePlate ? '<span class="cart-plate">' + cart.licensePlate + '</span>' : '') +
           '</div>';
 
+        // Compute week boundaries
+        var weekStart = dateStr(days[0]);
+        var weekEnd = dateStr(days[6]);
+
+        // Wrapper for all 7 day cells (grid-column: 2 / -1 to span all day columns)
+        html += '<div class="gantt-cart-row">';
+
+        // Background cells for borders and click targets
         days.forEach(function(d, i) {
           var ds = dateStr(d);
           var isToday = ds === TODAY;
           var isWeekend = i >= 5;
-          var cellCls = 'gantt-cell';
-          if (isToday) cellCls += ' today';
-          if (isWeekend) cellCls += ' weekend';
-
-          var res = store.reservations.find(function(r) {
-            return r.cartId === cart.id &&
-              (r.status === 'checked-in' || r.status === 'confirmed' || r.status === 'completed') &&
-              r.pickupDate <= ds && r.returnDate >= ds;
-          });
-
-          var barHTML = '';
-          if (res) {
-            var typeCls = 'type-' + vt.passengerCount;
-            var overdueCls = (res.status === 'checked-in' && res.returnDate < TODAY) ? ' bar-overdue' : '';
-            barHTML = '<div class="gantt-bar ' + typeCls + overdueCls + '" onclick="event.stopPropagation();openResPanel(' + res.id + ')" title="' + res.customer.name + '">' + res.customer.name.split(' ').pop() + '</div>';
-          }
-
-          if (cart.status === 'maintenance') {
-            barHTML = barHTML || '<div class="gantt-bar" style="background:var(--accent);color:#fff;font-weight:700" onclick="event.stopPropagation();openMaintenanceDetail(' + cart.id + ')">MAINT.</div>';
-          }
-
-          html += '<div class="' + cellCls + '" onclick="openNewReservation(\'' + ds + '\')">' + barHTML + '</div>';
+          var bgCellCls = 'gantt-bg-cell';
+          if (isToday) bgCellCls += ' today';
+          if (isWeekend) bgCellCls += ' weekend';
+          html += '<div class="' + bgCellCls + '" onclick="openNewReservation(\'' + ds + '\')"></div>';
         });
+
+        // Render reservations and maintenance as continuous span bars
+        var cartReservations = store.reservations.filter(function(r) {
+          return r.cartId === cart.id &&
+            (r.status === 'checked-in' || r.status === 'confirmed' || r.status === 'completed') &&
+            r.pickupDate <= weekEnd && r.returnDate >= weekStart;
+        });
+
+        // Helper to find column index for a date
+        var findColForDate = function(dateToFind) {
+          for (var di = 0; di < 7; di++) {
+            if (dateStr(days[di]) === dateToFind) return di + 1; // 1-based
+          }
+          return null;
+        };
+
+        // Render each reservation as a continuous span bar
+        cartReservations.forEach(function(res) {
+          var startCol = 1;
+          var endCol = 7;
+
+          // Find which column the pickup date falls into
+          var pickupCol = findColForDate(res.pickupDate);
+          if (pickupCol !== null) {
+            startCol = pickupCol;
+          } else if (res.pickupDate < weekStart) {
+            startCol = 1; // started before the week
+          }
+
+          // Find which column the return date falls into
+          var returnCol = findColForDate(res.returnDate);
+          if (returnCol !== null) {
+            endCol = returnCol;
+          } else if (res.returnDate > weekEnd) {
+            endCol = 7; // ends after the week
+          }
+
+          var startsOffScreen = res.pickupDate < weekStart;
+          var endsOffScreen = res.returnDate > weekEnd;
+
+          // Compute left and width percentages
+          var leftPct = ((startCol - 1) / 7) * 100;
+          var spanCols = endCol - startCol + 1;
+          var widthPct = (spanCols / 7) * 100;
+
+          // Adjust insets based on whether bar bleeds off-screen
+          var leftInset = startsOffScreen ? 0 : 2;
+          var rightInset = endsOffScreen ? 0 : 2;
+          var leftStyle = 'calc(' + leftPct + '% + ' + leftInset + 'px)';
+          var widthStyle = 'calc(' + widthPct + '% - ' + (leftInset + rightInset) + 'px)';
+
+          var barCls = 'gantt-span-bar type-' + vt.passengerCount;
+          if (res.status === 'checked-in' && res.returnDate < TODAY) {
+            barCls += ' bar-overdue';
+          }
+          if (startsOffScreen) barCls += ' bleed-left';
+          if (endsOffScreen) barCls += ' bleed-right';
+
+          var barText = res.customer.name.split(' ').pop();
+          html += '<div class="' + barCls + '" style="left:' + leftStyle + ';width:' + widthStyle + '" onclick="event.stopPropagation();openResPanel(' + res.id + ')" title="' + res.customer.name + '">' + barText + '</div>';
+        });
+
+        // Render maintenance bar if cart is in maintenance
+        if (cart.status === 'maintenance') {
+          var maintBarCls = 'gantt-span-bar bar-maint bleed-left bleed-right';
+          html += '<div class="' + maintBarCls + '" style="left:0;width:100%" onclick="event.stopPropagation();openMaintenanceDetail(' + cart.id + ')">MAINT.</div>';
+        }
+
+        html += '</div>'; // Close gantt-cart-row
       });
     }
   });
