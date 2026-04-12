@@ -1321,6 +1321,11 @@ button, input, select, textarea {
   object-fit: cover;
 }
 
+.guest-card-img img.poster,
+.guest-detail-img img.poster {
+  object-fit: contain;
+}
+
 .guest-card-body {
   padding: 1.5rem;
 }
@@ -2502,9 +2507,15 @@ const store = {
    SVG GOLF CART ICON
    ══════════════════════════════════════════════════════ */
 function cartImage(passengerCount) {
-  var map = { 4: '../img/4Seater.png', 6: '../img/6Seater.png', 8: '../img/8Seater.png' };
+  var map = { 4: '../img/4cart.jpeg', 6: '../img/6cart.jpeg', 8: '../img/8cart.jpeg' };
   var src = map[passengerCount] || map[4];
   return '<img src="' + src + '" alt="' + passengerCount + '-passenger golf cart" loading="lazy">';
+}
+
+function cartPoster(passengerCount) {
+  var map = { 4: '../img/4poster.png', 6: '../img/6poster.png', 8: '../img/8poster.png' };
+  var src = map[passengerCount] || map[4];
+  return '<img class="poster" src="' + src + '" alt="' + passengerCount + '-passenger golf cart" loading="lazy">';
 }
 
 function cartSVG(size) {
@@ -3927,7 +3938,7 @@ function renderGuestView() {
   types.forEach(function(t) {
     html +=
       '<div class="guest-card" onclick="openGuestDetail(' + t.count + ')">' +
-        '<div class="guest-card-img">' + cartImage(t.count) + '</div>' +
+        '<div class="guest-card-img">' + cartPoster(t.count) + '</div>' +
         '<div class="guest-card-body">' +
           '<div class="guest-card-title">' + t.label + '</div>' +
           '<div class="guest-card-price"><span class="from">From </span>' + fmtMoney(t.price) + '/day</div>' +
@@ -3981,7 +3992,7 @@ function renderGuestDetail() {
         '<a onclick="guestBackToList()" style="cursor:pointer;color:var(--accent);font-size:0.85rem">&larr; All Carts</a>' +
       '</div>' +
       '<div class="guest-detail-hero">' +
-        '<div class="guest-detail-img">' + cartImage(guestSelectedType) + '</div>' +
+        '<div class="guest-detail-img">' + cartPoster(guestSelectedType) + '</div>' +
         '<div class="guest-detail-info">' +
           '<h2>' + t.label + '</h2>' +
           '<div style="font-size:1.1rem;margin-bottom:0.25rem"><span style="font-size:0.82rem;color:var(--ink-light)">From </span>' + fmtMoney(t.price) + '/day</div>' +
