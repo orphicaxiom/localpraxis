@@ -1200,12 +1200,14 @@ button, input, select, textarea {
   border: 2px solid var(--rule);
   background: var(--warm-white);
   overflow: hidden;
+  position: relative;
 }
 
 .vt-card-poster {
   border-bottom: 2px solid var(--rule);
   overflow: hidden;
   max-height: 180px;
+  position: relative;
 }
 
 .vt-card-poster img {
@@ -1213,6 +1215,109 @@ button, input, select, textarea {
   height: 180px;
   object-fit: cover;
   display: block;
+}
+
+/* Delete button overlaid on poster */
+.vt-card-delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 200ms var(--ease), background 200ms var(--ease);
+  z-index: 2;
+}
+
+.vt-card:hover .vt-card-delete,
+.vt-card:hover .vt-card-img-edit {
+  opacity: 1;
+}
+
+.vt-card-delete:hover {
+  background: var(--status-red);
+}
+
+/* Image edit button */
+.vt-card-img-edit {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 0.82rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 200ms var(--ease), background 200ms var(--ease);
+  z-index: 2;
+}
+
+.vt-card-img-edit:hover {
+  background: var(--accent);
+}
+
+/* Image edit panel (inline below poster) */
+.vt-img-editor {
+  padding: 0.75rem 1rem;
+  background: var(--cream);
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.82rem;
+}
+
+.vt-img-editor .img-field {
+  margin-bottom: 0.5rem;
+}
+
+.vt-img-editor .img-field:last-child {
+  margin-bottom: 0;
+}
+
+.vt-img-editor label {
+  display: block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-light);
+  margin-bottom: 0.2rem;
+  font-weight: 600;
+}
+
+.vt-img-editor input {
+  width: 100%;
+  font-size: 0.82rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--rule);
+  background: var(--warm-white);
+  color: var(--ink);
+  font-family: var(--font-body);
+  outline: none;
+}
+
+.vt-img-editor input:focus {
+  border-color: var(--accent);
+}
+
+.vt-img-editor .img-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .vt-card-body {
@@ -1254,18 +1359,24 @@ button, input, select, textarea {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--ink-light);
-  margin-bottom: 0.5rem;
-  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+  margin-top: 0.85rem;
   font-weight: 600;
 }
 
-.vt-rates, .vt-specs {
+.vt-rates {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
+  gap: 0;
 }
 
-.vt-rate, .vt-spec {
+.vt-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.vt-rate {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1274,14 +1385,26 @@ button, input, select, textarea {
   font-size: 0.85rem;
 }
 
+.vt-spec {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  padding: 0.3rem 0;
+}
+
 .vt-rate-label {
   color: var(--ink-mid);
   font-size: 0.8rem;
 }
 
+.vt-spec .vt-rate-label {
+  font-size: 0.72rem;
+  color: var(--ink-light);
+}
+
 .vt-rate-value {
   font-weight: 600;
-  font-family: var(--font-mono);
 }
 
 .vt-features {
@@ -1308,7 +1431,67 @@ button, input, select, textarea {
 }
 
 .vt-feature-remove:hover {
-  color: var(--accent);
+  color: var(--status-red);
+}
+
+/* Inline feature input with autocomplete */
+.vt-feature-input-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.vt-feature-input {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px dashed var(--rule);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-body);
+  width: 140px;
+  outline: none;
+  transition: border-color 200ms var(--ease);
+}
+
+.vt-feature-input:focus {
+  border-color: var(--accent);
+  border-style: solid;
+}
+
+.vt-feature-input::placeholder {
+  color: var(--ink-light);
+}
+
+.vt-feature-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--warm-white);
+  border: 1px solid var(--rule);
+  border-top: none;
+  z-index: 10;
+  max-height: 140px;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.vt-feature-suggestion {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: var(--ink-mid);
+}
+
+.vt-feature-suggestion:hover,
+.vt-feature-suggestion.highlighted {
+  background: var(--accent-subtle);
+  color: var(--ink);
+}
+
+.vt-feature-suggestion mark {
+  background: none;
+  font-weight: 600;
+  color: var(--ink);
 }
 
 .vt-feature-add {
@@ -1316,6 +1499,7 @@ button, input, select, textarea {
   color: var(--ink-light);
   padding: 0.25rem 0.6rem;
   border: 1px dashed var(--rule);
+  cursor: pointer;
 }
 
 .vt-feature-add:hover {
@@ -1323,11 +1507,52 @@ button, input, select, textarea {
   border-color: var(--ink-mid);
 }
 
+/* Add vehicle type card */
+.vt-card-add {
+  border: 2px dashed var(--rule);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+  cursor: pointer;
+  transition: border-color 200ms var(--ease), background 200ms var(--ease);
+  gap: 0.75rem;
+  color: var(--ink-light);
+}
+
+.vt-card-add:hover {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+  color: var(--accent);
+}
+
+.vt-card-add svg {
+  opacity: 0.5;
+  transition: opacity 200ms var(--ease);
+}
+
+.vt-card-add:hover svg {
+  opacity: 1;
+}
+
+.vt-card-add span {
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+/* Fees section */
+.vt-fees-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
 @media (max-width: 768px) {
   .vt-grid {
     grid-template-columns: 1fr;
   }
-  .vt-rates, .vt-specs {
+  .vt-rates {
     grid-template-columns: 1fr;
   }
 }
@@ -4008,47 +4233,33 @@ function renderVehicleTypes() {
 
     html +=
       '<div class="vt-card">' +
-        '<div class="vt-card-poster">' + cartPoster(vt.id) + '</div>' +
+        '<div class="vt-card-poster">' +
+          cartPoster(vt.id) +
+          '<button class="vt-card-delete" onclick="event.stopPropagation();deleteVehicleType(' + idx + ')" title="Remove vehicle type">&times;</button>' +
+          '<button class="vt-card-img-edit" onclick="event.stopPropagation();editVtImages(' + idx + ')" title="Change images">&#9998;</button>' +
+        '</div>' +
         '<div class="vt-card-body">' +
           '<div class="vt-card-header">' +
             '<div class="vt-card-name pricing-cell" onclick="editVtField(' + idx + ',\'name\',this)">' + vt.name + '</div>' +
             '<span class="vt-fleet-badge">' + fleetCount + ' cart' + (fleetCount !== 1 ? 's' : '') + '</span>' +
           '</div>' +
           '<div class="vt-card-desc pricing-cell" onclick="editVtField(' + idx + ',\'description\',this)">' + vt.description + '</div>' +
+
           '<div class="vt-section-label">Rates</div>' +
           '<div class="vt-rates">' +
-            '<div class="vt-rate">' +
-              '<span class="vt-rate-label">Hourly</span>' +
-              '<span class="vt-rate-value pricing-cell" onclick="editVtRate(' + idx + ',\'hourly\',this)">' + fmtMoney(vt.rates.hourly) + '</span>' +
-            '</div>' +
-            '<div class="vt-rate">' +
-              '<span class="vt-rate-label">Daily</span>' +
-              '<span class="vt-rate-value pricing-cell" onclick="editVtRate(' + idx + ',\'daily\',this)">' + fmtMoney(vt.rates.daily) + '</span>' +
-            '</div>' +
-            '<div class="vt-rate">' +
-              '<span class="vt-rate-label">2-Day</span>' +
-              '<span class="vt-rate-value pricing-cell" onclick="editVtRate(' + idx + ',\'twoDay\',this)">' + fmtMoney(vt.rates.twoDay) + '</span>' +
-            '</div>' +
-            '<div class="vt-rate">' +
-              '<span class="vt-rate-label">Weekly</span>' +
-              '<span class="vt-rate-value pricing-cell" onclick="editVtRate(' + idx + ',\'weekly\',this)">' + fmtMoney(vt.rates.weekly) + '</span>' +
-            '</div>' +
+            '<div class="vt-rate"><span class="vt-rate-label">Hourly</span><span class="vt-rate-value pricing-cell" onclick="editVtRate(' + idx + ',\'hourly\',this)">' + fmtMoney(vt.rates.hourly) + '</span></div>' +
+            '<div class="vt-rate"><span class="vt-rate-label">Daily</span><span class="vt-rate-value pricing-cell" onclick="editVtRate(' + idx + ',\'daily\',this)">' + fmtMoney(vt.rates.daily) + '</span></div>' +
+            '<div class="vt-rate"><span class="vt-rate-label">2-Day</span><span class="vt-rate-value pricing-cell" onclick="editVtRate(' + idx + ',\'twoDay\',this)">' + fmtMoney(vt.rates.twoDay) + '</span></div>' +
+            '<div class="vt-rate"><span class="vt-rate-label">Weekly</span><span class="vt-rate-value pricing-cell" onclick="editVtRate(' + idx + ',\'weekly\',this)">' + fmtMoney(vt.rates.weekly) + '</span></div>' +
           '</div>' +
+
           '<div class="vt-section-label">Specs</div>' +
           '<div class="vt-specs">' +
-            '<div class="vt-spec">' +
-              '<span class="vt-rate-label">Passengers</span>' +
-              '<span class="vt-rate-value">' + vt.passengerCount + '</span>' +
-            '</div>' +
-            '<div class="vt-spec">' +
-              '<span class="vt-rate-label">Max Speed</span>' +
-              '<span class="vt-rate-value pricing-cell" onclick="editVtField(' + idx + ',\'maxSpeed\',this)">' + vt.maxSpeed + '</span>' +
-            '</div>' +
-            '<div class="vt-spec">' +
-              '<span class="vt-rate-label">Range</span>' +
-              '<span class="vt-rate-value pricing-cell" onclick="editVtField(' + idx + ',\'range\',this)">' + vt.range + '</span>' +
-            '</div>' +
+            '<span class="vt-spec"><span class="vt-rate-value">' + vt.passengerCount + '</span> <span class="vt-rate-label">passengers</span></span>' +
+            '<span class="vt-spec"><span class="vt-rate-value pricing-cell" onclick="editVtField(' + idx + ',\'maxSpeed\',this)">' + vt.maxSpeed + '</span> <span class="vt-rate-label">top speed</span></span>' +
+            '<span class="vt-spec"><span class="vt-rate-value pricing-cell" onclick="editVtField(' + idx + ',\'range\',this)">' + vt.range + '</span> <span class="vt-rate-label">range</span></span>' +
           '</div>' +
+
           '<div class="vt-section-label">Features</div>' +
           '<div class="vt-features">' +
             vt.features.map(function(f, fi) {
@@ -4057,29 +4268,51 @@ function renderVehicleTypes() {
                 '<span class="vt-feature-remove" onclick="removeVtFeature(' + idx + ',' + fi + ')" title="Remove">&times;</span>' +
               '</div>';
             }).join('') +
-            '<div class="vt-feature-add pricing-cell" onclick="addVtFeature(' + idx + ')">+ Add feature</div>' +
+            '<div class="vt-feature-input-wrap" id="vt-feat-wrap-' + idx + '">' +
+              '<input class="vt-feature-input" type="text" placeholder="+ Add feature" ' +
+                'oninput="vtFeatureAutocomplete(' + idx + ',this)" ' +
+                'onkeydown="vtFeatureKeydown(event,' + idx + ',this)" ' +
+                'onfocus="this.placeholder=\'Type to search...\'" ' +
+                'onblur="setTimeout(function(){vtFeatureBlur(' + idx + ')},150)">' +
+              '<div class="vt-feature-suggestions" id="vt-feat-sug-' + idx + '" style="display:none"></div>' +
+            '</div>' +
           '</div>' +
         '</div>' +
       '</div>';
   });
 
+  // Add new vehicle type card
+  html +=
+    '<div class="vt-card-add" onclick="addVehicleType()">' +
+      '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>' +
+      '<span>Add Vehicle Type</span>' +
+    '</div>';
+
   html += '</div>';
 
-  // Additional Fees section
+  // Additional Fees & Settings section
   html +=
-    '<h2 class="section-title" style="margin-top:2.5rem">Additional Fees</h2>' +
-    '<div style="max-width:400px">' +
-      '<div class="panel-row" style="padding:0.75rem 0;border-bottom:1px solid var(--rule)">' +
-        '<span class="panel-row-label">Delivery Fee</span>' +
-        '<span class="panel-row-value pricing-cell" onclick="editSetting(\'deliveryFee\',this)">' + fmtMoney(store.settings.deliveryFee) + '</span>' +
-      '</div>' +
-      '<div class="panel-row" style="padding:0.75rem 0;border-bottom:1px solid var(--rule)">' +
-        '<span class="panel-row-label">Tax Rate</span>' +
-        '<span class="panel-row-value pricing-cell" onclick="editSettingPct(\'taxRate\',this)">' + (store.settings.taxRate * 100).toFixed(2) + '%</span>' +
-      '</div>' +
-      '<div class="panel-row" style="padding:0.75rem 0;border-bottom:1px solid var(--rule)">' +
-        '<span class="panel-row-label">Damage Deposit</span>' +
-        '<span class="panel-row-value pricing-cell" onclick="editSetting(\'damageDeposit\',this)">' + fmtMoney(store.settings.damageDeposit) + '</span>' +
+    '<div class="vt-fees-section">' +
+      '<h2 class="section-title">Fees &amp; Settings</h2>' +
+      '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;max-width:800px">' +
+        '<div class="vt-card" style="overflow:visible">' +
+          '<div class="vt-card-body" style="padding:1rem">' +
+            '<div class="vt-section-label" style="margin-top:0">Delivery Fee</div>' +
+            '<div class="vt-rate-value pricing-cell" style="font-size:1.1rem" onclick="editSetting(\'deliveryFee\',this)">' + fmtMoney(store.settings.deliveryFee) + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="vt-card" style="overflow:visible">' +
+          '<div class="vt-card-body" style="padding:1rem">' +
+            '<div class="vt-section-label" style="margin-top:0">Tax Rate</div>' +
+            '<div class="vt-rate-value pricing-cell" style="font-size:1.1rem" onclick="editSettingPct(\'taxRate\',this)">' + (store.settings.taxRate * 100).toFixed(2) + '%</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="vt-card" style="overflow:visible">' +
+          '<div class="vt-card-body" style="padding:1rem">' +
+            '<div class="vt-section-label" style="margin-top:0">Damage Deposit</div>' +
+            '<div class="vt-rate-value pricing-cell" style="font-size:1.1rem" onclick="editSetting(\'damageDeposit\',this)">' + fmtMoney(store.settings.damageDeposit) + '</div>' +
+          '</div>' +
+        '</div>' +
       '</div>' +
     '</div>';
 
@@ -4121,12 +4354,200 @@ function removeVtFeature(vtIdx, featureIdx) {
   showToast('Feature removed');
 }
 
-function addVtFeature(vtIdx) {
-  var name = prompt('Feature name:');
+/* ── Feature Autocomplete ── */
+// Common golf cart features for autocomplete suggestions
+var KNOWN_FEATURES = [
+  'Weather canopy', 'GPS tracking', 'LED headlights', 'USB charging ports',
+  'Bluetooth speaker', 'Cup holders', 'Windshield', 'Rearview mirror',
+  'Side mirrors', 'Turn signals', 'Seat belts', 'Storage compartment',
+  'Cooler rack', 'Lift kit', 'Off-road tires', 'Custom paint',
+  'Horn', 'Backup camera', 'Fold-down rear seat', 'Phone mount',
+  'Roof rack', 'Tow hitch', 'Rain enclosure', 'Heated seats',
+  'Digital speedometer', 'Locking glove box', 'Trailer hitch',
+];
+
+var vtFeatHighlightIdx = -1;
+
+function vtFeatureAutocomplete(vtIdx, input) {
+  var val = input.value.trim().toLowerCase();
+  var sugEl = document.getElementById('vt-feat-sug-' + vtIdx);
+  if (!sugEl) return;
+
+  if (!val) { sugEl.style.display = 'none'; vtFeatHighlightIdx = -1; return; }
+
+  var existing = store.vehicleTypes[vtIdx].features.map(function(f) { return f.toLowerCase(); });
+  var matches = KNOWN_FEATURES.filter(function(f) {
+    return f.toLowerCase().indexOf(val) !== -1 && existing.indexOf(f.toLowerCase()) === -1;
+  }).slice(0, 6);
+
+  // Also check all features from other vehicle types
+  store.vehicleTypes.forEach(function(vt) {
+    vt.features.forEach(function(f) {
+      if (f.toLowerCase().indexOf(val) !== -1 &&
+          existing.indexOf(f.toLowerCase()) === -1 &&
+          !matches.some(function(m) { return m.toLowerCase() === f.toLowerCase(); })) {
+        matches.push(f);
+      }
+    });
+  });
+
+  matches = matches.slice(0, 6);
+
+  if (matches.length === 0) {
+    sugEl.style.display = 'none';
+    vtFeatHighlightIdx = -1;
+    return;
+  }
+
+  vtFeatHighlightIdx = -1;
+  var html = '';
+  matches.forEach(function(m, i) {
+    // Highlight the matching substring
+    var lowerM = m.toLowerCase();
+    var matchStart = lowerM.indexOf(val);
+    var highlighted = m.substring(0, matchStart) + '<mark>' + m.substring(matchStart, matchStart + val.length) + '</mark>' + m.substring(matchStart + val.length);
+    html += '<div class="vt-feature-suggestion" data-value="' + m + '" data-idx="' + i + '" onmousedown="vtFeatureSelect(' + vtIdx + ',\'' + m.replace(/'/g, "\\'") + '\')">' + highlighted + '</div>';
+  });
+
+  sugEl.innerHTML = html;
+  sugEl.style.display = 'block';
+}
+
+function vtFeatureKeydown(e, vtIdx, input) {
+  var sugEl = document.getElementById('vt-feat-sug-' + vtIdx);
+  var items = sugEl ? sugEl.querySelectorAll('.vt-feature-suggestion') : [];
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    vtFeatHighlightIdx = Math.min(vtFeatHighlightIdx + 1, items.length - 1);
+    items.forEach(function(el, i) { el.classList.toggle('highlighted', i === vtFeatHighlightIdx); });
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    vtFeatHighlightIdx = Math.max(vtFeatHighlightIdx - 1, -1);
+    items.forEach(function(el, i) { el.classList.toggle('highlighted', i === vtFeatHighlightIdx); });
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    if (vtFeatHighlightIdx >= 0 && items[vtFeatHighlightIdx]) {
+      vtFeatureSelect(vtIdx, items[vtFeatHighlightIdx].dataset.value);
+    } else if (input.value.trim()) {
+      vtFeatureSelect(vtIdx, input.value.trim());
+    }
+  } else if (e.key === 'Escape') {
+    input.value = '';
+    if (sugEl) sugEl.style.display = 'none';
+    vtFeatHighlightIdx = -1;
+    input.blur();
+  }
+}
+
+function vtFeatureSelect(vtIdx, name) {
   if (!name) return;
   store.vehicleTypes[vtIdx].features.push(name);
   renderVehicleTypes();
-  showToast('Feature added');
+  showToast('"' + name + '" added');
+}
+
+function vtFeatureBlur(vtIdx) {
+  var sugEl = document.getElementById('vt-feat-sug-' + vtIdx);
+  if (sugEl) sugEl.style.display = 'none';
+  vtFeatHighlightIdx = -1;
+}
+
+/* ── Add / Delete Vehicle Types ── */
+function addVehicleType() {
+  var count = store.vehicleTypes.length;
+  var newType = {
+    id: 'custom-' + (count + 1),
+    slug: 'custom-' + (count + 1),
+    passengerCount: 4,
+    name: 'New Vehicle Type',
+    description: 'Click to edit description.',
+    rates: { hourly: 25, daily: 75, twoDay: 130, weekly: 420 },
+    maxSpeed: '15 mph',
+    range: '25 miles',
+    features: [],
+    featureSummary: '',
+    imageUrl: '../img/4cart.jpeg',
+    posterUrl: '../img/4posternew.png',
+    sortOrder: count + 1,
+    isActive: true,
+  };
+  store.vehicleTypes.push(newType);
+  renderVehicleTypes();
+  showToast('New vehicle type added — edit the details');
+}
+
+function deleteVehicleType(vtIdx) {
+  var vt = store.vehicleTypes[vtIdx];
+  if (!vt) return;
+  var fleetCount = store.fleet.filter(function(c) { return c.typeId === vt.id; }).length;
+  var resCount = store.reservations.filter(function(r) {
+    return r.vehicleTypeId === vt.id && (r.status === 'confirmed' || r.status === 'checked-in');
+  }).length;
+
+  if (resCount > 0) {
+    showToast('Cannot delete — ' + resCount + ' active reservation' + (resCount > 1 ? 's' : '') + ' use this type');
+    return;
+  }
+
+  if (fleetCount > 0) {
+    if (!confirm('This type has ' + fleetCount + ' cart' + (fleetCount > 1 ? 's' : '') + ' assigned. Remove the type? (Carts will need reassignment.)')) return;
+  }
+
+  store.vehicleTypes.splice(vtIdx, 1);
+  renderVehicleTypes();
+  showToast(vt.name + ' removed');
+}
+
+/* ── Image Editor ── */
+var vtImgEditIdx = -1;
+
+function editVtImages(vtIdx) {
+  // Toggle: if already open for this type, close it
+  if (vtImgEditIdx === vtIdx) {
+    vtImgEditIdx = -1;
+    renderVehicleTypes();
+    return;
+  }
+  vtImgEditIdx = vtIdx;
+  renderVehicleTypes();
+
+  // After render, insert the editor inline below the poster
+  var vt = store.vehicleTypes[vtIdx];
+  var cards = document.querySelectorAll('.vt-card');
+  if (!cards[vtIdx]) return;
+  var poster = cards[vtIdx].querySelector('.vt-card-poster');
+  if (!poster) return;
+
+  var editor = document.createElement('div');
+  editor.className = 'vt-img-editor';
+  editor.innerHTML =
+    '<div class="img-field">' +
+      '<label>Customer-facing image (card thumbnail)</label>' +
+      '<input type="text" id="vt-img-card-' + vtIdx + '" value="' + (vt.imageUrl || '') + '" placeholder="URL or path to card image">' +
+    '</div>' +
+    '<div class="img-field">' +
+      '<label>Internal / hero image (poster)</label>' +
+      '<input type="text" id="vt-img-poster-' + vtIdx + '" value="' + (vt.posterUrl || '') + '" placeholder="URL or path to poster image">' +
+    '</div>' +
+    '<div class="img-actions">' +
+      '<button class="btn btn-sm" style="border:1px solid var(--rule);color:var(--ink-mid);font-size:0.78rem;padding:0.25rem 0.6rem" onclick="vtImgEditIdx=-1;renderVehicleTypes()">Cancel</button>' +
+      '<button class="btn btn-primary btn-sm" style="font-size:0.78rem;padding:0.25rem 0.6rem" onclick="saveVtImages(' + vtIdx + ')">Save</button>' +
+    '</div>';
+
+  poster.insertAdjacentElement('afterend', editor);
+}
+
+function saveVtImages(vtIdx) {
+  var vt = store.vehicleTypes[vtIdx];
+  if (!vt) return;
+  var cardInput = document.getElementById('vt-img-card-' + vtIdx);
+  var posterInput = document.getElementById('vt-img-poster-' + vtIdx);
+  if (cardInput && cardInput.value) vt.imageUrl = cardInput.value;
+  if (posterInput && posterInput.value) vt.posterUrl = posterInput.value;
+  vtImgEditIdx = -1;
+  renderVehicleTypes();
+  showToast('Images updated');
 }
 
 function editSetting(key, cell) {
