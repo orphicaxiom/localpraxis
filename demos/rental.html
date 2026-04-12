@@ -4674,7 +4674,7 @@ function renderVehicleTypes() {
           (vt.images || []).map(function(img, imgIdx) {
             return '<div class="vt-img-thumb-wrap">' +
               '<img class="vt-img-thumb" src="' + img.url + '" alt="' + (img.label || '') + '" onclick="vtOpenLightbox(' + idx + ',' + imgIdx + ')" onerror="this.style.visibility=\'hidden\'">' +
-              '<button class="vt-img-remove" onclick="event.stopPropagation();vtRemoveImage(' + idx + ',' + imgIdx + ')" title="Remove image">&times;</button>' +
+              /* Remove button hidden in demo — requires full build */ '' +
               '<div class="vt-img-badge ' + img.type + '">' + (img.type === 'public' ? 'Public' : 'Admin') + '</div>' +
             '</div>';
           }).join('') +
@@ -4782,16 +4782,7 @@ function vtUploadImage(vtIdx, imgType) {
 }
 
 function vtRemoveImage(vtIdx, imgIdx) {
-  var vt = store.vehicleTypes[vtIdx];
-  if (!vt || !vt.images) return;
-  vt.images.splice(imgIdx, 1);
-  // Keep legacy fields in sync with first available
-  var pub = vt.images.filter(function(i){return i.type==='public'})[0];
-  var adm = vt.images.filter(function(i){return i.type==='admin'})[0];
-  if (pub) vt.posterUrl = pub.url;
-  if (adm) vt.imageUrl = adm.url;
-  renderVehicleTypes();
-  showToast('Image removed');
+  showToast('Image management requires a full-featured build.');
 }
 
 /* ── Lightbox ── */
