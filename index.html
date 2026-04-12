@@ -687,13 +687,18 @@
 
     /* Active System Panel */
     .selected-system-panel {
-      display: none;
+      position: absolute;
+      visibility: hidden;
       opacity: 0;
       transform: translateY(12px);
+      pointer-events: none;
+      width: 100%;
     }
 
     .selected-system-panel.active {
-      display: block;
+      position: relative;
+      visibility: visible;
+      pointer-events: auto;
       animation: systemFadeIn 0.4s var(--ease) forwards;
     }
 
@@ -1745,13 +1750,13 @@
           </div>
           <div class="system-frame">
             <div class="demo-frame-wrapper">
-              <iframe src="/demos/rental.html" loading="lazy" title="Rental fleet management system" scrolling="no" tabindex="-1"></iframe>
+              <iframe src="/demos/rental.html" title="Rental fleet management system" scrolling="no" tabindex="-1"></iframe>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="selected-system-panel" id="tab-booking" role="tabpanel" aria-labelledby="btn-booking" hidden>
+      <div class="selected-system-panel" id="tab-booking" role="tabpanel" aria-labelledby="btn-booking">
         <div class="system-content">
           <div class="system-info">
             <div class="system-label">Booking System</div>
@@ -1764,13 +1769,13 @@
           </div>
           <div class="system-frame">
             <div class="demo-frame-wrapper">
-              <iframe src="/demos/booking.html" loading="lazy" title="Booking system" scrolling="no" tabindex="-1"></iframe>
+              <iframe src="/demos/booking.html" title="Booking system" scrolling="no" tabindex="-1"></iframe>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="selected-system-panel" id="tab-inventory" role="tabpanel" aria-labelledby="btn-inventory" hidden>
+      <div class="selected-system-panel" id="tab-inventory" role="tabpanel" aria-labelledby="btn-inventory">
         <div class="system-content">
           <div class="system-info">
             <div class="system-label">Inventory &amp; Point of Sale</div>
@@ -1783,13 +1788,13 @@
           </div>
           <div class="system-frame">
             <div class="demo-frame-wrapper">
-              <iframe src="/demos/inventory.html" loading="lazy" title="Inventory and POS system" scrolling="no" tabindex="-1"></iframe>
+              <iframe src="/demos/inventory.html" title="Inventory and POS system" scrolling="no" tabindex="-1"></iframe>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="selected-system-panel" id="tab-portal" role="tabpanel" aria-labelledby="btn-portal" hidden>
+      <div class="selected-system-panel" id="tab-portal" role="tabpanel" aria-labelledby="btn-portal">
         <div class="system-content">
           <div class="system-info">
             <div class="system-label">Client Portal</div>
@@ -1802,7 +1807,7 @@
           </div>
           <div class="system-frame">
             <div class="demo-frame-wrapper">
-              <iframe src="/demos/portal.html" loading="lazy" title="Client portal system" scrolling="no" tabindex="-1"></iframe>
+              <iframe src="/demos/portal.html" title="Client portal system" scrolling="no" tabindex="-1"></iframe>
             </div>
           </div>
         </div>
@@ -2097,13 +2102,11 @@
         });
         document.querySelectorAll('.selected-system-panel').forEach(p => {
           p.classList.remove('active');
-          p.hidden = true;
         });
         btn.classList.add('active');
         btn.setAttribute('aria-selected', 'true');
         const panel = document.getElementById(target);
         panel.classList.add('active');
-        panel.hidden = false;
         scaleFrames();
       });
     });
