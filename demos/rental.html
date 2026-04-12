@@ -21,7 +21,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23256193'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23F2CE72'>IW</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -39,7 +39,7 @@
   --yellow-hover: #E5C060;
   --rule: #2C2A28;
   --rule-light: #C4BBB0;
-  --status-green: #4A7C59;
+  --status-green: #0A9C78;
   --status-amber: #F2CE72;
   --status-red: #C85A17;
   --status-charcoal: #4A4745;
@@ -148,11 +148,22 @@ button, input, select, textarea {
 
 .sidebar h1 {
   font-family: var(--font-display);
-  font-size: 1.55rem;
-  font-weight: 400;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   padding: 0 1.25rem;
   color: #fff;
   line-height: 1.2;
+}
+
+.sidebar-subtitle {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  padding: 0.15rem 1.25rem 0;
+  letter-spacing: 0.02em;
 }
 
 .tagline {
@@ -182,7 +193,10 @@ button, input, select, textarea {
 
 .nav-item:hover {
   background: rgba(255,255,255,0.1);
-  color: #fff;
+  color: var(--yellow);
+  font-style: italic;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
 }
 
 .nav-item.active {
@@ -222,7 +236,7 @@ button, input, select, textarea {
   padding: 0 3.5rem 3rem;
   min-height: 100vh;
   flex: 1;
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
 /* ── Demo Banner ── */
@@ -291,9 +305,10 @@ button, input, select, textarea {
 
 .header h1 {
   font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 400;
-  line-height: 1.2;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   color: var(--ink);
 }
 
@@ -368,8 +383,10 @@ button, input, select, textarea {
 /* ── Section Titles ── */
 .section-title {
   font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 400;
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.01em;
   margin: 2rem 0 1.25rem;
   color: var(--ink);
 }
@@ -386,7 +403,7 @@ button, input, select, textarea {
 }
 
 .dashboard-module {
-  border: 1px solid var(--ink);
+  border: 2px solid var(--ink);
   background: #fff;
   min-height: 200px;
   display: flex;
@@ -394,8 +411,8 @@ button, input, select, textarea {
   overflow: hidden;
 }
 
-.dashboard-left .dashboard-module {
-  height: auto;
+.dashboard-left .dashboard-module .module-body {
+  overflow-y: auto;
 }
 
 .dashboard-right .dashboard-module {
@@ -406,9 +423,21 @@ button, input, select, textarea {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--ink);
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.01em;
   flex-shrink: 0;
+}
+
+.module-header-free {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
 }
 
 .dashboard-module .module-body {
@@ -425,7 +454,7 @@ button, input, select, textarea {
 
 /* Brutalist scrollbar */
 .dashboard-module .module-body::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
   border-left: 1px solid var(--ink);
 }
 .dashboard-module .module-body::-webkit-scrollbar-track {
@@ -435,6 +464,7 @@ button, input, select, textarea {
   background: var(--yellow);
   border: 1px solid var(--ink);
   border-radius: 0;
+  min-height: 40px;
 }
 .dashboard-module .module-body::-webkit-scrollbar-thumb:hover {
   background: var(--yellow-hover);
@@ -456,7 +486,12 @@ button, input, select, textarea {
 }
 
 .timeline-item:hover {
-  background: var(--cream);
+  background: var(--yellow);
+  font-weight: 600;
+}
+
+.timeline-item:hover .timeline-event {
+  color: var(--ink);
 }
 
 .timeline-time {
@@ -568,9 +603,20 @@ button, input, select, textarea {
   font-size: 0.85rem;
   font-weight: 500;
   border-bottom: 1px solid var(--rule-light);
+  cursor: pointer;
+  transition: background 0.1s ease, transform 0.1s ease;
 }
 
 .action-item:last-child { border-bottom: none; }
+
+.action-item:hover {
+  background: var(--yellow);
+  font-weight: 600;
+}
+
+.action-item:active {
+  transform: scale(0.98);
+}
 
 .action-icon {
   width: 22px;
@@ -589,6 +635,60 @@ button, input, select, textarea {
 .action-item.action-urgent .action-icon { background: var(--status-red); color: #fff; }
 .action-item.action-warn .action-icon { background: var(--yellow); color: var(--ink); }
 .action-item.action-info .action-icon { background: var(--accent); color: #fff; }
+
+/* ── Action Pills ── */
+.action-pills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.action-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px var(--ink);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.action-pill:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--ink);
+}
+
+.action-pill:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0px 0px 0px var(--ink);
+}
+
+.action-pill.pill-urgent {
+  background: var(--status-red);
+  color: #fff;
+}
+
+.action-pill.pill-warn {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.action-pill.pill-info {
+  background: var(--accent);
+  color: #fff;
+}
+
+.action-pill.pill-deposit {
+  background: #fff;
+  color: var(--ink);
+}
 
 /* ── Fleet at a Glance Mini Grid ── */
 .fleet-glance {
@@ -648,6 +748,29 @@ button, input, select, textarea {
 .status-dot.completed { background: var(--ink); color: var(--warm-white); }
 .status-dot.cancelled { background: var(--ink-light); color: #fff; border-color: var(--ink-light); }
 .status-dot.maintenance { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* ── Reservation Flag Badges ── */
+.res-flag {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  font-size: 0.58rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  margin-right: 4px;
+}
+.res-flag.flag-waiver {
+  background: var(--yellow);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+.res-flag.flag-deposit {
+  background: #fff;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+}
 .status-dot.rented { background: var(--yellow); color: var(--ink); }
 
 .status-text {
@@ -743,75 +866,202 @@ button, input, select, textarea {
   background: var(--accent-hover);
 }
 
-/* ── Cart Cards (Fleet View) ── */
-.fleet-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1.25rem;
+/* ── Fleet Accordion Bands ── */
+.fleet-bands {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.cart-card {
-  background: #fff;
+.fleet-band {
   border: 2px solid var(--ink);
+  border-radius: 4px;
+  background: #fff;
   box-shadow: 3px 3px 0px var(--ink);
-  border-radius: 2px;
   overflow: hidden;
+}
+
+.fleet-band-header {
+  display: grid;
+  grid-template-columns: 140px 1fr;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: background 150ms ease;
 }
 
-.cart-card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px var(--ink);
+.fleet-band-header:hover {
+  background: var(--cream);
 }
 
-.cart-card-img {
-  height: 160px;
-  position: relative;
+.fleet-band-img {
+  width: 140px;
+  height: 120px;
   overflow: hidden;
+  border-right: 1px solid var(--ink);
+  background: var(--warm-white);
 }
 
-.cart-card-img img {
-  position: absolute;
-  inset: 0;
+.fleet-band-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.cart-card-body {
-  padding: 1.25rem;
+.fleet-band-info {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-.cart-card-name {
-  font-weight: 600;
-  font-size: 0.95rem;
+.fleet-band-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.cart-card-meta {
-  font-size: 0.82rem;
-  color: var(--ink-mid);
-  margin-bottom: 8px;
-}
-
-.cart-card-status {
+.fleet-band-count {
+  font-family: var(--font-body);
+  font-style: normal;
   font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.fleet-band-rate {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.fleet-band-stats {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.fleet-band-stat {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  margin-bottom: 4px;
-}
-
-.cart-card-rate {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--ink-mid);
-  margin-bottom: 4px;
 }
 
-.cart-card-condition {
+.fleet-band-stat .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.fleet-band-stat .dot.avail { background: var(--status-green); }
+.fleet-band-stat .dot.rented { background: var(--accent); }
+.fleet-band-stat .dot.maint { background: var(--yellow); }
+.fleet-band-stat .dot.overdue { background: var(--status-red); }
+
+.fleet-band-chevron {
+  margin-left: auto;
+  font-size: 1.1rem;
+  color: var(--ink-light);
+  transition: transform 200ms ease;
+  align-self: center;
+  padding-right: 1rem;
+}
+
+.fleet-band.expanded .fleet-band-chevron {
+  transform: rotate(180deg);
+}
+
+.fleet-band-body {
+  display: none;
+  border-top: 1px solid var(--ink);
+}
+
+.fleet-band.expanded .fleet-band-body {
+  display: block;
+}
+
+.fleet-unit-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 100px 90px 80px;
+  align-items: center;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.82rem;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  transition: background 100ms ease;
+}
+
+.fleet-unit-row:last-child {
+  border-bottom: none;
+}
+
+.fleet-unit-row:hover {
+  background: var(--cream);
+}
+
+.fleet-unit-name {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+
+.fleet-unit-renter {
+  font-size: 0.78rem;
+  color: var(--ink-mid);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fleet-unit-status {
+  text-align: center;
+}
+
+.fleet-unit-condition {
+  font-size: 0.78rem;
+  color: var(--ink-mid);
+  text-align: center;
+}
+
+.fleet-unit-mileage {
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--ink-light);
+  text-align: right;
+}
+
+.fleet-unit-header {
+  display: grid;
+  grid-template-columns: 80px 1fr 100px 90px 80px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-light);
+  background: var(--warm-white);
+  border-bottom: 1px solid var(--ink);
+}
+
+.fleet-empty-band {
+  padding: 1.5rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--ink-light);
+  font-size: 0.88rem;
 }
 
 /* ── Controls Bar + Filter Tabs ── */
@@ -834,7 +1084,7 @@ button, input, select, textarea {
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
-  border: 2px solid var(--ink);
+  border: none;
   background: transparent;
   transition: all 0.15s ease;
   font-family: var(--font-body);
@@ -848,6 +1098,8 @@ button, input, select, textarea {
   background: var(--yellow);
   color: var(--ink);
   font-weight: 700;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0px var(--ink);
 }
 
 .search-input {
@@ -864,6 +1116,66 @@ button, input, select, textarea {
 
 .search-input:focus {
   border-color: var(--accent);
+}
+
+/* ── Reservation Toolbar ── */
+.res-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.res-date-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+}
+
+.res-date-label {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-light);
+  white-space: nowrap;
+}
+
+.res-date-input {
+  padding: 0.35rem 0.5rem !important;
+  font-size: 0.8rem !important;
+  min-width: 140px;
+  border: 2px solid var(--ink) !important;
+  border-radius: 2px !important;
+  font-family: var(--font-mono) !important;
+  background: var(--warm-white) !important;
+}
+
+.res-date-input:focus {
+  border-color: var(--accent) !important;
+}
+
+.res-date-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: background 0.1s;
+}
+
+.res-date-clear:hover {
+  background: var(--yellow-hover);
 }
 
 /* ── Slide-in Panel ── */
@@ -1007,7 +1319,7 @@ button, input, select, textarea {
 }
 
 .data-table tbody tr:hover {
-  background: var(--accent-subtle);
+  background: var(--yellow);
 }
 
 .data-table tbody tr.clickable {
@@ -1493,7 +1805,7 @@ button, input, select, textarea {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
   gap: 0;
-  min-height: 500px;
+  min-height: 400px;
   border: 1px solid var(--rule);
   background: var(--warm-white);
 }
@@ -1502,7 +1814,7 @@ button, input, select, textarea {
 .vt-list-panel {
   border-right: 1px solid var(--rule-light);
   overflow-y: auto;
-  max-height: 72vh;
+  max-height: calc(100vh - 160px);
 }
 
 .vt-list-header {
@@ -1526,19 +1838,22 @@ button, input, select, textarea {
 }
 
 .vt-list-add {
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink);
   cursor: pointer;
-  border: none;
-  background: none;
+  border: 2px solid var(--ink);
+  background: var(--yellow);
   font-family: var(--font-body);
-  padding: 0.2rem 0.5rem;
-  transition: background 200ms var(--ease);
+  padding: 0.35rem 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: background 200ms var(--ease), transform 100ms var(--ease);
 }
 
 .vt-list-add:hover {
-  background: var(--accent-subtle);
+  background: var(--yellow-hover);
+  transform: translateY(-1px);
 }
 
 @keyframes vtListSlideIn {
@@ -1562,10 +1877,11 @@ button, input, select, textarea {
 }
 
 .vt-list-item.active {
-  background: var(--accent);
-  color: #fff;
-  border-left: 3px solid var(--accent);
-  padding-left: calc(0.85rem - 3px);
+  background: #fff;
+  color: var(--ink);
+  border-left: 4px solid var(--yellow);
+  padding-left: calc(0.85rem - 4px);
+  font-weight: 600;
 }
 
 .vt-list-item.new-item {
@@ -1615,8 +1931,9 @@ button, input, select, textarea {
 /* Right panel: detail */
 .vt-detail-panel {
   overflow-y: auto;
-  max-height: 72vh;
+  max-height: calc(100vh - 160px);
   padding: 1.25rem 1.5rem;
+  background: #fff;
 }
 
 /* Slide-in animation for detail content */
@@ -1672,13 +1989,13 @@ button, input, select, textarea {
 
 /* Edit hint on the title */
 .vt-detail-title.editable {
-  border-bottom: 1px dashed var(--rule);
+  border-bottom: none;
   padding-bottom: 2px;
   transition: border-color 200ms var(--ease), background 200ms var(--ease);
 }
 
 .vt-detail-title.editable:hover {
-  border-color: var(--accent);
+  border-bottom: 1px solid var(--accent);
   background: var(--accent-subtle);
 }
 
@@ -1690,7 +2007,7 @@ button, input, select, textarea {
 
 .vt-detail-title.edit-hint {
   animation: vtEditPulse 1.5s ease-in-out 3;
-  border-bottom: 1px dashed var(--accent);
+  border-bottom: 1px solid var(--accent);
 }
 
 .vt-detail-actions {
@@ -2010,9 +2327,9 @@ button, input, select, textarea {
   gap: 0.35rem;
   font-size: 0.8rem;
   padding: 0.3rem 0.6rem;
-  border: 2px solid var(--ink);
-  background: #fff;
-  border-radius: 2px;
+  border: 1px solid var(--ink);
+  background: var(--warm-white);
+  border-radius: 20px;
   font-weight: 600;
 }
 
@@ -2139,13 +2456,116 @@ button, input, select, textarea {
 }
 
 .vt-status.active {
-  color: var(--status-green);
-  border: 1px solid var(--status-green);
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 20px;
 }
 
 .vt-status.inactive {
   color: var(--ink-light);
-  border: 1px solid var(--rule);
+  background: var(--cream);
+  border: none;
+  border-radius: 20px;
+}
+
+/* ── Maintenance Cards ── */
+.maint-card {
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 3px 3px 0px var(--ink);
+  cursor: pointer;
+  transition: transform 150ms var(--ease), box-shadow 150ms var(--ease);
+  overflow: hidden;
+}
+
+.maint-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 5px 0px var(--ink);
+}
+
+.maint-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ink);
+  background: var(--warm-white);
+}
+
+.maint-card-title {
+  font-size: 0.95rem;
+}
+
+.maint-card-body {
+  padding: 0.75rem 1rem;
+}
+
+.maint-part-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  padding: 0.15rem 0.5rem;
+  background: var(--warm-white);
+  border: 1px solid var(--ink);
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* Maintenance-specific status badges */
+.status-dot.maint-completed {
+  background: #0A9C78;
+  color: #fff;
+  border: 1px solid var(--ink);
+}
+
+.status-dot.maint-progress {
+  background: var(--yellow);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.status-dot.maint-waiting {
+  background: var(--status-red);
+  color: #fff;
+  border: 1px solid var(--status-red);
+}
+
+.status-dot.maint-scheduled {
+  background: var(--warm-white);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+/* ── Overdue row highlight ── */
+.row-overdue {
+  background: rgba(200, 90, 23, 0.06);
+}
+
+.row-overdue:hover {
+  background: rgba(200, 90, 23, 0.12);
+}
+
+/* ── Clickable stat cards ── */
+.stat-card.clickable {
+  cursor: pointer;
+  transition: background 150ms var(--ease), transform 100ms var(--ease);
+}
+
+.stat-card.clickable:hover {
+  background: var(--cream);
+  transform: translateY(-1px);
+}
+
+.stat-card.clickable .stat-label::after {
+  content: ' \2192';
+  font-size: 0.7em;
+  opacity: 0;
+  transition: opacity 150ms var(--ease);
+}
+
+.stat-card.clickable:hover .stat-label::after {
+  opacity: 0.5;
 }
 
 @media (max-width: 768px) {
@@ -2176,26 +2596,33 @@ button, input, select, textarea {
 }
 
 .promo-card {
-  padding: 1.25rem;
-  border: 1px solid var(--rule-light);
-  border-radius: 6px;
-  transition: border-color 0.15s;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 3px 3px 0px var(--ink);
+  overflow: hidden;
+  transition: transform 150ms var(--ease), box-shadow 150ms var(--ease);
 }
 
 .promo-card:hover {
-  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 4px 5px 0px var(--ink);
 }
 
 .promo-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ink);
+  background: var(--warm-white);
 }
 
 .promo-name {
+  font-family: var(--font-display);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
+  font-style: italic;
 }
 
 .promo-details {
@@ -2203,7 +2630,8 @@ button, input, select, textarea {
   flex-wrap: wrap;
   gap: 1.5rem;
   font-size: 0.82rem;
-  color: var(--ink-mid);
+  color: var(--ink);
+  padding: 0.75rem 1rem;
 }
 
 .promo-detail-item {
@@ -2213,26 +2641,28 @@ button, input, select, textarea {
 }
 
 .promo-detail-label {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--ink-light);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .promo-code {
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
   color: var(--ink);
   letter-spacing: 0.04em;
+  font-weight: 600;
 }
 
 /* ── Toggle Switch ── */
 .toggle-switch {
-  width: 40px;
-  height: 20px;
-  border-radius: 10px;
-  background: var(--rule);
+  width: 44px;
+  height: 22px;
+  border-radius: 11px;
+  background: var(--cream);
+  border: 2px solid var(--ink);
   position: relative;
   cursor: pointer;
   transition: background 0.2s;
@@ -2241,13 +2671,15 @@ button, input, select, textarea {
 
 .toggle-switch.active {
   background: var(--accent);
+  border-color: var(--ink);
 }
 
 .toggle-knob {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #fff;
+  border: 1px solid var(--ink);
   position: absolute;
   top: 2px;
   left: 2px;
@@ -2255,7 +2687,7 @@ button, input, select, textarea {
 }
 
 .toggle-switch.active .toggle-knob {
-  transform: translateX(20px);
+  transform: translateX(22px);
 }
 
 /* ── Booking Widget ── */
@@ -2272,56 +2704,136 @@ button, input, select, textarea {
 .widget-toggle-btn {
   padding: 0.5rem 1.25rem;
   font-size: 0.82rem;
-  border: 1px solid var(--rule);
+  font-weight: 600;
+  border: none;
   background: none;
   cursor: pointer;
   color: var(--ink-mid);
   transition: all 0.15s;
+  font-family: var(--font-body);
 }
 
 .widget-toggle-btn:first-child {
-  border-radius: 4px 0 0 4px;
+  border-radius: 0;
 }
 
 .widget-toggle-btn:last-child {
-  border-radius: 0 4px 4px 0;
-  border-left: none;
+  border-radius: 0;
 }
 
 .widget-toggle-btn.active {
-  color: var(--accent);
-  border-color: var(--accent);
-  background: var(--accent-subtle);
+  color: var(--ink);
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0px var(--ink);
 }
 
 .widget-preview {
-  border: 1px solid var(--rule);
-  border-radius: 8px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
   padding: 1.5rem;
   background: var(--warm-white);
+  box-shadow: 3px 3px 0px var(--ink);
 }
 
 .widget-mobile-frame {
   max-width: 375px;
   margin: 0 auto;
-  border: 8px solid var(--ink);
-  border-radius: 24px;
+  border: 8px solid #1a1a1a;
+  border-radius: 44px;
   overflow: hidden;
-  height: 70vh;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  background: #1a1a1a;
+  box-shadow: 0 0 0 2px #333, 0 20px 60px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.iphone-status-bar {
+  background: #fff;
+  padding: 14px 24px 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.iphone-status-bar::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 20px;
+}
+
+.iphone-status-time {
+  position: relative;
+  z-index: 1;
+}
+
+.iphone-status-icons {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.iphone-status-icons svg {
+  width: 15px;
+  height: 11px;
+  fill: #1a1a1a;
+}
+
+.iphone-scroll-area {
+  flex: 1;
   overflow-y: auto;
-  background: var(--warm-white);
+  background: #fff;
+  padding: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.iphone-scroll-area::-webkit-scrollbar {
+  display: none;
+}
+
+.iphone-home-indicator {
+  background: #fff;
+  padding: 8px 0 6px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.iphone-home-indicator::after {
+  content: '';
+  width: 134px;
+  height: 5px;
+  background: #1a1a1a;
+  border-radius: 3px;
+  opacity: 0.2;
 }
 
 .embed-code {
   background: var(--cream);
-  border: 1px solid var(--rule);
-  border-radius: 6px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
   padding: 1rem 1.25rem;
-  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   overflow-x: auto;
   white-space: pre;
-  color: var(--ink-mid);
+  color: var(--ink);
   line-height: 1.6;
 }
 
@@ -2913,8 +3425,8 @@ button, input, select, textarea {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(4px);
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: none;
   z-index: 250;
   display: none;
   align-items: center;
@@ -2927,11 +3439,12 @@ button, input, select, textarea {
 
 .modal {
   background: var(--warm-white);
-  border-radius: 8px;
+  border-radius: 4px;
   width: 90%;
   max-height: 85vh;
   overflow-y: auto;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  border: 2px solid var(--ink);
+  box-shadow: 8px 8px 0px var(--ink);
 }
 
 .modal-header {
@@ -3295,8 +3808,21 @@ button, input, select, textarea {
     grid-template-columns: 1fr;
   }
 
-  .fleet-grid {
-    grid-template-columns: 1fr;
+  .fleet-band-header {
+    grid-template-columns: 100px 1fr;
+  }
+  .fleet-band-img {
+    width: 100px;
+    height: 90px;
+  }
+  .fleet-unit-row {
+    grid-template-columns: 70px 1fr 90px 80px;
+  }
+  .fleet-unit-header {
+    grid-template-columns: 70px 1fr 90px 80px;
+  }
+  .fleet-unit-mileage {
+    display: none;
   }
 
   .dashboard-grid {
@@ -3483,19 +4009,28 @@ button, input, select, textarea {
 
 @media (hover: none) {
   .cart-card:hover,
-  .guest-card:hover {
+  .guest-card:hover,
+  .action-pill:hover {
     transform: none !important;
-    box-shadow: none !important;
   }
   .cart-card:active,
   .guest-card:active {
     transform: scale(0.98);
     transition: transform 0.1s ease;
   }
+  .action-pill:active {
+    transform: translate(1px, 1px) !important;
+    box-shadow: 0px 0px 0px var(--ink) !important;
+  }
   .more-menu-item:active,
   .nav-item:active {
     background: var(--accent-subtle);
   }
+}
+
+/* ── Revenue Day Rows ── */
+.rev-day-row:hover {
+  background: var(--yellow) !important;
 }
 
 /* ── Reduced Motion ── */
@@ -3517,6 +4052,7 @@ button, input, select, textarea {
   <!-- Sidebar -->
   <nav class="sidebar" id="sidebar">
     <h1>Island Wheels</h1>
+    <span class="sidebar-subtitle">Booking Demo</span>
     <span class="tagline">Port Aransas, TX</span>
     <div class="nav-menu">
       <div class="nav-item active" data-view="dashboard" onclick="switchView('dashboard')">Dashboard</div>
@@ -3525,6 +4061,8 @@ button, input, select, textarea {
       <div class="nav-item" data-view="reservations" onclick="switchView('reservations')">Reservations</div>
       <div class="nav-item" data-view="checkinout" onclick="switchView('checkinout')">Check-in / Out</div>
       <div class="nav-item" data-view="vehicletypes" onclick="switchView('vehicletypes')">Vehicle Types</div>
+      <div class="nav-item" data-view="maintenance" onclick="switchView('maintenance')">Maintenance</div>
+      <div class="nav-item" data-view="revenue" onclick="switchView('revenue')">Revenue</div>
       <div class="nav-item" data-view="promotions" onclick="switchView('promotions')">Promotions</div>
       <div class="nav-item" data-view="widget" onclick="switchView('widget')">Booking Widget</div>
     </div>
@@ -3542,24 +4080,27 @@ button, input, select, textarea {
 
     <!-- Dashboard View -->
     <div class="view active" id="view-dashboard">
-      <div class="header">
-        <h1>Dashboard</h1>
-        <p id="dashboard-date"></p>
+      <div class="header" style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <h1>Dashboard</h1>
+          <p id="dashboard-date"></p>
+        </div>
+        <button class="btn btn-primary" onclick="openNewReservation()" style="margin-top:0.25rem">+ New Booking</button>
       </div>
       <div class="stats-row" id="stats-row"></div>
       <div class="dashboard-grid">
         <div class="dashboard-left">
+          <div class="module-header-free">Today's Activity</div>
           <div class="dashboard-module">
-            <div class="module-header">Today's Activity</div>
             <div class="module-body" id="activity-timeline"></div>
           </div>
         </div>
         <div class="dashboard-right">
+          <div class="module-header-free">Revenue This Week</div>
           <div class="dashboard-module">
-            <div class="module-header">Revenue This Week</div>
             <div class="module-body" id="revenue-chart" style="padding-bottom:0.5rem"></div>
           </div>
-          <div id="action-items" style="margin-top:1rem"></div>
+          <div id="action-items" style="margin-top:1.5rem"></div>
         </div>
       </div>
       <h2 class="section-title">Fleet at a Glance</h2>
@@ -3580,7 +4121,7 @@ button, input, select, textarea {
         <div class="filter-tabs" id="fleet-filters"></div>
         <input type="text" class="search-input" id="fleet-search" placeholder="Search carts..." oninput="renderFleet()">
       </div>
-      <div class="fleet-grid" id="fleet-grid"></div>
+      <div class="fleet-bands" id="fleet-grid"></div>
     </div>
 
     <!-- Calendar View -->
@@ -3604,7 +4145,14 @@ button, input, select, textarea {
       </div>
       <div class="controls-bar">
         <div class="filter-tabs" id="res-filters"></div>
-        <input type="text" class="search-input" id="res-search" placeholder="Search reservations..." oninput="renderReservations()">
+        <div class="res-toolbar-right">
+          <div class="res-date-filter">
+            <label class="res-date-label" for="res-date-input">Pickup date</label>
+            <input type="date" class="form-input res-date-input" id="res-date-input" onchange="filterByDate(this.value)">
+            <button class="res-date-clear" id="res-date-clear" onclick="clearDateFilter()" style="display:none" title="Clear date filter">&times;</button>
+          </div>
+          <input type="text" class="search-input" id="res-search" placeholder="Search reservations..." oninput="renderReservations()">
+        </div>
       </div>
       <div id="res-table-container"></div>
     </div>
@@ -3640,6 +4188,29 @@ button, input, select, textarea {
     </div>
 
     <!-- Booking Widget View -->
+    <div class="view" id="view-maintenance">
+      <div class="header">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <h1>Maintenance</h1>
+            <p>Service history and upcoming work orders</p>
+          </div>
+          <button class="btn-primary" onclick="openNewMaintenanceForm()" style="padding:0.5rem 1.25rem;font-size:0.82rem;white-space:nowrap">+ New Work Order</button>
+        </div>
+      </div>
+      <div id="maint-filters" style="display:flex;gap:0.5rem;margin-bottom:1rem"></div>
+      <div id="maint-content"></div>
+    </div>
+
+    <div class="view" id="view-revenue">
+      <div class="header">
+        <h1>Revenue</h1>
+        <p>Financial overview and transaction history</p>
+      </div>
+      <div id="revenue-stats-row" class="stats-row" style="margin-top:0"></div>
+      <div id="revenue-content"></div>
+    </div>
+
     <div class="view" id="view-widget">
       <div class="header">
         <h1>Booking Widget</h1>
@@ -3966,6 +4537,29 @@ function daysBetween(d1, d2) {
   return Math.round((b - a) / (1000 * 60 * 60 * 24));
 }
 
+function computeWeekRevenue() {
+  var dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var todayDate = new Date(TODAY + 'T12:00:00');
+  var days = [];
+  for (var i = 6; i >= 0; i--) {
+    var d = new Date(todayDate);
+    d.setDate(d.getDate() - i);
+    var iso = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    var amount = 0;
+    store.reservations.forEach(function(r) {
+      if (r.status === 'cancelled') return;
+      if (r.pickupDate === iso) amount += r.total;
+    });
+    days.push({
+      day: dayNames[d.getDay()],
+      date: (d.getMonth() + 1) + '/' + d.getDate(),
+      isoDate: iso,
+      amount: amount
+    });
+  }
+  return days;
+}
+
 function getCart(id) {
   return store.fleet.find(function(c) { return c.id === id; });
 }
@@ -4050,9 +4644,54 @@ function viewWaiver(resId) {
     '<h4>Liability</h4><p>' + (store.settings.policies ? store.settings.policies.liability : '') + '</p>' +
     '<h4>Cancellation</h4><p>' + (store.settings.policies ? store.settings.policies.cancellation : '') + '</p>' +
     '<hr style="margin:1rem 0">' +
-    '<p style="color:var(--status-green)">✓ Digitally signed by ' + res.customer.name + ' on ' + fmtDate(res.createdAt || res.pickupDate) + '</p>' +
+    (res.waiverStatus === 'signed'
+      ? '<p style="color:var(--status-green)">✓ Digitally signed by ' + res.customer.name + ' on ' + fmtDate(res.createdAt || res.pickupDate) + '</p>'
+      : '<p style="color:var(--status-red);font-weight:600">⚠ WAIVER NOT YET SIGNED</p>' +
+        '<p style="font-size:0.8rem;color:var(--ink-mid);margin-top:0.25rem">Customer must sign before cart leaves the lot.</p>' +
+        '<button class="btn btn-primary" style="margin-top:0.75rem" onclick="signWaiverDemo(' + res.id + ')">Mark as Signed</button>') +
     '</div>';
   showDemoModal(waiverHtml, true);
+}
+
+function signWaiverDemo(resId) {
+  var res = getRes(resId);
+  if (!res) return;
+  res.waiverStatus = 'signed';
+  closeModal('demo-modal');
+  renderActiveView();
+}
+
+function collectDepositDemo(resId) {
+  var res = getRes(resId);
+  if (!res) return;
+  res.depositStatus = 'paid';
+  renderActiveView();
+  openResPanel(resId);
+}
+
+function showDepositDemo() {
+  var html =
+    '<div style="max-width:480px;font-size:0.88rem;line-height:1.6">' +
+      '<div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem">' +
+        '<div style="width:40px;height:40px;background:var(--yellow);border:2px solid var(--ink);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">$</div>' +
+        '<div>' +
+          '<div style="font-family:var(--font-display);font-size:1.2rem;font-weight:600;font-style:italic">Payment & Invoicing</div>' +
+          '<div style="font-size:0.78rem;color:var(--ink-light)">Demo version</div>' +
+        '</div>' +
+      '</div>' +
+      '<p style="margin-bottom:1rem;color:var(--ink-mid)">In the full build, this panel connects to your payment processor and shows real-time deposit status, invoice history, and refund controls.</p>' +
+      '<div style="border:1px solid var(--ink);border-radius:4px;padding:1rem;background:#fff;margin-bottom:1rem">' +
+        '<div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;color:var(--ink-light);margin-bottom:0.75rem">Supported Integrations</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.82rem">' +
+          '<div style="padding:0.4rem 0.6rem;border:1px solid var(--rule);border-radius:2px;font-weight:600">Stripe</div>' +
+          '<div style="padding:0.4rem 0.6rem;border:1px solid var(--rule);border-radius:2px;font-weight:600">Square</div>' +
+          '<div style="padding:0.4rem 0.6rem;border:1px solid var(--rule);border-radius:2px;font-weight:600">QuickBooks</div>' +
+          '<div style="padding:0.4rem 0.6rem;border:1px solid var(--rule);border-radius:2px;font-weight:600">PayPal</div>' +
+        '</div>' +
+      '</div>' +
+      '<p style="font-family:var(--font-display);font-style:italic;color:var(--ink-mid);font-size:0.88rem">The integration depends on what payment processor and invoicing system you currently use — or want to use. We build around your existing workflow.</p>' +
+    '</div>';
+  showDemoModal(html, true);
 }
 
 function showToast(message) {
@@ -4106,7 +4745,7 @@ function switchView(view) {
   if (view === 'more') { toggleMoreMenu(); return; }
   activeView = view;
   document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.toggle('active', n.dataset.view === view); });
-  var moreViews = ['checkinout', 'vehicletypes', 'promotions', 'waivers', 'widget'];
+  var moreViews = ['checkinout', 'vehicletypes', 'maintenance', 'revenue', 'promotions', 'waivers', 'widget'];
   document.querySelectorAll('.tab-item').forEach(function(t) {
     var isActive = t.dataset.view === view || (t.dataset.view === 'more' && moreViews.indexOf(view) !== -1);
     t.classList.toggle('active', isActive);
@@ -4130,6 +4769,8 @@ function renderView(view) {
     case 'reservations': renderReservations(); break;
     case 'checkinout': renderCheckInOut(); break;
     case 'vehicletypes': renderVehicleTypes(); break;
+    case 'maintenance': renderMaintenance(); break;
+    case 'revenue': renderRevenue(); break;
     case 'promotions': renderPromotions(); break;
     case 'widget': renderWidget(); break;
   }
@@ -4144,27 +4785,29 @@ function renderDashboard() {
   document.getElementById('dashboard-date').textContent = fmtDateLong(TODAY);
 
   var activeRentals = getActiveRentals();
-  var todayRevenue = store.weekRevenue.find(function(w) { return w.date === '4/5'; }).amount;
+  var weekData = computeWeekRevenue();
+  var todayData = weekData[weekData.length - 1];
+  var todayRevenue = todayData.amount;
   var availCount = store.fleet.filter(function(c) { return c.status === 'available'; }).length;
   var overdueCount = store.fleet.filter(function(c) { return c.status === 'overdue'; }).length;
 
   var statsHTML =
-    '<div class="stat-card">' +
+    '<div class="stat-card clickable" onclick="switchView(\'reservations\');setResFilter(\'checked-in\')">' +
       '<div class="stat-label">Active Rentals</div>' +
       '<div class="stat-value" data-count="' + activeRentals.length + '">' + activeRentals.length + '</div>' +
-      '<div class="stat-sub">' + overdueCount + ' overdue</div>' +
+      '<div class="stat-sub">' + (overdueCount > 0 ? '<span style="color:var(--status-red);cursor:pointer" onclick="event.stopPropagation();switchView(\'reservations\');setResFilter(\'overdue\')">' + overdueCount + ' overdue</span>' : 'none overdue') + '</div>' +
     '</div>' +
-    '<div class="stat-card">' +
+    '<div class="stat-card clickable" onclick="switchView(\'fleet\');setFleetFilter(\'available\')">' +
       '<div class="stat-label">Available</div>' +
       '<div class="stat-value" data-count="' + availCount + '">' + availCount + '</div>' +
       '<div class="stat-sub">of 16 carts</div>' +
     '</div>' +
-    '<div class="stat-card">' +
+    '<div class="stat-card clickable" onclick="switchView(\'revenue\')">' +
       '<div class="stat-label">Today\'s Revenue</div>' +
       '<div class="stat-value" data-count="' + todayRevenue + '" data-money="true">$0</div>' +
       '<div class="stat-sub">' + fmtDate(TODAY) + '</div>' +
     '</div>' +
-    '<div class="stat-card highlight">' +
+    '<div class="stat-card highlight clickable" onclick="switchView(\'revenue\')">' +
       '<div class="stat-label">Fees Saved</div>' +
       '<div class="stat-value" data-count="2840" data-money="true">$0</div>' +
       '<div class="stat-sub">vs. third-party platforms</div>' +
@@ -4190,13 +4833,14 @@ function renderDashboard() {
   });
   document.getElementById('activity-timeline').innerHTML = timelineHTML;
 
-  // Revenue Chart
-  var maxRev = Math.max.apply(null, store.weekRevenue.map(function(w) { return w.amount; }));
+  // Revenue Chart (computed from reservations)
+  var maxRev = Math.max.apply(null, weekData.map(function(w) { return w.amount; }));
+  if (maxRev === 0) maxRev = 1;
   var chartHTML = '<div class="bar-chart">';
-  store.weekRevenue.forEach(function(w, i) {
+  weekData.forEach(function(w, i) {
     var pct = Math.round((w.amount / maxRev) * 230);
     chartHTML +=
-      '<div class="bar-col">' +
+      '<div class="bar-col" style="cursor:pointer" onclick="drillToDay(\'' + w.isoDate + '\')">' +
         '<div class="bar" style="height:' + pct + 'px;animation-delay:' + (i * 80) + 'ms">' +
           '<div class="bar-tooltip">' + fmtMoney(w.amount) + '</div>' +
         '</div>' +
@@ -4212,19 +4856,17 @@ function renderDashboard() {
   var maintCount = store.fleet.filter(function(c) { return c.status === 'maintenance'; }).length;
   var pendingDeposits = store.reservations.filter(function(r) { return r.status === 'confirmed' && r.depositStatus === 'pending'; }).length;
   var actionItems = [];
-  if (overdueCount > 0) actionItems.push({ icon: '!', text: overdueCount + ' cart' + (overdueCount > 1 ? 's' : '') + ' overdue', cls: 'action-urgent' });
-  if (pendingWaivers > 0) actionItems.push({ icon: '?', text: pendingWaivers + ' waiver' + (pendingWaivers > 1 ? 's' : '') + ' unsigned', cls: 'action-warn' });
-  if (pendingDeposits > 0) actionItems.push({ icon: '$', text: pendingDeposits + ' deposit' + (pendingDeposits > 1 ? 's' : '') + ' pending', cls: 'action-warn' });
-  if (maintCount > 0) actionItems.push({ icon: '\u2699', text: maintCount + ' cart' + (maintCount > 1 ? 's' : '') + ' in maintenance', cls: 'action-info' });
+  if (overdueCount > 0) actionItems.push({ icon: '!', text: overdueCount + ' cart' + (overdueCount > 1 ? 's' : '') + ' overdue', cls: 'action-urgent', action: "switchView('reservations');setResFilter('overdue')" });
+  if (pendingWaivers > 0) actionItems.push({ icon: '?', text: pendingWaivers + ' waiver' + (pendingWaivers > 1 ? 's' : '') + ' unsigned', cls: 'action-warn', action: "switchView('reservations');setResFilter('waiver-pending')" });
+  if (pendingDeposits > 0) actionItems.push({ icon: '$', text: pendingDeposits + ' deposit' + (pendingDeposits > 1 ? 's' : '') + ' pending', cls: 'action-deposit', action: "switchView('reservations');setResFilter('deposit-pending')" });
+  if (maintCount > 0) actionItems.push({ icon: '\u2699', text: maintCount + ' cart' + (maintCount > 1 ? 's' : '') + ' in maintenance', cls: 'action-info', action: "switchView('maintenance');setMaintFilter('in-progress')" });
 
   if (actionItems.length > 0) {
-    var actionsHTML = '<div class="action-items-box">';
-    actionsHTML += '<div class="action-items-header">' + actionItems.length + ' Action Item' + (actionItems.length > 1 ? 's' : '') + '</div>';
+    var actionsHTML = '<div class="module-header-free">Action Items</div>';
+    actionsHTML += '<div class="action-pills-wrap">';
     actionItems.forEach(function(a) {
-      actionsHTML += '<div class="action-item ' + a.cls + '">' +
-        '<span class="action-icon">' + a.icon + '</span>' +
-        '<span>' + a.text + '</span>' +
-      '</div>';
+      var pillCls = a.cls === 'action-urgent' ? 'pill-urgent' : a.cls === 'action-deposit' ? 'pill-deposit' : a.cls === 'action-info' ? 'pill-info' : 'pill-warn';
+      actionsHTML += '<div class="action-pill ' + pillCls + '" onclick="' + a.action + '">' + a.text + '</div>';
     });
     actionsHTML += '</div>';
     document.getElementById('action-items').innerHTML = actionsHTML;
@@ -4236,8 +4878,8 @@ function renderDashboard() {
     var vt = getVehicleTypeForCart(cart);
     glanceHTML +=
       '<div class="glance-tile" onclick="switchView(\'fleet\')">' +
-        '<div class="glance-id">' + cart.name + '</div>' +
-        '<div class="glance-type">' + vt.name + '</div>' +
+        '<div class="glance-id">' + vt.name + '</div>' +
+        '<div class="glance-type">' + cart.name + '</div>' +
         '<div class="glance-status">' +
           statusDot(cart.status) +
         '</div>' +
@@ -4245,6 +4887,18 @@ function renderDashboard() {
   });
   glanceHTML += '</div>';
   document.getElementById('fleet-glance').innerHTML = glanceHTML;
+
+  // Sync left column height to right column
+  requestAnimationFrame(function() {
+    var rightCol = document.querySelector('.dashboard-right');
+    var leftModule = document.querySelector('.dashboard-left .dashboard-module');
+    if (rightCol && leftModule) {
+      var rightH = rightCol.getBoundingClientRect().height;
+      var headerFree = document.querySelector('.dashboard-left .module-header-free');
+      var headerOffset = headerFree ? headerFree.getBoundingClientRect().height + 8 : 0;
+      leftModule.style.maxHeight = (rightH - headerOffset) + 'px';
+    }
+  });
 }
 
 /* ══════════════════════════════════════════════════════
@@ -4363,10 +5017,11 @@ function confirmAddCart() {
   showToast(name + ' added to fleet' + (vt ? ' as ' + vt.name : ''));
 }
 
+var fleetExpandedTypes = {};
+
 function renderFleet() {
   var search = (document.getElementById('fleet-search') ? document.getElementById('fleet-search').value : '').toLowerCase();
   var counts = { all: store.fleet.length, available: 0, rented: 0, maintenance: 0 };
-  // Update subtitle
   var subtitle = document.getElementById('fleet-subtitle');
   if (subtitle) subtitle.textContent = store.fleet.length + ' carts across the fleet';
   store.fleet.forEach(function(c) {
@@ -4386,45 +5041,106 @@ function renderFleet() {
     return '<div class="filter-tab ' + (fleetFilter === f.key ? 'active' : '') + '" onclick="setFleetFilter(\'' + f.key + '\')">' + f.label + '</div>';
   }).join('');
 
-  var carts = store.fleet.slice();
-  if (fleetFilter !== 'all') {
-    if (fleetFilter === 'rented') carts = carts.filter(function(c) { return c.status === 'rented' || c.status === 'overdue'; });
-    else carts = carts.filter(function(c) { return c.status === fleetFilter; });
-  }
-  if (search) {
-    carts = carts.filter(function(c) {
-      return c.name.toLowerCase().indexOf(search) !== -1 ||
-        (c.currentRenter && c.currentRenter.toLowerCase().indexOf(search) !== -1);
-    });
-  }
+  /* Group carts by vehicle type */
+  var groups = {};
+  store.vehicleTypes.forEach(function(vt) { groups[vt.id] = { type: vt, carts: [] }; });
+  store.fleet.forEach(function(cart) {
+    if (groups[cart.typeId]) groups[cart.typeId].carts.push(cart);
+  });
 
   var html = '';
-  carts.forEach(function(cart) {
-    var vt = getVehicleTypeForCart(cart);
-    var statusText = statusLabel(cart.status);
-    var statusCls = cart.status;
-    if (cart.status === 'rented' && cart.currentRenter) {
-      statusText = 'Rented. ' + cart.currentRenter + '. Due ' + fmtTime(cart.returnTime);
-    } else if (cart.status === 'overdue' && cart.currentRenter) {
-      statusText = 'Overdue. ' + cart.currentRenter + '. Due ' + fmtTime(cart.returnTime);
+  Object.keys(groups).forEach(function(typeId) {
+    var g = groups[typeId];
+    var vt = g.type;
+    var allCarts = g.carts;
+    if (allCarts.length === 0) return;
+
+    /* Apply filter */
+    var filtered = allCarts.slice();
+    if (fleetFilter !== 'all') {
+      if (fleetFilter === 'rented') filtered = filtered.filter(function(c) { return c.status === 'rented' || c.status === 'overdue'; });
+      else filtered = filtered.filter(function(c) { return c.status === fleetFilter; });
+    }
+    if (search) {
+      filtered = filtered.filter(function(c) {
+        return c.name.toLowerCase().indexOf(search) !== -1 ||
+          (c.currentRenter && c.currentRenter.toLowerCase().indexOf(search) !== -1);
+      });
     }
 
+    /* Count statuses for this type (always from full set) */
+    var sc = { available: 0, rented: 0, maintenance: 0, overdue: 0 };
+    allCarts.forEach(function(c) {
+      if (c.status === 'available') sc.available++;
+      else if (c.status === 'rented') sc.rented++;
+      else if (c.status === 'overdue') sc.overdue++;
+      else if (c.status === 'maintenance') sc.maintenance++;
+    });
+
+    /* If filter is active and no carts match, skip this band entirely */
+    if (fleetFilter !== 'all' && filtered.length === 0) return;
+    /* If search has results nowhere, skip */
+    if (search && filtered.length === 0) return;
+
+    /* Auto-expand when filter active, or respect manual toggle */
+    var isExpanded = fleetFilter !== 'all' || search || fleetExpandedTypes[typeId];
+
+    /* Stats row */
+    var statsHTML = '';
+    if (sc.available > 0) statsHTML += '<span class="fleet-band-stat"><span class="dot avail"></span>' + sc.available + ' Available</span>';
+    if (sc.rented > 0) statsHTML += '<span class="fleet-band-stat"><span class="dot rented"></span>' + sc.rented + ' Rented</span>';
+    if (sc.overdue > 0) statsHTML += '<span class="fleet-band-stat"><span class="dot overdue"></span>' + sc.overdue + ' Overdue</span>';
+    if (sc.maintenance > 0) statsHTML += '<span class="fleet-band-stat"><span class="dot maint"></span>' + sc.maintenance + ' Maintenance</span>';
+
+    /* Build cart rows */
+    var rowsHTML = '';
+    rowsHTML += '<div class="fleet-unit-header"><span>Cart</span><span>Renter</span><span>Status</span><span>Condition</span><span style="text-align:right">Miles</span></div>';
+    filtered.forEach(function(cart) {
+      var renterText = '';
+      if ((cart.status === 'rented' || cart.status === 'overdue') && cart.currentRenter) {
+        renterText = cart.currentRenter;
+        if (cart.returnTime) renterText += ' · Due ' + fmtTime(cart.returnTime);
+      }
+
+      rowsHTML +=
+        '<div class="fleet-unit-row" onclick="openCartPanel(' + cart.id + ')">' +
+          '<span class="fleet-unit-name">' + cart.name + '</span>' +
+          '<span class="fleet-unit-renter">' + renterText + '</span>' +
+          '<span class="fleet-unit-status">' + statusDot(cart.status) + '</span>' +
+          '<span class="fleet-unit-condition">' + capitalize(cart.condition) + '</span>' +
+          '<span class="fleet-unit-mileage">' + cart.mileage.toLocaleString() + '</span>' +
+        '</div>';
+    });
+
     html +=
-      '<div class="cart-card" onclick="openCartPanel(' + cart.id + ')">' +
-        '<div class="cart-card-img">' + cartImage(cart.typeId) + '</div>' +
-        '<div class="cart-card-body">' +
-          '<div class="cart-card-name">' + cart.name + '</div>' +
-          '<div class="cart-card-meta">' + vt.name + '</div>' +
-          '<div class="cart-card-rate">From ' + fmtMoney(vt.rates.hourly) + '/hr</div>' +
-          '<div class="cart-card-status">' +
-            statusDot(statusCls) +
+      '<div class="fleet-band' + (isExpanded ? ' expanded' : '') + '" data-type-id="' + typeId + '">' +
+        '<div class="fleet-band-header" onclick="toggleFleetBand(\'' + typeId + '\')">' +
+          '<div class="fleet-band-img">' + cartImage(typeId) + '</div>' +
+          '<div class="fleet-band-info">' +
+            '<div class="fleet-band-title">' +
+              vt.name +
+              '<span class="fleet-band-count">' + allCarts.length + ' unit' + (allCarts.length !== 1 ? 's' : '') + '</span>' +
+            '</div>' +
+            '<div class="fleet-band-stats">' + statsHTML + '</div>' +
+            '<div class="fleet-band-rate">' + fmtMoney(vt.rates.daily) + '/day' + (vt.rates.hourly > 0 ? '  ·  ' + fmtMoney(vt.rates.hourly) + '/hr' : '') + '</div>' +
           '</div>' +
-          '<div class="cart-card-condition">' + capitalize(cart.condition) + '</div>' +
+          '<span class="fleet-band-chevron">&#9662;</span>' +
         '</div>' +
+        '<div class="fleet-band-body">' + rowsHTML + '</div>' +
       '</div>';
   });
 
+  if (!html) {
+    html = '<div class="fleet-empty-band">No carts match the current filter.</div>';
+  }
+
   document.getElementById('fleet-grid').innerHTML = html;
+}
+
+function toggleFleetBand(typeId) {
+  fleetExpandedTypes[typeId] = !fleetExpandedTypes[typeId];
+  var band = document.querySelector('.fleet-band[data-type-id="' + typeId + '"]');
+  if (band) band.classList.toggle('expanded');
 }
 
 function openCartPanel(cartId) {
@@ -4434,8 +5150,8 @@ function openCartPanel(cartId) {
 
   var html =
     '<div class="panel-section">' +
-      '<div style="font-size:1.1rem;font-weight:600;margin-bottom:0.25rem">' + cart.name + '</div>' +
-      '<div style="font-size:0.88rem;color:var(--ink-mid)">' + vt.name + '</div>' +
+      '<div style="font-size:1.1rem;font-weight:600;margin-bottom:0.25rem">' + vt.name + '</div>' +
+      '<div style="font-size:0.88rem;color:var(--ink-mid)">' + cart.name + '</div>' +
     '</div>' +
     '<hr class="panel-divider">' +
     '<div class="panel-section">' +
@@ -4754,21 +5470,21 @@ function openMaintenanceDetail(cartId) {
   var logs = (store.maintenanceLogs || []).filter(function(l) { return l.cartId === cartId; })
     .sort(function(a, b) { return b.scheduledDate.localeCompare(a.scheduledDate); });
 
-  var statusColors = { 'in-progress': 'var(--yellow)', 'waiting-parts': 'var(--status-red)', 'completed': 'var(--status-green)', 'scheduled': 'var(--accent)' };
+  var statusColors = { 'in-progress': 'var(--yellow)', 'waiting-parts': 'var(--status-red)', 'completed': '#0A9C78', 'scheduled': 'var(--warm-white)' };
 
   var html = '<div style="margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid var(--ink)">';
   html += '<div style="display:flex;justify-content:space-between;align-items:baseline">';
   html += '<div><span style="font-family:var(--font-display);font-size:1.6rem;font-weight:600">' + cart.name + '</span>';
   html += '<span style="font-family:var(--font-mono);font-size:0.8rem;color:var(--ink-light);margin-left:0.75rem">' + (type ? type.name : '') + '</span></div>';
-  html += '<span class="status-dot maintenance">MAINTENANCE</span>';
+  html += '<span class="status-dot maintenance" style="border:1px solid var(--ink)">MAINTENANCE</span>';
   html += '</div>';
   html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem">';
-  html += '<div><span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);font-weight:600">Mileage</span><br><span style="font-family:var(--font-mono);font-size:1.1rem;font-weight:600">' + Number(cart.mileage).toLocaleString() + ' mi</span></div>';
-  html += '<div><span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);font-weight:600">Condition</span><br><span style="font-family:var(--font-mono);font-size:1.1rem;font-weight:600">' + (cart.condition || '—').toUpperCase() + '</span></div>';
-  html += '<div><span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);font-weight:600">GPS</span><br><span style="font-family:var(--font-mono);font-size:1.1rem;font-weight:600">' + (cart.gpsStatus || '—').toUpperCase() + '</span></div>';
+  html += '<div><span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);font-weight:600">Mileage</span><br><span style="font-family:var(--font-mono);font-size:1.1rem;font-weight:600;color:var(--ink)">' + Number(cart.mileage).toLocaleString() + ' mi</span></div>';
+  html += '<div><span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);font-weight:600">Condition</span><br><span style="font-family:var(--font-mono);font-size:1.1rem;font-weight:600;color:var(--ink)">' + (cart.condition || '—').toUpperCase() + '</span></div>';
+  html += '<div><span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);font-weight:600">GPS</span><br><span style="font-family:var(--font-mono);font-size:1.1rem;font-weight:600;color:var(--ink)">' + (cart.gpsStatus || '—').toUpperCase() + '</span></div>';
   html += '</div>';
   if (cart.notes) {
-    html += '<div style="margin-top:0.75rem;font-size:0.85rem;color:var(--ink-mid);font-style:italic">' + cart.notes + '</div>';
+    html += '<div style="margin-top:0.75rem;font-size:0.88rem;color:var(--ink);font-style:italic;font-family:var(--font-display);line-height:1.5">' + cart.notes + '</div>';
   }
   html += '</div>';
 
@@ -4798,7 +5514,7 @@ function openMaintenanceDetail(cartId) {
         html += '<div style="font-size:0.78rem;color:var(--ink-mid);margin-bottom:0.35rem"><span style="font-weight:600">Cost:</span> $' + Number(log.cost).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}) + '</div>';
       }
       if (log.notes) {
-        html += '<div style="font-size:0.78rem;color:var(--ink-mid);font-style:italic;border-top:1px solid var(--rule-light);padding-top:0.35rem;margin-top:0.35rem">' + log.notes + '</div>';
+        html += '<div style="font-size:0.85rem;color:var(--ink);font-style:italic;font-family:var(--font-display);border-top:1px solid var(--rule-light);padding-top:0.35rem;margin-top:0.35rem;line-height:1.5">' + log.notes + '</div>';
       }
       html += '</div>';
     });
@@ -4824,22 +5540,78 @@ function openMaintenanceDetail(cartId) {
    RESERVATIONS
    ══════════════════════════════════════════════════════ */
 var resFilter = 'all';
+var resDateFilter = null;
 
 function setResFilter(f) {
   resFilter = f;
+  resDateFilter = null;
+  syncDateInput();
   renderReservations();
+}
+
+function drillToDay(isoDate) {
+  resFilter = 'all';
+  resDateFilter = isoDate;
+  switchView('reservations');
+  syncDateInput();
+  renderReservations();
+}
+
+function filterByDate(val) {
+  if (val) {
+    resDateFilter = val;
+  } else {
+    resDateFilter = null;
+  }
+  syncDateInput();
+  renderReservations();
+}
+
+function clearDateFilter() {
+  resDateFilter = null;
+  var input = document.getElementById('res-date-input');
+  if (input) input.value = '';
+  syncDateInput();
+  renderReservations();
+}
+
+function syncDateInput() {
+  var input = document.getElementById('res-date-input');
+  var clearBtn = document.getElementById('res-date-clear');
+  if (input && resDateFilter) {
+    input.value = resDateFilter;
+  } else if (input) {
+    input.value = '';
+  }
+  if (clearBtn) {
+    clearBtn.style.display = resDateFilter ? 'flex' : 'none';
+  }
 }
 
 function renderReservations() {
   var search = (document.getElementById('res-search') ? document.getElementById('res-search').value : '').toLowerCase();
 
-  var counts = { all: store.reservations.length, confirmed: 0, 'checked-in': 0, completed: 0, cancelled: 0 };
+  var overdueCount = 0;
+  store.reservations.forEach(function(r) {
+    if (r.status === 'checked-in' && r.cartId) {
+      var cart = getCart(r.cartId);
+      if (cart && cart.status === 'overdue') overdueCount++;
+    }
+  });
+
+  var waiverPendingCount = store.reservations.filter(function(r) { return r.status === 'confirmed' && r.waiverStatus === 'pending'; }).length;
+  var depositPendingCount = store.reservations.filter(function(r) { return r.status === 'confirmed' && r.depositStatus === 'pending'; }).length;
+
+  var counts = { all: store.reservations.length, confirmed: 0, 'checked-in': 0, overdue: overdueCount, completed: 0, cancelled: 0 };
   store.reservations.forEach(function(r) { if (counts[r.status] !== undefined) counts[r.status]++; });
 
   var filters = [
     { key: 'all', label: 'All (' + counts.all + ')' },
     { key: 'confirmed', label: 'Confirmed (' + counts.confirmed + ')' },
     { key: 'checked-in', label: 'Checked In (' + counts['checked-in'] + ')' },
+    { key: 'overdue', label: 'Overdue (' + counts.overdue + ')' },
+    { key: 'waiver-pending', label: 'Waivers Pending (' + waiverPendingCount + ')' },
+    { key: 'deposit-pending', label: 'Deposits Pending (' + depositPendingCount + ')' },
     { key: 'completed', label: 'Completed (' + counts.completed + ')' },
     { key: 'cancelled', label: 'Cancelled (' + counts.cancelled + ')' },
   ];
@@ -4848,10 +5620,44 @@ function renderReservations() {
     return '<div class="filter-tab ' + (resFilter === f.key ? 'active' : '') + '" onclick="setResFilter(\'' + f.key + '\')">' + f.label + '</div>';
   }).join('');
 
+  // Date drill-down banner
+  var dateBannerEl = document.getElementById('res-date-banner');
+  if (!dateBannerEl) {
+    var bannerDiv = document.createElement('div');
+    bannerDiv.id = 'res-date-banner';
+    var tableContainer = document.getElementById('res-table-container');
+    tableContainer.parentNode.insertBefore(bannerDiv, tableContainer);
+    dateBannerEl = bannerDiv;
+  }
+  if (resDateFilter) {
+    dateBannerEl.innerHTML = '<div style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem 1rem;margin-bottom:1rem;background:var(--yellow);border:2px solid var(--ink);border-radius:2px;font-size:0.82rem;font-weight:600">' +
+      '<span>Showing pickups on ' + fmtDate(resDateFilter) + '</span>' +
+      '<span style="margin-left:auto;cursor:pointer;font-family:var(--font-mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em" onclick="clearDateFilter()">Clear \u2715</span>' +
+    '</div>';
+  } else {
+    dateBannerEl.innerHTML = '';
+  }
+
   document.getElementById('res-count').textContent = store.reservations.length + ' reservations';
 
   var resos = store.reservations.slice();
-  if (resFilter !== 'all') resos = resos.filter(function(r) { return r.status === resFilter; });
+  if (resFilter === 'overdue') {
+    resos = resos.filter(function(r) {
+      if (r.status !== 'checked-in' || !r.cartId) return false;
+      var cart = getCart(r.cartId);
+      return cart && cart.status === 'overdue';
+    });
+  } else if (resFilter === 'waiver-pending') {
+    resos = resos.filter(function(r) { return r.status === 'confirmed' && r.waiverStatus === 'pending'; });
+  } else if (resFilter === 'deposit-pending') {
+    resos = resos.filter(function(r) { return r.status === 'confirmed' && r.depositStatus === 'pending'; });
+  } else if (resFilter !== 'all') {
+    resos = resos.filter(function(r) { return r.status === resFilter; });
+  }
+  // Date drill-down from revenue
+  if (resDateFilter) {
+    resos = resos.filter(function(r) { return r.pickupDate === resDateFilter; });
+  }
   if (search) {
     resos = resos.filter(function(r) {
       var cart = r.cartId ? getCart(r.cartId) : null;
@@ -4874,7 +5680,35 @@ function renderReservations() {
     if (cart) vehicleCol = cart.name + ' <span style="color:var(--ink-light);font-size:0.78rem">(' + (vt ? vt.passengerCount + '-pass' : '') + ')</span>';
     else if (vt) vehicleCol = '<span style="color:var(--ink-mid)">' + vt.name + '</span> <span style="color:var(--ink-light);font-size:0.72rem">unassigned</span>';
     var dur = durationText(r.pickupDate, r.pickupTime, r.returnDate, r.returnTime);
-    html += '<tr class="clickable" onclick="openResPanel(' + r.id + ')">' +
+
+    // Derive overdue status
+    var isOverdue = r.status === 'checked-in' && cart && cart.status === 'overdue';
+    var statusCol = '';
+    if (isOverdue) {
+      var overdueHrs = '';
+      if (r.returnTime) {
+        var rh = parseInt(r.returnTime.split(':')[0]);
+        var nowH = 14;
+        var diff = nowH - rh;
+        if (diff > 0) overdueHrs = ' ' + diff + 'hr';
+      }
+      statusCol = '<span class="status-dot overdue" style="background:var(--status-red);color:#fff;border-color:var(--status-red)">OVERDUE' + overdueHrs + '</span>';
+    } else {
+      statusCol = statusDot(r.status);
+    }
+
+    // Waiver + deposit badges
+    var flagsCol = '';
+    if (r.status === 'confirmed' || r.status === 'checked-in') {
+      if (r.waiverStatus === 'pending') {
+        flagsCol += '<span class="res-flag flag-waiver" title="Waiver unsigned">WAIVER</span>';
+      }
+      if (r.depositStatus === 'pending') {
+        flagsCol += '<span class="res-flag flag-deposit" title="Deposit pending">DEPOSIT</span>';
+      }
+    }
+
+    html += '<tr class="clickable' + (isOverdue ? ' row-overdue' : '') + '" onclick="openResPanel(' + r.id + ')">' +
       '<td>' + r.id + '</td>' +
       '<td>' + r.customer.name + '</td>' +
       '<td>' + vehicleCol + '</td>' +
@@ -4882,7 +5716,7 @@ function renderReservations() {
       '<td>' + fmtDate(r.returnDate) + ' ' + fmtTime(r.returnTime) + '</td>' +
       '<td>' + dur + '</td>' +
       '<td>' + fmtMoney(r.total) + '</td>' +
-      '<td>' + statusDot(r.status) + '</td>' +
+      '<td>' + statusCol + (flagsCol ? '<div style="margin-top:3px">' + flagsCol + '</div>' : '') + '</td>' +
     '</tr>';
   });
 
@@ -4934,7 +5768,14 @@ function openResPanel(resId) {
       '<div class="panel-section-title">Status</div>' +
       '<div class="panel-row">' +
         '<span class="panel-row-label">Reservation</span>' +
-        '<span class="panel-row-value">' + statusDot(res.status) + '</span>' +
+        '<span class="panel-row-value">' + (function() {
+          if (res.status === 'checked-in' && cart && cart.status === 'overdue') {
+            var oh = '';
+            if (res.returnTime) { var rh = parseInt(res.returnTime.split(':')[0]); var diff = 14 - rh; if (diff > 0) oh = ' ' + diff + 'HR'; }
+            return '<span class="status-dot overdue" style="background:var(--status-red);color:#fff;border-color:var(--status-red)">OVERDUE' + oh + '</span>';
+          }
+          return statusDot(res.status);
+        })() + '</span>' +
       '</div>' +
       '<div class="panel-row">' +
         '<span class="panel-row-label">Waiver</span>' +
@@ -4946,6 +5787,7 @@ function openResPanel(resId) {
         '<span class="panel-row-label">Deposit</span>' +
         '<span class="panel-row-value" style="font-family:var(--font-mono);font-size:0.82rem;">' +
           '[' + (res.depositStatus === 'paid' ? '✓' : ' ') + '] DEPOSIT ' + (res.depositStatus === 'paid' ? 'PAID' : res.depositStatus === 'refunded' ? 'REFUNDED' : 'PENDING') +
+          (res.depositStatus === 'pending' ? ' <a href="#" onclick="event.preventDefault();collectDepositDemo(' + res.id + ')" style="color:var(--accent);margin-left:0.5rem;font-size:0.78rem;font-weight:600">Collect</a>' : '') +
         '</span>' +
       '</div>' +
     '</div>';
@@ -5384,7 +6226,7 @@ function renderVehicleTypes() {
   var listHtml =
     '<div class="vt-list-header">' +
       '<span>' + store.vehicleTypes.length + ' Vehicle Type' + (store.vehicleTypes.length !== 1 ? 's' : '') + '</span>' +
-      '<button class="vt-list-add" onclick="addVehicleType()">+ Add Type</button>' +
+      '<button class="vt-list-add" onclick="addVehicleType()">+ Add Vehicle</button>' +
     '</div>';
 
   store.vehicleTypes.forEach(function(vt, idx) {
@@ -5842,7 +6684,7 @@ function renderPromotions() {
     var usageText = promo.maxUses ? promo.timesUsed + ' / ' + promo.maxUses + ' used' : promo.timesUsed + ' used';
 
     html +=
-      '<div class="promo-card"' + (!promo.active ? ' style="opacity:0.6"' : '') + '>' +
+      '<div class="promo-card"' + (!promo.active ? ' style="opacity:0.5;box-shadow:none"' : '') + '>' +
         '<div class="promo-header">' +
           '<div class="promo-name">' + promo.name + '</div>' +
           '<div class="toggle-switch ' + (promo.active ? 'active' : '') + '" onclick="togglePromo(' + promo.id + ')">' +
@@ -5955,14 +6797,242 @@ function saveNewPromotion() {
 }
 
 /* ══════════════════════════════════════════════════════
+   MAINTENANCE TAB
+   ══════════════════════════════════════════════════════ */
+var maintFilter = 'all';
+
+function setMaintFilter(f) {
+  maintFilter = f;
+  renderMaintenance();
+}
+
+function renderMaintenance() {
+  var logs = store.maintenanceLogs || [];
+  var counts = { all: logs.length, 'in-progress': 0, 'waiting-parts': 0, completed: 0, scheduled: 0 };
+  logs.forEach(function(l) { if (counts[l.status] !== undefined) counts[l.status]++; });
+
+  var filters = [
+    { key: 'all', label: 'All (' + counts.all + ')' },
+    { key: 'in-progress', label: 'In Progress (' + counts['in-progress'] + ')' },
+    { key: 'waiting-parts', label: 'Waiting Parts (' + counts['waiting-parts'] + ')' },
+    { key: 'scheduled', label: 'Scheduled (' + counts.scheduled + ')' },
+    { key: 'completed', label: 'Completed (' + counts.completed + ')' },
+  ];
+
+  document.getElementById('maint-filters').innerHTML = filters.map(function(f) {
+    return '<div class="filter-tab ' + (maintFilter === f.key ? 'active' : '') + '" onclick="setMaintFilter(\'' + f.key + '\')">' + f.label + '</div>';
+  }).join('');
+
+  var filtered = logs.slice();
+  if (maintFilter !== 'all') filtered = filtered.filter(function(l) { return l.status === maintFilter; });
+
+  // Sort: active work first, then by date descending
+  var statusOrder = { 'in-progress': 0, 'waiting-parts': 1, 'scheduled': 2, 'completed': 3 };
+  filtered.sort(function(a, b) {
+    var sa = statusOrder[a.status] !== undefined ? statusOrder[a.status] : 9;
+    var sb = statusOrder[b.status] !== undefined ? statusOrder[b.status] : 9;
+    if (sa !== sb) return sa - sb;
+    return (b.scheduledDate || '').localeCompare(a.scheduledDate || '');
+  });
+
+  var html = '';
+  if (filtered.length === 0) {
+    html = '<div style="text-align:center;color:var(--ink-light);padding:3rem"><p>No maintenance records match this filter.</p></div>';
+  } else {
+    html = '<div style="display:flex;flex-direction:column;gap:0.75rem">';
+    filtered.forEach(function(log) {
+      var cart = store.fleet.find(function(c) { return c.id === log.cartId; });
+      var cartName = cart ? cart.name : 'Unknown';
+      var vt = cart ? getVehicleTypeForCart(cart) : null;
+      var vtName = vt ? vt.name : '';
+
+      var statusCls = log.status === 'completed' ? 'maint-completed' :
+                      log.status === 'in-progress' ? 'maint-progress' :
+                      log.status === 'waiting-parts' ? 'maint-waiting' : 'maint-scheduled';
+      var statusLabel = log.status === 'in-progress' ? 'In Progress' :
+                        log.status === 'waiting-parts' ? 'Waiting Parts' :
+                        log.status.charAt(0).toUpperCase() + log.status.slice(1);
+      var typeLabel = log.type.charAt(0).toUpperCase() + log.type.slice(1);
+
+      html +=
+        '<div class="maint-card" onclick="openMaintDetail(' + log.id + ')">' +
+          '<div class="maint-card-header">' +
+            '<div class="maint-card-title">' +
+              '<strong>' + cartName + '</strong> <span style="color:var(--ink-light);font-size:0.82rem">' + vtName + '</span>' +
+            '</div>' +
+            '<div style="display:flex;gap:0.5rem;align-items:center;flex-shrink:0">' +
+              '<span class="status-dot ' + statusCls + '" style="min-width:90px;text-align:center">' + statusLabel + '</span>' +
+              '<span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--ink-light);text-transform:uppercase;min-width:70px;text-align:right">' + typeLabel + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="maint-card-body">' +
+            '<p style="margin:0 0 0.5rem;font-size:0.88rem;color:var(--ink-mid)">' + log.description + '</p>' +
+            '<div style="display:flex;gap:1.5rem;font-size:0.78rem;color:var(--ink-light)">' +
+              '<span>Scheduled: <strong style="color:var(--ink)">' + fmtDate(log.scheduledDate) + '</strong></span>' +
+              (log.completedDate ? '<span>Completed: <strong style="color:var(--ink)">' + fmtDate(log.completedDate) + '</strong></span>' : '') +
+              (log.cost > 0 ? '<span>Cost: <strong style="color:var(--ink)">' + fmtMoney(log.cost) + '</strong></span>' : '') +
+              '<span>Tech: <strong style="color:var(--ink)">' + log.technician + '</strong></span>' +
+            '</div>' +
+            (log.parts && log.parts.length > 0 ?
+              '<div style="margin-top:0.5rem;display:flex;flex-wrap:wrap;gap:0.25rem">' +
+                log.parts.map(function(p) { return '<span class="maint-part-tag">' + p + '</span>'; }).join('') +
+              '</div>' : '') +
+            (log.notes ? '<div style="margin-top:0.5rem;font-size:0.88rem;color:var(--ink);font-style:italic;font-family:var(--font-display);border-left:2px solid var(--yellow);padding-left:0.5rem;line-height:1.5">' + log.notes + '</div>' : '') +
+          '</div>' +
+        '</div>';
+    });
+    html += '</div>';
+  }
+
+  document.getElementById('maint-content').innerHTML = html;
+}
+
+function openMaintDetail(logId) {
+  var log = (store.maintenanceLogs || []).find(function(l) { return l.id === logId; });
+  if (!log) return;
+  var cart = store.fleet.find(function(c) { return c.id === log.cartId; });
+  var cartName = cart ? cart.name : 'Unknown';
+  openMaintenanceDetail(log.cartId);
+}
+
+function openNewMaintenanceForm() {
+  var cartOptions = store.fleet.map(function(c) {
+    var vt = getVehicleTypeForCart(c);
+    return '<option value="' + c.id + '">' + c.name + ' — ' + (vt ? vt.name : '') + '</option>';
+  }).join('');
+
+  document.getElementById('maint-modal-body').innerHTML =
+    '<div style="display:flex;flex-direction:column;gap:1rem">' +
+      '<h3 style="margin:0;font-family:var(--font-display);font-style:italic">New Work Order</h3>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">' +
+        '<div><label style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-light);display:block;margin-bottom:0.25rem">Vehicle</label>' +
+          '<select id="maint-new-cart" style="width:100%;padding:0.5rem;border:1px solid var(--rule);font-family:var(--font-body)">' + cartOptions + '</select></div>' +
+        '<div><label style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-light);display:block;margin-bottom:0.25rem">Type</label>' +
+          '<select id="maint-new-type" style="width:100%;padding:0.5rem;border:1px solid var(--rule);font-family:var(--font-body)"><option value="repair">Repair</option><option value="service">Service</option><option value="inspection">Inspection</option></select></div>' +
+        '<div style="grid-column:span 2"><label style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-light);display:block;margin-bottom:0.25rem">Description</label>' +
+          '<textarea id="maint-new-desc" rows="2" style="width:100%;padding:0.5rem;border:1px solid var(--rule);font-family:var(--font-body);resize:vertical" placeholder="Describe the work needed..."></textarea></div>' +
+        '<div><label style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-light);display:block;margin-bottom:0.25rem">Scheduled Date</label>' +
+          '<input type="date" id="maint-new-date" style="width:100%;padding:0.5rem;border:1px solid var(--rule);font-family:var(--font-body)"></div>' +
+        '<div><label style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-light);display:block;margin-bottom:0.25rem">Technician</label>' +
+          '<input type="text" id="maint-new-tech" value="Rick Salinas" style="width:100%;padding:0.5rem;border:1px solid var(--rule);font-family:var(--font-body)"></div>' +
+        '<div><label style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-light);display:block;margin-bottom:0.25rem">Estimated Cost</label>' +
+          '<input type="number" id="maint-new-cost" value="0" style="width:100%;padding:0.5rem;border:1px solid var(--rule);font-family:var(--font-body)"></div>' +
+      '</div>' +
+      '<div style="display:flex;justify-content:flex-end;gap:0.5rem;margin-top:0.5rem">' +
+        '<button onclick="closeModal(\'maint-modal\')" style="padding:0.5rem 1rem;border:1px solid var(--rule);background:var(--warm-white);cursor:pointer;font-family:var(--font-body)">Cancel</button>' +
+        '<button onclick="confirmNewMaintenance()" class="btn-primary" style="padding:0.5rem 1rem">Create Work Order</button>' +
+      '</div>' +
+    '</div>';
+  openModal('maint-modal');
+}
+
+function confirmNewMaintenance() {
+  var cartId = parseInt(document.getElementById('maint-new-cart').value);
+  var type = document.getElementById('maint-new-type').value;
+  var desc = document.getElementById('maint-new-desc').value || 'New work order';
+  var date = document.getElementById('maint-new-date').value || new Date().toISOString().split('T')[0];
+  var tech = document.getElementById('maint-new-tech').value || 'Rick Salinas';
+  var cost = parseFloat(document.getElementById('maint-new-cost').value) || 0;
+
+  var newId = store.maintenanceLogs.length > 0 ? Math.max.apply(null, store.maintenanceLogs.map(function(l) { return l.id; })) + 1 : 1;
+  store.maintenanceLogs.push({
+    id: newId, cartId: cartId, type: type, description: desc,
+    scheduledDate: date, completedDate: null, cost: cost,
+    technician: tech, status: 'scheduled', parts: [], notes: ''
+  });
+  closeModal('maint-modal');
+  renderMaintenance();
+  showToast('Work order created');
+}
+
+/* ══════════════════════════════════════════════════════
+   REVENUE TAB
+   ══════════════════════════════════════════════════════ */
+function renderRevenue() {
+  var weekData = computeWeekRevenue();
+
+  // Summary stats
+  var totalWeek = 0;
+  weekData.forEach(function(w) { totalWeek += w.amount; });
+  var avgDaily = Math.round(totalWeek / weekData.length);
+  var bestDay = weekData.slice().sort(function(a, b) { return b.amount - a.amount; })[0];
+  var activeRes = store.reservations.filter(function(r) { return r.status === 'checked-in' || r.status === 'confirmed'; }).length;
+
+  document.getElementById('revenue-stats-row').innerHTML =
+    '<div class="stat-card">' +
+      '<div class="stat-label">This Week</div>' +
+      '<div class="stat-value">' + fmtMoney(totalWeek) + '</div>' +
+      '<div class="stat-sub">7-day total</div>' +
+    '</div>' +
+    '<div class="stat-card">' +
+      '<div class="stat-label">Daily Average</div>' +
+      '<div class="stat-value">' + fmtMoney(avgDaily) + '</div>' +
+      '<div class="stat-sub">per day this week</div>' +
+    '</div>' +
+    '<div class="stat-card">' +
+      '<div class="stat-label">Best Day</div>' +
+      '<div class="stat-value">' + fmtMoney(bestDay.amount) + '</div>' +
+      '<div class="stat-sub">' + bestDay.day + ' ' + bestDay.date + '</div>' +
+    '</div>' +
+    '<div class="stat-card highlight">' +
+      '<div class="stat-label">Active Bookings</div>' +
+      '<div class="stat-value">' + activeRes + '</div>' +
+      '<div class="stat-sub">generating revenue</div>' +
+    '</div>';
+
+  // Revenue chart (larger version)
+  var maxRev = Math.max.apply(null, weekData.map(function(w) { return w.amount; }));
+  if (maxRev === 0) maxRev = 1;
+  var chartHTML = '<div class="dashboard-module" style="margin-bottom:2rem">' +
+    '<div class="module-header">Weekly Revenue</div>' +
+    '<div class="bar-chart" style="height:340px">';
+  weekData.forEach(function(w, i) {
+    var pct = Math.round((w.amount / maxRev) * 300);
+    chartHTML +=
+      '<div class="bar-col" style="cursor:pointer" onclick="drillToDay(\'' + w.isoDate + '\')">' +
+        '<div class="bar" style="height:' + pct + 'px;animation-delay:' + (i * 80) + 'ms">' +
+          '<div class="bar-tooltip">' + fmtMoney(w.amount) + ' \u2014 click to view</div>' +
+        '</div>' +
+        '<div class="bar-label">' + w.day + '<br>' + w.date + '</div>' +
+      '</div>';
+  });
+  chartHTML += '</div></div>';
+
+  // Transaction-style breakdown per day (clickable rows)
+  var breakdownHTML = '<div class="dashboard-module"><div class="module-header">Daily Breakdown</div>';
+  breakdownHTML += '<div style="display:flex;flex-direction:column;gap:0">';
+  weekData.forEach(function(w) {
+    var pctOfBest = bestDay.amount > 0 ? Math.round((w.amount / bestDay.amount) * 100) : 0;
+    var resoCount = store.reservations.filter(function(r) { return r.status !== 'cancelled' && r.pickupDate === w.isoDate; }).length;
+    breakdownHTML +=
+      '<div class="rev-day-row" style="display:grid;grid-template-columns:80px 1fr 40px 100px;gap:1rem;align-items:center;padding:0.6rem 1rem;border-bottom:1px solid var(--rule-light);cursor:pointer;transition:background 0.1s" onclick="drillToDay(\'' + w.isoDate + '\')">' +
+        '<span style="font-family:var(--font-mono);font-size:0.82rem;color:var(--ink-light)">' + w.day + ' ' + w.date + '</span>' +
+        '<div style="height:20px;background:var(--cream);border-radius:2px;overflow:hidden">' +
+          '<div style="height:100%;width:' + pctOfBest + '%;background:var(--accent);border-radius:2px;transition:width 600ms var(--ease)"></div>' +
+        '</div>' +
+        '<span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--ink-light);text-align:center">' + resoCount + ' res</span>' +
+        '<span style="font-family:var(--font-body);font-weight:700;text-align:right">' + fmtMoney(w.amount) + '</span>' +
+      '</div>';
+  });
+  breakdownHTML += '</div></div>';
+
+  document.getElementById('revenue-content').innerHTML = chartHTML + breakdownHTML;
+}
+
+/* ══════════════════════════════════════════════════════
    BOOKING WIDGET
    ══════════════════════════════════════════════════════ */
 var widgetPreview = 'desktop';
+var widgetRentalMode = 'daily';
 
 function renderWidget() {
   var firstType = store.vehicleTypes.filter(function(vt) { return vt.isActive; })[0];
-  var sampleTotal = firstType ? Math.round(firstType.rates.daily * (1 + store.settings.taxRate) * 100) / 100 : 81.19;
-  var sampleTax = firstType ? Math.round(firstType.rates.daily * store.settings.taxRate * 100) / 100 : 6.19;
+  var hasHourly = firstType && firstType.rates.hourly > 0;
+  if (!hasHourly && widgetRentalMode === 'hourly') widgetRentalMode = 'daily';
+  var isHourly = widgetRentalMode === 'hourly';
+  var rate = isHourly ? (firstType ? firstType.rates.hourly * 2 : 0) : (firstType ? firstType.rates.daily : 75);
+  var sampleTotal = Math.round(rate * (1 + store.settings.taxRate) * 100) / 100;
+  var sampleTax = Math.round(rate * store.settings.taxRate * 100) / 100;
 
   var widgetForm =
     '<div style="padding:2rem;max-width:480px;margin:0 auto">' +
@@ -5977,19 +7047,29 @@ function renderWidget() {
         '</select>' +
       '</div>' +
       '<div class="rental-mode-toggle">' +
-        '<button class="rental-mode-btn active">Daily Rental</button>' +
-        '<button class="rental-mode-btn">Hourly Rental</button>' +
+        '<button class="rental-mode-btn ' + (widgetRentalMode === 'daily' ? 'active' : '') + '" onclick="setWidgetRentalMode(\'daily\')">Daily Rental</button>' +
+        (hasHourly ? '<button class="rental-mode-btn ' + (widgetRentalMode === 'hourly' ? 'active' : '') + '" onclick="setWidgetRentalMode(\'hourly\')">Hourly Rental</button>' : '') +
       '</div>' +
-      '<div class="form-row">' +
-        '<div class="form-group">' +
-          '<label class="form-label">Pickup Date</label>' +
-          '<input class="form-input" type="date" value="' + TODAY + '">' +
-        '</div>' +
-        '<div class="form-group">' +
-          '<label class="form-label">Return Date</label>' +
-          '<input class="form-input" type="date" value="2026-04-06">' +
-        '</div>' +
-      '</div>' +
+      (isHourly
+        ? '<div class="form-group">' +
+            '<label class="form-label">Pickup Date</label>' +
+            '<input class="form-input" type="date" value="' + TODAY + '">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label class="form-label">Duration (hours, min. 2)</label>' +
+            '<select class="form-select"><option>2 hours</option><option>3 hours</option><option>4 hours</option><option>5 hours</option><option>6 hours</option><option>8 hours</option></select>' +
+          '</div>'
+        : '<div class="form-row">' +
+            '<div class="form-group">' +
+              '<label class="form-label">Pickup Date</label>' +
+              '<input class="form-input" type="date" value="' + TODAY + '">' +
+            '</div>' +
+            '<div class="form-group">' +
+              '<label class="form-label">Return Date</label>' +
+              '<input class="form-input" type="date" value="2026-04-06">' +
+            '</div>' +
+          '</div>'
+      ) +
       '<div class="avail-indicator avail-ok"><span class="avail-dot"></span> 4 of 6 available</div>' +
       '<div class="form-group">' +
         '<div style="display:flex;gap:1rem">' +
@@ -5999,7 +7079,7 @@ function renderWidget() {
       '</div>' +
       '<div class="promo-row"><input class="form-input" type="text" placeholder="Promo code"><button class="btn btn-sm">Apply</button></div>' +
       '<div class="receipt-lines">' +
-        '<div class="receipt-line"><span>1 day × ' + (firstType ? fmtMoney(firstType.rates.daily) : '$75') + '</span><span>' + (firstType ? fmtMoney(firstType.rates.daily) : '$75') + '</span></div>' +
+        '<div class="receipt-line"><span>' + (isHourly ? '2 hrs × ' + (firstType ? fmtMoney(firstType.rates.hourly) : '$25') : '1 day × ' + (firstType ? fmtMoney(firstType.rates.daily) : '$75')) + '</span><span>' + fmtMoney(rate) + '</span></div>' +
         '<div class="receipt-line"><span>Tax (' + (store.settings.taxRate * 100).toFixed(2) + '%)</span><span>' + fmtMoney(sampleTax) + '</span></div>' +
         '<div class="receipt-line total"><span>Total</span><span>' + fmtMoney(sampleTotal) + '</span></div>' +
         '<div class="receipt-line deposit"><span>Deposit due now (' + store.settings.depositPct + '%)</span><span>' + fmtMoney(Math.round(sampleTotal * store.settings.depositPct) / 100) + '</span></div>' +
@@ -6008,17 +7088,28 @@ function renderWidget() {
     '</div>';
 
   var html =
-    '<div style="display:flex;gap:1rem;margin-bottom:1.5rem;align-items:center">' +
-      '<div class="widget-toggle">' +
+    '<div style="display:flex;gap:0.75rem;margin-bottom:1.5rem;align-items:center">' +
+      '<div class="widget-toggle" style="margin:0">' +
         '<button class="widget-toggle-btn ' + (widgetPreview === 'desktop' ? 'active' : '') + '" onclick="setWidgetPreview(\'desktop\')">Desktop</button>' +
         '<button class="widget-toggle-btn ' + (widgetPreview === 'mobile' ? 'active' : '') + '" onclick="setWidgetPreview(\'mobile\')">Mobile</button>' +
       '</div>' +
-      '<button class="btn btn-primary btn-sm" onclick="openGuestView()">Open Full Guest Page</button>' +
+      '<button class="btn btn-sm" style="font-size:0.72rem;font-weight:700;color:var(--ink);border:2px solid var(--ink);background:var(--yellow);text-transform:uppercase;letter-spacing:0.04em;padding:0.4rem 0.9rem;border-radius:4px;box-shadow:2px 2px 0px var(--ink);cursor:pointer;white-space:nowrap" onclick="openGuestView()">Open Full Guest Page</button>' +
     '</div>' +
     '<div class="widget-section">' +
       (widgetPreview === 'desktop'
         ? '<div class="widget-preview">' + widgetForm + '</div>'
-        : '<div class="widget-mobile-frame">' + widgetForm + '</div>'
+        : '<div class="widget-mobile-frame">' +
+            '<div class="iphone-status-bar">' +
+              '<span class="iphone-status-time">9:41</span>' +
+              '<span class="iphone-status-icons">' +
+                '<svg viewBox="0 0 17 12"><path d="M1.5 4.5h1.5v7H1.5a1 1 0 01-1-1v-5a1 1 0 011-1zm3.5-1.5h1.5v8.5H5a1 1 0 01-1-1V4a1 1 0 011-1zm3.5-1.5h1.5V12H10a1 1 0 01-1-1V2.5a1 1 0 011-1zm3.5-1.5h1.5v12.5H14a1 1 0 01-1-1V1a1 1 0 011-1z"/></svg>' +
+                '<svg viewBox="0 0 15 12"><path d="M7.5 2.5a7.5 7.5 0 015.3 2.2l-1.4 1.4A5.5 5.5 0 007.5 4.5a5.5 5.5 0 00-3.9 1.6L2.2 4.7A7.5 7.5 0 017.5 2.5zm0 4a3.5 3.5 0 012.5 1l-2.5 3-2.5-3a3.5 3.5 0 012.5-1z"/></svg>' +
+                '<svg viewBox="0 0 25 12"><rect x="0" y="1" width="21" height="10" rx="2" ry="2" stroke="#1a1a1a" stroke-width="1" fill="none"/><rect x="1.5" y="2.5" width="15" height="7" rx="1" fill="#1a1a1a"/><path d="M23 4.5v3a1.5 1.5 0 000-3z" fill="#1a1a1a" opacity="0.4"/></svg>' +
+              '</span>' +
+            '</div>' +
+            '<div class="iphone-scroll-area">' + widgetForm + '</div>' +
+            '<div class="iphone-home-indicator"></div>' +
+          '</div>'
       ) +
     '</div>' +
     '<div class="widget-section" style="margin-top:1.5rem">' +
@@ -6032,6 +7123,11 @@ function renderWidget() {
 
 function setWidgetPreview(mode) {
   widgetPreview = mode;
+  renderWidget();
+}
+
+function setWidgetRentalMode(mode) {
+  widgetRentalMode = mode;
   renderWidget();
 }
 
