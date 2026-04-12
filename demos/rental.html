@@ -18,42 +18,47 @@
   <meta name="twitter:title" content="Golf Cart Rental Fleet Manager Demo | Local Praxis">
   <meta name="twitter:description" content="Interactive demo of a golf cart rental management system. Fleet tracking, availability calendar, check-in/out workflows, booking widget, and dynamic pricing. Built by Local Praxis.">
   <meta name="twitter:image" content="https://localpraxis.com/og-image.png">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23C45D3E'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23FFFFFF'>IW</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23256193'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23F2CE72'>IW</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
 /* ── Variables ── */
 :root {
-  --warm-white: #FDFAF5;
-  --cream: #F5F0E8;
-  --ink: #1C1917;
-  --ink-mid: #57534E;
-  --ink-light: #A8A29E;
-  --accent: #2D6A4F;
-  --accent-hover: #245840;
-  --accent-subtle: color-mix(in srgb, #2D6A4F 8%, transparent);
-  --rule: #DDD6CC;
-  --status-green: #6B8F71;
-  --status-amber: #B5976B;
-  --status-red: #C07060;
-  --status-charcoal: #78716C;
+  --warm-white: #F2ECE4;
+  --cream: #EAE3D8;
+  --ink: #2C2A28;
+  --ink-mid: #4A4745;
+  --ink-light: #7A7572;
+  --accent: #256193;
+  --accent-hover: #1D4E76;
+  --accent-subtle: color-mix(in srgb, #256193 10%, transparent);
+  --yellow: #F2CE72;
+  --yellow-hover: #E5C060;
+  --rule: #2C2A28;
+  --rule-light: #C4BBB0;
+  --status-green: #4A7C59;
+  --status-amber: #F2CE72;
+  --status-red: #C85A17;
+  --status-charcoal: #4A4745;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --sidebar-w: 220px;
   --panel-w: 420px;
-  --font-display: 'Instrument Serif', Georgia, serif;
-  --font-body: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'EB Garamond', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Roboto Mono', 'Courier New', monospace;
 }
 
 [data-theme="dark"] {
   --warm-white: #1C1917;
   --cream: #292524;
-  --ink: #FAEBD7;
+  --ink: #F2ECE4;
   --ink-mid: #A8A29E;
   --ink-light: #78716C;
-  --rule: #44403C;
+  --rule: #5C5652;
+  --rule-light: #44403C;
   --accent-subtle: color-mix(in srgb, var(--accent) 15%, transparent);
 }
 
@@ -132,8 +137,8 @@ button, input, select, textarea {
   left: 0;
   width: var(--sidebar-w);
   height: 100vh;
-  background: var(--cream);
-  border-right: 1px solid var(--rule);
+  background: var(--accent);
+  border-right: 2px solid var(--ink);
   padding: 2rem 0 1.5rem;
   display: flex;
   flex-direction: column;
@@ -146,7 +151,7 @@ button, input, select, textarea {
   font-size: 1.55rem;
   font-weight: 400;
   padding: 0 1.25rem;
-  color: var(--ink);
+  color: #fff;
   line-height: 1.2;
 }
 
@@ -156,7 +161,7 @@ button, input, select, textarea {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: var(--ink-light);
+  color: rgba(255,255,255,0.6);
   padding: 0.35rem 1.25rem 0;
 }
 
@@ -169,38 +174,42 @@ button, input, select, textarea {
   padding: 0.65rem 1rem 0.65rem 1.25rem;
   font-size: 0.88rem;
   font-weight: 500;
-  color: var(--ink-mid);
+  color: rgba(255,255,255,0.7);
   cursor: pointer;
   border-left: 3px solid transparent;
   transition: all 0.15s ease;
 }
 
 .nav-item:hover {
-  background: var(--accent-subtle);
-  color: var(--accent);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
 }
 
 .nav-item.active {
-  color: var(--accent);
-  border-left-color: var(--accent);
-  background: var(--accent-subtle);
+  color: var(--ink);
+  background: var(--yellow);
+  border-left: 3px solid transparent;
+  font-weight: 700;
+  margin: 2px 10px;
+  border-radius: 4px;
+  padding-left: calc(1.25rem - 10px);
 }
 
 .sidebar-footer {
   padding: 1rem 1.25rem 0;
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid rgba(255,255,255,0.15);
   margin-top: 1rem;
 }
 
 .dark-toggle {
   font-size: 0.82rem;
-  color: var(--ink-light);
+  color: rgba(255,255,255,0.5);
   cursor: pointer;
   transition: color 0.15s;
 }
 
 .dark-toggle:hover {
-  color: var(--accent);
+  color: #fff;
 }
 
 .sidebar-backdrop {
@@ -251,7 +260,7 @@ button, input, select, textarea {
     background: var(--ink);
     color: #FFFFFF;
     border-radius: 5px;
-    font-family: 'Satoshi', system-ui, sans-serif;
+    font-family: var(--font-body);
     font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.02em;
@@ -298,39 +307,57 @@ button, input, select, textarea {
 .stats-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 0;
+  margin: 0 -3.5rem 2rem;
+  padding: 1.5rem 3.5rem;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
 }
 
 .stat-card {
-  border-top: 1px solid var(--rule);
-  padding: 1.5rem 0 0;
+  border: none;
+  box-shadow: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0;
+  background: transparent;
+  border-top: none;
+  border-bottom: none;
+  border-right: 1px solid var(--rule-light);
+}
+
+.stat-card:last-child {
+  border-right: none;
 }
 
 .stat-card.highlight {
-  border-top-color: var(--accent);
+  border-top: none;
 }
 
 .stat-label {
-  font-size: 0.68rem;
+  font-size: 0.6rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--ink-light);
-  font-weight: 500;
-  margin-bottom: 0.35rem;
+  letter-spacing: 0.18em;
+  color: var(--ink-mid);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-body);
 }
 
 .stat-value {
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  line-height: 1.1;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  font-family: var(--font-body);
 }
 
 .stat-sub {
-  font-size: 0.78rem;
-  color: var(--ink-mid);
-  margin-top: 0.25rem;
+  font-size: 0.72rem;
+  color: var(--ink-light);
+  margin-top: 0.15rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
 }
 
 .stat-card.highlight .stat-value,
@@ -351,37 +378,93 @@ button, input, select, textarea {
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 1.5rem;
 }
 
 .dashboard-left, .dashboard-right {
   min-width: 0;
 }
 
+.dashboard-module {
+  border: 1px solid var(--ink);
+  background: #fff;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dashboard-left .dashboard-module {
+  height: auto;
+}
+
+.dashboard-right .dashboard-module {
+  height: auto;
+}
+
+.dashboard-module .module-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.dashboard-module .module-body {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
 /* ── Timeline List ── */
+#activity-timeline {
+  border: none;
+  border-radius: 0;
+}
+
+/* Brutalist scrollbar */
+.dashboard-module .module-body::-webkit-scrollbar {
+  width: 10px;
+  border-left: 1px solid var(--ink);
+}
+.dashboard-module .module-body::-webkit-scrollbar-track {
+  background: var(--warm-white);
+}
+.dashboard-module .module-body::-webkit-scrollbar-thumb {
+  background: var(--yellow);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+}
+.dashboard-module .module-body::-webkit-scrollbar-thumb:hover {
+  background: var(--yellow-hover);
+}
+
 .timeline-item {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--rule);
-  font-size: 0.88rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.85rem;
   cursor: pointer;
   transition: background 0.1s;
 }
 
+.timeline-item:last-child {
+  border-bottom: none;
+}
+
 .timeline-item:hover {
-  background: var(--accent-subtle);
-  margin: 0 -0.5rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  border-radius: 4px;
+  background: var(--cream);
 }
 
 .timeline-time {
-  color: var(--ink-light);
+  color: var(--ink);
   font-size: 0.78rem;
   min-width: 60px;
+  font-family: var(--font-mono);
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
 
@@ -391,25 +474,17 @@ button, input, select, textarea {
 }
 
 .timeline-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  display: inline-block;
-  flex-shrink: 0;
+  display: none;
 }
-
-.timeline-dot.checkout { background: var(--ink-mid); }
-.timeline-dot.overdue { background: var(--status-red); animation: pulse 2s infinite; }
-.timeline-dot.upcoming { background: var(--status-amber); }
-.timeline-dot.return { background: var(--status-green); }
 
 /* ── Bar Chart ── */
 .bar-chart {
   display: flex;
   align-items: flex-end;
   gap: 0.75rem;
-  height: 220px;
-  padding-top: 20px;
+  height: 280px;
+  padding: 20px 1rem 0 1rem;
+  border-bottom: none;
 }
 
 .bar-col {
@@ -426,7 +501,7 @@ button, input, select, textarea {
   min-width: 30px;
   max-width: 50px;
   background: var(--accent);
-  border-radius: 3px 3px 0 0;
+  border-radius: 2px 2px 0 0;
   transition: height 600ms var(--ease), background 0.15s;
   cursor: pointer;
   position: relative;
@@ -463,7 +538,57 @@ button, input, select, textarea {
   color: var(--ink-light);
   margin-top: 0.5rem;
   text-align: center;
+  font-family: var(--font-mono);
+  flex-shrink: 0;
 }
+
+/* ── Action Items ── */
+.action-items-box {
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: 3px 3px 0px var(--ink);
+}
+
+.action-items-header {
+  padding: 0.6rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--ink);
+  background: var(--warm-white);
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.action-item:last-child { border-bottom: none; }
+
+.action-icon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.action-item.action-urgent .action-icon { background: var(--status-red); color: #fff; }
+.action-item.action-warn .action-icon { background: var(--yellow); color: var(--ink); }
+.action-item.action-info .action-icon { background: var(--accent); color: #fff; }
 
 /* ── Fleet at a Glance Mini Grid ── */
 .fleet-glance {
@@ -474,14 +599,17 @@ button, input, select, textarea {
 
 .glance-tile {
   padding: 0.75rem;
-  border: 1px solid var(--rule);
-  border-radius: 6px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 2px;
   cursor: pointer;
-  transition: border-color 0.15s;
+  box-shadow: 3px 3px 0px var(--ink);
+  transition: all 0.15s;
 }
 
 .glance-tile:hover {
-  border-color: var(--accent);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--ink);
 }
 
 .glance-id {
@@ -502,21 +630,25 @@ button, input, select, textarea {
 }
 
 .status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
   display: inline-block;
-  flex-shrink: 0;
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: var(--font-mono);
+  vertical-align: middle;
+  border: 1px solid var(--ink);
 }
-
-.status-dot.available { background: var(--status-charcoal); }
-.status-dot.rented { background: var(--status-amber); }
-.status-dot.overdue { background: var(--status-red); animation: pulse 2s infinite; }
-.status-dot.maintenance { background: var(--status-charcoal); opacity: 0.5; }
-.status-dot.checked-in { background: var(--status-green); }
-.status-dot.confirmed { background: var(--status-amber); }
-.status-dot.completed { background: var(--ink-light); }
-.status-dot.cancelled { background: var(--status-red); }
+.status-dot.confirmed { background: var(--status-green); color: #fff; border-color: var(--status-green); }
+.status-dot.available { background: #fff; color: var(--ink); }
+.status-dot.checked-in { background: var(--status-green); color: #fff; border-color: var(--status-green); }
+.status-dot.overdue { background: var(--status-red); color: #fff; border-color: var(--status-red); }
+.status-dot.completed { background: var(--ink); color: var(--warm-white); }
+.status-dot.cancelled { background: var(--ink-light); color: #fff; border-color: var(--ink-light); }
+.status-dot.maintenance { background: var(--accent); color: #fff; border-color: var(--accent); }
+.status-dot.rented { background: var(--yellow); color: var(--ink); }
 
 .status-text {
   font-size: 0.72rem;
@@ -529,11 +661,12 @@ button, input, select, textarea {
 
 /* ── Add Cart Form ── */
 .add-cart-panel {
-  border: 1px solid var(--rule);
-  background: var(--cream);
+  border: 2px solid var(--ink);
+  background: #fff;
   padding: 1.25rem 1.5rem;
   margin-bottom: 1rem;
   animation: vtFadeIn 200ms var(--ease) both;
+  box-shadow: 2px 2px 0px var(--ink);
 }
 
 .add-cart-panel h3 {
@@ -564,12 +697,13 @@ button, input, select, textarea {
   width: 100%;
   font-size: 0.88rem;
   padding: 0.45rem 0.6rem;
-  border: 1px solid var(--rule);
+  border: 2px solid var(--ink);
   background: var(--warm-white);
   color: var(--ink);
   font-family: var(--font-body);
   outline: none;
   transition: border-color 150ms var(--ease);
+  border-radius: 2px;
 }
 
 .add-cart-field input:focus,
@@ -586,7 +720,7 @@ button, input, select, textarea {
 .add-cart-actions button {
   font-size: 0.82rem;
   padding: 0.4rem 1rem;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--rule-light);
   background: var(--warm-white);
   color: var(--ink-mid);
   cursor: pointer;
@@ -617,16 +751,18 @@ button, input, select, textarea {
 }
 
 .cart-card {
-  border: 1px solid var(--rule);
-  border-radius: 8px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0px var(--ink);
+  border-radius: 2px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s var(--ease), box-shadow 0.2s;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .cart-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--ink);
 }
 
 .cart-card-img {
@@ -696,27 +832,30 @@ button, input, select, textarea {
 .filter-tab {
   padding: 0.5rem 1rem;
   font-size: 0.82rem;
-  color: var(--ink-mid);
+  font-weight: 600;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all 0.15s;
-  white-space: nowrap;
+  border: 2px solid var(--ink);
+  background: transparent;
+  transition: all 0.15s ease;
+  font-family: var(--font-body);
 }
 
 .filter-tab:hover {
-  color: var(--accent);
+  background: var(--cream);
 }
 
 .filter-tab.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  background: var(--yellow);
+  color: var(--ink);
+  font-weight: 700;
 }
 
 .search-input {
   padding: 0.5rem 0.75rem;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
+  border: 2px solid var(--ink);
+  border-radius: 2px;
   font-size: 0.85rem;
+  font-family: var(--font-mono);
   background: var(--warm-white);
   min-width: 180px;
   outline: none;
@@ -735,7 +874,7 @@ button, input, select, textarea {
   width: var(--panel-w);
   height: 100vh;
   background: var(--warm-white);
-  border-left: 1px solid var(--rule);
+  border-left: 2px solid var(--ink);
   transform: translateX(100%);
   transition: transform 220ms var(--ease);
   z-index: 200;
@@ -750,8 +889,8 @@ button, input, select, textarea {
 .panel-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.2);
-  backdrop-filter: blur(4px);
+  background: transparent;
+  backdrop-filter: none;
   opacity: 0;
   pointer-events: none;
   transition: opacity 200ms;
@@ -823,7 +962,7 @@ button, input, select, textarea {
 
 .panel-divider {
   border: none;
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid var(--rule-light);
   margin: 1.25rem 0;
 }
 
@@ -837,22 +976,25 @@ button, input, select, textarea {
 .data-table {
   width: 100%;
   border-collapse: collapse;
+  border: 2px solid var(--ink);
+  border-radius: 0;
 }
 
 .data-table th {
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--ink-light);
+  letter-spacing: 0.08em;
+  color: var(--ink);
   font-weight: 500;
   text-align: left;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--rule);
+  background: var(--cream);
+  border-bottom: 2px solid var(--ink);
 }
 
 .data-table td {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid rgba(221, 214, 204, 0.5);
+  border-bottom: 1px solid var(--rule-light);
   font-size: 0.88rem;
 }
 
@@ -870,6 +1012,19 @@ button, input, select, textarea {
 
 .data-table tbody tr.clickable {
   cursor: pointer;
+}
+
+/* Monospace utilities for times, prices */
+.data-table td:nth-child(4),
+.data-table td:nth-child(5),
+.data-table td:nth-child(7) {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
 }
 
 /* ── Calendar / Gantt ── */
@@ -911,8 +1066,8 @@ button, input, select, textarea {
 .gantt-grid {
   display: grid;
   grid-template-columns: 180px repeat(7, 1fr);
-  border: 1px solid var(--rule);
-  border-radius: 6px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -921,8 +1076,15 @@ button, input, select, textarea {
   text-align: center;
   padding: 0.75rem 0.25rem;
   background: var(--cream);
-  border-bottom: 1px solid var(--rule);
-  font-weight: 500;
+  border-bottom: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+.gantt-header:last-child {
+  border-right: none;
 }
 
 .gantt-header.today {
@@ -946,15 +1108,18 @@ button, input, select, textarea {
   font-size: 0.82rem;
   font-weight: 700;
   padding: 0.55rem 0.75rem;
-  border-bottom: 1px solid var(--rule);
-  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
   display: flex;
   align-items: center;
   gap: 6px;
-  background: var(--cream);
+  background: #fff;
   cursor: pointer;
   user-select: none;
   transition: background 200ms var(--ease);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: var(--font-body);
 }
 
 .gantt-type-label:hover {
@@ -983,11 +1148,11 @@ button, input, select, textarea {
 
 /* Availability summary cell (shown on type row) */
 .gantt-avail-cell {
-  border-bottom: 1px solid var(--rule);
-  border-right: 1px solid rgba(221, 214, 204, 0.3);
+  border-bottom: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
   position: relative;
   min-height: 36px;
-  background: var(--cream);
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1009,15 +1174,17 @@ button, input, select, textarea {
 
 .avail-badge {
   font-size: 0.72rem;
-  font-weight: 600;
-  border-radius: 3px;
-  padding: 1px 6px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  border-radius: 2px;
+  padding: 2px 6px;
   line-height: 1.4;
+  letter-spacing: 0.02em;
 }
 
 .avail-badge.avail-full { color: var(--status-green); }
-.avail-badge.avail-partial { color: var(--status-amber); }
-.avail-badge.avail-none { color: var(--status-red); font-weight: 700; }
+.avail-badge.avail-partial { color: var(--ink); background: var(--yellow); border: 1px solid var(--ink); font-size: 0.68rem; }
+.avail-badge.avail-none { color: #fff; background: var(--status-red); border: 1px solid var(--ink); font-size: 0.68rem; }
 
 /* Heatmap cell backgrounds */
 .gantt-avail-cell.heat-open {
@@ -1062,8 +1229,8 @@ button, input, select, textarea {
   font-size: 0.78rem;
   font-weight: 500;
   padding: 0.4rem 0.75rem 0.4rem 1.5rem;
-  border-bottom: 1px solid var(--rule);
-  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
   display: flex;
   align-items: center;
   background: var(--warm-white);
@@ -1091,8 +1258,8 @@ button, input, select, textarea {
 }
 
 .gantt-cell {
-  border-bottom: 1px solid var(--rule);
-  border-right: 1px solid rgba(221, 214, 204, 0.3);
+  border-bottom: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
   position: relative;
   min-height: 34px;
   cursor: pointer;
@@ -1116,25 +1283,30 @@ button, input, select, textarea {
 
 .gantt-bar {
   position: absolute;
-  top: 3px;
-  bottom: 3px;
-  border-radius: 4px;
-  font-size: 0.72rem;
+  top: 2px;
+  bottom: 2px;
+  border-radius: 2px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  font-family: var(--font-body);
   padding: 0 6px;
-  line-height: 28px;
+  line-height: 30px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: #fff;
   cursor: pointer;
   z-index: 2;
   left: 2px;
   right: 2px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: var(--yellow);
 }
 
-.gantt-bar.type-4 { background: var(--ink-light); }
-.gantt-bar.type-6 { background: #C4B5A0; }
-.gantt-bar.type-8 { background: rgba(196,93,62,0.7); }
+.gantt-bar.type-4 { background: var(--yellow); color: var(--ink); }
+.gantt-bar.type-6 { background: var(--yellow); color: var(--ink); }
+.gantt-bar.type-8 { background: var(--yellow); color: var(--ink); }
+.gantt-bar.bar-overdue { background: var(--status-red); color: #fff; }
 
 .util-strip {
   height: 4px;
@@ -1151,7 +1323,8 @@ button, input, select, textarea {
 }
 
 .gantt-util-cell {
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
   padding: 6px 4px;
   display: flex;
   align-items: center;
@@ -1161,13 +1334,14 @@ button, input, select, textarea {
   font-size: 0.68rem;
   color: var(--ink-light);
   padding: 6px 0.75rem;
-  border-bottom: 1px solid var(--rule);
-  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
   display: flex;
   align-items: center;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: var(--font-mono);
   background: var(--warm-white);
 }
 
@@ -1194,7 +1368,7 @@ button, input, select, textarea {
   justify-content: center;
   font-size: 0.82rem;
   cursor: pointer;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--rule-light);
   transition: all 0.15s;
 }
 
@@ -1228,14 +1402,18 @@ button, input, select, textarea {
 
 .cio-item {
   padding: 1rem;
-  border: 1px solid var(--rule);
-  border-radius: 6px;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: 2px 2px 0px var(--ink);
+  cursor: pointer;
   margin-bottom: 0.75rem;
   transition: border-color 0.15s;
 }
 
 .cio-item:hover {
-  border-color: var(--accent);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--ink);
 }
 
 .cio-item-header {
@@ -1322,7 +1500,7 @@ button, input, select, textarea {
 
 /* Left panel: list */
 .vt-list-panel {
-  border-right: 1px solid var(--rule);
+  border-right: 1px solid var(--rule-light);
   overflow-y: auto;
   max-height: 72vh;
 }
@@ -1332,7 +1510,7 @@ button, input, select, textarea {
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule-light);
   background: var(--cream);
   position: sticky;
   top: 0;
@@ -1384,7 +1562,8 @@ button, input, select, textarea {
 }
 
 .vt-list-item.active {
-  background: var(--accent-subtle);
+  background: var(--accent);
+  color: #fff;
   border-left: 3px solid var(--accent);
   padding-left: calc(0.85rem - 3px);
 }
@@ -1555,7 +1734,7 @@ button, input, select, textarea {
   margin-bottom: 0.5rem;
   font-weight: 600;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 2px solid var(--ink);
 }
 
 /* Field rows */
@@ -1830,9 +2009,11 @@ button, input, select, textarea {
   align-items: center;
   gap: 0.35rem;
   font-size: 0.8rem;
-  padding: 0.25rem 0.6rem;
-  border: 1px solid var(--rule);
-  background: var(--cream);
+  padding: 0.3rem 0.6rem;
+  border: 2px solid var(--ink);
+  background: #fff;
+  border-radius: 2px;
+  font-weight: 600;
 }
 
 .vt-feature-remove {
@@ -1909,10 +2090,11 @@ button, input, select, textarea {
 
 /* Global settings row below master-detail */
 .vt-global-settings {
-  margin-top: 1.5rem;
-  padding: 1.25rem;
-  border: 1px solid var(--rule);
-  background: var(--warm-white);
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: 3px 3px 0px var(--ink);
 }
 
 .vt-global-settings h3 {
@@ -1995,7 +2177,7 @@ button, input, select, textarea {
 
 .promo-card {
   padding: 1.25rem;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--rule-light);
   border-radius: 6px;
   transition: border-color 0.15s;
 }
@@ -2162,7 +2344,7 @@ button, input, select, textarea {
 }
 
 .guest-hero {
-  padding: 3rem 2rem 2rem;
+  padding: 2rem 2rem 1.5rem;
   text-align: center;
   max-width: 700px;
   margin: 0 auto;
@@ -2189,26 +2371,29 @@ button, input, select, textarea {
   gap: 1.25rem;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 2rem 4rem;
+  padding: 0 2rem 2rem;
 }
 
 .guest-card {
-  border: 1px solid var(--rule);
-  border-radius: 8px;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0px var(--ink);
+  border-radius: 4px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s var(--ease), box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
 .guest-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--ink);
 }
 
 .guest-card-img {
   background: #fff;
   padding: 0.5rem;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule-light);
 }
 
 .guest-card-img img {
@@ -2221,6 +2406,9 @@ button, input, select, textarea {
 
 .guest-card-body {
   padding: 0.85rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .guest-card-title {
@@ -2245,6 +2433,10 @@ button, input, select, textarea {
   font-size: 0.82rem;
   color: var(--ink-mid);
   margin-bottom: 0.75rem;
+}
+
+.guest-card-body .btn {
+  margin-top: auto;
 }
 
 .guest-card-link {
@@ -2289,16 +2481,13 @@ button, input, select, textarea {
 }
 
 .guest-detail-img {
-  overflow: hidden;
   border-radius: 8px;
-  max-height: 420px;
+  overflow: hidden;
 }
 
 .guest-detail-img img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 20%;
+  height: auto;
   display: block;
 }
 
@@ -2663,15 +2852,26 @@ button, input, select, textarea {
 }
 
 .btn-primary {
-  border: 1px solid var(--accent);
-  color: #fff;
-  background: var(--accent);
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: var(--yellow);
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow: 2px 2px 0px var(--ink);
 }
 
 .btn-primary:hover {
-  background: var(--accent-hover);
-  border-color: var(--accent-hover);
-  color: #fff;
+  background: var(--yellow-hover);
+  border-color: var(--ink);
+  color: var(--ink);
+  box-shadow: 1px 1px 0px var(--ink);
+}
+
+.btn-primary:active {
+  box-shadow: 0px 0px 0px var(--ink);
+  transform: translate(2px, 2px);
 }
 
 .btn-sm {
@@ -2781,8 +2981,8 @@ button, input, select, textarea {
 .form-input, .form-select {
   width: 100%;
   padding: 0.55rem 0.75rem;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
+  border: 2px solid var(--ink);
+  border-radius: 2px;
   font-size: 0.88rem;
   background: var(--warm-white);
   outline: none;
@@ -3087,6 +3287,8 @@ button, input, select, textarea {
 
   .stats-row {
     grid-template-columns: repeat(2, 1fr);
+    margin: 0 -1.5rem 2rem;
+    padding: 1.5rem 1.5rem;
   }
 
   .fleet-glance {
@@ -3347,12 +3549,17 @@ button, input, select, textarea {
       <div class="stats-row" id="stats-row"></div>
       <div class="dashboard-grid">
         <div class="dashboard-left">
-          <h2 class="section-title">Today's Activity</h2>
-          <div id="activity-timeline"></div>
+          <div class="dashboard-module">
+            <div class="module-header">Today's Activity</div>
+            <div class="module-body" id="activity-timeline"></div>
+          </div>
         </div>
         <div class="dashboard-right">
-          <h2 class="section-title">Revenue This Week</h2>
-          <div id="revenue-chart"></div>
+          <div class="dashboard-module">
+            <div class="module-header">Revenue This Week</div>
+            <div class="module-body" id="revenue-chart" style="padding-bottom:0.5rem"></div>
+          </div>
+          <div id="action-items" style="margin-top:1rem"></div>
         </div>
       </div>
       <h2 class="section-title">Fleet at a Glance</h2>
@@ -3366,7 +3573,7 @@ button, input, select, textarea {
           <h1>Fleet</h1>
           <p id="fleet-subtitle">16 carts across the fleet</p>
         </div>
-        <button class="btn btn-primary" onclick="openAddCartForm()">+ Add Cart</button>
+        <button class="btn btn-primary" onclick="openAddCartForm()">+ Add Vehicle</button>
       </div>
       <div id="add-cart-form" style="display:none"></div>
       <div class="controls-bar">
@@ -3454,7 +3661,7 @@ button, input, select, textarea {
 
   <!-- New Reservation Modal -->
   <div class="modal-overlay" id="new-res-modal">
-    <div class="modal" style="max-width:560px">
+    <div class="modal" style="max-width:800px">
       <div class="modal-header">
         <h3>New Reservation</h3>
         <button class="modal-close" onclick="closeModal('new-res-modal')">&times;</button>
@@ -3471,6 +3678,17 @@ button, input, select, textarea {
         <button class="modal-close" onclick="closeModal('new-promo-modal')">&times;</button>
       </div>
       <div class="modal-body" id="new-promo-body"></div>
+    </div>
+  </div>
+
+  <!-- Maintenance Detail Modal -->
+  <div class="modal-overlay" id="maint-modal">
+    <div class="modal" style="max-width:720px">
+      <div class="modal-header">
+        <h3>Maintenance Record</h3>
+        <button class="modal-close" onclick="closeModal('maint-modal')">&times;</button>
+      </div>
+      <div class="modal-body" id="maint-modal-body"></div>
     </div>
   </div>
 
@@ -3583,7 +3801,23 @@ const store = {
     deliveryFee: 35,
     operatingHours: { open:'07:00', close:'20:00' },
     damageDeposit: 200,
+    cancellationHours: 24,
+    policies: {
+      cancellation: 'Free cancellation up to 24 hours before pickup. Cancellations within 24 hours forfeit 50% of rental fee. No-shows forfeit full rental amount. Refunds processed within 3-5 business days.',
+      safety: 'Must be 21+ with valid driver\'s license. Maximum speed is 15 mph. Carts must stay on designated roads. Renter is responsible for all traffic violations.',
+      liability: 'Renter assumes full responsibility for the golf cart during the rental period. Damage not covered by the security deposit will be billed to the card on file. Local Praxis is not liable for personal injury or property damage arising from cart operation.'
+    }
   },
+
+  maintenanceLogs: [
+    { id:1, cartId:5, type:'repair', description:'Battery replacement — 48V system showing degraded capacity under load. Ordered Trojan T-105 6V set (8 units).', scheduledDate:'2026-04-03', completedDate:null, cost:1240, technician:'Rick Salinas', status:'in-progress', parts:['Trojan T-105 6V x8','Battery cables','Terminal cleaner'], notes:'Parts arriving Monday 4/6. Cart offline until install complete.' },
+    { id:2, cartId:5, type:'inspection', description:'Quarterly safety inspection — brakes, steering, lights, tires.', scheduledDate:'2026-03-15', completedDate:'2026-03-15', cost:0, technician:'Rick Salinas', status:'completed', parts:[], notes:'All systems pass. Noted battery degradation, scheduled replacement.' },
+    { id:3, cartId:12, type:'repair', description:'Canopy torn during storm — full canopy replacement ordered from Club Car.', scheduledDate:'2026-04-02', completedDate:null, cost:685, technician:'Rick Salinas', status:'waiting-parts', parts:['OEM canopy assembly','Mounting hardware kit','Weather seal strip'], notes:'Club Car ETA 4/8. Will need 2hrs labor for install.' },
+    { id:4, cartId:12, type:'inspection', description:'Quarterly safety inspection — brakes, steering, lights, tires.', scheduledDate:'2026-03-15', completedDate:'2026-03-15', cost:0, technician:'Rick Salinas', status:'completed', parts:[], notes:'Brakes good. Front left tire at 22 PSI — inflated to 30. Canopy damage noted.' },
+    { id:5, cartId:3, type:'service', description:'500-mile service — oil change, belt inspection, tire rotation.', scheduledDate:'2026-03-20', completedDate:'2026-03-20', cost:85, technician:'Rick Salinas', status:'completed', parts:['Motor oil','Drive belt (inspected OK)'], notes:'Belt has ~200 miles left. Schedule replacement at next service.' },
+    { id:6, cartId:8, type:'inspection', description:'Post-rental damage inspection — renter reported scraping noise.', scheduledDate:'2026-03-28', completedDate:'2026-03-28', cost:0, technician:'Rick Salinas', status:'completed', parts:[], notes:'Loose splash guard. Reattached with new clips. No charge.' },
+    { id:7, cartId:14, type:'service', description:'1000-mile service — full brake pad replacement, tire check, electrical inspection.', scheduledDate:'2026-03-25', completedDate:'2026-03-25', cost:165, technician:'Rick Salinas', status:'completed', parts:['Brake pads (front)','Brake pads (rear)','Brake fluid'], notes:'Rear pads were at 15%. All replaced. Next service at 1500mi.' },
+  ],
 
   promotions: [
     { id:1, name:'Island Welcome', discountType:'percent', amount:10, cartTypes:[4,6,8], validStart:'2026-04-01', validEnd:'2026-06-30', code:'ISLAND10', timesUsed:14, maxUses:50, active:true },
@@ -3702,7 +3936,7 @@ function cartSVGLarge(size) {
    HELPER FUNCTIONS
    ══════════════════════════════════════════════════════ */
 function fmtMoney(n) {
-  return '$' + Math.round(n).toLocaleString('en-US');
+  return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function fmtTime(t) {
@@ -3784,9 +4018,14 @@ function animateCountUp(el, target, duration) {
   }
 }
 
-function showDemoModal(message) {
+function showDemoModal(message, isHtml) {
   var overlay = document.getElementById('demo-modal-overlay');
-  document.getElementById('demo-modal-message').textContent = message;
+  var messageEl = document.getElementById('demo-modal-message');
+  if (isHtml) {
+    messageEl.innerHTML = message;
+  } else {
+    messageEl.textContent = message;
+  }
   overlay.style.display = 'flex';
   requestAnimationFrame(function() { overlay.classList.add('active'); });
 }
@@ -3794,6 +4033,26 @@ function closeDemoModal() {
   var overlay = document.getElementById('demo-modal-overlay');
   overlay.classList.remove('active');
   setTimeout(function() { overlay.style.display = 'none'; }, 200);
+}
+
+function viewWaiver(resId) {
+  var res = getRes(resId);
+  if (!res) return;
+  var vt = res.vehicleTypeId ? getVehicleType(res.vehicleTypeId) : null;
+  var waiverHtml =
+    '<div style="max-width:500px;font-size:0.85rem;line-height:1.6">' +
+    '<h3 style="margin-bottom:1rem">Rental Agreement & Liability Waiver</h3>' +
+    '<p><strong>Renter:</strong> ' + res.customer.name + '</p>' +
+    '<p><strong>Vehicle:</strong> ' + (vt ? vt.name : 'N/A') + '</p>' +
+    '<p><strong>Dates:</strong> ' + fmtDate(res.pickupDate) + ' – ' + fmtDate(res.returnDate) + '</p>' +
+    '<hr style="margin:1rem 0">' +
+    '<h4>Safety Rules</h4><p>' + (store.settings.policies ? store.settings.policies.safety : '') + '</p>' +
+    '<h4>Liability</h4><p>' + (store.settings.policies ? store.settings.policies.liability : '') + '</p>' +
+    '<h4>Cancellation</h4><p>' + (store.settings.policies ? store.settings.policies.cancellation : '') + '</p>' +
+    '<hr style="margin:1rem 0">' +
+    '<p style="color:var(--status-green)">✓ Digitally signed by ' + res.customer.name + ' on ' + fmtDate(res.createdAt || res.pickupDate) + '</p>' +
+    '</div>';
+  showDemoModal(waiverHtml, true);
 }
 
 function showToast(message) {
@@ -3804,7 +4063,7 @@ function showToast(message) {
 }
 
 function statusDot(status) {
-  return '<span class="status-dot ' + status + '"></span>';
+  return '<span class="status-dot ' + status + '">' + statusLabel(status) + '</span>';
 }
 
 function statusLabel(status) {
@@ -3935,7 +4194,7 @@ function renderDashboard() {
   var maxRev = Math.max.apply(null, store.weekRevenue.map(function(w) { return w.amount; }));
   var chartHTML = '<div class="bar-chart">';
   store.weekRevenue.forEach(function(w, i) {
-    var pct = (w.amount / maxRev) * 180;
+    var pct = Math.round((w.amount / maxRev) * 230);
     chartHTML +=
       '<div class="bar-col">' +
         '<div class="bar" style="height:' + pct + 'px;animation-delay:' + (i * 80) + 'ms">' +
@@ -3947,6 +4206,30 @@ function renderDashboard() {
   chartHTML += '</div>';
   document.getElementById('revenue-chart').innerHTML = chartHTML;
 
+  // Action Items Widget
+  var overdueCount = store.fleet.filter(function(c) { return c.status === 'overdue'; }).length;
+  var pendingWaivers = store.reservations.filter(function(r) { return r.status === 'confirmed' && r.waiverStatus === 'pending'; }).length;
+  var maintCount = store.fleet.filter(function(c) { return c.status === 'maintenance'; }).length;
+  var pendingDeposits = store.reservations.filter(function(r) { return r.status === 'confirmed' && r.depositStatus === 'pending'; }).length;
+  var actionItems = [];
+  if (overdueCount > 0) actionItems.push({ icon: '!', text: overdueCount + ' cart' + (overdueCount > 1 ? 's' : '') + ' overdue', cls: 'action-urgent' });
+  if (pendingWaivers > 0) actionItems.push({ icon: '?', text: pendingWaivers + ' waiver' + (pendingWaivers > 1 ? 's' : '') + ' unsigned', cls: 'action-warn' });
+  if (pendingDeposits > 0) actionItems.push({ icon: '$', text: pendingDeposits + ' deposit' + (pendingDeposits > 1 ? 's' : '') + ' pending', cls: 'action-warn' });
+  if (maintCount > 0) actionItems.push({ icon: '\u2699', text: maintCount + ' cart' + (maintCount > 1 ? 's' : '') + ' in maintenance', cls: 'action-info' });
+
+  if (actionItems.length > 0) {
+    var actionsHTML = '<div class="action-items-box">';
+    actionsHTML += '<div class="action-items-header">' + actionItems.length + ' Action Item' + (actionItems.length > 1 ? 's' : '') + '</div>';
+    actionItems.forEach(function(a) {
+      actionsHTML += '<div class="action-item ' + a.cls + '">' +
+        '<span class="action-icon">' + a.icon + '</span>' +
+        '<span>' + a.text + '</span>' +
+      '</div>';
+    });
+    actionsHTML += '</div>';
+    document.getElementById('action-items').innerHTML = actionsHTML;
+  }
+
   // Fleet at a Glance
   var glanceHTML = '<div class="fleet-glance">';
   store.fleet.forEach(function(cart) {
@@ -3957,7 +4240,6 @@ function renderDashboard() {
         '<div class="glance-type">' + vt.name + '</div>' +
         '<div class="glance-status">' +
           statusDot(cart.status) +
-          '<span class="status-text ' + cart.status + '">' + statusLabel(cart.status) + '</span>' +
         '</div>' +
       '</div>';
   });
@@ -4134,8 +4416,8 @@ function renderFleet() {
           '<div class="cart-card-name">' + cart.name + '</div>' +
           '<div class="cart-card-meta">' + vt.name + '</div>' +
           '<div class="cart-card-rate">From ' + fmtMoney(vt.rates.hourly) + '/hr</div>' +
-          '<div class="cart-card-status" style="color:' + statusColor(cart.status) + '">' +
-            statusDot(statusCls) + ' ' + statusText +
+          '<div class="cart-card-status">' +
+            statusDot(statusCls) +
           '</div>' +
           '<div class="cart-card-condition">' + capitalize(cart.condition) + '</div>' +
         '</div>' +
@@ -4280,7 +4562,7 @@ function renderCalendar() {
   });
 
   // Header row
-  html += '<div class="gantt-header" style="border-right:1px solid var(--rule);background:var(--warm-white)"></div>';
+  html += '<div class="gantt-header" style="border-right:1px solid var(--ink);background:var(--warm-white)"></div>';
   days.forEach(function(d, i) {
     var ds = dateStr(d);
     var isToday = ds === TODAY;
@@ -4382,11 +4664,12 @@ function renderCalendar() {
           var barHTML = '';
           if (res) {
             var typeCls = 'type-' + vt.passengerCount;
-            barHTML = '<div class="gantt-bar ' + typeCls + '" onclick="event.stopPropagation();openResPanel(' + res.id + ')" title="' + res.customer.name + '">' + res.customer.name.split(' ').pop() + '</div>';
+            var overdueCls = (res.status === 'checked-in' && res.returnDate < TODAY) ? ' bar-overdue' : '';
+            barHTML = '<div class="gantt-bar ' + typeCls + overdueCls + '" onclick="event.stopPropagation();openResPanel(' + res.id + ')" title="' + res.customer.name + '">' + res.customer.name.split(' ').pop() + '</div>';
           }
 
           if (cart.status === 'maintenance') {
-            barHTML = barHTML || '<div class="gantt-bar" style="background:var(--status-charcoal);opacity:0.5;font-style:italic">maint.</div>';
+            barHTML = barHTML || '<div class="gantt-bar" style="background:var(--accent);color:#fff;font-weight:700" onclick="event.stopPropagation();openMaintenanceDetail(' + cart.id + ')">MAINT.</div>';
           }
 
           html += '<div class="' + cellCls + '" onclick="openNewReservation(\'' + ds + '\')">' + barHTML + '</div>';
@@ -4462,6 +4745,82 @@ function calGoToWeek(ds) {
 }
 
 /* ══════════════════════════════════════════════════════
+   MAINTENANCE
+   ══════════════════════════════════════════════════════ */
+function openMaintenanceDetail(cartId) {
+  var cart = store.fleet.find(function(c) { return c.id === cartId; });
+  if (!cart) return;
+  var type = store.vehicleTypes.find(function(t) { return t.id === cart.typeId; });
+  var logs = (store.maintenanceLogs || []).filter(function(l) { return l.cartId === cartId; })
+    .sort(function(a, b) { return b.scheduledDate.localeCompare(a.scheduledDate); });
+
+  var statusColors = { 'in-progress': 'var(--yellow)', 'waiting-parts': 'var(--status-red)', 'completed': 'var(--status-green)', 'scheduled': 'var(--accent)' };
+
+  var html = '<div style="margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid var(--ink)">';
+  html += '<div style="display:flex;justify-content:space-between;align-items:baseline">';
+  html += '<div><span style="font-family:var(--font-display);font-size:1.6rem;font-weight:600">' + cart.name + '</span>';
+  html += '<span style="font-family:var(--font-mono);font-size:0.8rem;color:var(--ink-light);margin-left:0.75rem">' + (type ? type.name : '') + '</span></div>';
+  html += '<span class="status-dot maintenance">MAINTENANCE</span>';
+  html += '</div>';
+  html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem">';
+  html += '<div><span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);font-weight:600">Mileage</span><br><span style="font-family:var(--font-mono);font-size:1.1rem;font-weight:600">' + Number(cart.mileage).toLocaleString() + ' mi</span></div>';
+  html += '<div><span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);font-weight:600">Condition</span><br><span style="font-family:var(--font-mono);font-size:1.1rem;font-weight:600">' + (cart.condition || '—').toUpperCase() + '</span></div>';
+  html += '<div><span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-light);font-weight:600">GPS</span><br><span style="font-family:var(--font-mono);font-size:1.1rem;font-weight:600">' + (cart.gpsStatus || '—').toUpperCase() + '</span></div>';
+  html += '</div>';
+  if (cart.notes) {
+    html += '<div style="margin-top:0.75rem;font-size:0.85rem;color:var(--ink-mid);font-style:italic">' + cart.notes + '</div>';
+  }
+  html += '</div>';
+
+  // Log entries
+  html += '<div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--ink-light);margin-bottom:0.75rem">Service History</div>';
+
+  if (logs.length === 0) {
+    html += '<div style="color:var(--ink-light);font-style:italic;font-size:0.9rem">No maintenance records yet.</div>';
+  } else {
+    logs.forEach(function(log) {
+      var statusColor = statusColors[log.status] || 'var(--ink-light)';
+      var statusText = log.status.replace(/-/g, ' ').toUpperCase();
+      html += '<div style="border:1px solid var(--ink);border-radius:2px;padding:1rem;margin-bottom:0.75rem;background:#fff">';
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">';
+      html += '<div style="display:flex;align-items:center;gap:0.5rem">';
+      html += '<span style="font-family:var(--font-mono);font-size:0.75rem;font-weight:600">' + fmtDate(log.scheduledDate) + '</span>';
+      html += '<span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:700;padding:0.15rem 0.5rem;border-radius:2px;border:1px solid var(--ink);background:' + statusColor + ';color:' + (log.status === 'waiting-parts' || log.status === 'completed' ? '#fff' : 'var(--ink)') + '">' + statusText + '</span>';
+      html += '</div>';
+      var typeBadge = log.type === 'repair' ? 'REPAIR' : log.type === 'inspection' ? 'INSPECTION' : 'SERVICE';
+      html += '<span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--ink-light)">' + typeBadge + '</span>';
+      html += '</div>';
+      html += '<div style="font-size:0.88rem;font-weight:500;margin-bottom:0.5rem">' + log.description + '</div>';
+      if (log.parts && log.parts.length > 0) {
+        html += '<div style="font-size:0.78rem;color:var(--ink-mid);margin-bottom:0.35rem"><span style="font-weight:600">Parts:</span> ' + log.parts.join(', ') + '</div>';
+      }
+      if (log.cost > 0) {
+        html += '<div style="font-size:0.78rem;color:var(--ink-mid);margin-bottom:0.35rem"><span style="font-weight:600">Cost:</span> $' + Number(log.cost).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}) + '</div>';
+      }
+      if (log.notes) {
+        html += '<div style="font-size:0.78rem;color:var(--ink-mid);font-style:italic;border-top:1px solid var(--rule-light);padding-top:0.35rem;margin-top:0.35rem">' + log.notes + '</div>';
+      }
+      html += '</div>';
+    });
+  }
+
+  // Total maintenance cost
+  var totalCost = logs.reduce(function(sum, l) { return sum + (l.cost || 0); }, 0);
+  html += '<div style="display:flex;justify-content:space-between;align-items:center;padding-top:0.75rem;border-top:2px solid var(--ink);margin-top:0.5rem">';
+  html += '<span style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;color:var(--ink-light)">Total Maintenance Cost</span>';
+  html += '<span style="font-family:var(--font-mono);font-size:1.1rem;font-weight:700">$' + Number(totalCost).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}) + '</span>';
+  html += '</div>';
+
+  html += '<div style="margin-top:1.25rem;display:flex;gap:0.75rem">';
+  html += '<button class="btn btn-primary" onclick="showDemoModal(\'In the live version, this opens the work order form to schedule new maintenance tasks.\')">+ New Work Order</button>';
+  html += '<button class="btn" onclick="showDemoModal(\'In the live version, this marks the cart as available and returns it to the active fleet.\')">Return to Fleet</button>';
+  html += '</div>';
+
+  document.getElementById('maint-modal-body').innerHTML = html;
+  openModal('maint-modal');
+}
+
+/* ══════════════════════════════════════════════════════
    RESERVATIONS
    ══════════════════════════════════════════════════════ */
 var resFilter = 'all';
@@ -4523,7 +4882,7 @@ function renderReservations() {
       '<td>' + fmtDate(r.returnDate) + ' ' + fmtTime(r.returnTime) + '</td>' +
       '<td>' + dur + '</td>' +
       '<td>' + fmtMoney(r.total) + '</td>' +
-      '<td style="color:' + statusColor(r.status) + '"><span class="status-dot ' + r.status + '" style="background:' + statusColor(r.status) + '"></span> ' + statusLabel(r.status) + '</td>' +
+      '<td>' + statusDot(r.status) + '</td>' +
     '</tr>';
   });
 
@@ -4575,18 +4934,18 @@ function openResPanel(resId) {
       '<div class="panel-section-title">Status</div>' +
       '<div class="panel-row">' +
         '<span class="panel-row-label">Reservation</span>' +
-        '<span class="panel-row-value" style="color:' + statusColor(res.status) + '">' + statusDot(res.status) + ' ' + statusLabel(res.status) + '</span>' +
+        '<span class="panel-row-value">' + statusDot(res.status) + '</span>' +
       '</div>' +
       '<div class="panel-row">' +
         '<span class="panel-row-label">Waiver</span>' +
-        '<span class="panel-row-value" style="color:' + (res.waiverStatus === 'signed' ? 'var(--status-green)' : 'var(--status-amber)') + '">' +
-          '<span class="status-dot" style="background:' + (res.waiverStatus === 'signed' ? 'var(--status-green)' : 'var(--status-amber)') + '"></span> ' + (res.waiverStatus === 'signed' ? 'Signed' : 'Pending') +
+        '<span class="panel-row-value" style="font-family:var(--font-mono);font-size:0.82rem;">' +
+          '[' + (res.waiverStatus === 'signed' ? '✓' : ' ') + '] WAIVER ' + (res.waiverStatus === 'signed' ? 'SIGNED' : 'PENDING') + ' <a href="#" onclick="event.preventDefault();viewWaiver(' + res.id + ')" style="color:var(--accent);margin-left:0.5rem;font-size:0.78rem">View</a>' +
         '</span>' +
       '</div>' +
       '<div class="panel-row">' +
         '<span class="panel-row-label">Deposit</span>' +
-        '<span class="panel-row-value" style="color:' + (res.depositStatus === 'paid' ? 'var(--status-green)' : res.depositStatus === 'refunded' ? 'var(--ink-light)' : 'var(--status-amber)') + '">' +
-          '<span class="status-dot" style="background:' + (res.depositStatus === 'paid' ? 'var(--status-green)' : res.depositStatus === 'refunded' ? 'var(--ink-light)' : 'var(--status-amber)') + '"></span> ' + capitalize(res.depositStatus) +
+        '<span class="panel-row-value" style="font-family:var(--font-mono);font-size:0.82rem;">' +
+          '[' + (res.depositStatus === 'paid' ? '✓' : ' ') + '] DEPOSIT ' + (res.depositStatus === 'paid' ? 'PAID' : res.depositStatus === 'refunded' ? 'REFUNDED' : 'PENDING') +
         '</span>' +
       '</div>' +
     '</div>';
@@ -4922,7 +5281,7 @@ function nrConfirm() {
     deliveryAddress: s.delivery ? s.deliveryAddress : null,
     depositStatus: 'pending',
     waiverStatus: 'pending',
-    total: Math.round(calc.total + deliveryFee),
+    total: Math.round((calc.total + deliveryFee) * 100) / 100,
     paymentMethod: 'card',
     status: 'confirmed',
     source: 'admin',
@@ -4965,21 +5324,21 @@ function renderCheckInOut() {
     if (cart) vehicleInfo = cart.name + ' (' + vt.passengerCount + '-pass)';
     else vehicleInfo += ' <span style="color:var(--status-amber);font-size:0.78rem">(auto-assign)</span>';
     leftHTML +=
-      '<div class="cio-item">' +
+      '<div class="cio-item" onclick="openResPanel(' + r.id + ')">' +
         '<div class="cio-item-header">' +
           '<div class="cio-customer">' + r.customer.name + '</div>' +
           '<div class="cio-time">' + fmtTime(r.pickupTime) + '</div>' +
         '</div>' +
         '<div class="cio-details">' + vehicleInfo + '</div>' +
-        '<div class="cio-status-row">' +
-          '<span style="color:' + (r.waiverStatus === 'signed' ? 'var(--status-green)' : 'var(--status-amber)') + '">' +
-            '<span class="status-dot" style="background:' + (r.waiverStatus === 'signed' ? 'var(--status-green)' : 'var(--status-amber)') + '"></span> Waiver ' + r.waiverStatus +
+        '<div class="cio-status-row" style="font-family:var(--font-mono);font-size:0.82rem;">' +
+          '<span>' +
+            '[' + (r.waiverStatus === 'signed' ? '✓' : ' ') + '] WAIVER ' + (r.waiverStatus === 'signed' ? 'SIGNED' : 'PENDING') +
           '</span>' +
-          '<span style="color:' + (r.depositStatus === 'paid' ? 'var(--status-green)' : 'var(--status-amber)') + '">' +
-            '<span class="status-dot" style="background:' + (r.depositStatus === 'paid' ? 'var(--status-green)' : 'var(--status-amber)') + '"></span> Deposit ' + r.depositStatus +
+          '<span>' +
+            '[' + (r.depositStatus === 'paid' ? '✓' : ' ') + '] DEPOSIT ' + (r.depositStatus === 'paid' ? 'PAID' : 'PENDING') +
           '</span>' +
         '</div>' +
-        '<button class="btn btn-primary btn-sm" onclick="checkOutRes(' + r.id + ')">Check Out</button>' +
+        '<button class="btn btn-primary btn-sm" onclick="event.stopPropagation();checkOutRes(' + r.id + ')">Check Out</button>' +
       '</div>';
   });
   leftHTML += '</div>';
@@ -5000,14 +5359,14 @@ function renderCheckInOut() {
     }
 
     rightHTML +=
-      '<div class="cio-item"' + (isOverdue ? ' style="border-color:var(--status-red)"' : '') + '>' +
+      '<div class="cio-item" onclick="openResPanel(' + r.id + ')"' + (isOverdue ? ' style="border-color:var(--status-red)"' : '') + '>' +
         '<div class="cio-item-header">' +
           '<div class="cio-customer">' + r.customer.name + '</div>' +
           '<div class="cio-time">' + fmtTime(r.returnTime) + '</div>' +
         '</div>' +
         '<div class="cio-details">' + (cart ? cart.name : '') + ' (' + (cart ? (getVehicleTypeForCart(cart) || {}).passengerCount : '') + '-pass)</div>' +
         (isOverdue ? '<div class="cio-overdue-tag"><span class="status-dot overdue"></span> ' + overdueText + '</div>' : '') +
-        '<button class="btn btn-primary btn-sm" onclick="checkInRes(' + r.id + ')">Check In</button>' +
+        '<button class="btn btn-primary btn-sm" onclick="event.stopPropagation();checkInRes(' + r.id + ')">Check In</button>' +
       '</div>';
   });
   rightHTML += '</div>';
@@ -5169,6 +5528,18 @@ function renderVehicleTypes() {
         '<div class="vt-setting-item">' +
           '<span class="vt-setting-label">Damage Deposit</span>' +
           '<span class="vt-setting-value editable pricing-cell" onclick="editSetting(\'damageDeposit\',this)">' + fmtMoney(store.settings.damageDeposit) + '</span>' +
+        '</div>' +
+        '<div class="vt-setting-item">' +
+          '<span class="vt-setting-label">Deposit %</span>' +
+          '<span class="vt-setting-value editable pricing-cell" onclick="editSetting(\'depositPct\',this)">' + store.settings.depositPct + '%</span>' +
+        '</div>' +
+        '<div class="vt-setting-item">' +
+          '<span class="vt-setting-label">Operating Hours</span>' +
+          '<span class="vt-setting-value">' + store.settings.operatingHours.open + ' to ' + store.settings.operatingHours.close + '</span>' +
+        '</div>' +
+        '<div class="vt-setting-item">' +
+          '<span class="vt-setting-label">Cancellation Window</span>' +
+          '<span class="vt-setting-value editable pricing-cell" onclick="editSetting(\'cancellationHours\',this)">' + store.settings.cancellationHours + ' hours</span>' +
         '</div>' +
       '</div>' +
     '</div>';
@@ -5394,9 +5765,9 @@ function addVehicleType() {
     range: '25 miles',
     features: [],
     featureSummary: '',
-    images: [{url:'../img/newveh.jpeg', type:'public', label:'Poster'},{url:'../img/newveh1.jpeg', type:'admin', label:'Admin card'}],
+    images: [{url:'../img/newveh.png', type:'public', label:'Poster'},{url:'../img/newveh1.jpeg', type:'admin', label:'Admin card'}],
     imageUrl: '../img/newveh1.jpeg',
-    posterUrl: '../img/newveh.jpeg',
+    posterUrl: '../img/newveh.png',
     sortOrder: count + 1,
     isActive: true,
   };
@@ -5590,8 +5961,8 @@ var widgetPreview = 'desktop';
 
 function renderWidget() {
   var firstType = store.vehicleTypes.filter(function(vt) { return vt.isActive; })[0];
-  var sampleTotal = firstType ? Math.round(firstType.rates.daily * (1 + store.settings.taxRate)) : 81;
-  var sampleTax = firstType ? Math.round(firstType.rates.daily * store.settings.taxRate) : 6;
+  var sampleTotal = firstType ? Math.round(firstType.rates.daily * (1 + store.settings.taxRate) * 100) / 100 : 81.19;
+  var sampleTax = firstType ? Math.round(firstType.rates.daily * store.settings.taxRate * 100) / 100 : 6.19;
 
   var widgetForm =
     '<div style="padding:2rem;max-width:480px;margin:0 auto">' +
@@ -5631,30 +6002,29 @@ function renderWidget() {
         '<div class="receipt-line"><span>1 day × ' + (firstType ? fmtMoney(firstType.rates.daily) : '$75') + '</span><span>' + (firstType ? fmtMoney(firstType.rates.daily) : '$75') + '</span></div>' +
         '<div class="receipt-line"><span>Tax (' + (store.settings.taxRate * 100).toFixed(2) + '%)</span><span>' + fmtMoney(sampleTax) + '</span></div>' +
         '<div class="receipt-line total"><span>Total</span><span>' + fmtMoney(sampleTotal) + '</span></div>' +
-        '<div class="receipt-line deposit"><span>Deposit due now (' + store.settings.depositPct + '%)</span><span>' + fmtMoney(Math.round(sampleTotal * store.settings.depositPct / 100)) + '</span></div>' +
+        '<div class="receipt-line deposit"><span>Deposit due now (' + store.settings.depositPct + '%)</span><span>' + fmtMoney(Math.round(sampleTotal * store.settings.depositPct) / 100) + '</span></div>' +
       '</div>' +
       '<button class="btn btn-primary" style="width:100%;justify-content:center">Continue to Details</button>' +
     '</div>';
 
   var html =
-    '<div class="widget-section">' +
-      '<h2 class="section-title">Guest Booking Preview</h2>' +
+    '<div style="display:flex;gap:1rem;margin-bottom:1.5rem;align-items:center">' +
       '<div class="widget-toggle">' +
         '<button class="widget-toggle-btn ' + (widgetPreview === 'desktop' ? 'active' : '') + '" onclick="setWidgetPreview(\'desktop\')">Desktop</button>' +
         '<button class="widget-toggle-btn ' + (widgetPreview === 'mobile' ? 'active' : '') + '" onclick="setWidgetPreview(\'mobile\')">Mobile</button>' +
       '</div>' +
+      '<button class="btn btn-primary btn-sm" onclick="openGuestView()">Open Full Guest Page</button>' +
+    '</div>' +
+    '<div class="widget-section">' +
       (widgetPreview === 'desktop'
         ? '<div class="widget-preview">' + widgetForm + '</div>'
         : '<div class="widget-mobile-frame">' + widgetForm + '</div>'
       ) +
     '</div>' +
-    '<div class="widget-section">' +
+    '<div class="widget-section" style="margin-top:1.5rem">' +
       '<h2 class="section-title">Embed Code</h2>' +
       '<div class="embed-code">&lt;!-- Island Wheels Booking Widget --&gt;\n&lt;div id="iw-booking-widget"&gt;&lt;/div&gt;\n&lt;script src="https://islandwheels.localpraxis.com/widget.js"&gt;&lt;/script&gt;\n&lt;script&gt;\n  IslandWheels.init({\n    shopId: \'island-wheels-port-a\',\n    theme: \'light\',\n    primaryColor: \'#C45D3E\'\n  });\n&lt;/script&gt;</div>' +
       '<button class="btn btn-primary btn-sm" style="margin-top:0.75rem" onclick="copyEmbedCode()">Copy Code</button>' +
-    '</div>' +
-    '<div class="widget-section">' +
-      '<button class="btn-text" onclick="openGuestView()">Open Guest Booking Page &rarr;</button>' +
     '</div>';
 
   document.getElementById('widget-container').innerHTML = html;
@@ -5816,8 +6186,8 @@ function guestComputePrice() {
   var afterDiscount = Math.max(0, subtotal - discount);
   var taxable = afterDiscount + deliveryFee;
   var tax = Math.round(taxable * store.settings.taxRate * 100) / 100;
-  var total = Math.round(taxable + tax);
-  var deposit = Math.round(total * store.settings.depositPct / 100);
+  var total = Math.round((taxable + tax) * 100) / 100;
+  var deposit = Math.round(total * store.settings.depositPct) / 100;
 
   return {
     subtotal: subtotal,
@@ -6239,10 +6609,11 @@ function guestSubmitReservation() {
     subtotal: price.subtotal,
     deliveryFee: price.deliveryFee,
     taxAmount: price.tax,
-    totalAmount: price.total,
+    total: price.total,
     depositRequired: price.deposit,
     depositStatus: 'paid',
     paymentStatus: 'partial',
+    paymentMethod: 'card',
     waiverStatus: 'signed',
     customerNotes: document.getElementById('guest-notes') ? document.getElementById('guest-notes').value : '',
     createdAt: new Date().toISOString()
@@ -6338,12 +6709,16 @@ function renderGuestDetail() {
 
           '<h3 class="section-title">Policies</h3>' +
           '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
-            '<div class="accordion-header">Rental Policies <span class="accordion-arrow">&#9660;</span></div>' +
-            '<div class="accordion-body">Must be 21+ with valid driver\'s license. Maximum speed is 15 mph. Carts must stay on designated roads. No beach driving. Renter is responsible for all traffic violations. Operating hours are ' + fmtTime(store.settings.operatingHours.open) + ' to ' + fmtTime(store.settings.operatingHours.close) + '.</div>' +
+            '<div class="accordion-header">Safety Rules <span class="accordion-arrow">&#9660;</span></div>' +
+            '<div class="accordion-body">' + (store.settings.policies ? store.settings.policies.safety : 'Safety rules not available.') + '</div>' +
           '</div>' +
           '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
             '<div class="accordion-header">Cancellation <span class="accordion-arrow">&#9660;</span></div>' +
-            '<div class="accordion-body">Free cancellation up to 24 hours before pickup. Cancellations within 24 hours forfeit 50% of rental fee. No-shows forfeit full rental amount. Refunds processed within 3-5 business days.</div>' +
+            '<div class="accordion-body">' + (store.settings.policies ? store.settings.policies.cancellation : 'Cancellation policy not available.') + '</div>' +
+          '</div>' +
+          '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
+            '<div class="accordion-header">Liability <span class="accordion-arrow">&#9660;</span></div>' +
+            '<div class="accordion-body">' + (store.settings.policies ? store.settings.policies.liability : 'Liability policy not available.') + '</div>' +
           '</div>' +
           '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
             '<div class="accordion-header">Delivery Info <span class="accordion-arrow">&#9660;</span></div>' +
