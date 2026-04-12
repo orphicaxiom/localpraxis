@@ -1089,6 +1089,149 @@ button, input, select, textarea {
   margin-top: 1.5rem;
 }
 
+/* ── Vehicle Types ── */
+.vt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.vt-card {
+  border: 2px solid var(--rule);
+  background: var(--warm-white);
+  overflow: hidden;
+}
+
+.vt-card-poster {
+  border-bottom: 2px solid var(--rule);
+  overflow: hidden;
+  max-height: 180px;
+}
+
+.vt-card-poster img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.vt-card-body {
+  padding: 1.25rem;
+}
+
+.vt-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.vt-card-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.vt-fleet-badge {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-light);
+  white-space: nowrap;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--rule);
+}
+
+.vt-card-desc {
+  font-size: 0.85rem;
+  color: var(--ink-mid);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.vt-section-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-light);
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.vt-rates, .vt-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.vt-rate, .vt-spec {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.85rem;
+}
+
+.vt-rate-label {
+  color: var(--ink-mid);
+  font-size: 0.8rem;
+}
+
+.vt-rate-value {
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.vt-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.vt-feature {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+}
+
+.vt-feature-remove {
+  cursor: pointer;
+  color: var(--ink-light);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.vt-feature-remove:hover {
+  color: var(--accent);
+}
+
+.vt-feature-add {
+  font-size: 0.8rem;
+  color: var(--ink-light);
+  padding: 0.25rem 0.6rem;
+  border: 1px dashed var(--rule);
+}
+
+.vt-feature-add:hover {
+  color: var(--ink);
+  border-color: var(--ink-mid);
+}
+
+@media (max-width: 768px) {
+  .vt-grid {
+    grid-template-columns: 1fr;
+  }
+  .vt-rates, .vt-specs {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── Promotions ── */
 .promo-list {
   display: flex;
@@ -2200,7 +2343,7 @@ button, input, select, textarea {
       <div class="nav-item" data-view="calendar" onclick="switchView('calendar')">Calendar</div>
       <div class="nav-item" data-view="reservations" onclick="switchView('reservations')">Reservations</div>
       <div class="nav-item" data-view="checkinout" onclick="switchView('checkinout')">Check-in / Out</div>
-      <div class="nav-item" data-view="pricing" onclick="switchView('pricing')">Pricing</div>
+      <div class="nav-item" data-view="vehicletypes" onclick="switchView('vehicletypes')">Vehicle Types</div>
       <div class="nav-item" data-view="promotions" onclick="switchView('promotions')">Promotions</div>
       <div class="nav-item" data-view="widget" onclick="switchView('widget')">Booking Widget</div>
     </div>
@@ -2285,13 +2428,13 @@ button, input, select, textarea {
       <div class="split-view" id="cio-container"></div>
     </div>
 
-    <!-- Pricing View -->
-    <div class="view" id="view-pricing">
+    <!-- Vehicle Types View -->
+    <div class="view" id="view-vehicletypes">
       <div class="header">
-        <h1>Pricing</h1>
-        <p>Manage rental rates and fees</p>
+        <h1>Vehicle Types</h1>
+        <p>Configure cart types, pricing, features, and specs</p>
       </div>
-      <div id="pricing-container"></div>
+      <div id="vehicletypes-container"></div>
     </div>
 
     <!-- Promotions View -->
@@ -2386,7 +2529,7 @@ button, input, select, textarea {
   <!-- More Menu (mobile) -->
   <div class="more-menu" id="more-menu">
     <div class="more-menu-item" onclick="switchView('checkinout');closeMoreMenu()">Check-in / Out</div>
-    <div class="more-menu-item" onclick="switchView('pricing');closeMoreMenu()">Pricing</div>
+    <div class="more-menu-item" onclick="switchView('vehicletypes');closeMoreMenu()">Vehicle Types</div>
     <div class="more-menu-item" onclick="switchView('promotions');closeMoreMenu()">Promotions</div>
     <div class="more-menu-item" onclick="switchView('widget');closeMoreMenu()">Booking Widget</div>
     <div class="more-menu-item" onclick="toggleDarkMode();closeMoreMenu()">Toggle Dark Mode</div>
@@ -2400,23 +2543,29 @@ const TODAY = '2026-04-05';
 const TODAY_DATE = new Date(2026, 3, 5);
 
 const store = {
+  vehicleTypes: [
+    { id:'standard', slug:'4-pass-standard', passengerCount:4, name:'4-Passenger Standard', description:'Perfect for couples and small groups exploring the island.', rates:{hourly:25,daily:75,twoDay:130,weekly:420}, maxSpeed:'15 mph', range:'25 miles', features:['Weather canopy','GPS tracking','LED headlights','Cup holders','Windshield'], featureSummary:'Canopy. GPS. Headlights', imageUrl:'../img/4cart.jpeg', posterUrl:'../img/4posternew.png', sortOrder:1, isActive:true },
+    { id:'deluxe', slug:'6-pass-deluxe', passengerCount:6, name:'6-Passenger Deluxe', description:'Room for the whole family with premium comfort features.', rates:{hourly:35,daily:110,twoDay:190,weekly:615}, maxSpeed:'15 mph', range:'30 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Cup holders','Windshield','Rearview mirror'], featureSummary:'Canopy. GPS. Headlights. USB Charging', imageUrl:'../img/6cart.jpeg', posterUrl:'../img/6posternew.png', sortOrder:2, isActive:true },
+    { id:'premium', slug:'8-pass-premium', passengerCount:8, name:'8-Passenger Premium', description:'Our largest cart with all the extras for big groups.', rates:{hourly:50,daily:150,twoDay:260,weekly:840}, maxSpeed:'15 mph', range:'35 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Bluetooth speaker','Cup holders','Windshield','Side mirrors','Turn signals'], featureSummary:'Canopy. GPS. Headlights. USB Charging. Bluetooth Speaker', imageUrl:'../img/8cart.jpeg', posterUrl:'../img/8posternew.png', sortOrder:3, isActive:true },
+  ],
+
   fleet: [
-    { id:1, name:'IW-01', passengerCount:4, status:'rented', currentRenter:'Whitaker', currentResId:1, returnTime:'16:00', rates:{hourly:25,daily:75,twoDay:130,weekly:420}, gpsStatus:'active', mileage:1247, condition:'excellent', notes:'' },
-    { id:2, name:'IW-02', passengerCount:4, status:'rented', currentRenter:'Campos', currentResId:2, returnTime:'14:00', rates:{hourly:25,daily:75,twoDay:130,weekly:420}, gpsStatus:'active', mileage:982, condition:'good', notes:'' },
-    { id:3, name:'IW-03', passengerCount:4, status:'available', currentRenter:null, currentResId:null, returnTime:null, rates:{hourly:25,daily:75,twoDay:130,weekly:420}, gpsStatus:'active', mileage:1534, condition:'excellent', notes:'' },
-    { id:4, name:'IW-04', passengerCount:4, status:'available', currentRenter:null, currentResId:null, returnTime:null, rates:{hourly:25,daily:75,twoDay:130,weekly:420}, gpsStatus:'active', mileage:2103, condition:'good', notes:'Minor scuff on front bumper' },
-    { id:5, name:'IW-05', passengerCount:4, status:'maintenance', currentRenter:null, currentResId:null, returnTime:null, rates:{hourly:25,daily:75,twoDay:130,weekly:420}, gpsStatus:'offline', mileage:3201, condition:'fair', notes:'Battery replacement scheduled' },
-    { id:6, name:'IW-06', passengerCount:4, status:'available', currentRenter:null, currentResId:null, returnTime:null, rates:{hourly:25,daily:75,twoDay:130,weekly:420}, gpsStatus:'active', mileage:876, condition:'excellent', notes:'' },
-    { id:7, name:'IW-07', passengerCount:6, status:'rented', currentRenter:'Trevino', currentResId:3, returnTime:'17:00', rates:{hourly:35,daily:110,twoDay:190,weekly:615}, gpsStatus:'active', mileage:1890, condition:'excellent', notes:'' },
-    { id:8, name:'IW-08', passengerCount:6, status:'overdue', currentRenter:'Pennington', currentResId:4, returnTime:'12:00', rates:{hourly:35,daily:110,twoDay:190,weekly:615}, gpsStatus:'active', mileage:2456, condition:'good', notes:'' },
-    { id:9, name:'IW-09', passengerCount:6, status:'available', currentRenter:null, currentResId:null, returnTime:null, rates:{hourly:35,daily:110,twoDay:190,weekly:615}, gpsStatus:'active', mileage:1102, condition:'excellent', notes:'' },
-    { id:10, name:'IW-10', passengerCount:6, status:'rented', currentRenter:'Nguyen', currentResId:5, returnTime:'18:00', rates:{hourly:35,daily:110,twoDay:190,weekly:615}, gpsStatus:'active', mileage:1678, condition:'good', notes:'' },
-    { id:11, name:'IW-11', passengerCount:6, status:'available', currentRenter:null, currentResId:null, returnTime:null, rates:{hourly:35,daily:110,twoDay:190,weekly:615}, gpsStatus:'active', mileage:934, condition:'excellent', notes:'' },
-    { id:12, name:'IW-12', passengerCount:6, status:'maintenance', currentRenter:null, currentResId:null, returnTime:null, rates:{hourly:35,daily:110,twoDay:190,weekly:615}, gpsStatus:'offline', mileage:4102, condition:'fair', notes:'Canopy torn, replacement ordered' },
-    { id:13, name:'IW-13', passengerCount:8, status:'rented', currentRenter:'Dawson', currentResId:6, returnTime:'15:00', rates:{hourly:50,daily:150,twoDay:260,weekly:840}, gpsStatus:'active', mileage:1456, condition:'excellent', notes:'' },
-    { id:14, name:'IW-14', passengerCount:8, status:'overdue', currentRenter:'Garza', currentResId:7, returnTime:'11:00', rates:{hourly:50,daily:150,twoDay:260,weekly:840}, gpsStatus:'active', mileage:2890, condition:'good', notes:'' },
-    { id:15, name:'IW-15', passengerCount:8, status:'available', currentRenter:null, currentResId:null, returnTime:null, rates:{hourly:50,daily:150,twoDay:260,weekly:840}, gpsStatus:'active', mileage:567, condition:'excellent', notes:'' },
-    { id:16, name:'IW-16', passengerCount:8, status:'rented', currentRenter:'Blackwell', currentResId:8, returnTime:'19:00', rates:{hourly:50,daily:150,twoDay:260,weekly:840}, gpsStatus:'active', mileage:1234, condition:'excellent', notes:'' },
+    { id:1, name:'IW-01', typeId:'standard', status:'rented', currentRenter:'Whitaker', currentResId:1, returnTime:'16:00', gpsStatus:'active', mileage:1247, condition:'excellent', notes:'' },
+    { id:2, name:'IW-02', typeId:'standard', status:'rented', currentRenter:'Campos', currentResId:2, returnTime:'14:00', gpsStatus:'active', mileage:982, condition:'good', notes:'' },
+    { id:3, name:'IW-03', typeId:'standard', status:'available', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'active', mileage:1534, condition:'excellent', notes:'' },
+    { id:4, name:'IW-04', typeId:'standard', status:'available', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'active', mileage:2103, condition:'good', notes:'Minor scuff on front bumper' },
+    { id:5, name:'IW-05', typeId:'standard', status:'maintenance', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'offline', mileage:3201, condition:'fair', notes:'Battery replacement scheduled' },
+    { id:6, name:'IW-06', typeId:'standard', status:'available', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'active', mileage:876, condition:'excellent', notes:'' },
+    { id:7, name:'IW-07', typeId:'deluxe', status:'rented', currentRenter:'Trevino', currentResId:3, returnTime:'17:00', gpsStatus:'active', mileage:1890, condition:'excellent', notes:'' },
+    { id:8, name:'IW-08', typeId:'deluxe', status:'overdue', currentRenter:'Pennington', currentResId:4, returnTime:'12:00', gpsStatus:'active', mileage:2456, condition:'good', notes:'' },
+    { id:9, name:'IW-09', typeId:'deluxe', status:'available', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'active', mileage:1102, condition:'excellent', notes:'' },
+    { id:10, name:'IW-10', typeId:'deluxe', status:'rented', currentRenter:'Nguyen', currentResId:5, returnTime:'18:00', gpsStatus:'active', mileage:1678, condition:'good', notes:'' },
+    { id:11, name:'IW-11', typeId:'deluxe', status:'available', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'active', mileage:934, condition:'excellent', notes:'' },
+    { id:12, name:'IW-12', typeId:'deluxe', status:'maintenance', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'offline', mileage:4102, condition:'fair', notes:'Canopy torn, replacement ordered' },
+    { id:13, name:'IW-13', typeId:'premium', status:'rented', currentRenter:'Dawson', currentResId:6, returnTime:'15:00', gpsStatus:'active', mileage:1456, condition:'excellent', notes:'' },
+    { id:14, name:'IW-14', typeId:'premium', status:'overdue', currentRenter:'Garza', currentResId:7, returnTime:'11:00', gpsStatus:'active', mileage:2890, condition:'good', notes:'' },
+    { id:15, name:'IW-15', typeId:'premium', status:'available', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'active', mileage:567, condition:'excellent', notes:'' },
+    { id:16, name:'IW-16', typeId:'premium', status:'rented', currentRenter:'Blackwell', currentResId:8, returnTime:'19:00', gpsStatus:'active', mileage:1234, condition:'excellent', notes:'' },
   ],
 
   reservations: [
@@ -2491,18 +2640,36 @@ const store = {
 };
 
 /* ══════════════════════════════════════════════════════
-   SVG GOLF CART ICON
+   VEHICLE TYPE HELPERS
    ══════════════════════════════════════════════════════ */
-function cartImage(passengerCount) {
-  var map = { 4: '../img/4cart.jpeg', 6: '../img/6cart.jpeg', 8: '../img/8cart.jpeg' };
-  var src = map[passengerCount] || map[4];
-  return '<img src="' + src + '" alt="' + passengerCount + '-passenger golf cart" loading="lazy">';
+function getVehicleType(typeId) {
+  return store.vehicleTypes.find(function(t) { return t.id === typeId; });
 }
 
-function cartPoster(passengerCount) {
-  var map = { 4: '../img/4posternew.png', 6: '../img/6posternew.png', 8: '../img/8posternew.png' };
-  var src = map[passengerCount] || map[4];
-  return '<img class="poster" src="' + src + '" alt="' + passengerCount + '-passenger golf cart" loading="lazy">';
+function getVehicleTypeForCart(cart) {
+  return store.vehicleTypes.find(function(t) { return t.id === cart.typeId; });
+}
+
+function getCartRates(cart) {
+  var vt = getVehicleTypeForCart(cart);
+  return vt ? vt.rates : { hourly: 0, daily: 0, twoDay: 0, weekly: 0 };
+}
+
+/* ══════════════════════════════════════════════════════
+   CART IMAGE HELPERS
+   ══════════════════════════════════════════════════════ */
+function cartImage(typeId) {
+  var vt = getVehicleType(typeId);
+  var src = vt ? vt.imageUrl : '../img/4cart.jpeg';
+  var alt = vt ? vt.name + ' golf cart' : 'golf cart';
+  return '<img src="' + src + '" alt="' + alt + '" loading="lazy">';
+}
+
+function cartPoster(typeId) {
+  var vt = getVehicleType(typeId);
+  var src = vt ? vt.posterUrl : '../img/4posternew.png';
+  var alt = vt ? vt.name + ' golf cart' : 'golf cart';
+  return '<img class="poster" src="' + src + '" alt="' + alt + '" loading="lazy">';
 }
 
 function cartSVG(size) {
@@ -2593,12 +2760,13 @@ function getAvailableCarts(date) {
 function calculateTotal(cartId, pickupDate, returnDate, promoCode) {
   var cart = getCart(cartId);
   if (!cart) return { subtotal: 0, discount: 0, delivery: 0, tax: 0, total: 0 };
+  var rates = getCartRates(cart);
   var days = daysBetween(pickupDate, returnDate);
   var subtotal = 0;
-  if (days >= 7) subtotal = cart.rates.weekly;
-  else if (days >= 2) subtotal = cart.rates.twoDay + (days - 2) * cart.rates.daily;
-  else if (days >= 1) subtotal = days * cart.rates.daily;
-  else subtotal = cart.rates.hourly * 6;
+  if (days >= 7) subtotal = rates.weekly;
+  else if (days >= 2) subtotal = rates.twoDay + (days - 2) * rates.daily;
+  else if (days >= 1) subtotal = days * rates.daily;
+  else subtotal = rates.hourly * 6;
   var discount = 0;
   if (promoCode) {
     var promo = store.promotions.find(function(p) { return p.code === promoCode && p.active; });
@@ -2685,7 +2853,7 @@ function switchView(view) {
   if (view === 'more') { toggleMoreMenu(); return; }
   activeView = view;
   document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.toggle('active', n.dataset.view === view); });
-  var moreViews = ['checkinout', 'pricing', 'promotions', 'waivers', 'widget'];
+  var moreViews = ['checkinout', 'vehicletypes', 'promotions', 'waivers', 'widget'];
   document.querySelectorAll('.tab-item').forEach(function(t) {
     var isActive = t.dataset.view === view || (t.dataset.view === 'more' && moreViews.indexOf(view) !== -1);
     t.classList.toggle('active', isActive);
@@ -2708,7 +2876,7 @@ function renderView(view) {
     case 'calendar': renderCalendar(); break;
     case 'reservations': renderReservations(); break;
     case 'checkinout': renderCheckInOut(); break;
-    case 'pricing': renderPricing(); break;
+    case 'vehicletypes': renderVehicleTypes(); break;
     case 'promotions': renderPromotions(); break;
     case 'widget': renderWidget(); break;
   }
@@ -2788,10 +2956,11 @@ function renderDashboard() {
   // Fleet at a Glance
   var glanceHTML = '<div class="fleet-glance">';
   store.fleet.forEach(function(cart) {
+    var vt = getVehicleTypeForCart(cart);
     glanceHTML +=
       '<div class="glance-tile" onclick="switchView(\'fleet\')">' +
         '<div class="glance-id">' + cart.name + '</div>' +
-        '<div class="glance-type">' + cart.passengerCount + '-Passenger</div>' +
+        '<div class="glance-type">' + vt.name + '</div>' +
         '<div class="glance-status">' +
           statusDot(cart.status) +
           '<span class="status-text ' + cart.status + '">' + statusLabel(cart.status) + '</span>' +
@@ -2846,6 +3015,7 @@ function renderFleet() {
 
   var html = '';
   carts.forEach(function(cart) {
+    var vt = getVehicleTypeForCart(cart);
     var statusText = statusLabel(cart.status);
     var statusCls = cart.status;
     if (cart.status === 'rented' && cart.currentRenter) {
@@ -2856,11 +3026,11 @@ function renderFleet() {
 
     html +=
       '<div class="cart-card" onclick="openCartPanel(' + cart.id + ')">' +
-        '<div class="cart-card-img">' + cartImage(cart.passengerCount) + '</div>' +
+        '<div class="cart-card-img">' + cartImage(cart.typeId) + '</div>' +
         '<div class="cart-card-body">' +
           '<div class="cart-card-name">' + cart.name + '</div>' +
-          '<div class="cart-card-meta">' + cart.passengerCount + ' Passenger</div>' +
-          '<div class="cart-card-rate">From ' + fmtMoney(cart.rates.hourly) + '/hr</div>' +
+          '<div class="cart-card-meta">' + vt.name + '</div>' +
+          '<div class="cart-card-rate">From ' + fmtMoney(vt.rates.hourly) + '/hr</div>' +
           '<div class="cart-card-status" style="color:' + statusColor(cart.status) + '">' +
             statusDot(statusCls) + ' ' + statusText +
           '</div>' +
@@ -2875,11 +3045,12 @@ function renderFleet() {
 function openCartPanel(cartId) {
   var cart = getCart(cartId);
   if (!cart) return;
+  var vt = getVehicleTypeForCart(cart);
 
   var html =
     '<div class="panel-section">' +
       '<div style="font-size:1.1rem;font-weight:600;margin-bottom:0.25rem">' + cart.name + '</div>' +
-      '<div style="font-size:0.88rem;color:var(--ink-mid)">' + cart.passengerCount + '-Passenger Golf Cart</div>' +
+      '<div style="font-size:0.88rem;color:var(--ink-mid)">' + vt.name + '</div>' +
     '</div>' +
     '<hr class="panel-divider">' +
     '<div class="panel-section">' +
@@ -2892,10 +3063,10 @@ function openCartPanel(cartId) {
     '<hr class="panel-divider">' +
     '<div class="panel-section">' +
       '<div class="panel-section-title">Rates</div>' +
-      '<div class="panel-row"><span class="panel-row-label">Hourly</span><span class="panel-row-value">' + fmtMoney(cart.rates.hourly) + '</span></div>' +
-      '<div class="panel-row"><span class="panel-row-label">Daily</span><span class="panel-row-value">' + fmtMoney(cart.rates.daily) + '</span></div>' +
-      '<div class="panel-row"><span class="panel-row-label">2-Day</span><span class="panel-row-value">' + fmtMoney(cart.rates.twoDay) + '</span></div>' +
-      '<div class="panel-row"><span class="panel-row-label">Weekly</span><span class="panel-row-value">' + fmtMoney(cart.rates.weekly) + '</span></div>' +
+      '<div class="panel-row"><span class="panel-row-label">Hourly</span><span class="panel-row-value">' + fmtMoney(vt.rates.hourly) + '</span></div>' +
+      '<div class="panel-row"><span class="panel-row-label">Daily</span><span class="panel-row-value">' + fmtMoney(vt.rates.daily) + '</span></div>' +
+      '<div class="panel-row"><span class="panel-row-label">2-Day</span><span class="panel-row-value">' + fmtMoney(vt.rates.twoDay) + '</span></div>' +
+      '<div class="panel-row"><span class="panel-row-label">Weekly</span><span class="panel-row-value">' + fmtMoney(vt.rates.weekly) + '</span></div>' +
     '</div>';
 
   if (cart.status === 'rented' || cart.status === 'overdue') {
@@ -3037,7 +3208,8 @@ function renderCalendar() {
 
       var barHTML = '';
       if (res) {
-        var typeCls = 'type-' + cart.passengerCount;
+        var cvt = getVehicleTypeForCart(cart);
+        var typeCls = 'type-' + cvt.passengerCount;
         barHTML = '<div class="gantt-bar ' + typeCls + '" onclick="event.stopPropagation();openResPanel(' + res.id + ')" title="' + res.customer.name + '">' + res.customer.name.split(' ').pop() + '</div>';
       }
 
@@ -3174,6 +3346,7 @@ function openResPanel(resId) {
   var res = getRes(resId);
   if (!res) return;
   var cart = getCart(res.cartId);
+  var vt = cart ? getVehicleTypeForCart(cart) : null;
   var dur = durationText(res.pickupDate, res.pickupTime, res.returnDate, res.returnTime);
   var depositPaid = res.total * (store.settings.depositPct / 100);
   var balance = res.total - depositPaid;
@@ -3188,7 +3361,7 @@ function openResPanel(resId) {
     '<hr class="panel-divider">' +
     '<div class="panel-section">' +
       '<div class="panel-section-title">Reservation Details</div>' +
-      '<div class="panel-row"><span class="panel-row-label">Cart</span><span class="panel-row-value">' + (cart ? cart.name + ' (' + cart.passengerCount + '-pass)' : '') + '</span></div>' +
+      '<div class="panel-row"><span class="panel-row-label">Cart</span><span class="panel-row-value">' + (cart ? cart.name + ' (' + (vt ? vt.passengerCount : '') + '-pass)' : '') + '</span></div>' +
       '<div class="panel-row"><span class="panel-row-label">Pickup</span><span class="panel-row-value">' + fmtDate(res.pickupDate) + ' ' + fmtTime(res.pickupTime) + '</span></div>' +
       '<div class="panel-row"><span class="panel-row-label">Return</span><span class="panel-row-value">' + fmtDate(res.returnDate) + ' ' + fmtTime(res.returnTime) + '</span></div>' +
       '<div class="panel-row"><span class="panel-row-label">Duration</span><span class="panel-row-value">' + dur + '</span></div>' +
@@ -3358,10 +3531,11 @@ function renderNewResStep() {
         '<div style="font-weight:500;margin-bottom:1rem;font-size:0.88rem">Select Cart</div>' +
         '<div class="cart-select-grid">';
     available.forEach(function(c) {
+      var cvt = getVehicleTypeForCart(c);
       content +=
         '<div class="cart-select-item ' + (s.cartId === c.id ? 'selected' : '') + '" onclick="nrSelectCart(' + c.id + ')">' +
           '<div class="cart-select-name">' + c.name + '</div>' +
-          '<div class="cart-select-type">' + c.passengerCount + '-Pass. ' + fmtMoney(c.rates.daily) + '/day</div>' +
+          '<div class="cart-select-type">' + cvt.passengerCount + '-Pass. ' + fmtMoney(cvt.rates.daily) + '/day</div>' +
         '</div>';
     });
     content += '</div>' +
@@ -3407,6 +3581,7 @@ function renderNewResStep() {
       '</div>';
   } else if (s.step === 4) {
     var cart = getCart(s.cartId);
+    var vt = cart ? getVehicleTypeForCart(cart) : null;
     var calc = calculateTotal(s.cartId, s.pickupDate, s.returnDate, null);
     var dur = durationText(s.pickupDate, s.pickupTime, s.returnDate, s.returnTime);
     var deliveryFee = s.delivery ? store.settings.deliveryFee : 0;
@@ -3418,7 +3593,7 @@ function renderNewResStep() {
         '<div class="panel-section">' +
           '<div class="panel-row"><span class="panel-row-label">Customer</span><span class="panel-row-value">' + s.name + '</span></div>' +
           '<div class="panel-row"><span class="panel-row-label">Phone</span><span class="panel-row-value">' + s.phone + '</span></div>' +
-          '<div class="panel-row"><span class="panel-row-label">Cart</span><span class="panel-row-value">' + (cart ? cart.name + ' (' + cart.passengerCount + '-pass)' : '') + '</span></div>' +
+          '<div class="panel-row"><span class="panel-row-label">Cart</span><span class="panel-row-value">' + (cart ? cart.name + ' (' + (vt ? vt.passengerCount : '') + '-pass)' : '') + '</span></div>' +
           '<div class="panel-row"><span class="panel-row-label">Pickup</span><span class="panel-row-value">' + fmtDate(s.pickupDate) + ' ' + fmtTime(s.pickupTime) + '</span></div>' +
           '<div class="panel-row"><span class="panel-row-label">Return</span><span class="panel-row-value">' + fmtDate(s.returnDate) + ' ' + fmtTime(s.returnTime) + '</span></div>' +
           '<div class="panel-row"><span class="panel-row-label">Duration</span><span class="panel-row-value">' + dur + '</span></div>' +
@@ -3540,7 +3715,7 @@ function renderCheckInOut() {
           '<div class="cio-customer">' + r.customer.name + '</div>' +
           '<div class="cio-time">' + fmtTime(r.pickupTime) + '</div>' +
         '</div>' +
-        '<div class="cio-details">' + (cart ? cart.name : '') + ' (' + (cart ? cart.passengerCount : '') + '-pass)</div>' +
+        '<div class="cio-details">' + (cart ? cart.name : '') + ' (' + (cart ? (getVehicleTypeForCart(cart) || {}).passengerCount : '') + '-pass)</div>' +
         '<div class="cio-status-row">' +
           '<span style="color:' + (r.waiverStatus === 'signed' ? 'var(--status-green)' : 'var(--status-amber)') + '">' +
             '<span class="status-dot" style="background:' + (r.waiverStatus === 'signed' ? 'var(--status-green)' : 'var(--status-amber)') + '"></span> Waiver ' + r.waiverStatus +
@@ -3575,7 +3750,7 @@ function renderCheckInOut() {
           '<div class="cio-customer">' + r.customer.name + '</div>' +
           '<div class="cio-time">' + fmtTime(r.returnTime) + '</div>' +
         '</div>' +
-        '<div class="cio-details">' + (cart ? cart.name : '') + ' (' + (cart ? cart.passengerCount : '') + '-pass)</div>' +
+        '<div class="cio-details">' + (cart ? cart.name : '') + ' (' + (cart ? (getVehicleTypeForCart(cart) || {}).passengerCount : '') + '-pass)</div>' +
         (isOverdue ? '<div class="cio-overdue-tag"><span class="status-dot overdue"></span> ' + overdueText + '</div>' : '') +
         '<button class="btn btn-primary btn-sm" onclick="checkInRes(' + r.id + ')">Check In</button>' +
       '</div>';
@@ -3586,39 +3761,76 @@ function renderCheckInOut() {
 }
 
 /* ══════════════════════════════════════════════════════
-   PRICING
+   VEHICLE TYPES
    ══════════════════════════════════════════════════════ */
-function renderPricing() {
-  var types = [
-    { label: '4-Passenger', count: 4 },
-    { label: '6-Passenger', count: 6 },
-    { label: '8-Passenger', count: 8 },
-  ];
+function renderVehicleTypes() {
+  var html = '<div class="vt-grid">';
 
-  var html =
-    '<div class="pricing-table-wrap">' +
-      '<table class="data-table">' +
-        '<thead><tr>' +
-          '<th>Cart Type</th><th>Hourly</th><th>Daily (24hr)</th><th>2-Day</th><th>Weekly</th>' +
-        '</tr></thead>' +
-        '<tbody>';
+  store.vehicleTypes.forEach(function(vt, idx) {
+    var fleetCount = store.fleet.filter(function(c) { return c.typeId === vt.id; }).length;
 
-  types.forEach(function(type) {
-    var cart = store.fleet.find(function(c) { return c.passengerCount === type.count; });
-    if (!cart) return;
-    html += '<tr>' +
-      '<td style="font-weight:600">' + type.label + '</td>' +
-      '<td class="pricing-cell" onclick="editPrice(' + type.count + ',\'hourly\',this)">' + fmtMoney(cart.rates.hourly) + '</td>' +
-      '<td class="pricing-cell" onclick="editPrice(' + type.count + ',\'daily\',this)">' + fmtMoney(cart.rates.daily) + '</td>' +
-      '<td class="pricing-cell" onclick="editPrice(' + type.count + ',\'twoDay\',this)">' + fmtMoney(cart.rates.twoDay) + '</td>' +
-      '<td class="pricing-cell" onclick="editPrice(' + type.count + ',\'weekly\',this)">' + fmtMoney(cart.rates.weekly) + '</td>' +
-    '</tr>';
+    html +=
+      '<div class="vt-card">' +
+        '<div class="vt-card-poster">' + cartPoster(vt.id) + '</div>' +
+        '<div class="vt-card-body">' +
+          '<div class="vt-card-header">' +
+            '<div class="vt-card-name pricing-cell" onclick="editVtField(' + idx + ',\'name\',this)">' + vt.name + '</div>' +
+            '<span class="vt-fleet-badge">' + fleetCount + ' cart' + (fleetCount !== 1 ? 's' : '') + '</span>' +
+          '</div>' +
+          '<div class="vt-card-desc pricing-cell" onclick="editVtField(' + idx + ',\'description\',this)">' + vt.description + '</div>' +
+          '<div class="vt-section-label">Rates</div>' +
+          '<div class="vt-rates">' +
+            '<div class="vt-rate">' +
+              '<span class="vt-rate-label">Hourly</span>' +
+              '<span class="vt-rate-value pricing-cell" onclick="editVtRate(' + idx + ',\'hourly\',this)">' + fmtMoney(vt.rates.hourly) + '</span>' +
+            '</div>' +
+            '<div class="vt-rate">' +
+              '<span class="vt-rate-label">Daily</span>' +
+              '<span class="vt-rate-value pricing-cell" onclick="editVtRate(' + idx + ',\'daily\',this)">' + fmtMoney(vt.rates.daily) + '</span>' +
+            '</div>' +
+            '<div class="vt-rate">' +
+              '<span class="vt-rate-label">2-Day</span>' +
+              '<span class="vt-rate-value pricing-cell" onclick="editVtRate(' + idx + ',\'twoDay\',this)">' + fmtMoney(vt.rates.twoDay) + '</span>' +
+            '</div>' +
+            '<div class="vt-rate">' +
+              '<span class="vt-rate-label">Weekly</span>' +
+              '<span class="vt-rate-value pricing-cell" onclick="editVtRate(' + idx + ',\'weekly\',this)">' + fmtMoney(vt.rates.weekly) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="vt-section-label">Specs</div>' +
+          '<div class="vt-specs">' +
+            '<div class="vt-spec">' +
+              '<span class="vt-rate-label">Passengers</span>' +
+              '<span class="vt-rate-value">' + vt.passengerCount + '</span>' +
+            '</div>' +
+            '<div class="vt-spec">' +
+              '<span class="vt-rate-label">Max Speed</span>' +
+              '<span class="vt-rate-value pricing-cell" onclick="editVtField(' + idx + ',\'maxSpeed\',this)">' + vt.maxSpeed + '</span>' +
+            '</div>' +
+            '<div class="vt-spec">' +
+              '<span class="vt-rate-label">Range</span>' +
+              '<span class="vt-rate-value pricing-cell" onclick="editVtField(' + idx + ',\'range\',this)">' + vt.range + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="vt-section-label">Features</div>' +
+          '<div class="vt-features">' +
+            vt.features.map(function(f, fi) {
+              return '<div class="vt-feature">' +
+                '<span>' + f + '</span>' +
+                '<span class="vt-feature-remove" onclick="removeVtFeature(' + idx + ',' + fi + ')" title="Remove">&times;</span>' +
+              '</div>';
+            }).join('') +
+            '<div class="vt-feature-add pricing-cell" onclick="addVtFeature(' + idx + ')">+ Add feature</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
   });
 
-  html += '</tbody></table></div>';
+  html += '</div>';
 
+  // Additional Fees section
   html +=
-    '<h2 class="section-title">Additional Fees</h2>' +
+    '<h2 class="section-title" style="margin-top:2.5rem">Additional Fees</h2>' +
     '<div style="max-width:400px">' +
       '<div class="panel-row" style="padding:0.75rem 0;border-bottom:1px solid var(--rule)">' +
         '<span class="panel-row-label">Delivery Fee</span>' +
@@ -3632,27 +3844,52 @@ function renderPricing() {
         '<span class="panel-row-label">Damage Deposit</span>' +
         '<span class="panel-row-value pricing-cell" onclick="editSetting(\'damageDeposit\',this)">' + fmtMoney(store.settings.damageDeposit) + '</span>' +
       '</div>' +
-    '</div>' +
-    '<div class="pricing-footer">Last updated: April 5, 2026</div>';
+    '</div>';
 
-  document.getElementById('pricing-container').innerHTML = html;
+  document.getElementById('vehicletypes-container').innerHTML = html;
 }
 
-function editPrice(passengerCount, rateKey, cell) {
-  var cart = store.fleet.find(function(c) { return c.passengerCount === passengerCount; });
-  if (!cart) return;
-  var currentVal = cart.rates[rateKey];
-  cell.innerHTML = '<input class="pricing-input" type="number" value="' + currentVal + '" onblur="savePrice(' + passengerCount + ',\'' + rateKey + '\',this)" onkeydown="if(event.key===\'Enter\')this.blur()">';
+function editVtRate(vtIdx, rateKey, cell) {
+  var vt = store.vehicleTypes[vtIdx];
+  if (!vt) return;
+  var currentVal = vt.rates[rateKey];
+  cell.innerHTML = '<input class="pricing-input" type="number" value="' + currentVal + '" onblur="saveVtRate(' + vtIdx + ',\'' + rateKey + '\',this)" onkeydown="if(event.key===\'Enter\')this.blur()">';
   cell.querySelector('input').focus();
 }
 
-function savePrice(passengerCount, rateKey, input) {
+function saveVtRate(vtIdx, rateKey, input) {
   var val = parseInt(input.value) || 0;
-  store.fleet.forEach(function(c) {
-    if (c.passengerCount === passengerCount) c.rates[rateKey] = val;
-  });
-  renderPricing();
-  showToast('Pricing saved');
+  store.vehicleTypes[vtIdx].rates[rateKey] = val;
+  renderVehicleTypes();
+  showToast('Rate saved');
+}
+
+function editVtField(vtIdx, field, cell) {
+  var vt = store.vehicleTypes[vtIdx];
+  if (!vt) return;
+  var currentVal = vt[field];
+  cell.innerHTML = '<input class="pricing-input" type="text" value="' + currentVal + '" style="width:100%" onblur="saveVtField(' + vtIdx + ',\'' + field + '\',this)" onkeydown="if(event.key===\'Enter\')this.blur()">';
+  cell.querySelector('input').focus();
+}
+
+function saveVtField(vtIdx, field, input) {
+  store.vehicleTypes[vtIdx][field] = input.value;
+  renderVehicleTypes();
+  showToast('Saved');
+}
+
+function removeVtFeature(vtIdx, featureIdx) {
+  store.vehicleTypes[vtIdx].features.splice(featureIdx, 1);
+  renderVehicleTypes();
+  showToast('Feature removed');
+}
+
+function addVtFeature(vtIdx) {
+  var name = prompt('Feature name:');
+  if (!name) return;
+  store.vehicleTypes[vtIdx].features.push(name);
+  renderVehicleTypes();
+  showToast('Feature added');
 }
 
 function editSetting(key, cell) {
@@ -3663,7 +3900,7 @@ function editSetting(key, cell) {
 
 function saveSetting(key, input) {
   store.settings[key] = parseInt(input.value) || 0;
-  renderPricing();
+  renderVehicleTypes();
   showToast('Setting saved');
 }
 
@@ -3675,7 +3912,7 @@ function editSettingPct(key, cell) {
 
 function saveSettingPct(key, input) {
   store.settings[key] = (parseFloat(input.value) || 0) / 100;
-  renderPricing();
+  renderVehicleTypes();
   showToast('Setting saved');
 }
 
@@ -3686,7 +3923,7 @@ function renderPromotions() {
   var html = '<div class="promo-list">';
   store.promotions.forEach(function(promo) {
     var discountText = promo.discountType === 'percent' ? promo.amount + '% off' : fmtMoney(promo.amount) + ' off';
-    var cartTypeText = promo.cartTypes.map(function(t) { return t + '-Pass'; }).join(', ');
+    var cartTypeText = promo.cartTypes.map(function(ct) { var vt = store.vehicleTypes.find(function(v) { return v.passengerCount === ct; }); return vt ? vt.name : ct + '-Pass'; }).join(', ');
     var usageText = promo.maxUses ? promo.timesUsed + ' / ' + promo.maxUses + ' used' : promo.timesUsed + ' used';
 
     html +=
@@ -3817,9 +4054,7 @@ function renderWidget() {
       '<div class="form-group">' +
         '<label class="form-label">Cart Type</label>' +
         '<select class="form-select">' +
-          '<option>4-Passenger Standard ($75/day)</option>' +
-          '<option>6-Passenger Deluxe ($110/day)</option>' +
-          '<option>8-Passenger Premium ($150/day)</option>' +
+          store.vehicleTypes.filter(function(vt) { return vt.isActive; }).map(function(vt) { return '<option value="' + vt.id + '">' + vt.name + ' (' + fmtMoney(vt.rates.daily) + '/day)</option>'; }).join('') +
         '</select>' +
       '</div>' +
       '<div class="form-row">' +
@@ -3908,12 +4143,6 @@ function renderGuestView() {
     return;
   }
 
-  var types = [
-    { count: 4, label: '4-Passenger Standard', price: 75, features: 'Canopy. GPS. Headlights' },
-    { count: 6, label: '6-Passenger Deluxe', price: 110, features: 'Canopy. GPS. Headlights. USB Charging' },
-    { count: 8, label: '8-Passenger Premium', price: 150, features: 'Canopy. GPS. Headlights. USB Charging. Bluetooth Speaker' },
-  ];
-
   var html =
     '<div class="guest-hero">' +
       '<h1>Cruise the Island in Style</h1>' +
@@ -3922,14 +4151,14 @@ function renderGuestView() {
     '</div>' +
     '<div class="guest-grid">';
 
-  types.forEach(function(t) {
+  store.vehicleTypes.filter(function(vt) { return vt.isActive; }).forEach(function(vt) {
     html +=
-      '<div class="guest-card" onclick="openGuestDetail(' + t.count + ')">' +
-        '<div class="guest-card-img">' + cartPoster(t.count) + '</div>' +
+      '<div class="guest-card" onclick="openGuestDetail(\'' + vt.id + '\')">' +
+        '<div class="guest-card-img">' + cartPoster(vt.id) + '</div>' +
         '<div class="guest-card-body">' +
-          '<div class="guest-card-title">' + t.label + '</div>' +
-          '<div class="guest-card-price"><span class="from">From </span>' + fmtMoney(t.price) + '/day</div>' +
-          '<div class="guest-card-features">' + t.features + '</div>' +
+          '<div class="guest-card-title">' + vt.name + '</div>' +
+          '<div class="guest-card-price"><span class="from">From </span>' + fmtMoney(vt.rates.daily) + '/day</div>' +
+          '<div class="guest-card-features">' + vt.featureSummary + '</div>' +
           '<span class="guest-card-link">Reserve</span>' +
         '</div>' +
       '</div>';
@@ -3939,21 +4168,15 @@ function renderGuestView() {
   document.getElementById('guest-content').innerHTML = html;
 }
 
-function openGuestDetail(passengerCount) {
-  guestSelectedType = passengerCount;
+function openGuestDetail(typeId) {
+  guestSelectedType = typeId;
   guestViewState = 'detail';
   renderGuestView();
   document.getElementById('guest-view').scrollTo(0, 0);
 }
 
 function renderGuestDetail() {
-  var types = {
-    4: { label: '4-Passenger Standard', price: 75, hourly: 25, speed: '15 mph', range: '25 miles', features: ['Weather canopy', 'GPS tracking', 'LED headlights', 'Cup holders', 'Windshield'] },
-    6: { label: '6-Passenger Deluxe', price: 110, hourly: 35, speed: '15 mph', range: '30 miles', features: ['Weather canopy', 'GPS tracking', 'LED headlights', 'USB charging ports', 'Cup holders', 'Windshield', 'Rearview mirror'] },
-    8: { label: '8-Passenger Premium', price: 150, hourly: 50, speed: '15 mph', range: '35 miles', features: ['Weather canopy', 'GPS tracking', 'LED headlights', 'USB charging ports', 'Bluetooth speaker', 'Cup holders', 'Windshield', 'Side mirrors', 'Turn signals'] },
-  };
-
-  var t = types[guestSelectedType];
+  var t = getVehicleType(guestSelectedType);
   if (!t) return;
 
   var reviews = [
@@ -3971,7 +4194,7 @@ function renderGuestDetail() {
     '</div>';
   }).join('');
 
-  var defaultTotal = Math.round(t.price * (1 + store.settings.taxRate));
+  var defaultTotal = Math.round(t.rates.daily * (1 + store.settings.taxRate));
 
   var html =
     '<div class="guest-detail">' +
@@ -3981,12 +4204,12 @@ function renderGuestDetail() {
       '<div class="guest-detail-hero">' +
         '<div class="guest-detail-img">' + cartPoster(guestSelectedType) + '</div>' +
         '<div class="guest-detail-info">' +
-          '<h2>' + t.label + '</h2>' +
-          '<div style="font-size:1.1rem;margin-bottom:0.25rem"><span style="font-size:0.82rem;color:var(--ink-light)">From </span>' + fmtMoney(t.price) + '/day</div>' +
-          '<div style="font-size:0.88rem;color:var(--ink-mid);margin-bottom:0.5rem">' + fmtMoney(t.hourly) + '/hour also available</div>' +
+          '<h2>' + t.name + '</h2>' +
+          '<div style="font-size:1.1rem;margin-bottom:0.25rem"><span style="font-size:0.82rem;color:var(--ink-light)">From </span>' + fmtMoney(t.rates.daily) + '/day</div>' +
+          '<div style="font-size:0.88rem;color:var(--ink-mid);margin-bottom:0.5rem">' + fmtMoney(t.rates.hourly) + '/hour also available</div>' +
           '<div class="guest-specs-grid">' +
-            '<div class="guest-spec"><div class="guest-spec-label">Passengers</div><div class="guest-spec-value">' + guestSelectedType + '</div></div>' +
-            '<div class="guest-spec"><div class="guest-spec-label">Max Speed</div><div class="guest-spec-value">' + t.speed + '</div></div>' +
+            '<div class="guest-spec"><div class="guest-spec-label">Passengers</div><div class="guest-spec-value">' + t.passengerCount + '</div></div>' +
+            '<div class="guest-spec"><div class="guest-spec-label">Max Speed</div><div class="guest-spec-value">' + t.maxSpeed + '</div></div>' +
             '<div class="guest-spec"><div class="guest-spec-label">Range</div><div class="guest-spec-value">' + t.range + '</div></div>' +
             '<div class="guest-spec"><div class="guest-spec-label">Features</div><div class="guest-spec-value">' + t.features.length + ' included</div></div>' +
           '</div>' +
@@ -4068,10 +4291,14 @@ function updateGuestPrice() {
   var returnD = document.getElementById('guest-return');
   if (!pickup || !returnD || !pickup.value || !returnD.value) return;
 
-  var prices = { 4: 75, 6: 110, 8: 150 };
-  var daily = prices[guestSelectedType] || 75;
+  var vt = getVehicleType(guestSelectedType);
+  if (!vt) return;
+  var rates = vt.rates;
   var days = Math.max(1, daysBetween(pickup.value, returnD.value));
-  var subtotal = days * daily;
+  var subtotal = 0;
+  if (days >= 7) subtotal = rates.weekly;
+  else if (days >= 2) subtotal = rates.twoDay + (days - 2) * rates.daily;
+  else subtotal = days * rates.daily;
 
   var deliveryEl = document.querySelector('input[name="guest-del"][value="delivery"]');
   if (deliveryEl && deliveryEl.checked) subtotal += store.settings.deliveryFee;
