@@ -3985,22 +3985,51 @@ button, input, select, textarea {
   }
 
   .fleet-band-header {
-    grid-template-columns: 90px 1fr auto auto;
+    grid-template-columns: 64px 1fr auto;
+    gap: 0;
   }
   .fleet-band-img {
-    width: 90px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
+  }
+  .fleet-band-img img {
+    width: 120%;
+    height: 120%;
+    margin: -10% 0 0 -10%;
+  }
+  .fleet-band-info {
+    padding: 0.6rem 0.75rem;
+    gap: 0.3rem;
+  }
+  .fleet-band-title {
+    font-size: 0.95rem;
+    gap: 0.4rem;
+  }
+  .fleet-band-count {
+    font-size: 0.62rem;
+  }
+  .fleet-band-stats {
+    gap: 0.35rem;
+  }
+  .fleet-band-pill {
+    font-size: 0.58rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
   }
   .fleet-band-rate {
     display: none;
   }
+  .fleet-band-chevron {
+    padding: 0 0.75rem 0 0;
+    font-size: 0.75rem;
+  }
   .fleet-unit-row {
-    grid-template-columns: 70px 1fr 100px 80px;
+    grid-template-columns: 50px 1fr 80px;
   }
   .fleet-unit-header {
-    grid-template-columns: 70px 1fr 100px 80px;
+    grid-template-columns: 50px 1fr 80px;
   }
-  .fleet-unit-mileage {
+  .fleet-unit-mileage, .fleet-unit-condition {
     display: none;
   }
 
