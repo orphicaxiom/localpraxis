@@ -264,7 +264,7 @@ button, input, select, textarea {
   text-decoration: underline;
 }
 
-/* LP back button — top right */
+/* LP back button — top right, desktop only */
 .lp-back {
     position: fixed;
     top: 1rem;
@@ -286,6 +286,20 @@ button, input, select, textarea {
     box-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }
 .lp-back:hover { opacity: 0.8; }
+
+/* LP back link in sidebar footer — mobile */
+.lp-back-sidebar {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.75rem 0 0;
+    transition: color 0.15s;
+}
+.lp-back-sidebar:hover { color: #fff; }
 
 /* ── View Switching ── */
 .view {
@@ -3854,6 +3868,16 @@ button, input, select, textarea {
     width: 100%;
   }
 
+  /* Touch-scrollable horizontal overflow — no visible scrollbar */
+  .data-table, .gantt-grid, .fleet-band-stats, .filter-tabs {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .data-table::-webkit-scrollbar, .gantt-grid::-webkit-scrollbar,
+  .fleet-band-stats::-webkit-scrollbar, .filter-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
   .sidebar {
     transform: translateX(-100%);
     transition: transform 220ms var(--ease);
@@ -3881,6 +3905,19 @@ button, input, select, textarea {
 
   .hamburger {
     display: flex;
+  }
+
+  /* Hide hamburger when sidebar is open — CSS sibling combinator */
+  .sidebar.open ~ .hamburger {
+    display: none !important;
+  }
+
+  /* Hide fixed LP button on mobile, show sidebar version */
+  .lp-back {
+    display: none !important;
+  }
+  .lp-back-sidebar {
+    display: block;
   }
 
   .main {
@@ -4010,6 +4047,8 @@ button, input, select, textarea {
   }
   .fleet-band-stats {
     gap: 0.35rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
   }
   .fleet-band-pill {
     font-size: 0.58rem;
@@ -4068,6 +4107,16 @@ button, input, select, textarea {
 
   .slide-panel {
     width: 100%;
+    padding: 1.25rem;
+  }
+
+  .panel-close {
+    font-size: 1.8rem;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 
@@ -4381,6 +4430,7 @@ button, input, select, textarea {
     </div>
     <div class="sidebar-footer">
       <a class="dark-toggle" onclick="toggleDarkMode()">Dark mode</a>
+      <a class="lp-back-sidebar" href="https://localpraxis.com">&larr; localpraxis.com</a>
     </div>
   </nav>
 
@@ -4648,7 +4698,7 @@ const store = {
     { id:9, name:'IW-09', typeId:'deluxe', status:'available', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'active', mileage:1102, condition:'excellent', notes:'' },
     { id:10, name:'IW-10', typeId:'deluxe', status:'rented', currentRenter:'Nguyen', currentResId:5, returnTime:'18:00', gpsStatus:'active', mileage:1678, condition:'good', notes:'' },
     { id:11, name:'IW-11', typeId:'deluxe', status:'available', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'active', mileage:934, condition:'excellent', notes:'' },
-    { id:12, name:'IW-12', typeId:'deluxe', status:'maintenance', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'offline', mileage:4102, condition:'fair', notes:'Canopy torn, replacement ordered' },
+    { id:12, name:'IW-12', typeId:'deluxe', status:'available', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'active', mileage:4102, condition:'good', notes:'' },
     { id:13, name:'IW-13', typeId:'premium', status:'rented', currentRenter:'Dawson', currentResId:6, returnTime:'15:00', gpsStatus:'active', mileage:1456, condition:'excellent', notes:'' },
     { id:14, name:'IW-14', typeId:'premium', status:'overdue', currentRenter:'Garza', currentResId:7, returnTime:'11:00', gpsStatus:'active', mileage:2890, condition:'good', notes:'' },
     { id:15, name:'IW-15', typeId:'premium', status:'available', currentRenter:null, currentResId:null, returnTime:null, gpsStatus:'active', mileage:567, condition:'excellent', notes:'' },
@@ -5708,14 +5758,21 @@ function renderCalendar() {
   weekEnd.setDate(weekEnd.getDate() + 6);
   var label = fmtDate(dateStr(calWeekStart)) + ' - ' + fmtDate(dateStr(weekEnd));
 
+  var isMobile = window.innerWidth <= 768;
+
   document.getElementById('cal-toolbar').innerHTML =
     '<button class="cal-nav-btn" onclick="calPrev()">&larr; Prev</button>' +
     '<span class="cal-week-label">' + label + '</span>' +
     '<button class="cal-nav-btn" onclick="calNext()">Next &rarr;</button>' +
-    '<button class="cal-nav-btn ' + (calShowHeatmap ? 'active' : '') + '" onclick="toggleHeatmap()" style="margin-left:auto">' + (calShowHeatmap ? 'Week View' : 'Month Heatmap') + '</button>';
+    (isMobile ? '' : '<button class="cal-nav-btn ' + (calShowHeatmap ? 'active' : '') + '" onclick="toggleHeatmap()" style="margin-left:auto">' + (calShowHeatmap ? 'Week View' : 'Month Heatmap') + '</button>');
 
-  if (calShowHeatmap) {
+  if (calShowHeatmap && !isMobile) {
     renderHeatmap();
+    return;
+  }
+
+  if (isMobile) {
+    renderCalendarMobile();
     return;
   }
 
@@ -5923,6 +5980,74 @@ function renderCalendar() {
   });
 
   html += '</div>';
+  document.getElementById('cal-container').innerHTML = html;
+}
+
+function renderCalendarMobile() {
+  var days = [];
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(calWeekStart);
+    d.setDate(d.getDate() + i);
+    days.push(d);
+  }
+  var dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  var totalActive = store.fleet.filter(function(c) { return c.status !== 'maintenance'; }).length;
+  var activeTypes = store.vehicleTypes.filter(function(vt) { return vt.isActive; });
+
+  var html = '';
+  days.forEach(function(d, i) {
+    var ds = dateStr(d);
+    var isToday = ds === TODAY;
+    var isPast = d < TODAY_DATE && !isToday;
+
+    // Overall utilization
+    var booked = store.reservations.filter(function(r) {
+      return (r.status === 'checked-in' || r.status === 'confirmed' || r.status === 'completed') &&
+        r.pickupDate <= ds && r.returnDate >= ds;
+    }).length;
+    var pct = totalActive > 0 ? Math.round((booked / totalActive) * 100) : 0;
+    var utilColor = pct > 80 ? 'var(--status-red)' : pct > 50 ? 'var(--status-amber)' : 'var(--status-green)';
+
+    html += '<div style="border:2px solid var(--ink);margin-bottom:0.75rem;background:#fff' +
+      (isToday ? ';box-shadow:4px 4px 0px var(--ink)' : '') +
+      (isPast ? ';opacity:0.5' : '') + '">';
+
+    // Day header
+    html += '<div style="padding:0.6rem 0.85rem;border-bottom:1px solid var(--ink);display:flex;justify-content:space-between;align-items:center;background:' +
+      (isToday ? 'var(--yellow)' : 'var(--warm-white)') + '">' +
+      '<div style="font-family:var(--font-mono);font-size:0.85rem;font-weight:700;text-transform:uppercase">' +
+      dayNames[i] + ' <span style="font-weight:400;color:var(--ink-light)">' + (d.getMonth()+1) + '/' + d.getDate() + '</span></div>' +
+      '<div style="font-family:var(--font-mono);font-size:0.65rem;display:flex;align-items:center;gap:0.4rem">' +
+      '<div style="width:40px;height:6px;background:var(--rule-light);overflow:hidden"><div style="width:' + pct + '%;height:100%;background:' + utilColor + '"></div></div>' +
+      pct + '%</div>' +
+      '</div>';
+
+    // Per-type availability
+    activeTypes.forEach(function(vt) {
+      var typeCarts = store.fleet.filter(function(c) { return c.typeId === vt.id; });
+      if (typeCarts.length === 0) return;
+      var bookedCount = 0;
+      typeCarts.forEach(function(cart) {
+        var hasRes = store.reservations.some(function(r) {
+          return r.cartId === cart.id &&
+            (r.status === 'checked-in' || r.status === 'confirmed' || r.status === 'completed') &&
+            r.pickupDate <= ds && r.returnDate >= ds;
+        });
+        if (hasRes || cart.status === 'maintenance') bookedCount++;
+      });
+      var available = typeCarts.length - bookedCount;
+      var color = available === 0 ? 'var(--status-red)' : available <= Math.ceil(typeCarts.length * 0.3) ? 'var(--status-amber)' : 'var(--status-green)';
+      var label = available === 0 ? 'Full' : available + ' open';
+
+      html += '<div style="padding:0.45rem 0.85rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--rule-light)" onclick="openNewReservation(\'' + ds + '\')">' +
+        '<span style="font-family:var(--font-body);font-size:0.78rem;color:var(--ink)">' + vt.name + '</span>' +
+        '<span style="font-family:var(--font-mono);font-size:0.68rem;font-weight:700;color:' + color + '">' + label + '</span>' +
+        '</div>';
+    });
+
+    html += '</div>';
+  });
+
   document.getElementById('cal-container').innerHTML = html;
 }
 
@@ -9104,6 +9229,27 @@ function closePanel() {
   document.getElementById('slide-panel').classList.remove('open');
   document.getElementById('panel-backdrop').classList.remove('active');
 }
+
+// Swipe right to close slide panel
+(function() {
+  var panel = document.getElementById('slide-panel');
+  var startX = 0, startY = 0, tracking = false;
+  panel.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    tracking = true;
+  }, { passive: true });
+  panel.addEventListener('touchmove', function(e) {
+    if (!tracking) return;
+    var dx = e.touches[0].clientX - startX;
+    var dy = Math.abs(e.touches[0].clientY - startY);
+    if (dx > 60 && dy < 40) {
+      tracking = false;
+      closePanel();
+    }
+  }, { passive: true });
+  panel.addEventListener('touchend', function() { tracking = false; }, { passive: true });
+})();
 
 function openModal(id) {
   document.getElementById(id).classList.add('active');
