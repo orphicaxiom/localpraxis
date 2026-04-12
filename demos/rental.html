@@ -1243,15 +1243,20 @@ button, input, select, textarea {
   background: var(--accent-subtle);
 }
 
+@keyframes vtListSlideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 .vt-list-item {
   display: grid;
-  grid-template-columns: 52px 1fr auto;
-  gap: 0.75rem;
+  grid-template-columns: 44px 1fr auto;
+  gap: 0.6rem;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 0.6rem 0.85rem;
   border-bottom: 1px solid var(--rule);
   cursor: pointer;
-  transition: background 150ms var(--ease);
+  transition: background 150ms var(--ease), border-left 150ms var(--ease);
 }
 
 .vt-list-item:hover {
@@ -1261,13 +1266,17 @@ button, input, select, textarea {
 .vt-list-item.active {
   background: var(--accent-subtle);
   border-left: 3px solid var(--accent);
-  padding-left: calc(1rem - 3px);
+  padding-left: calc(0.85rem - 3px);
+}
+
+.vt-list-item.new-item {
+  animation: vtListSlideIn 300ms var(--ease) both;
 }
 
 .vt-list-thumb {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
   background: var(--cream);
   border: 1px solid var(--rule);
   flex-shrink: 0;
@@ -1308,8 +1317,26 @@ button, input, select, textarea {
 .vt-detail-panel {
   overflow-y: auto;
   max-height: 72vh;
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
 }
+
+/* Slide-in animation for detail content */
+@keyframes vtFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.vt-detail-panel > * {
+  animation: vtFadeIn 250ms var(--ease) both;
+}
+
+/* Stagger child sections */
+.vt-detail-panel > *:nth-child(2) { animation-delay: 30ms; }
+.vt-detail-panel > *:nth-child(3) { animation-delay: 60ms; }
+.vt-detail-panel > *:nth-child(4) { animation-delay: 90ms; }
+.vt-detail-panel > *:nth-child(5) { animation-delay: 120ms; }
+.vt-detail-panel > *:nth-child(6) { animation-delay: 150ms; }
+.vt-detail-panel > *:nth-child(7) { animation-delay: 180ms; }
 
 .vt-detail-empty {
   display: flex;
@@ -1335,13 +1362,36 @@ button, input, select, textarea {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   gap: 1rem;
 }
 
 .vt-detail-title {
   font-weight: 700;
   font-size: 1.15rem;
+}
+
+/* Edit hint on the title */
+.vt-detail-title.editable {
+  border-bottom: 1px dashed var(--rule);
+  padding-bottom: 2px;
+  transition: border-color 200ms var(--ease), background 200ms var(--ease);
+}
+
+.vt-detail-title.editable:hover {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+/* New type pulsing hint */
+@keyframes vtEditPulse {
+  0%, 100% { border-color: var(--accent); background: transparent; }
+  50% { border-color: var(--accent); background: var(--accent-subtle); }
+}
+
+.vt-detail-title.edit-hint {
+  animation: vtEditPulse 1.5s ease-in-out 3;
+  border-bottom: 1px dashed var(--accent);
 }
 
 .vt-detail-actions {
@@ -1368,12 +1418,13 @@ button, input, select, textarea {
 
 .vt-detail-actions .btn-danger:hover {
   border-color: var(--status-red);
-  color: var(--status-red);
+  background: var(--status-red);
+  color: #fff;
 }
 
 /* Section within detail */
 .vt-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .vt-section-label {
@@ -1408,44 +1459,58 @@ button, input, select, textarea {
 
 .vt-field-value.editable {
   cursor: pointer;
-  padding: 0.15rem 0.35rem;
-  margin: -0.15rem -0.35rem;
-  border-radius: 3px;
-  transition: background 150ms var(--ease);
+  padding: 0.1rem 0.3rem;
+  margin: -0.1rem -0.3rem;
+  border-bottom: 1px dashed transparent;
+  transition: background 150ms var(--ease), border-color 150ms var(--ease);
 }
 
 .vt-field-value.editable:hover {
   background: var(--accent-subtle);
+  border-bottom-color: var(--accent);
+}
+
+.vt-field-value.editable::after {
+  content: ' \270E';
+  font-size: 0.72em;
+  color: var(--ink-light);
+  opacity: 0;
+  transition: opacity 150ms var(--ease);
+}
+
+.vt-field-value.editable:hover::after {
+  opacity: 1;
 }
 
 /* Image gallery in detail */
 .vt-img-gallery {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.5rem;
   align-items: flex-start;
 }
 
 .vt-img-thumb-wrap {
   position: relative;
-  width: 110px;
+  width: 72px;
   flex-shrink: 0;
 }
 
 .vt-img-thumb {
-  width: 110px;
-  height: 110px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
   background: var(--cream);
   border: 1px solid var(--rule);
   cursor: pointer;
   display: block;
-  transition: border-color 150ms var(--ease), box-shadow 150ms var(--ease);
+  transition: border-color 150ms var(--ease), box-shadow 150ms var(--ease), transform 150ms var(--ease);
 }
 
 .vt-img-thumb:hover {
   border-color: var(--accent);
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transform: scale(1.04);
 }
 
 .vt-img-badge {
@@ -1463,10 +1528,10 @@ button, input, select, textarea {
 
 .vt-img-remove {
   position: absolute;
-  top: 4px;
-  right: 4px;
-  width: 20px;
-  height: 20px;
+  top: 3px;
+  right: 3px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: none;
   background: rgba(0,0,0,0.5);
@@ -2002,7 +2067,7 @@ button, input, select, textarea {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
-  max-width: 960px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 2rem 4rem;
 }
@@ -2075,25 +2140,45 @@ button, input, select, textarea {
 
 /* Guest detail view */
 .guest-detail {
-  max-width: 800px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 2rem;
+}
+
+.guest-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.guest-detail-main {
+  min-width: 0;
+}
+
+.guest-detail-sidebar {
+  position: sticky;
+  top: 2rem;
 }
 
 .guest-detail-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .guest-detail-img {
   overflow: hidden;
+  border-radius: 8px;
+  max-height: 420px;
 }
 
 .guest-detail-img img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
   display: block;
 }
 
@@ -2229,13 +2314,33 @@ button, input, select, textarea {
   border: 1px solid var(--rule);
   border-radius: 8px;
   padding: 1.5rem;
-  margin-top: 2rem;
+  background: var(--warm-white);
 }
 
 .guest-booking-form h3 {
   font-family: var(--font-display);
   font-size: 1.3rem;
   margin-bottom: 1rem;
+}
+
+.booking-price-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.booking-price-header .per-unit {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--ink-mid);
+}
+
+.booking-price-header .alt-rate {
+  font-size: 0.82rem;
+  color: var(--ink-light);
+  margin-top: 0.15rem;
 }
 
 .guest-price-display {
@@ -2738,6 +2843,15 @@ button, input, select, textarea {
     grid-template-columns: 1fr;
   }
 
+  .guest-detail-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .guest-detail-sidebar {
+    position: static;
+  }
+
   .guest-hero h1 {
     font-size: 2.2rem;
   }
@@ -3124,9 +3238,9 @@ const TODAY_DATE = new Date(2026, 3, 5);
 
 const store = {
   vehicleTypes: [
-    { id:'standard', slug:'4-pass-standard', passengerCount:4, name:'4-Passenger Standard', description:'Perfect for couples and small groups exploring the island.', rates:{hourly:25,daily:75,twoDay:130,weekly:420}, maxSpeed:'15 mph', range:'25 miles', features:['Weather canopy','GPS tracking','LED headlights','Cup holders','Windshield'], featureSummary:'Canopy. GPS. Headlights', images:[{url:'../img/4poster.jpeg',type:'public',label:'Front view'},{url:'../img/4cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/4cart.jpeg', posterUrl:'../img/4poster.jpeg', sortOrder:1, isActive:true },
-    { id:'deluxe', slug:'6-pass-deluxe', passengerCount:6, name:'6-Passenger Deluxe', description:'Room for the whole family with premium comfort features.', rates:{hourly:35,daily:110,twoDay:190,weekly:615}, maxSpeed:'15 mph', range:'30 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Cup holders','Windshield','Rearview mirror'], featureSummary:'Canopy. GPS. Headlights. USB Charging', images:[{url:'../img/6poster.jpeg',type:'public',label:'Front view'},{url:'../img/6cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/6cart.jpeg', posterUrl:'../img/6poster.jpeg', sortOrder:2, isActive:true },
-    { id:'premium', slug:'8-pass-premium', passengerCount:8, name:'8-Passenger Premium', description:'Our largest cart with all the extras for big groups.', rates:{hourly:50,daily:150,twoDay:260,weekly:840}, maxSpeed:'15 mph', range:'35 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Bluetooth speaker','Cup holders','Windshield','Side mirrors','Turn signals'], featureSummary:'Canopy. GPS. Headlights. USB Charging. Bluetooth Speaker', images:[{url:'../img/8poster.jpeg',type:'public',label:'Front view'},{url:'../img/8cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/8cart.jpeg', posterUrl:'../img/8poster.jpeg', sortOrder:3, isActive:true },
+    { id:'standard', slug:'4-pass-standard', passengerCount:4, name:'4-Passenger Standard', description:'Perfect for couples and small groups exploring the island.', rates:{hourly:25,daily:75,twoDay:130,weekly:420}, maxSpeed:'15 mph', range:'25 miles', features:['Weather canopy','GPS tracking','LED headlights','Cup holders','Windshield'], featureSummary:'Canopy. GPS. Headlights', images:[{url:'../img/4Seater.png',type:'public',label:'Poster'},{url:'../img/4cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/4cart.jpeg', posterUrl:'../img/4Seater.png', sortOrder:1, isActive:true },
+    { id:'deluxe', slug:'6-pass-deluxe', passengerCount:6, name:'6-Passenger Deluxe', description:'Room for the whole family with premium comfort features.', rates:{hourly:35,daily:110,twoDay:190,weekly:615}, maxSpeed:'15 mph', range:'30 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Cup holders','Windshield','Rearview mirror'], featureSummary:'Canopy. GPS. Headlights. USB Charging', images:[{url:'../img/6Seater.png',type:'public',label:'Poster'},{url:'../img/6cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/6cart.jpeg', posterUrl:'../img/6Seater.png', sortOrder:2, isActive:true },
+    { id:'premium', slug:'8-pass-premium', passengerCount:8, name:'8-Passenger Premium', description:'Our largest cart with all the extras for big groups.', rates:{hourly:50,daily:150,twoDay:260,weekly:840}, maxSpeed:'15 mph', range:'35 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Bluetooth speaker','Cup holders','Windshield','Side mirrors','Turn signals'], featureSummary:'Canopy. GPS. Headlights. USB Charging. Bluetooth Speaker', images:[{url:'../img/8Seater.png',type:'public',label:'Poster'},{url:'../img/8cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/8cart.jpeg', posterUrl:'../img/8Seater.png', sortOrder:3, isActive:true },
   ],
 
   fleet: [
@@ -3246,7 +3360,7 @@ function vtGetImage(vt, type) {
   }
   // Fallback to legacy fields
   if (type === 'admin') return vt ? (vt.imageUrl || vt.posterUrl) : '../img/4cart.jpeg';
-  return vt ? (vt.posterUrl || vt.imageUrl) : '../img/4poster.jpeg';
+  return vt ? (vt.posterUrl || vt.imageUrl) : '../img/4Seater.png';
 }
 
 function cartImage(typeId) {
@@ -4505,7 +4619,7 @@ function renderVehicleTypes() {
     var fleetCount = store.fleet.filter(function(c) { return c.typeId === vt.id; }).length;
     var isActive = vtSelectedIdx === idx;
     listHtml +=
-      '<div class="vt-list-item' + (isActive ? ' active' : '') + '" onclick="vtSelectType(' + idx + ')">' +
+      '<div class="vt-list-item' + (isActive ? ' active' : '') + (vtNewTypeAdded && idx === store.vehicleTypes.length - 1 ? ' new-item' : '') + '" onclick="vtSelectType(' + idx + ')">' +
         '<img class="vt-list-thumb" src="' + vtGetImage(vt, 'admin') + '" alt="' + vt.name + '" onerror="this.style.display=\'none\'">' +
         '<div class="vt-list-info">' +
           '<div class="vt-list-name">' + vt.name + '</div>' +
@@ -4535,7 +4649,7 @@ function renderVehicleTypes() {
     detailHtml =
       '<div class="vt-detail-head">' +
         '<div>' +
-          '<div class="vt-detail-title editable pricing-cell" onclick="editVtField(' + idx + ',\'name\',this)">' + vt.name + '</div>' +
+          '<div class="vt-detail-title editable pricing-cell' + (vtNewTypeAdded ? ' edit-hint' : '') + '" onclick="editVtField(' + idx + ',\'name\',this)">' + vt.name + '</div>' +
           '<div style="font-size:0.82rem;color:var(--ink-mid);margin-top:0.15rem">' +
             fleetCount + ' cart' + (fleetCount !== 1 ? 's' : '') + ' in fleet &middot; ' +
             '<span class="vt-status ' + (vt.isActive !== false ? 'active' : 'inactive') + '">' + (vt.isActive !== false ? 'Active' : 'Inactive') + '</span>' +
@@ -4647,6 +4761,7 @@ function renderVehicleTypes() {
     '</div>';
 
   document.getElementById('vehicletypes-container').innerHTML = html;
+  vtNewTypeAdded = false;
 }
 
 function vtSelectType(idx) {
@@ -4663,18 +4778,7 @@ function vtToggleActive(vtIdx) {
 }
 
 function vtUploadImage(vtIdx, imgType) {
-  showToast('Image upload requires a full-featured build — placeholder added for demo.');
-  // In a real build this would open a file picker. For the demo, add a placeholder.
-  var vt = store.vehicleTypes[vtIdx];
-  if (!vt) return;
-  if (!vt.images) vt.images = [];
-  var placeholder = {
-    url: vtGetImage(vt, imgType),
-    type: imgType,
-    label: imgType === 'public' ? 'Public image ' + (vt.images.filter(function(i){return i.type==='public'}).length + 1) : 'Admin card'
-  };
-  vt.images.push(placeholder);
-  renderVehicleTypes();
+  showToast('Image upload requires a full-featured build. In production, this opens a file picker.');
 }
 
 function vtRemoveImage(vtIdx, imgIdx) {
@@ -4756,7 +4860,9 @@ function editVtField(vtIdx, field, cell) {
   if (!vt) return;
   var currentVal = vt[field];
   cell.innerHTML = '<input class="pricing-input" type="text" value="' + currentVal + '" style="width:100%" onblur="saveVtField(' + vtIdx + ',\'' + field + '\',this)" onkeydown="if(event.key===\'Enter\')this.blur()">';
-  cell.querySelector('input').focus();
+  var inp = cell.querySelector('input');
+  inp.focus();
+  inp.select();
 }
 
 function saveVtField(vtIdx, field, input) {
@@ -4884,17 +4990,24 @@ function addVehicleType() {
     range: '25 miles',
     features: [],
     featureSummary: '',
-    images: [{url:'../img/newvehicle.jpeg', type:'public', label:'Default image'}],
-    imageUrl: '../img/newvehicle.jpeg',
-    posterUrl: '../img/newvehicle.jpeg',
+    images: [],
+    imageUrl: '../img/4cart.jpeg',
+    posterUrl: '../img/4cart.jpeg',
     sortOrder: count + 1,
     isActive: true,
   };
   store.vehicleTypes.push(newType);
   vtSelectedIdx = store.vehicleTypes.length - 1;
+  vtNewTypeAdded = true;
   renderVehicleTypes();
-  showToast('New vehicle type added — edit the details');
+  // Auto-focus the title for immediate editing
+  setTimeout(function() {
+    var titleEl = document.querySelector('.vt-detail-title');
+    if (titleEl) titleEl.click();
+  }, 80);
 }
+
+var vtNewTypeAdded = false;
 
 function deleteVehicleType(vtIdx) {
   var vt = store.vehicleTypes[vtIdx];
@@ -5174,7 +5287,6 @@ function renderGuestView() {
     '<div class="guest-hero">' +
       '<h1>Cruise the Island in Style</h1>' +
       '<p>Explore Port Aransas at your own pace. Book online, pick up at our shop or we deliver to your door.</p>' +
-      '<button class="btn btn-primary" onclick="document.querySelector(\'.guest-grid\').scrollIntoView({behavior:\'smooth\'})">Browse Our Fleet</button>' +
     '</div>' +
     '<div class="guest-grid">';
 
@@ -5185,8 +5297,8 @@ function renderGuestView() {
         '<div class="guest-card-body">' +
           '<div class="guest-card-title">' + vt.name + '</div>' +
           '<div class="guest-card-price"><span class="from">From </span>' + fmtMoney(vt.rates.daily) + '/day</div>' +
-          '<div class="guest-card-features">' + vt.featureSummary + '</div>' +
-          '<span class="guest-card-link">Reserve</span>' +
+          '<div class="guest-card-features">' + vt.passengerCount + ' passengers · ' + vt.featureSummary + '</div>' +
+          '<button class="btn btn-primary btn-block" onclick="event.stopPropagation(); openGuestDetail(\'' + vt.id + '\')">Reserve</button>' +
         '</div>' +
       '</div>';
   });
@@ -5228,79 +5340,85 @@ function renderGuestDetail() {
       '<div style="margin-bottom:1.5rem">' +
         '<a onclick="guestBackToList()" style="cursor:pointer;color:var(--accent);font-size:0.85rem">&larr; All Carts</a>' +
       '</div>' +
-      '<div class="guest-detail-hero">' +
-        '<div class="guest-detail-img">' + cartPoster(guestSelectedType) + '</div>' +
-        '<div class="guest-detail-info">' +
-          '<h2>' + t.name + '</h2>' +
-          '<div style="font-size:1.1rem;margin-bottom:0.25rem"><span style="font-size:0.82rem;color:var(--ink-light)">From </span>' + fmtMoney(t.rates.daily) + '/day</div>' +
-          '<div style="font-size:0.88rem;color:var(--ink-mid);margin-bottom:0.5rem">' + fmtMoney(t.rates.hourly) + '/hour also available</div>' +
-          '<div class="guest-specs-grid">' +
-            '<div class="guest-spec"><div class="guest-spec-label">Passengers</div><div class="guest-spec-value">' + t.passengerCount + '</div></div>' +
-            '<div class="guest-spec"><div class="guest-spec-label">Max Speed</div><div class="guest-spec-value">' + t.maxSpeed + '</div></div>' +
-            '<div class="guest-spec"><div class="guest-spec-label">Range</div><div class="guest-spec-value">' + t.range + '</div></div>' +
-            '<div class="guest-spec"><div class="guest-spec-label">Features</div><div class="guest-spec-value">' + t.features.length + ' included</div></div>' +
+      '<div class="guest-detail-layout">' +
+        '<div class="guest-detail-main">' +
+          '<div class="guest-detail-hero">' +
+            '<div class="guest-detail-img">' + cartPoster(guestSelectedType) + '</div>' +
+            '<div class="guest-detail-info">' +
+              '<h2>' + t.name + '</h2>' +
+              '<div style="font-size:1.25rem;font-weight:700;margin-bottom:0.25rem">' + fmtMoney(t.rates.daily) + '<span style="font-size:0.88rem;font-weight:400;color:var(--ink-mid)"> / day</span></div>' +
+              '<div style="font-size:0.85rem;color:var(--ink-light);margin-bottom:1rem">' + fmtMoney(t.rates.hourly) + '/hour also available</div>' +
+              '<div class="guest-specs-grid">' +
+                '<div class="guest-spec"><div class="guest-spec-label">Passengers</div><div class="guest-spec-value">' + t.passengerCount + '</div></div>' +
+                '<div class="guest-spec"><div class="guest-spec-label">Max Speed</div><div class="guest-spec-value">' + t.maxSpeed + '</div></div>' +
+                '<div class="guest-spec"><div class="guest-spec-label">Range</div><div class="guest-spec-value">' + t.range + '</div></div>' +
+                '<div class="guest-spec"><div class="guest-spec-label">Features</div><div class="guest-spec-value">' + t.features.length + ' included</div></div>' +
+              '</div>' +
+            '</div>' +
           '</div>' +
-        '</div>' +
-      '</div>' +
 
-      '<h3 class="section-title">Included Features</h3>' +
-      '<ul class="guest-feature-list">' + featuresHTML + '</ul>' +
+          '<h3 class="section-title">Included Features</h3>' +
+          '<ul class="guest-feature-list">' + featuresHTML + '</ul>' +
 
-      '<h3 class="section-title">Policies</h3>' +
-      '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
-        '<div class="accordion-header">Rental Policies <span class="accordion-arrow">&#9660;</span></div>' +
-        '<div class="accordion-body">Must be 21+ with valid driver\'s license. Maximum speed is 15 mph. Carts must stay on designated roads. No beach driving. Renter is responsible for all traffic violations. Operating hours are 7:00 AM to 8:00 PM.</div>' +
-      '</div>' +
-      '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
-        '<div class="accordion-header">Cancellation <span class="accordion-arrow">&#9660;</span></div>' +
-        '<div class="accordion-body">Free cancellation up to 24 hours before pickup. Cancellations within 24 hours forfeit 50% of rental fee. No-shows forfeit full rental amount. Refunds processed within 3-5 business days.</div>' +
-      '</div>' +
-      '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
-        '<div class="accordion-header">Delivery Info <span class="accordion-arrow">&#9660;</span></div>' +
-        '<div class="accordion-body">We deliver anywhere on Port Aransas island for a flat fee of $35. Delivery is available between 7:00 AM and 6:00 PM. Cart will be delivered to your address at the scheduled pickup time. Return pickup is included in the delivery fee.</div>' +
-      '</div>' +
+          '<h3 class="section-title">Policies</h3>' +
+          '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
+            '<div class="accordion-header">Rental Policies <span class="accordion-arrow">&#9660;</span></div>' +
+            '<div class="accordion-body">Must be 21+ with valid driver\'s license. Maximum speed is 15 mph. Carts must stay on designated roads. No beach driving. Renter is responsible for all traffic violations. Operating hours are 7:00 AM to 8:00 PM.</div>' +
+          '</div>' +
+          '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
+            '<div class="accordion-header">Cancellation <span class="accordion-arrow">&#9660;</span></div>' +
+            '<div class="accordion-body">Free cancellation up to 24 hours before pickup. Cancellations within 24 hours forfeit 50% of rental fee. No-shows forfeit full rental amount. Refunds processed within 3-5 business days.</div>' +
+          '</div>' +
+          '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
+            '<div class="accordion-header">Delivery Info <span class="accordion-arrow">&#9660;</span></div>' +
+            '<div class="accordion-body">We deliver anywhere on Port Aransas island for a flat fee of $35. Delivery is available between 7:00 AM and 6:00 PM. Cart will be delivered to your address at the scheduled pickup time. Return pickup is included in the delivery fee.</div>' +
+          '</div>' +
 
-      '<h3 class="section-title">Guest Reviews</h3>' +
-      reviewsHTML +
+          '<h3 class="section-title">Guest Reviews</h3>' +
+          reviewsHTML +
+        '</div>' +
 
-      '<div class="guest-booking-form">' +
-        '<h3>Reserve This Cart</h3>' +
-        '<div class="form-row">' +
-          '<div class="form-group">' +
-            '<label class="form-label">Pickup Date</label>' +
-            '<input class="form-input" type="date" id="guest-pickup" value="' + TODAY + '" onchange="updateGuestPrice()">' +
-          '</div>' +
-          '<div class="form-group">' +
-            '<label class="form-label">Return Date</label>' +
-            '<input class="form-input" type="date" id="guest-return" value="2026-04-06" onchange="updateGuestPrice()">' +
+        '<div class="guest-detail-sidebar">' +
+          '<div class="guest-booking-form">' +
+            '<div class="booking-price-header">' +
+              fmtMoney(t.rates.daily) + '<span class="per-unit"> / day</span>' +
+              '<div class="alt-rate">' + fmtMoney(t.rates.hourly) + ' / hour also available</div>' +
+            '</div>' +
+            '<div class="form-group">' +
+              '<label class="form-label">Pickup Date</label>' +
+              '<input class="form-input" type="date" id="guest-pickup" value="' + TODAY + '" onchange="updateGuestPrice()">' +
+            '</div>' +
+            '<div class="form-group">' +
+              '<label class="form-label">Return Date</label>' +
+              '<input class="form-input" type="date" id="guest-return" value="2026-04-06" onchange="updateGuestPrice()">' +
+            '</div>' +
+            '<div class="form-group">' +
+              '<div style="display:flex;gap:1rem">' +
+                '<label class="form-checkbox"><input type="radio" name="guest-del" value="pickup" checked onchange="updateGuestPrice()"> Shop Pickup</label>' +
+                '<label class="form-checkbox"><input type="radio" name="guest-del" value="delivery" onchange="updateGuestPrice()"> Delivery (+$' + store.settings.deliveryFee + ')</label>' +
+              '</div>' +
+            '</div>' +
+            '<div class="guest-price-display">' +
+              '<div class="guest-price-amount" id="guest-price">' + fmtMoney(defaultTotal) + '</div>' +
+              '<div class="guest-price-label">estimated total incl. tax</div>' +
+            '</div>' +
+            '<div style="border-top:1px solid var(--rule);margin:1rem 0;padding-top:1rem">' +
+              '<div class="form-group">' +
+                '<label class="form-label">Full Name</label>' +
+                '<input class="form-input" type="text" placeholder="Your name">' +
+              '</div>' +
+              '<div class="form-group">' +
+                '<label class="form-label">Phone</label>' +
+                '<input class="form-input" type="tel" placeholder="(555) 555-5555">' +
+              '</div>' +
+              '<div class="form-group">' +
+                '<label class="form-label">Email</label>' +
+                '<input class="form-input" type="email" placeholder="email@example.com">' +
+              '</div>' +
+            '</div>' +
+            '<button class="btn btn-primary btn-block" style="margin-top:0.5rem" onclick="guestBookConfirm()">Complete Reservation</button>' +
           '</div>' +
         '</div>' +
-        '<div class="form-group">' +
-          '<div style="display:flex;gap:1rem">' +
-            '<label class="form-checkbox"><input type="radio" name="guest-del" value="pickup" checked onchange="updateGuestPrice()"> Shop Pickup</label>' +
-            '<label class="form-checkbox"><input type="radio" name="guest-del" value="delivery" onchange="updateGuestPrice()"> Delivery (+$35)</label>' +
-          '</div>' +
-        '</div>' +
-        '<div class="guest-price-display">' +
-          '<div class="guest-price-label">Estimated Total</div>' +
-          '<div class="guest-price-amount" id="guest-price">' + fmtMoney(defaultTotal) + '</div>' +
-          '<div class="guest-price-label">incl. tax</div>' +
-        '</div>' +
-        '<div class="form-row">' +
-          '<div class="form-group">' +
-            '<label class="form-label">Full Name</label>' +
-            '<input class="form-input" type="text" placeholder="Your name">' +
-          '</div>' +
-          '<div class="form-group">' +
-            '<label class="form-label">Phone</label>' +
-            '<input class="form-input" type="tel" placeholder="(555) 555-5555">' +
-          '</div>' +
-        '</div>' +
-        '<div class="form-group">' +
-          '<label class="form-label">Email</label>' +
-          '<input class="form-input" type="email" placeholder="email@example.com">' +
-        '</div>' +
-        '<button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem" onclick="guestBookConfirm()">Complete Reservation</button>' +
       '</div>' +
     '</div>';
 
