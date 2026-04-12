@@ -1418,26 +1418,81 @@ button, input, select, textarea {
   background: var(--accent-subtle);
 }
 
-/* Image section in detail */
-.vt-img-section {
+/* Image gallery in detail */
+.vt-img-gallery {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   align-items: flex-start;
 }
 
-.vt-img-preview {
-  width: 120px;
-  height: 120px;
+.vt-img-thumb-wrap {
+  position: relative;
+  width: 110px;
+  flex-shrink: 0;
+}
+
+.vt-img-thumb {
+  width: 110px;
+  height: 110px;
   object-fit: contain;
   background: var(--cream);
   border: 1px solid var(--rule);
-  flex-shrink: 0;
+  cursor: pointer;
+  display: block;
+  transition: border-color 150ms var(--ease), box-shadow 150ms var(--ease);
+}
+
+.vt-img-thumb:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.vt-img-badge {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  margin-top: 0.25rem;
+  text-align: center;
+  color: var(--ink-light);
+}
+
+.vt-img-badge.public { color: var(--status-green); }
+.vt-img-badge.admin { color: var(--ink-light); }
+
+.vt-img-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 150ms var(--ease);
+}
+
+.vt-img-thumb-wrap:hover .vt-img-remove {
+  opacity: 1;
+}
+
+.vt-img-remove:hover {
+  background: var(--status-red);
 }
 
 .vt-img-controls {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  min-width: 160px;
 }
 
 .vt-img-upload-btn {
@@ -1466,6 +1521,91 @@ button, input, select, textarea {
 .vt-img-hint {
   font-size: 0.72rem;
   color: var(--ink-light);
+}
+
+/* Lightbox */
+.vt-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms var(--ease);
+}
+
+.vt-lightbox.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.vt-lightbox img {
+  max-width: 85vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+
+.vt-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms var(--ease);
+}
+
+.vt-lightbox-close:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.vt-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms var(--ease);
+}
+
+.vt-lightbox-nav:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.vt-lightbox-nav.prev { left: 20px; }
+.vt-lightbox-nav.next { right: 20px; }
+
+.vt-lightbox-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.7);
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  text-align: center;
 }
 
 /* Rates grid in detail */
@@ -2973,9 +3113,9 @@ const TODAY_DATE = new Date(2026, 3, 5);
 
 const store = {
   vehicleTypes: [
-    { id:'standard', slug:'4-pass-standard', passengerCount:4, name:'4-Passenger Standard', description:'Perfect for couples and small groups exploring the island.', rates:{hourly:25,daily:75,twoDay:130,weekly:420}, maxSpeed:'15 mph', range:'25 miles', features:['Weather canopy','GPS tracking','LED headlights','Cup holders','Windshield'], featureSummary:'Canopy. GPS. Headlights', imageUrl:'../img/4cart.jpeg', posterUrl:'../img/4poster.jpeg', sortOrder:1, isActive:true },
-    { id:'deluxe', slug:'6-pass-deluxe', passengerCount:6, name:'6-Passenger Deluxe', description:'Room for the whole family with premium comfort features.', rates:{hourly:35,daily:110,twoDay:190,weekly:615}, maxSpeed:'15 mph', range:'30 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Cup holders','Windshield','Rearview mirror'], featureSummary:'Canopy. GPS. Headlights. USB Charging', imageUrl:'../img/6cart.jpeg', posterUrl:'../img/6poster.jpeg', sortOrder:2, isActive:true },
-    { id:'premium', slug:'8-pass-premium', passengerCount:8, name:'8-Passenger Premium', description:'Our largest cart with all the extras for big groups.', rates:{hourly:50,daily:150,twoDay:260,weekly:840}, maxSpeed:'15 mph', range:'35 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Bluetooth speaker','Cup holders','Windshield','Side mirrors','Turn signals'], featureSummary:'Canopy. GPS. Headlights. USB Charging. Bluetooth Speaker', imageUrl:'../img/8cart.jpeg', posterUrl:'../img/8poster.jpeg', sortOrder:3, isActive:true },
+    { id:'standard', slug:'4-pass-standard', passengerCount:4, name:'4-Passenger Standard', description:'Perfect for couples and small groups exploring the island.', rates:{hourly:25,daily:75,twoDay:130,weekly:420}, maxSpeed:'15 mph', range:'25 miles', features:['Weather canopy','GPS tracking','LED headlights','Cup holders','Windshield'], featureSummary:'Canopy. GPS. Headlights', images:[{url:'../img/4poster.jpeg',type:'public',label:'Front view'},{url:'../img/4cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/4cart.jpeg', posterUrl:'../img/4poster.jpeg', sortOrder:1, isActive:true },
+    { id:'deluxe', slug:'6-pass-deluxe', passengerCount:6, name:'6-Passenger Deluxe', description:'Room for the whole family with premium comfort features.', rates:{hourly:35,daily:110,twoDay:190,weekly:615}, maxSpeed:'15 mph', range:'30 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Cup holders','Windshield','Rearview mirror'], featureSummary:'Canopy. GPS. Headlights. USB Charging', images:[{url:'../img/6poster.jpeg',type:'public',label:'Front view'},{url:'../img/6cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/6cart.jpeg', posterUrl:'../img/6poster.jpeg', sortOrder:2, isActive:true },
+    { id:'premium', slug:'8-pass-premium', passengerCount:8, name:'8-Passenger Premium', description:'Our largest cart with all the extras for big groups.', rates:{hourly:50,daily:150,twoDay:260,weekly:840}, maxSpeed:'15 mph', range:'35 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Bluetooth speaker','Cup holders','Windshield','Side mirrors','Turn signals'], featureSummary:'Canopy. GPS. Headlights. USB Charging. Bluetooth Speaker', images:[{url:'../img/8poster.jpeg',type:'public',label:'Front view'},{url:'../img/8cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/8cart.jpeg', posterUrl:'../img/8poster.jpeg', sortOrder:3, isActive:true },
   ],
 
   fleet: [
@@ -3087,16 +3227,27 @@ function getCartRates(cart) {
 /* ══════════════════════════════════════════════════════
    CART IMAGE HELPERS
    ══════════════════════════════════════════════════════ */
+function vtGetImage(vt, type) {
+  if (vt && vt.images && vt.images.length) {
+    var match = vt.images.filter(function(img) { return img.type === type; })[0];
+    if (match) return match.url;
+    return vt.images[0].url;
+  }
+  // Fallback to legacy fields
+  if (type === 'admin') return vt ? (vt.imageUrl || vt.posterUrl) : '../img/4cart.jpeg';
+  return vt ? (vt.posterUrl || vt.imageUrl) : '../img/4poster.jpeg';
+}
+
 function cartImage(typeId) {
   var vt = getVehicleType(typeId);
-  var src = vt ? vt.imageUrl : '../img/4cart.jpeg';
+  var src = vtGetImage(vt, 'admin');
   var alt = vt ? vt.name + ' golf cart' : 'golf cart';
   return '<img src="' + src + '" alt="' + alt + '" loading="lazy">';
 }
 
 function cartPoster(typeId) {
   var vt = getVehicleType(typeId);
-  var src = vt ? vt.posterUrl : '../img/4poster.jpeg';
+  var src = vtGetImage(vt, 'public');
   var alt = vt ? vt.name + ' golf cart' : 'golf cart';
   return '<img class="poster" src="' + src + '" alt="' + alt + '" loading="lazy">';
 }
@@ -4344,7 +4495,7 @@ function renderVehicleTypes() {
     var isActive = vtSelectedIdx === idx;
     listHtml +=
       '<div class="vt-list-item' + (isActive ? ' active' : '') + '" onclick="vtSelectType(' + idx + ')">' +
-        '<img class="vt-list-thumb" src="' + (vt.imageUrl || vt.posterUrl || '') + '" alt="' + vt.name + '" onerror="this.style.display=\'none\'">' +
+        '<img class="vt-list-thumb" src="' + vtGetImage(vt, 'admin') + '" alt="' + vt.name + '" onerror="this.style.display=\'none\'">' +
         '<div class="vt-list-info">' +
           '<div class="vt-list-name">' + vt.name + '</div>' +
           '<div class="vt-list-meta">' + fleetCount + ' cart' + (fleetCount !== 1 ? 's' : '') +
@@ -4393,17 +4544,23 @@ function renderVehicleTypes() {
 
       // Images
       '<div class="vt-section">' +
-        '<div class="vt-section-label">Images</div>' +
-        '<div class="vt-img-section">' +
-          '<img class="vt-img-preview" src="' + (vt.posterUrl || vt.imageUrl || '') + '" alt="' + vt.name + '" onerror="this.style.visibility=\'hidden\'">' +
+        '<div class="vt-section-label">Images (' + (vt.images ? vt.images.length : 0) + ')</div>' +
+        '<div class="vt-img-gallery">' +
+          (vt.images || []).map(function(img, imgIdx) {
+            return '<div class="vt-img-thumb-wrap">' +
+              '<img class="vt-img-thumb" src="' + img.url + '" alt="' + (img.label || '') + '" onclick="vtOpenLightbox(' + idx + ',' + imgIdx + ')" onerror="this.style.visibility=\'hidden\'">' +
+              '<button class="vt-img-remove" onclick="event.stopPropagation();vtRemoveImage(' + idx + ',' + imgIdx + ')" title="Remove image">&times;</button>' +
+              '<div class="vt-img-badge ' + img.type + '">' + (img.type === 'public' ? 'Public' : 'Admin') + '</div>' +
+            '</div>';
+          }).join('') +
           '<div class="vt-img-controls">' +
-            '<button class="vt-img-upload-btn" onclick="vtUploadImage(' + idx + ',\'posterUrl\')">' +
+            '<button class="vt-img-upload-btn" onclick="vtUploadImage(' + idx + ',\'public\')">' +
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>' +
-              'Upload Hero Image' +
+              'Upload Public Image' +
             '</button>' +
-            '<button class="vt-img-upload-btn" onclick="vtUploadImage(' + idx + ',\'imageUrl\')">' +
+            '<button class="vt-img-upload-btn" onclick="vtUploadImage(' + idx + ',\'admin\')">' +
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>' +
-              'Upload Card Thumbnail' +
+              'Upload Admin Card' +
             '</button>' +
             '<span class="vt-img-hint">Accepts JPG, PNG, or WebP</span>' +
           '</div>' +
@@ -4494,9 +4651,79 @@ function vtToggleActive(vtIdx) {
   showToast(vt.name + ' ' + (vt.isActive ? 'activated' : 'deactivated'));
 }
 
-function vtUploadImage(vtIdx, field) {
-  showToast('Image upload requires a full-featured build. Using placeholder for demo.');
+function vtUploadImage(vtIdx, imgType) {
+  showToast('Image upload requires a full-featured build — placeholder added for demo.');
+  // In a real build this would open a file picker. For the demo, add a placeholder.
+  var vt = store.vehicleTypes[vtIdx];
+  if (!vt) return;
+  if (!vt.images) vt.images = [];
+  var placeholder = {
+    url: vtGetImage(vt, imgType),
+    type: imgType,
+    label: imgType === 'public' ? 'Public image ' + (vt.images.filter(function(i){return i.type==='public'}).length + 1) : 'Admin card'
+  };
+  vt.images.push(placeholder);
+  renderVehicleTypes();
 }
+
+function vtRemoveImage(vtIdx, imgIdx) {
+  var vt = store.vehicleTypes[vtIdx];
+  if (!vt || !vt.images) return;
+  vt.images.splice(imgIdx, 1);
+  // Keep legacy fields in sync with first available
+  var pub = vt.images.filter(function(i){return i.type==='public'})[0];
+  var adm = vt.images.filter(function(i){return i.type==='admin'})[0];
+  if (pub) vt.posterUrl = pub.url;
+  if (adm) vt.imageUrl = adm.url;
+  renderVehicleTypes();
+  showToast('Image removed');
+}
+
+/* ── Lightbox ── */
+var vtLightboxData = { vtIdx: -1, imgIdx: 0, images: [] };
+
+function vtOpenLightbox(vtIdx, imgIdx) {
+  var vt = store.vehicleTypes[vtIdx];
+  if (!vt || !vt.images || !vt.images.length) return;
+  vtLightboxData.vtIdx = vtIdx;
+  vtLightboxData.imgIdx = imgIdx;
+  vtLightboxData.images = vt.images;
+  vtRenderLightbox();
+  document.getElementById('vt-lightbox').classList.add('active');
+}
+
+function vtCloseLightbox() {
+  document.getElementById('vt-lightbox').classList.remove('active');
+}
+
+function vtLightboxNav(dir) {
+  var len = vtLightboxData.images.length;
+  if (len <= 1) return;
+  vtLightboxData.imgIdx = (vtLightboxData.imgIdx + dir + len) % len;
+  vtRenderLightbox();
+}
+
+function vtRenderLightbox() {
+  var img = vtLightboxData.images[vtLightboxData.imgIdx];
+  if (!img) return;
+  document.getElementById('vt-lightbox-img').src = img.url;
+  document.getElementById('vt-lightbox-img').alt = img.label || '';
+  var cap = (img.label || 'Image') + ' &middot; ' + (img.type === 'public' ? 'Public' : 'Admin') +
+    ' &middot; ' + (vtLightboxData.imgIdx + 1) + ' of ' + vtLightboxData.images.length;
+  document.getElementById('vt-lightbox-caption').innerHTML = cap;
+  // Show/hide nav arrows
+  var navBtns = document.querySelectorAll('.vt-lightbox-nav');
+  navBtns.forEach(function(btn) { btn.style.display = vtLightboxData.images.length > 1 ? 'flex' : 'none'; });
+}
+
+// Close lightbox on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('vt-lightbox').classList.contains('active')) {
+    vtCloseLightbox();
+  }
+  if (e.key === 'ArrowLeft' && document.getElementById('vt-lightbox').classList.contains('active')) vtLightboxNav(-1);
+  if (e.key === 'ArrowRight' && document.getElementById('vt-lightbox').classList.contains('active')) vtLightboxNav(1);
+});
 
 function editVtRate(vtIdx, rateKey, cell) {
   var vt = store.vehicleTypes[vtIdx];
@@ -4646,8 +4873,9 @@ function addVehicleType() {
     range: '25 miles',
     features: [],
     featureSummary: '',
-    imageUrl: '../img/4cart.jpeg',
-    posterUrl: '../img/4posternew.png',
+    images: [{url:'../img/newvehicle.jpeg', type:'public', label:'Default image'}],
+    imageUrl: '../img/newvehicle.jpeg',
+    posterUrl: '../img/newvehicle.jpeg',
     sortOrder: count + 1,
     isActive: true,
   };
@@ -5196,12 +5424,29 @@ store.reservations.forEach(function(r) {
   }
 });
 
+// Migrate legacy imageUrl/posterUrl into images array
+store.vehicleTypes.forEach(function(vt) {
+  if (!vt.images) {
+    vt.images = [];
+    if (vt.posterUrl) vt.images.push({ url: vt.posterUrl, type: 'public', label: 'Public image' });
+    if (vt.imageUrl && vt.imageUrl !== vt.posterUrl) vt.images.push({ url: vt.imageUrl, type: 'admin', label: 'Admin card' });
+  }
+});
+
 /* ══════════════════════════════════════════════════════
    INITIALIZATION
    ══════════════════════════════════════════════════════ */
 document.getElementById('dashboard-date').textContent = fmtDateLong(TODAY);
 renderDashboard();
 </script>
+
+<div class="vt-lightbox" id="vt-lightbox" onclick="vtCloseLightbox()">
+  <button class="vt-lightbox-close" onclick="vtCloseLightbox()">&times;</button>
+  <button class="vt-lightbox-nav prev" onclick="event.stopPropagation();vtLightboxNav(-1)">&#8249;</button>
+  <img id="vt-lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+  <button class="vt-lightbox-nav next" onclick="event.stopPropagation();vtLightboxNav(1)">&#8250;</button>
+  <div class="vt-lightbox-caption" id="vt-lightbox-caption"></div>
+</div>
 
 <div class="demo-modal-overlay" id="demo-modal-overlay" onclick="closeDemoModal()">
   <div class="demo-modal" onclick="event.stopPropagation()">
