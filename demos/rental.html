@@ -2207,7 +2207,7 @@ button, input, select, textarea {
 
 .guest-card-img {
   overflow: hidden;
-  height: 220px;
+  height: 150px;
 }
 
 .guest-card-img img {
@@ -2220,7 +2220,7 @@ button, input, select, textarea {
 
 
 .guest-card-body {
-  padding: 1.5rem;
+  padding: 1rem 1.25rem 1.25rem;
 }
 
 .guest-card-title {
@@ -2244,7 +2244,7 @@ button, input, select, textarea {
 .guest-card-features {
   font-size: 0.82rem;
   color: var(--ink-mid);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .guest-card-link {
@@ -3527,9 +3527,9 @@ const TODAY_DATE = new Date(2026, 3, 5);
 
 const store = {
   vehicleTypes: [
-    { id:'standard', slug:'4-pass-standard', passengerCount:4, name:'4-Passenger Standard', description:'Perfect for couples and small groups exploring the island.', rates:{hourly:25,daily:75,twoDay:130,weekly:420}, maxSpeed:'15 mph', range:'25 miles', features:['Weather canopy','GPS tracking','LED headlights','Cup holders','Windshield'], featureSummary:'Canopy. GPS. Headlights', images:[{url:'../img/4Seater.png',type:'public',label:'Poster'},{url:'../img/4cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/4cart.jpeg', posterUrl:'../img/4Seater.png', sortOrder:1, isActive:true },
-    { id:'deluxe', slug:'6-pass-deluxe', passengerCount:6, name:'6-Passenger Deluxe', description:'Room for the whole family with premium comfort features.', rates:{hourly:35,daily:110,twoDay:190,weekly:615}, maxSpeed:'15 mph', range:'30 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Cup holders','Windshield','Rearview mirror'], featureSummary:'Canopy. GPS. Headlights. USB Charging', images:[{url:'../img/6Seater.png',type:'public',label:'Poster'},{url:'../img/6cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/6cart.jpeg', posterUrl:'../img/6Seater.png', sortOrder:2, isActive:true },
-    { id:'premium', slug:'8-pass-premium', passengerCount:8, name:'8-Passenger Premium', description:'Our largest cart with all the extras for big groups.', rates:{hourly:50,daily:150,twoDay:260,weekly:840}, maxSpeed:'15 mph', range:'35 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Bluetooth speaker','Cup holders','Windshield','Side mirrors','Turn signals'], featureSummary:'Canopy. GPS. Headlights. USB Charging. Bluetooth Speaker', images:[{url:'../img/8Seater.png',type:'public',label:'Poster'},{url:'../img/8cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/8cart.jpeg', posterUrl:'../img/8Seater.png', sortOrder:3, isActive:true },
+    { id:'standard', slug:'4-pass-standard', passengerCount:4, name:'4-Passenger Standard', description:'Perfect for couples and small groups exploring the island.', rates:{hourly:25,daily:75,twoDay:130,weekly:420}, maxSpeed:'15 mph', range:'25 miles', features:['Weather canopy','GPS tracking','LED headlights','Cup holders','Windshield'], featureSummary:'Canopy. GPS. Headlights', images:[{url:'../img/4posternew.png',type:'public',label:'Poster'},{url:'../img/4cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/4cart.jpeg', posterUrl:'../img/4posternew.png', sortOrder:1, isActive:true },
+    { id:'deluxe', slug:'6-pass-deluxe', passengerCount:6, name:'6-Passenger Deluxe', description:'Room for the whole family with premium comfort features.', rates:{hourly:35,daily:110,twoDay:190,weekly:615}, maxSpeed:'15 mph', range:'30 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Cup holders','Windshield','Rearview mirror'], featureSummary:'Canopy. GPS. Headlights. USB Charging', images:[{url:'../img/6posternew.png',type:'public',label:'Poster'},{url:'../img/6cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/6cart.jpeg', posterUrl:'../img/6posternew.png', sortOrder:2, isActive:true },
+    { id:'premium', slug:'8-pass-premium', passengerCount:8, name:'8-Passenger Premium', description:'Our largest cart with all the extras for big groups.', rates:{hourly:50,daily:150,twoDay:260,weekly:840}, maxSpeed:'15 mph', range:'35 miles', features:['Weather canopy','GPS tracking','LED headlights','USB charging ports','Bluetooth speaker','Cup holders','Windshield','Side mirrors','Turn signals'], featureSummary:'Canopy. GPS. Headlights. USB Charging. Bluetooth Speaker', images:[{url:'../img/8posternew.png',type:'public',label:'Poster'},{url:'../img/8cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/8cart.jpeg', posterUrl:'../img/8posternew.png', sortOrder:3, isActive:true },
   ],
 
   fleet: [
@@ -3649,7 +3649,7 @@ function vtGetImage(vt, type) {
   }
   // Fallback to legacy fields
   if (type === 'admin') return vt ? (vt.imageUrl || vt.posterUrl) : '../img/4cart.jpeg';
-  return vt ? (vt.posterUrl || vt.imageUrl) : '../img/4Seater.png';
+  return vt ? (vt.posterUrl || vt.imageUrl) : '../img/4posternew.png';
 }
 
 function cartImage(typeId) {
@@ -5394,9 +5394,9 @@ function addVehicleType() {
     range: '25 miles',
     features: [],
     featureSummary: '',
-    images: [{url:'../img/newvehicle.jpeg', type:'public', label:'Placeholder'}],
-    imageUrl: '../img/newvehicle.jpeg',
-    posterUrl: '../img/newvehicle.jpeg',
+    images: [{url:'../img/newveh.jpeg', type:'public', label:'Poster'},{url:'../img/newveh1.jpeg', type:'admin', label:'Admin card'}],
+    imageUrl: '../img/newveh1.jpeg',
+    posterUrl: '../img/newveh.jpeg',
     sortOrder: count + 1,
     isActive: true,
   };
