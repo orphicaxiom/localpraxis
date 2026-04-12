@@ -527,6 +527,88 @@ button, input, select, textarea {
 .status-text.overdue { color: var(--status-red); }
 .status-text.maintenance { color: var(--status-charcoal); opacity: 0.6; }
 
+/* ── Add Cart Form ── */
+.add-cart-panel {
+  border: 1px solid var(--rule);
+  background: var(--cream);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  animation: vtFadeIn 200ms var(--ease) both;
+}
+
+.add-cart-panel h3 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.add-cart-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.add-cart-field label {
+  display: block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-light);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.add-cart-field input,
+.add-cart-field select {
+  width: 100%;
+  font-size: 0.88rem;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--rule);
+  background: var(--warm-white);
+  color: var(--ink);
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color 150ms var(--ease);
+}
+
+.add-cart-field input:focus,
+.add-cart-field select:focus {
+  border-color: var(--accent);
+}
+
+.add-cart-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.add-cart-actions button {
+  font-size: 0.82rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--rule);
+  background: var(--warm-white);
+  color: var(--ink-mid);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 150ms var(--ease);
+}
+
+.add-cart-actions button:hover {
+  border-color: var(--ink-mid);
+  color: var(--ink);
+}
+
+.add-cart-actions .btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.add-cart-actions .btn-primary:hover {
+  background: var(--accent-hover);
+}
+
 /* ── Cart Cards (Fleet View) ── */
 .fleet-grid {
   display: grid;
@@ -936,6 +1018,44 @@ button, input, select, textarea {
 .avail-badge.avail-full { color: var(--status-green); }
 .avail-badge.avail-partial { color: var(--status-amber); }
 .avail-badge.avail-none { color: var(--status-red); font-weight: 700; }
+
+/* Heatmap cell backgrounds */
+.gantt-avail-cell.heat-open {
+  background: color-mix(in srgb, var(--status-green) 10%, var(--cream));
+}
+.gantt-avail-cell.heat-partial {
+  background: color-mix(in srgb, var(--status-amber) 14%, var(--cream));
+}
+.gantt-avail-cell.heat-full {
+  background: color-mix(in srgb, var(--status-red) 14%, var(--cream));
+}
+.gantt-avail-cell.heat-open.weekend {
+  background: color-mix(in srgb, var(--status-green) 10%, rgba(221, 214, 204, 0.15));
+}
+.gantt-avail-cell.heat-partial.weekend {
+  background: color-mix(in srgb, var(--status-amber) 14%, rgba(221, 214, 204, 0.15));
+}
+.gantt-avail-cell.heat-full.weekend {
+  background: color-mix(in srgb, var(--status-red) 14%, rgba(221, 214, 204, 0.15));
+}
+.gantt-avail-cell.heat-open.today {
+  background: color-mix(in srgb, var(--status-green) 12%, var(--accent-subtle));
+}
+.gantt-avail-cell.heat-partial.today {
+  background: color-mix(in srgb, var(--status-amber) 16%, var(--accent-subtle));
+}
+.gantt-avail-cell.heat-full.today {
+  background: color-mix(in srgb, var(--status-red) 16%, var(--accent-subtle));
+}
+.gantt-avail-cell.heat-open:hover {
+  background: color-mix(in srgb, var(--status-green) 16%, var(--cream));
+}
+.gantt-avail-cell.heat-partial:hover {
+  background: color-mix(in srgb, var(--status-amber) 20%, var(--cream));
+}
+.gantt-avail-cell.heat-full:hover {
+  background: color-mix(in srgb, var(--status-red) 20%, var(--cream));
+}
 
 /* Individual cart row (nested under type) */
 .gantt-label {
@@ -2042,7 +2162,7 @@ button, input, select, textarea {
 }
 
 .guest-hero {
-  padding: 5rem 2rem 4rem;
+  padding: 3rem 2rem 2rem;
   text-align: center;
   max-width: 700px;
   margin: 0 auto;
@@ -2087,7 +2207,7 @@ button, input, select, textarea {
 
 .guest-card-img {
   overflow: hidden;
-  aspect-ratio: 3/4;
+  height: 220px;
 }
 
 .guest-card-img img {
@@ -2361,6 +2481,171 @@ button, input, select, textarea {
 .guest-price-label {
   font-size: 0.78rem;
   color: var(--ink-light);
+}
+
+/* ── Booking form: rental mode toggle ── */
+.rental-mode-toggle {
+  display: flex;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.rental-mode-btn {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  background: var(--warm-white);
+  border: none;
+  color: var(--ink-mid);
+  transition: all 200ms var(--ease);
+}
+.rental-mode-btn.active {
+  background: var(--accent);
+  color: var(--warm-white);
+}
+.rental-mode-btn:first-child { border-right: 1px solid var(--rule); }
+
+/* ── Booking form: availability indicator ── */
+.avail-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+.avail-indicator.avail-ok {
+  background: color-mix(in srgb, var(--status-green) 12%, var(--cream));
+  color: var(--status-green);
+}
+.avail-indicator.avail-low {
+  background: color-mix(in srgb, var(--status-amber) 12%, var(--cream));
+  color: var(--status-amber);
+}
+.avail-indicator.avail-out {
+  background: color-mix(in srgb, var(--status-red) 12%, var(--cream));
+  color: var(--status-red);
+}
+.avail-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ── Booking form: line item receipt ── */
+.receipt-lines {
+  font-size: 0.82rem;
+  margin: 0.75rem 0;
+}
+.receipt-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+}
+.receipt-line.discount {
+  color: var(--status-green);
+}
+.receipt-line.total {
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 0.5rem;
+  margin-top: 0.25rem;
+}
+.receipt-line.deposit {
+  font-size: 0.78rem;
+  color: var(--ink-light);
+  font-style: italic;
+}
+
+/* ── Booking form: promo code input ── */
+.promo-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.promo-row input {
+  flex: 1;
+  text-transform: uppercase;
+}
+.promo-row button {
+  white-space: nowrap;
+}
+.promo-applied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--status-green) 10%, var(--cream));
+  color: var(--status-green);
+  margin-bottom: 0.75rem;
+}
+.promo-applied button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--ink-light);
+  padding: 0;
+}
+
+/* ── Booking form: delivery address ── */
+.delivery-fields {
+  overflow: hidden;
+  transition: max-height 300ms var(--ease), opacity 300ms var(--ease);
+  max-height: 0;
+  opacity: 0;
+}
+.delivery-fields.visible {
+  max-height: 200px;
+  opacity: 1;
+}
+
+/* ── Booking form: waiver/legal section ── */
+.legal-section {
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+  margin-top: 0.75rem;
+}
+.legal-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--ink-mid);
+  margin-bottom: 0.5rem;
+}
+.legal-check input[type="checkbox"] {
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+/* ── Booking form: step indicator ── */
+.booking-steps {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1.25rem;
+}
+.booking-step {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--rule);
+  transition: background 300ms var(--ease);
+}
+.booking-step.active {
+  background: var(--accent);
+}
+.booking-step.done {
+  background: var(--status-green);
 }
 
 /* ── Buttons ── */
@@ -3076,10 +3361,14 @@ button, input, select, textarea {
 
     <!-- Fleet View -->
     <div class="view" id="view-fleet">
-      <div class="header">
-        <h1>Fleet</h1>
-        <p>16 carts across the fleet</p>
+      <div class="header" style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <h1>Fleet</h1>
+          <p id="fleet-subtitle">16 carts across the fleet</p>
+        </div>
+        <button class="btn btn-primary" onclick="openAddCartForm()">+ Add Cart</button>
       </div>
+      <div id="add-cart-form" style="display:none"></div>
       <div class="controls-bar">
         <div class="filter-tabs" id="fleet-filters"></div>
         <input type="text" class="search-input" id="fleet-search" placeholder="Search carts..." oninput="renderFleet()">
@@ -3686,9 +3975,118 @@ function setFleetFilter(f) {
   renderFleet();
 }
 
+/* ── Add Cart to Fleet ── */
+function openAddCartForm() {
+  var formEl = document.getElementById('add-cart-form');
+  if (!formEl) return;
+
+  var maxNum = 0;
+  store.fleet.forEach(function(c) {
+    var match = c.name.match(/IW-(\d+)/);
+    if (match) maxNum = Math.max(maxNum, parseInt(match[1]));
+  });
+  var nextName = 'IW-' + String(maxNum + 1).padStart(2, '0');
+
+  var typeOptions = store.vehicleTypes.map(function(vt) {
+    return '<option value="' + vt.id + '">' + vt.name + ' (' + vt.passengerCount + '-passenger)</option>';
+  }).join('');
+
+  formEl.style.display = 'block';
+  formEl.innerHTML =
+    '<div class="add-cart-panel">' +
+      '<h3>Add New Cart to Fleet</h3>' +
+      '<div class="add-cart-fields">' +
+        '<div class="add-cart-field">' +
+          '<label>Cart Name / Plate</label>' +
+          '<input type="text" id="new-cart-name" value="' + nextName + '" placeholder="e.g. IW-17">' +
+        '</div>' +
+        '<div class="add-cart-field">' +
+          '<label>Vehicle Type</label>' +
+          '<select id="new-cart-type">' + typeOptions + '</select>' +
+        '</div>' +
+        '<div class="add-cart-field">' +
+          '<label>Initial Status</label>' +
+          '<select id="new-cart-status">' +
+            '<option value="available">Available</option>' +
+            '<option value="maintenance">Maintenance</option>' +
+          '</select>' +
+        '</div>' +
+        '<div class="add-cart-field">' +
+          '<label>Mileage</label>' +
+          '<input type="number" id="new-cart-mileage" value="0" placeholder="0">' +
+        '</div>' +
+        '<div class="add-cart-field">' +
+          '<label>Condition</label>' +
+          '<select id="new-cart-condition">' +
+            '<option value="excellent">Excellent</option>' +
+            '<option value="good">Good</option>' +
+            '<option value="fair">Fair</option>' +
+          '</select>' +
+        '</div>' +
+        '<div class="add-cart-field">' +
+          '<label>Notes</label>' +
+          '<input type="text" id="new-cart-notes" placeholder="Optional notes...">' +
+        '</div>' +
+      '</div>' +
+      '<div class="add-cart-actions">' +
+        '<button onclick="closeAddCartForm()">Cancel</button>' +
+        '<button class="btn-primary" onclick="confirmAddCart()">Add to Fleet</button>' +
+      '</div>' +
+    '</div>';
+
+  setTimeout(function() {
+    var nameInput = document.getElementById('new-cart-name');
+    if (nameInput) { nameInput.focus(); nameInput.select(); }
+  }, 80);
+}
+
+function closeAddCartForm() {
+  var formEl = document.getElementById('add-cart-form');
+  if (formEl) { formEl.style.display = 'none'; formEl.innerHTML = ''; }
+}
+
+function confirmAddCart() {
+  var name = (document.getElementById('new-cart-name').value || '').trim();
+  var typeId = document.getElementById('new-cart-type').value;
+  var status = document.getElementById('new-cart-status').value;
+  var mileage = parseInt(document.getElementById('new-cart-mileage').value) || 0;
+  var condition = document.getElementById('new-cart-condition').value;
+  var notes = (document.getElementById('new-cart-notes').value || '').trim();
+
+  if (!name) { showToast('Cart name is required'); return; }
+  var dupe = store.fleet.some(function(c) { return c.name.toLowerCase() === name.toLowerCase(); });
+  if (dupe) { showToast('A cart named "' + name + '" already exists'); return; }
+  if (!typeId) { showToast('Select a vehicle type'); return; }
+
+  var maxId = 0;
+  store.fleet.forEach(function(c) { if (c.id > maxId) maxId = c.id; });
+
+  store.fleet.push({
+    id: maxId + 1,
+    name: name,
+    typeId: typeId,
+    status: status,
+    currentRenter: null,
+    currentResId: null,
+    returnTime: null,
+    gpsStatus: status === 'available' ? 'active' : 'offline',
+    mileage: mileage,
+    condition: condition,
+    notes: notes,
+  });
+
+  closeAddCartForm();
+  renderFleet();
+  var vt = getVehicleType(typeId);
+  showToast(name + ' added to fleet' + (vt ? ' as ' + vt.name : ''));
+}
+
 function renderFleet() {
   var search = (document.getElementById('fleet-search') ? document.getElementById('fleet-search').value : '').toLowerCase();
-  var counts = { all: 16, available: 0, rented: 0, maintenance: 0 };
+  var counts = { all: store.fleet.length, available: 0, rented: 0, maintenance: 0 };
+  // Update subtitle
+  var subtitle = document.getElementById('fleet-subtitle');
+  if (subtitle) subtitle.textContent = store.fleet.length + ' carts across the fleet';
   store.fleet.forEach(function(c) {
     if (c.status === 'available') counts.available++;
     else if (c.status === 'rented' || c.status === 'overdue') counts.rented++;
@@ -3864,7 +4262,22 @@ function renderCalendar() {
 
   var dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
+  var totalActive = store.fleet.filter(function(c) { return c.status !== 'maintenance'; }).length;
   var html = '<div class="gantt-grid">';
+
+  // Pre-compute per-day fleet utilization for header heat indicators
+  var dayHeatColors = days.map(function(d) {
+    var ds = dateStr(d);
+    var booked = store.reservations.filter(function(r) {
+      return (r.status === 'checked-in' || r.status === 'confirmed' || r.status === 'completed') &&
+        r.pickupDate <= ds && r.returnDate >= ds;
+    }).length;
+    var pct = totalActive > 0 ? (booked / totalActive) : 0;
+    if (pct > 0.8) return 'var(--status-red)';
+    if (pct > 0.5) return 'var(--status-amber)';
+    if (pct > 0) return 'var(--status-green)';
+    return 'transparent';
+  });
 
   // Header row
   html += '<div class="gantt-header" style="border-right:1px solid var(--rule);background:var(--warm-white)"></div>';
@@ -3877,12 +4290,12 @@ function renderCalendar() {
     if (isToday) cls += ' today';
     if (isPast) cls += ' past';
     if (isWeekend) cls += ' weekend';
-    html += '<div class="' + cls + '">' + dayNames[i] + '<br>' + (d.getMonth()+1) + '/' + d.getDate() + '</div>';
+    var heatBorder = dayHeatColors[i] !== 'transparent' ? 'border-bottom: 3px solid ' + dayHeatColors[i] + ';' : '';
+    html += '<div class="' + cls + '" style="' + heatBorder + '">' + dayNames[i] + '<br>' + (d.getMonth()+1) + '/' + d.getDate() + '</div>';
   });
 
   // Overall utilization row
   html += '<div class="gantt-util-label">Fleet Util.</div>';
-  var totalActive = store.fleet.filter(function(c) { return c.status !== 'maintenance'; }).length;
   days.forEach(function(d) {
     var ds = dateStr(d);
     var booked = store.reservations.filter(function(r) {
@@ -3931,9 +4344,9 @@ function renderCalendar() {
 
       var available = typeCarts.length - bookedCount;
       var badgeCls = 'avail-badge';
-      if (available === 0) badgeCls += ' avail-none';
-      else if (available <= Math.ceil(typeCarts.length * 0.3)) badgeCls += ' avail-partial';
-      else badgeCls += ' avail-full';
+      if (available === 0) { badgeCls += ' avail-none'; cellCls += ' heat-full'; }
+      else if (available <= Math.ceil(typeCarts.length * 0.3)) { badgeCls += ' avail-partial'; cellCls += ' heat-partial'; }
+      else { badgeCls += ' avail-full'; cellCls += ' heat-open'; }
 
       var badgeText = available === 0 ? 'Full' : available + ' open';
 
@@ -5176,6 +5589,10 @@ function saveNewPromotion() {
 var widgetPreview = 'desktop';
 
 function renderWidget() {
+  var firstType = store.vehicleTypes.filter(function(vt) { return vt.isActive; })[0];
+  var sampleTotal = firstType ? Math.round(firstType.rates.daily * (1 + store.settings.taxRate)) : 81;
+  var sampleTax = firstType ? Math.round(firstType.rates.daily * store.settings.taxRate) : 6;
+
   var widgetForm =
     '<div style="padding:2rem;max-width:480px;margin:0 auto">' +
       '<div style="text-align:center;margin-bottom:2rem">' +
@@ -5188,6 +5605,10 @@ function renderWidget() {
           store.vehicleTypes.filter(function(vt) { return vt.isActive; }).map(function(vt) { return '<option value="' + vt.id + '">' + vt.name + ' (' + fmtMoney(vt.rates.daily) + '/day)</option>'; }).join('') +
         '</select>' +
       '</div>' +
+      '<div class="rental-mode-toggle">' +
+        '<button class="rental-mode-btn active">Daily Rental</button>' +
+        '<button class="rental-mode-btn">Hourly Rental</button>' +
+      '</div>' +
       '<div class="form-row">' +
         '<div class="form-group">' +
           '<label class="form-label">Pickup Date</label>' +
@@ -5198,18 +5619,21 @@ function renderWidget() {
           '<input class="form-input" type="date" value="2026-04-06">' +
         '</div>' +
       '</div>' +
+      '<div class="avail-indicator avail-ok"><span class="avail-dot"></span> 4 of 6 available</div>' +
       '<div class="form-group">' +
         '<div style="display:flex;gap:1rem">' +
           '<label class="form-checkbox"><input type="radio" name="widget-delivery" checked> Shop Pickup</label>' +
-          '<label class="form-checkbox"><input type="radio" name="widget-delivery"> Delivery (+$35)</label>' +
+          '<label class="form-checkbox"><input type="radio" name="widget-delivery"> Delivery (+' + fmtMoney(store.settings.deliveryFee) + ')</label>' +
         '</div>' +
       '</div>' +
-      '<div style="text-align:center;padding:1rem;margin:1rem 0;border:1px solid var(--rule);border-radius:6px">' +
-        '<div style="font-size:0.72rem;color:var(--ink-light)">Estimated Total</div>' +
-        '<div style="font-size:1.8rem;font-weight:700">$81</div>' +
-        '<div style="font-size:0.75rem;color:var(--ink-light)">incl. tax</div>' +
+      '<div class="promo-row"><input class="form-input" type="text" placeholder="Promo code"><button class="btn btn-sm">Apply</button></div>' +
+      '<div class="receipt-lines">' +
+        '<div class="receipt-line"><span>1 day × ' + (firstType ? fmtMoney(firstType.rates.daily) : '$75') + '</span><span>' + (firstType ? fmtMoney(firstType.rates.daily) : '$75') + '</span></div>' +
+        '<div class="receipt-line"><span>Tax (' + (store.settings.taxRate * 100).toFixed(2) + '%)</span><span>' + fmtMoney(sampleTax) + '</span></div>' +
+        '<div class="receipt-line total"><span>Total</span><span>' + fmtMoney(sampleTotal) + '</span></div>' +
+        '<div class="receipt-line deposit"><span>Deposit due now (' + store.settings.depositPct + '%)</span><span>' + fmtMoney(Math.round(sampleTotal * store.settings.depositPct / 100)) + '</span></div>' +
       '</div>' +
-      '<button class="btn btn-primary" style="width:100%;justify-content:center">Book Now</button>' +
+      '<button class="btn btn-primary" style="width:100%;justify-content:center">Continue to Details</button>' +
     '</div>';
 
   var html =
@@ -5305,9 +5729,572 @@ function openGuestDetail(typeId) {
   document.getElementById('guest-view').scrollTo(0, 0);
 }
 
+/* ── Guest booking state ── */
+var guestBookingState = {
+  rentalMode: 'daily',  // 'daily' | 'hourly'
+  promoCode: null,       // applied promo object or null
+  promoDiscount: 0,
+  step: 1                // 1 = dates/config, 2 = customer info, 3 = confirmation
+};
+
+function guestComputeAvailability(typeId, pickupDate, returnDate) {
+  var typeCarts = store.fleet.filter(function(c) { return c.typeId === typeId; });
+  var totalCarts = typeCarts.length;
+  if (totalCarts === 0) return { available: 0, total: 0 };
+
+  // Check each day in the range for overlapping reservations
+  var minAvail = totalCarts;
+  var d = new Date(pickupDate + 'T12:00:00');
+  var end = new Date(returnDate + 'T12:00:00');
+  while (d <= end) {
+    var ds = dateStr(d);
+    var booked = 0;
+    typeCarts.forEach(function(cart) {
+      var hasRes = store.reservations.some(function(r) {
+        return r.cartId === cart.id &&
+          (r.status === 'checked-in' || r.status === 'confirmed' || r.status === 'completed') &&
+          r.pickupDate <= ds && r.returnDate >= ds;
+      });
+      if (hasRes || cart.status === 'maintenance') booked++;
+    });
+    minAvail = Math.min(minAvail, totalCarts - booked);
+    d.setDate(d.getDate() + 1);
+  }
+  return { available: minAvail, total: totalCarts };
+}
+
+function guestComputePrice() {
+  var t = getVehicleType(guestSelectedType);
+  if (!t) return null;
+
+  var pickup = document.getElementById('guest-pickup');
+  var returnD = document.getElementById('guest-return');
+  if (!pickup || !returnD || !pickup.value || !returnD.value) return null;
+
+  var rates = t.rates;
+  var mode = guestBookingState.rentalMode;
+  var subtotal = 0;
+  var durationLabel = '';
+
+  if (mode === 'hourly') {
+    var hoursEl = document.getElementById('guest-hours');
+    var hours = hoursEl ? parseInt(hoursEl.value) || 2 : 2;
+    hours = Math.max(2, hours); // minimum 2 hours
+    subtotal = hours * rates.hourly;
+    durationLabel = hours + ' hour' + (hours > 1 ? 's' : '') + ' × ' + fmtMoney(rates.hourly);
+  } else {
+    var days = Math.max(1, daysBetween(pickup.value, returnD.value));
+    if (days >= 7) {
+      var weeks = Math.floor(days / 7);
+      var extraDays = days % 7;
+      subtotal = weeks * rates.weekly + extraDays * rates.daily;
+      durationLabel = weeks + ' week' + (weeks > 1 ? 's' : '');
+      if (extraDays > 0) durationLabel += ' + ' + extraDays + ' day' + (extraDays > 1 ? 's' : '');
+    } else if (days >= 2 && rates.twoDay) {
+      subtotal = rates.twoDay + Math.max(0, days - 2) * rates.daily;
+      durationLabel = days + ' day' + (days > 1 ? 's' : '') + ' (2-day rate applied)';
+    } else {
+      subtotal = days * rates.daily;
+      durationLabel = days + ' day' + (days > 1 ? 's' : '') + ' × ' + fmtMoney(rates.daily);
+    }
+  }
+
+  var deliveryFee = 0;
+  var deliveryEl = document.querySelector('input[name="guest-del"][value="delivery"]');
+  if (deliveryEl && deliveryEl.checked) deliveryFee = store.settings.deliveryFee;
+
+  var discount = 0;
+  if (guestBookingState.promoCode) {
+    var promo = guestBookingState.promoCode;
+    if (promo.discountType === 'percent') {
+      discount = Math.round(subtotal * (promo.amount / 100));
+    } else {
+      discount = promo.amount;
+    }
+  }
+
+  var afterDiscount = Math.max(0, subtotal - discount);
+  var taxable = afterDiscount + deliveryFee;
+  var tax = Math.round(taxable * store.settings.taxRate * 100) / 100;
+  var total = Math.round(taxable + tax);
+  var deposit = Math.round(total * store.settings.depositPct / 100);
+
+  return {
+    subtotal: subtotal,
+    durationLabel: durationLabel,
+    deliveryFee: deliveryFee,
+    discount: discount,
+    tax: tax,
+    total: total,
+    deposit: deposit
+  };
+}
+
+function guestApplyPromo() {
+  var input = document.getElementById('guest-promo-input');
+  if (!input || !input.value.trim()) return;
+  var code = input.value.trim().toUpperCase();
+
+  var promo = store.promotions.find(function(p) {
+    return p.code === code && p.active;
+  });
+
+  if (!promo) {
+    showToast('Invalid or expired promo code');
+    return;
+  }
+
+  // Check if it applies to this vehicle type
+  var t = getVehicleType(guestSelectedType);
+  if (promo.cartTypes && promo.cartTypes.length > 0 && t) {
+    var applies = promo.cartTypes.some(function(ct) { return ct === t.passengerCount; });
+    if (!applies) {
+      showToast('This code doesn\'t apply to ' + t.name);
+      return;
+    }
+  }
+
+  // Check date validity
+  var today = TODAY;
+  if (promo.validEnd && promo.validEnd < today) {
+    showToast('This promo code has expired');
+    return;
+  }
+  if (promo.validStart && promo.validStart > today) {
+    showToast('This promo code isn\'t active yet');
+    return;
+  }
+
+  // Check usage limits
+  if (promo.maxUses && promo.timesUsed >= promo.maxUses) {
+    showToast('This promo code has reached its usage limit');
+    return;
+  }
+
+  guestBookingState.promoCode = promo;
+  showToast(promo.name + ' applied! ' + (promo.discountType === 'percent' ? promo.amount + '% off' : fmtMoney(promo.amount) + ' off'));
+  updateGuestBookingForm();
+}
+
+function guestRemovePromo() {
+  guestBookingState.promoCode = null;
+  updateGuestBookingForm();
+}
+
+function guestSetRentalMode(mode) {
+  guestBookingState.rentalMode = mode;
+  updateGuestBookingForm();
+}
+
+function updateGuestBookingForm() {
+  var t = getVehicleType(guestSelectedType);
+  if (!t) return;
+
+  var pickup = document.getElementById('guest-pickup');
+  var returnD = document.getElementById('guest-return');
+  if (!pickup || !returnD) return;
+
+  var mode = guestBookingState.rentalMode;
+  var isHourly = mode === 'hourly';
+
+  // Show/hide return date vs hours input
+  var returnGroup = document.getElementById('guest-return-group');
+  var hoursGroup = document.getElementById('guest-hours-group');
+  if (returnGroup) returnGroup.style.display = isHourly ? 'none' : '';
+  if (hoursGroup) hoursGroup.style.display = isHourly ? '' : 'none';
+
+  // Update mode toggle active states
+  document.querySelectorAll('.rental-mode-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+
+  // Compute availability
+  var avail;
+  if (isHourly) {
+    avail = guestComputeAvailability(guestSelectedType, pickup.value, pickup.value);
+  } else {
+    avail = guestComputeAvailability(guestSelectedType, pickup.value, returnD.value);
+  }
+
+  var availEl = document.getElementById('guest-availability');
+  if (availEl) {
+    if (avail.available === 0) {
+      availEl.className = 'avail-indicator avail-out';
+      availEl.innerHTML = '<span class="avail-dot"></span> No carts available for these dates';
+    } else if (avail.available <= 2) {
+      availEl.className = 'avail-indicator avail-low';
+      availEl.innerHTML = '<span class="avail-dot"></span> Only ' + avail.available + ' left for these dates';
+    } else {
+      availEl.className = 'avail-indicator avail-ok';
+      availEl.innerHTML = '<span class="avail-dot"></span> ' + avail.available + ' of ' + avail.total + ' available';
+    }
+  }
+
+  // Delivery address toggle
+  var deliveryEl = document.querySelector('input[name="guest-del"][value="delivery"]');
+  var deliveryFields = document.getElementById('guest-delivery-fields');
+  if (deliveryFields) {
+    deliveryFields.classList.toggle('visible', deliveryEl && deliveryEl.checked);
+  }
+
+  // Compute and render price receipt
+  var price = guestComputePrice();
+  var receiptEl = document.getElementById('guest-receipt');
+  if (receiptEl && price) {
+    var lines = '';
+    lines += '<div class="receipt-line"><span>' + price.durationLabel + '</span><span>' + fmtMoney(price.subtotal) + '</span></div>';
+    if (price.discount > 0) {
+      lines += '<div class="receipt-line discount"><span>' + guestBookingState.promoCode.code + ' (-' + (guestBookingState.promoCode.discountType === 'percent' ? guestBookingState.promoCode.amount + '%' : fmtMoney(guestBookingState.promoCode.amount)) + ')</span><span>-' + fmtMoney(price.discount) + '</span></div>';
+    }
+    if (price.deliveryFee > 0) {
+      lines += '<div class="receipt-line"><span>Delivery</span><span>' + fmtMoney(price.deliveryFee) + '</span></div>';
+    }
+    lines += '<div class="receipt-line"><span>Tax (' + (store.settings.taxRate * 100).toFixed(2) + '%)</span><span>' + fmtMoney(price.tax) + '</span></div>';
+    lines += '<div class="receipt-line total"><span>Total</span><span>' + fmtMoney(price.total) + '</span></div>';
+    lines += '<div class="receipt-line deposit"><span>Deposit due now (' + store.settings.depositPct + '%)</span><span>' + fmtMoney(price.deposit) + '</span></div>';
+    receiptEl.innerHTML = lines;
+  }
+
+  // Enable/disable book button based on availability
+  var bookBtn = document.getElementById('guest-book-btn');
+  if (bookBtn) {
+    bookBtn.disabled = avail.available === 0;
+    bookBtn.style.opacity = avail.available === 0 ? '0.5' : '1';
+  }
+}
+
+function guestGoToStep2() {
+  var price = guestComputePrice();
+  if (!price) return;
+
+  var avail = guestComputeAvailability(guestSelectedType,
+    document.getElementById('guest-pickup').value,
+    guestBookingState.rentalMode === 'hourly' ? document.getElementById('guest-pickup').value : document.getElementById('guest-return').value);
+  if (avail.available === 0) {
+    showToast('No carts available for these dates');
+    return;
+  }
+
+  guestBookingState.step = 2;
+  renderGuestBookingSidebar();
+  document.querySelector('.guest-booking-form').scrollTo(0, 0);
+}
+
+function guestGoToStep1() {
+  guestBookingState.step = 1;
+  renderGuestBookingSidebar();
+}
+
+function renderGuestBookingSidebar() {
+  var t = getVehicleType(guestSelectedType);
+  if (!t) return;
+  var container = document.getElementById('guest-booking-sidebar');
+  if (!container) return;
+
+  var step = guestBookingState.step;
+  var stepsHTML = '<div class="booking-steps">' +
+    '<div class="booking-step ' + (step >= 1 ? (step > 1 ? 'done' : 'active') : '') + '"></div>' +
+    '<div class="booking-step ' + (step >= 2 ? (step > 2 ? 'done' : 'active') : '') + '"></div>' +
+    '<div class="booking-step ' + (step >= 3 ? 'done' : '') + '"></div>' +
+  '</div>';
+
+  if (step === 1) {
+    var mode = guestBookingState.rentalMode;
+    var isHourly = mode === 'hourly';
+
+    var html = '<div class="guest-booking-form">' +
+      stepsHTML +
+      '<div class="booking-price-header">' +
+        fmtMoney(t.rates.daily) + '<span class="per-unit"> / day</span>' +
+        '<div class="alt-rate">' + fmtMoney(t.rates.hourly) + ' / hour · ' + fmtMoney(t.rates.twoDay) + ' / 2-day · ' + fmtMoney(t.rates.weekly) + ' / week</div>' +
+      '</div>' +
+
+      '<div class="rental-mode-toggle">' +
+        '<button class="rental-mode-btn ' + (mode === 'daily' ? 'active' : '') + '" data-mode="daily" onclick="guestSetRentalMode(\'daily\')">Daily Rental</button>' +
+        '<button class="rental-mode-btn ' + (mode === 'hourly' ? 'active' : '') + '" data-mode="hourly" onclick="guestSetRentalMode(\'hourly\')">Hourly Rental</button>' +
+      '</div>' +
+
+      '<div class="form-group">' +
+        '<label class="form-label">Pickup Date</label>' +
+        '<input class="form-input" type="date" id="guest-pickup" value="' + TODAY + '" min="' + TODAY + '" onchange="updateGuestBookingForm()">' +
+      '</div>' +
+
+      '<div class="form-group" id="guest-return-group" style="' + (isHourly ? 'display:none' : '') + '">' +
+        '<label class="form-label">Return Date</label>' +
+        '<input class="form-input" type="date" id="guest-return" value="2026-04-06" min="' + TODAY + '" onchange="updateGuestBookingForm()">' +
+      '</div>' +
+
+      '<div class="form-group" id="guest-hours-group" style="' + (isHourly ? '' : 'display:none') + '">' +
+        '<label class="form-label">Duration (hours, min. 2)</label>' +
+        '<select class="form-select" id="guest-hours" onchange="updateGuestBookingForm()">' +
+          '<option value="2">2 hours</option>' +
+          '<option value="3">3 hours</option>' +
+          '<option value="4">4 hours</option>' +
+          '<option value="5">5 hours</option>' +
+          '<option value="6">6 hours</option>' +
+          '<option value="8">8 hours</option>' +
+        '</select>' +
+      '</div>' +
+
+      '<div id="guest-availability" class="avail-indicator avail-ok">' +
+        '<span class="avail-dot"></span> Checking availability...' +
+      '</div>' +
+
+      '<div class="form-group">' +
+        '<div style="display:flex;gap:1rem">' +
+          '<label class="form-checkbox"><input type="radio" name="guest-del" value="pickup" checked onchange="updateGuestBookingForm()"> Shop Pickup</label>' +
+          '<label class="form-checkbox"><input type="radio" name="guest-del" value="delivery" onchange="updateGuestBookingForm()"> Delivery (+' + fmtMoney(store.settings.deliveryFee) + ')</label>' +
+        '</div>' +
+      '</div>' +
+
+      '<div id="guest-delivery-fields" class="delivery-fields">' +
+        '<div class="form-group">' +
+          '<label class="form-label">Delivery Address (Port Aransas only)</label>' +
+          '<input class="form-input" type="text" id="guest-delivery-addr" placeholder="123 Beach St, Port Aransas">' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label class="form-label">Delivery Notes</label>' +
+          '<input class="form-input" type="text" id="guest-delivery-notes" placeholder="Gate code, parking instructions...">' +
+        '</div>' +
+      '</div>' +
+
+      (guestBookingState.promoCode
+        ? '<div class="promo-applied">' +
+            '<span>&#10003; ' + guestBookingState.promoCode.code + ' — ' + guestBookingState.promoCode.name + '</span>' +
+            '<button onclick="guestRemovePromo()">&times;</button>' +
+          '</div>'
+        : '<div class="promo-row">' +
+            '<input class="form-input" type="text" id="guest-promo-input" placeholder="Promo code">' +
+            '<button class="btn btn-sm" onclick="guestApplyPromo()">Apply</button>' +
+          '</div>'
+      ) +
+
+      '<div class="receipt-lines" id="guest-receipt"></div>' +
+
+      '<button class="btn btn-primary btn-block" id="guest-book-btn" onclick="guestGoToStep2()">Continue to Details</button>' +
+    '</div>';
+
+    container.innerHTML = html;
+    setTimeout(function() { updateGuestBookingForm(); }, 10);
+
+  } else if (step === 2) {
+    var price = guestComputePrice();
+    var totalStr = price ? fmtMoney(price.total) : '--';
+    var depositStr = price ? fmtMoney(price.deposit) : '--';
+
+    var html = '<div class="guest-booking-form">' +
+      stepsHTML +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">' +
+        '<button class="btn-text" onclick="guestGoToStep1()" style="font-size:0.82rem">&larr; Edit dates</button>' +
+        '<div style="font-size:0.88rem;font-weight:600">' + totalStr + ' total</div>' +
+      '</div>' +
+
+      '<div class="form-group">' +
+        '<label class="form-label">Full Name *</label>' +
+        '<input class="form-input" type="text" id="guest-name" placeholder="Your full name">' +
+      '</div>' +
+      '<div class="form-group">' +
+        '<label class="form-label">Email *</label>' +
+        '<input class="form-input" type="email" id="guest-email" placeholder="email@example.com">' +
+      '</div>' +
+      '<div class="form-group">' +
+        '<label class="form-label">Phone *</label>' +
+        '<input class="form-input" type="tel" id="guest-phone" placeholder="(555) 555-5555">' +
+      '</div>' +
+      '<div class="form-group">' +
+        '<label class="form-label">Driver\'s License # *</label>' +
+        '<input class="form-input" type="text" id="guest-license" placeholder="Required for pickup">' +
+      '</div>' +
+      '<div class="form-group">' +
+        '<label class="form-label">Date of Birth *</label>' +
+        '<input class="form-input" type="date" id="guest-dob">' +
+      '</div>' +
+      '<div class="form-group">' +
+        '<label class="form-label">Special Requests</label>' +
+        '<textarea class="form-input" id="guest-notes" rows="2" placeholder="Any special requests or notes"></textarea>' +
+      '</div>' +
+
+      '<div class="legal-section">' +
+        '<div class="legal-check">' +
+          '<input type="checkbox" id="guest-waiver">' +
+          '<label for="guest-waiver">I agree to the <a href="#" onclick="event.preventDefault();showToast(\'Waiver preview: Must be 21+ with valid license. Renter assumes liability for all damages. Full waiver will be emailed for signature.\')" style="color:var(--accent)">Liability Waiver</a> and <a href="#" onclick="event.preventDefault();showToast(\'Terms: Free cancellation 24h+ before pickup. No beach driving. Operating hours 7AM-8PM.\')" style="color:var(--accent)">Rental Terms</a> *</label>' +
+        '</div>' +
+        '<div class="legal-check">' +
+          '<input type="checkbox" id="guest-age-confirm">' +
+          '<label for="guest-age-confirm">I confirm I am 21 years of age or older and hold a valid driver\'s license *</label>' +
+        '</div>' +
+      '</div>' +
+
+      '<div style="text-align:center;margin:1rem 0 0.5rem;font-size:0.82rem;color:var(--ink-mid)">' +
+        'Deposit due now: <strong>' + depositStr + '</strong>' +
+      '</div>' +
+
+      '<button class="btn btn-primary btn-block" onclick="guestSubmitReservation()" style="margin-top:0.5rem">Complete Reservation</button>' +
+      '<div style="text-align:center;font-size:0.72rem;color:var(--ink-light);margin-top:0.5rem">Deposit is refundable per our cancellation policy</div>' +
+    '</div>';
+
+    container.innerHTML = html;
+  }
+}
+
+function guestSubmitReservation() {
+  // Validate required fields
+  var name = document.getElementById('guest-name');
+  var email = document.getElementById('guest-email');
+  var phone = document.getElementById('guest-phone');
+  var license = document.getElementById('guest-license');
+  var dob = document.getElementById('guest-dob');
+  var waiver = document.getElementById('guest-waiver');
+  var ageConfirm = document.getElementById('guest-age-confirm');
+
+  if (!name.value.trim()) { showToast('Please enter your name'); name.focus(); return; }
+  if (!email.value.trim() || !email.value.includes('@')) { showToast('Please enter a valid email'); email.focus(); return; }
+  if (!phone.value.trim()) { showToast('Please enter your phone number'); phone.focus(); return; }
+  if (!license.value.trim()) { showToast('Driver\'s license is required'); license.focus(); return; }
+  if (!dob.value) { showToast('Date of birth is required'); dob.focus(); return; }
+  if (!waiver.checked) { showToast('You must agree to the liability waiver'); return; }
+  if (!ageConfirm.checked) { showToast('You must confirm you are 21+'); return; }
+
+  // Age check
+  var dobDate = new Date(dob.value + 'T12:00:00');
+  var today = new Date(TODAY + 'T12:00:00');
+  var age = today.getFullYear() - dobDate.getFullYear();
+  var m = today.getMonth() - dobDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) age--;
+  if (age < 21) {
+    showToast('You must be 21 or older to rent');
+    return;
+  }
+
+  var t = getVehicleType(guestSelectedType);
+  var price = guestComputePrice();
+  if (!t || !price) return;
+
+  var pickupDate = document.getElementById('guest-pickup').value;
+  var returnDate = guestBookingState.rentalMode === 'hourly' ? pickupDate : document.getElementById('guest-return').value;
+
+  // Create Customer entity (or find existing by email)
+  var nameParts = name.value.trim().split(' ');
+  var customerId = store.reservations.length + 100; // simple unique ID
+  var customer = {
+    id: customerId,
+    firstName: nameParts[0],
+    lastName: nameParts.slice(1).join(' ') || '',
+    email: email.value.trim(),
+    phone: phone.value.trim(),
+    driversLicense: license.value.trim(),
+    dateOfBirth: dob.value,
+    source: 'online'
+  };
+
+  // Find an available cart to assign
+  var availCarts = store.fleet.filter(function(c) {
+    if (c.typeId !== guestSelectedType || c.status === 'maintenance') return false;
+    var isBooked = store.reservations.some(function(r) {
+      return r.cartId === c.id &&
+        (r.status === 'checked-in' || r.status === 'confirmed' || r.status === 'completed') &&
+        r.pickupDate <= returnDate && r.returnDate >= pickupDate;
+    });
+    return !isBooked;
+  });
+
+  var assignedCart = availCarts.length > 0 ? availCarts[0] : null;
+
+  // Generate confirmation code
+  var confNum = String(store.reservations.length + 42).padStart(4, '0');
+  var confirmationCode = 'IW-2026-' + confNum;
+
+  // Build the delivery fields
+  var isDelivery = false;
+  var deliveryEl = document.querySelector('input[name="guest-del"][value="delivery"]');
+  if (deliveryEl && deliveryEl.checked) isDelivery = true;
+  var deliveryAddr = '';
+  var deliveryNotes = '';
+  if (isDelivery) {
+    var addrEl = document.getElementById('guest-delivery-addr');
+    var notesEl = document.getElementById('guest-delivery-notes');
+    deliveryAddr = addrEl ? addrEl.value : '';
+    deliveryNotes = notesEl ? notesEl.value : '';
+  }
+
+  // Create Reservation entity
+  var newRes = {
+    id: store.reservations.length + 100,
+    confirmationCode: confirmationCode,
+    customer: { name: customer.firstName + ' ' + customer.lastName, phone: customer.phone, email: customer.email },
+    customerId: customerId,
+    cartId: assignedCart ? assignedCart.id : null,
+    vehicleTypeId: guestSelectedType,
+    status: 'confirmed',
+    source: 'online',
+    pickupDate: pickupDate,
+    pickupTime: store.settings.operatingHours.open,
+    returnDate: returnDate,
+    returnTime: store.settings.operatingHours.close,
+    isDelivery: isDelivery,
+    deliveryAddress: deliveryAddr,
+    deliveryNotes: deliveryNotes,
+    promotionId: guestBookingState.promoCode ? guestBookingState.promoCode.id : null,
+    discountAmount: price.discount,
+    subtotal: price.subtotal,
+    deliveryFee: price.deliveryFee,
+    taxAmount: price.tax,
+    totalAmount: price.total,
+    depositRequired: price.deposit,
+    depositStatus: 'paid',
+    paymentStatus: 'partial',
+    waiverStatus: 'signed',
+    customerNotes: document.getElementById('guest-notes') ? document.getElementById('guest-notes').value : '',
+    createdAt: new Date().toISOString()
+  };
+
+  store.reservations.push(newRes);
+
+  // Increment promo usage
+  if (guestBookingState.promoCode) {
+    var promo = store.promotions.find(function(p) { return p.id === guestBookingState.promoCode.id; });
+    if (promo) promo.timesUsed++;
+  }
+
+  // Note: full persistence via localStorage not yet wired for demo
+
+  // Show confirmation
+  guestBookingState.step = 3;
+  var container = document.getElementById('guest-booking-sidebar');
+  if (container) {
+    container.innerHTML =
+      '<div class="guest-booking-form" style="text-align:center">' +
+        '<svg width="48" height="48" viewBox="0 0 64 64" fill="none" style="margin-bottom:1rem">' +
+          '<circle cx="32" cy="32" r="30" stroke="var(--status-green)" stroke-width="2"/>' +
+          '<polyline points="20,34 28,42 44,24" stroke="var(--status-green)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:40;stroke-dashoffset:0;animation:checkmark 0.6s ease forwards"/>' +
+        '</svg>' +
+        '<h3 style="font-family:var(--font-display);font-size:1.4rem;margin-bottom:0.5rem">Reservation Confirmed</h3>' +
+        '<div style="font-size:0.88rem;color:var(--ink-mid);margin-bottom:1.25rem">Confirmation code</div>' +
+        '<div style="font-size:1.5rem;font-weight:700;letter-spacing:0.05em;margin-bottom:1.25rem;padding:0.75rem;background:var(--cream);border-radius:6px">' + confirmationCode + '</div>' +
+        '<div class="receipt-lines">' +
+          '<div class="receipt-line"><span>Cart</span><span>' + t.name + '</span></div>' +
+          '<div class="receipt-line"><span>Dates</span><span>' + fmtDate(pickupDate) + ' — ' + fmtDate(returnDate) + '</span></div>' +
+          '<div class="receipt-line"><span>' + (isDelivery ? 'Delivery' : 'Pickup') + '</span><span>' + (isDelivery ? deliveryAddr || 'Address pending' : 'Shop pickup') + '</span></div>' +
+          '<div class="receipt-line total"><span>Total</span><span>' + fmtMoney(price.total) + '</span></div>' +
+          '<div class="receipt-line deposit"><span>Deposit charged</span><span>' + fmtMoney(price.deposit) + '</span></div>' +
+        '</div>' +
+        '<div style="font-size:0.78rem;color:var(--ink-light);margin-top:1rem">A confirmation email has been sent to ' + email.value + '</div>' +
+        '<button class="btn btn-primary btn-block" style="margin-top:1.25rem" onclick="guestBackToList()">Browse More Carts</button>' +
+      '</div>';
+  }
+
+  // Also update the main guest content area to show confirmation
+  showToast('Reservation ' + confirmationCode + ' confirmed!');
+}
+
 function renderGuestDetail() {
   var t = getVehicleType(guestSelectedType);
   if (!t) return;
+
+  // Reset booking state for new detail view
+  guestBookingState.step = 1;
+  guestBookingState.promoCode = null;
+  guestBookingState.promoDiscount = 0;
 
   var reviews = [
     { stars: 5, text: 'Perfect way to see the island. The cart was clean and ran great all day.', author: 'Sarah M.' },
@@ -5323,8 +6310,6 @@ function renderGuestDetail() {
       '<div class="review-author">' + r.author + '</div>' +
     '</div>';
   }).join('');
-
-  var defaultTotal = Math.round(t.rates.daily * (1 + store.settings.taxRate));
 
   var html =
     '<div class="guest-detail">' +
@@ -5354,7 +6339,7 @@ function renderGuestDetail() {
           '<h3 class="section-title">Policies</h3>' +
           '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
             '<div class="accordion-header">Rental Policies <span class="accordion-arrow">&#9660;</span></div>' +
-            '<div class="accordion-body">Must be 21+ with valid driver\'s license. Maximum speed is 15 mph. Carts must stay on designated roads. No beach driving. Renter is responsible for all traffic violations. Operating hours are 7:00 AM to 8:00 PM.</div>' +
+            '<div class="accordion-body">Must be 21+ with valid driver\'s license. Maximum speed is 15 mph. Carts must stay on designated roads. No beach driving. Renter is responsible for all traffic violations. Operating hours are ' + fmtTime(store.settings.operatingHours.open) + ' to ' + fmtTime(store.settings.operatingHours.close) + '.</div>' +
           '</div>' +
           '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
             '<div class="accordion-header">Cancellation <span class="accordion-arrow">&#9660;</span></div>' +
@@ -5362,58 +6347,21 @@ function renderGuestDetail() {
           '</div>' +
           '<div class="accordion" onclick="this.classList.toggle(\'open\')">' +
             '<div class="accordion-header">Delivery Info <span class="accordion-arrow">&#9660;</span></div>' +
-            '<div class="accordion-body">We deliver anywhere on Port Aransas island for a flat fee of $35. Delivery is available between 7:00 AM and 6:00 PM. Cart will be delivered to your address at the scheduled pickup time. Return pickup is included in the delivery fee.</div>' +
+            '<div class="accordion-body">We deliver anywhere on Port Aransas island for a flat fee of ' + fmtMoney(store.settings.deliveryFee) + '. Delivery is available between ' + fmtTime(store.settings.operatingHours.open) + ' and 6:00 PM. Cart will be delivered to your address at the scheduled pickup time. Return pickup is included.</div>' +
           '</div>' +
 
           '<h3 class="section-title">Guest Reviews</h3>' +
           reviewsHTML +
         '</div>' +
 
-        '<div class="guest-detail-sidebar">' +
-          '<div class="guest-booking-form">' +
-            '<div class="booking-price-header">' +
-              fmtMoney(t.rates.daily) + '<span class="per-unit"> / day</span>' +
-              '<div class="alt-rate">' + fmtMoney(t.rates.hourly) + ' / hour also available</div>' +
-            '</div>' +
-            '<div class="form-group">' +
-              '<label class="form-label">Pickup Date</label>' +
-              '<input class="form-input" type="date" id="guest-pickup" value="' + TODAY + '" onchange="updateGuestPrice()">' +
-            '</div>' +
-            '<div class="form-group">' +
-              '<label class="form-label">Return Date</label>' +
-              '<input class="form-input" type="date" id="guest-return" value="2026-04-06" onchange="updateGuestPrice()">' +
-            '</div>' +
-            '<div class="form-group">' +
-              '<div style="display:flex;gap:1rem">' +
-                '<label class="form-checkbox"><input type="radio" name="guest-del" value="pickup" checked onchange="updateGuestPrice()"> Shop Pickup</label>' +
-                '<label class="form-checkbox"><input type="radio" name="guest-del" value="delivery" onchange="updateGuestPrice()"> Delivery (+$' + store.settings.deliveryFee + ')</label>' +
-              '</div>' +
-            '</div>' +
-            '<div class="guest-price-display">' +
-              '<div class="guest-price-amount" id="guest-price">' + fmtMoney(defaultTotal) + '</div>' +
-              '<div class="guest-price-label">estimated total incl. tax</div>' +
-            '</div>' +
-            '<div style="border-top:1px solid var(--rule);margin:1rem 0;padding-top:1rem">' +
-              '<div class="form-group">' +
-                '<label class="form-label">Full Name</label>' +
-                '<input class="form-input" type="text" placeholder="Your name">' +
-              '</div>' +
-              '<div class="form-group">' +
-                '<label class="form-label">Phone</label>' +
-                '<input class="form-input" type="tel" placeholder="(555) 555-5555">' +
-              '</div>' +
-              '<div class="form-group">' +
-                '<label class="form-label">Email</label>' +
-                '<input class="form-input" type="email" placeholder="email@example.com">' +
-              '</div>' +
-            '</div>' +
-            '<button class="btn btn-primary btn-block" style="margin-top:0.5rem" onclick="guestBookConfirm()">Complete Reservation</button>' +
-          '</div>' +
-        '</div>' +
+        '<div class="guest-detail-sidebar" id="guest-booking-sidebar"></div>' +
       '</div>' +
     '</div>';
 
   document.getElementById('guest-content').innerHTML = html;
+
+  // Render the booking sidebar separately so we can update it without re-rendering everything
+  renderGuestBookingSidebar();
 }
 
 function guestBackToList() {
@@ -5423,40 +6371,7 @@ function guestBackToList() {
 }
 
 function updateGuestPrice() {
-  var pickup = document.getElementById('guest-pickup');
-  var returnD = document.getElementById('guest-return');
-  if (!pickup || !returnD || !pickup.value || !returnD.value) return;
-
-  var vt = getVehicleType(guestSelectedType);
-  if (!vt) return;
-  var rates = vt.rates;
-  var days = Math.max(1, daysBetween(pickup.value, returnD.value));
-  var subtotal = 0;
-  if (days >= 7) subtotal = rates.weekly;
-  else if (days >= 2) subtotal = rates.twoDay + (days - 2) * rates.daily;
-  else subtotal = days * rates.daily;
-
-  var deliveryEl = document.querySelector('input[name="guest-del"][value="delivery"]');
-  if (deliveryEl && deliveryEl.checked) subtotal += store.settings.deliveryFee;
-
-  var total = Math.round(subtotal * (1 + store.settings.taxRate));
-  var el = document.getElementById('guest-price');
-  if (el) {
-    animateCountUp(el, '$' + total, 400);
-  }
-}
-
-function guestBookConfirm() {
-  document.getElementById('guest-content').innerHTML =
-    '<div style="text-align:center;padding:6rem 2rem">' +
-      '<svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="margin-bottom:1.5rem">' +
-        '<circle cx="32" cy="32" r="30" stroke="var(--status-green)" stroke-width="2"/>' +
-        '<polyline points="20,34 28,42 44,24" stroke="var(--status-green)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:40;stroke-dashoffset:0;animation:checkmark 0.6s ease forwards"/>' +
-      '</svg>' +
-      '<h2 style="font-family:var(--font-display);font-size:1.8rem;margin-bottom:0.75rem">Reservation Confirmed</h2>' +
-      '<p style="color:var(--ink-mid);font-size:1rem;max-width:400px;margin:0 auto 2rem">You will receive a confirmation email shortly with your rental details and pickup instructions.</p>' +
-      '<button class="btn btn-primary" onclick="guestBackToList()">Browse More Carts</button>' +
-    '</div>';
+  updateGuestBookingForm();
 }
 
 /* ══════════════════════════════════════════════════════
