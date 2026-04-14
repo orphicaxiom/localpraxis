@@ -1104,6 +1104,10 @@
       nav ul {
         display: none;
       }
+      body:has(nav.menu-open) {
+        animation: none;
+        transform: none;
+      }
       nav.menu-open {
         position: fixed;
         top: 0;
@@ -1111,7 +1115,7 @@
         right: 0;
         bottom: 0;
         width: 100%;
-        height: 100%;
+        height: 100dvh;
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
         background-color: var(--warm-white);
@@ -1852,7 +1856,7 @@
   <!-- Testimonials -->
   <section class="testimonials-section">
     <div class="container">
-      <h2>What clients say</h2>
+      <h2>References</h2>
       <div class="testimonials-grid">
         <blockquote class="testimonial-card reveal-card reveal-stagger-1">
           <p class="testimonial-text">"James saved us hundreds of dollars a month by building out our booking and property management platform from scratch. Reservation engine, owner portal, automated guest messaging, unified checkout. It replaced four separate tools we were paying for monthly."</p>
@@ -1862,10 +1866,10 @@
           </div>
         </blockquote>
         <blockquote class="testimonial-card reveal-card reveal-stagger-2">
-          <p class="testimonial-text">"I expected a developer. I got someone who understood my business first and then built exactly what I needed. No upsells, no features I didn't ask for."</p>
+          <p class="testimonial-text">"PAVC has launched portavacation.co, a custom-built website that went live in February... allowing visitors to book a vacation rental, reserve a Jeep or e-bike, and book Port Aransas activities."</p>
           <div class="testimonial-attribution">
-            <span class="testimonial-name">Sarah L.</span>
-            <span class="testimonial-business">Retail Shop Owner</span>
+            <span class="testimonial-name">The South Jetty</span>
+            <span class="testimonial-business">Port Aransas News</span>
           </div>
         </blockquote>
       </div>
