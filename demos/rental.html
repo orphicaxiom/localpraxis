@@ -4626,6 +4626,17 @@ button, input, select, textarea {
     </div>
   </div>
 
+  <!-- Checkout Block Modal -->
+  <div class="modal-overlay" id="checkout-block-modal">
+    <div class="modal" style="max-width:400px">
+      <div class="modal-header">
+        <h3>Checkout Blocked</h3>
+        <button class="modal-close" onclick="closeModal('checkout-block-modal')">&times;</button>
+      </div>
+      <div class="modal-body" id="checkout-block-body"></div>
+    </div>
+  </div>
+
   <!-- Guest Booking View -->
   <div class="guest-view" id="guest-view" style="display:none">
     <div class="guest-topbar">
@@ -4681,9 +4692,9 @@ const TODAY_DATE = new Date(2026, 3, 5);
 
 const store = {
   vehicleTypes: [
-    { id:'standard', slug:'4-pass-standard', passengerCount:4, name:'4 Seater Cart', description:'Late-model EZ-GO with lifted suspension and all-terrain tires. Street legal and beach ready. The go-to for couples and small crews who want to hit every taco spot and sandbar on the island.', rates:{hourly:35,daily:95,twoDay:170,weekly:549}, cartType:'EZ-GO', suspension:'Lifted', tires:'23" knobby all-terrain', audio:'Bluetooth speaker', street_legal:true, features:['Lifted suspension with 23" knobby tires','Bluetooth speaker system','LED headlights and brake lights','Windshield and weather canopy','Turn signals and seatbelts','USB charging port','Cup holders and dash storage','Street legal and beach permitted'], featureSummary:'Lifted. Bluetooth. Beach ready.', images:[{url:'../img/4posternew.png',type:'public',label:'Poster'},{url:'../img/4cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/4cart.jpeg', posterUrl:'../img/4posternew.png', sortOrder:1, isActive:true },
-    { id:'deluxe', slug:'6-pass-deluxe', passengerCount:6, name:'6 Seater Cart', description:'Room for the whole family in a premium Club Car with custom bucket seats and a marine-grade sound system. Lifted with off-road tires so you can take the beach route home.', rates:{hourly:45,daily:135,twoDay:245,weekly:775}, cartType:'Club Car Onward', suspension:'Lifted', tires:'23" knobby all-terrain', audio:'Marine-grade Bluetooth (2-speaker)', street_legal:true, features:['Lifted suspension with 23" knobby tires','Marine-grade 2-speaker Bluetooth system','Custom bucket seating','LED headlights, brake lights, and underglow','Full windshield and weather canopy','Turn signals, mirrors, and seatbelts','Dual USB charging ports','Built-in cooler under rear seat','Cup holders and dash storage','Street legal and beach permitted'], featureSummary:'Lifted. Marine speakers. Cooler. Beach ready.', images:[{url:'../img/6posternew.png',type:'public',label:'Poster'},{url:'../img/6cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/6cart.jpeg', posterUrl:'../img/6posternew.png', sortOrder:2, isActive:true },
-    { id:'premium', slug:'8-pass-premium', passengerCount:8, name:'8 Seater Cart', description:'The Limo. Full-size 8-passenger Club Car with 4-speaker marine audio, LED party lights, and a built-in cooler big enough for the whole crew. The only way to roll with a group on Port A.', rates:{hourly:60,daily:175,twoDay:315,weekly:995}, cartType:'Club Car Onward', suspension:'Lifted', tires:'23" knobby all-terrain', audio:'Marine-grade Bluetooth (4-speaker)', street_legal:true, features:['Lifted suspension with 23" knobby tires','Marine-grade 4-speaker Bluetooth system','LED headlights, brake lights, and party underglow','Custom bucket seating with armrests','Full windshield and weather canopy','Turn signals, mirrors, and seatbelts','Dual USB charging ports','Built-in insulated cooler','Cup holders, dash storage, and rear cargo rack','Street legal and beach permitted'], featureSummary:'Lifted. 4-speaker audio. Cooler. Party lights.', images:[{url:'../img/8posternew.png',type:'public',label:'Poster'},{url:'../img/8cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/8cart.jpeg', posterUrl:'../img/8posternew.png', sortOrder:3, isActive:true },
+    { id:'standard', slug:'4-pass-standard', passengerCount:4, name:'4 Seater Cart', description:'Late-model EZ-GO with lifted suspension and all-terrain tires. Street legal and beach ready. The go-to for couples and small crews who want to hit every taco spot and sandbar on the island.', rates:{hourly:35,daily:95,twoDay:170,weekly:549}, cartType:'EZ-GO', suspension:'Lifted', tires:'23" knobby all-terrain', audio:'Bluetooth speaker', street_legal:true, features:['Lifted suspension with 23" knobby tires','Bluetooth speaker system','LED headlights and brake lights','Windshield and weather canopy','Turn signals and seatbelts','USB charging port','Cup holders and dash storage','Street legal and beach permitted'], featureSummary:'Lifted. Bluetooth. Beach ready.', images:[{url:'../img/4poster.jpg',type:'public',label:'Poster'},{url:'../img/4cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/4cart.jpeg', posterUrl:'../img/4poster.jpg', sortOrder:1, isActive:true },
+    { id:'deluxe', slug:'6-pass-deluxe', passengerCount:6, name:'6 Seater Cart', description:'Room for the whole family in a premium Club Car with custom bucket seats and a marine-grade sound system. Lifted with off-road tires so you can take the beach route home.', rates:{hourly:45,daily:135,twoDay:245,weekly:775}, cartType:'Club Car Onward', suspension:'Lifted', tires:'23" knobby all-terrain', audio:'Marine-grade Bluetooth (2-speaker)', street_legal:true, features:['Lifted suspension with 23" knobby tires','Marine-grade 2-speaker Bluetooth system','Custom bucket seating','LED headlights, brake lights, and underglow','Full windshield and weather canopy','Turn signals, mirrors, and seatbelts','Dual USB charging ports','Built-in cooler under rear seat','Cup holders and dash storage','Street legal and beach permitted'], featureSummary:'Lifted. Marine speakers. Cooler. Beach ready.', images:[{url:'../img/6poster.jpg',type:'public',label:'Poster'},{url:'../img/6cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/6cart.jpeg', posterUrl:'../img/6poster.jpg', sortOrder:2, isActive:true },
+    { id:'premium', slug:'8-pass-premium', passengerCount:8, name:'8 Seater Cart', description:'The Limo. Full-size 8-passenger Club Car with 4-speaker marine audio, LED party lights, and a built-in cooler big enough for the whole crew. The only way to roll with a group on Port A.', rates:{hourly:60,daily:175,twoDay:315,weekly:995}, cartType:'Club Car Onward', suspension:'Lifted', tires:'23" knobby all-terrain', audio:'Marine-grade Bluetooth (4-speaker)', street_legal:true, features:['Lifted suspension with 23" knobby tires','Marine-grade 4-speaker Bluetooth system','LED headlights, brake lights, and party underglow','Custom bucket seating with armrests','Full windshield and weather canopy','Turn signals, mirrors, and seatbelts','Dual USB charging ports','Built-in insulated cooler','Cup holders, dash storage, and rear cargo rack','Street legal and beach permitted'], featureSummary:'Lifted. 4-speaker audio. Cooler. Party lights.', images:[{url:'../img/8poster.jpg',type:'public',label:'Poster'},{url:'../img/8cart.jpeg',type:'admin',label:'Admin card'}], imageUrl:'../img/8cart.jpeg', posterUrl:'../img/8poster.jpg', sortOrder:3, isActive:true },
   ],
 
   fleet: [
@@ -4834,7 +4845,7 @@ function vtGetImage(vt, type) {
   }
   // Fallback to legacy fields
   if (type === 'admin') return vt ? (vt.imageUrl || vt.posterUrl) : '../img/4cart.jpeg';
-  return vt ? (vt.posterUrl || vt.imageUrl) : '../img/4posternew.png';
+  return vt ? (vt.posterUrl || vt.imageUrl) : '../img/4poster.jpg';
 }
 
 function cartImage(typeId) {
@@ -6480,6 +6491,15 @@ function checkOutRes(resId) {
   var res = getRes(resId);
   if (!res) return;
 
+  // Block checkout if waiver or deposit not resolved
+  var issues = [];
+  if (res.waiverStatus !== 'signed') issues.push('Waiver not signed');
+  if (res.depositStatus !== 'paid') issues.push('Deposit not collected');
+  if (issues.length > 0) {
+    showCheckoutBlockModal(res, issues);
+    return;
+  }
+
   // If no specific cart assigned, auto-assign the first available cart of this type
   if (!res.cartId && res.vehicleTypeId) {
     var availCarts = store.fleet.filter(function(c) {
@@ -6493,8 +6513,6 @@ function checkOutRes(resId) {
   }
 
   res.status = 'checked-in';
-  res.waiverStatus = 'signed';
-  res.depositStatus = 'paid';
   var cart = getCart(res.cartId);
   if (cart) {
     cart.status = 'rented';
@@ -6505,6 +6523,37 @@ function checkOutRes(resId) {
   closePanel();
   renderActiveView();
   showToast(res.customer.name + ' checked out' + (cart ? ' on ' + cart.name : ''));
+}
+
+function showCheckoutBlockModal(res, issues) {
+  var html = '<div style="text-align:center;padding:1rem 0 0.5rem">';
+  html += '<div style="font-family:var(--font-mono);font-size:2rem;margin-bottom:0.75rem">&#9888;</div>';
+  html += '<div style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:0.5rem">Cannot Check Out</div>';
+  html += '<div style="font-family:var(--font-body);font-size:0.88rem;color:var(--ink-light);margin-bottom:1.25rem">' + res.customer.name + ' has outstanding items:</div>';
+
+  issues.forEach(function(issue) {
+    html += '<div style="font-family:var(--font-mono);font-size:0.82rem;padding:0.5rem 0.75rem;border:2px solid var(--ink);margin-bottom:0.5rem;background:var(--warm-white);text-align:left;display:flex;justify-content:space-between;align-items:center">' +
+      '<span>' + issue.toUpperCase() + '</span>' +
+      '<span style="color:var(--status-red);font-weight:700">REQUIRED</span>' +
+      '</div>';
+  });
+
+  html += '<div style="margin-top:1.25rem;display:flex;gap:0.5rem;justify-content:center">';
+  html += '<button class="btn btn-secondary btn-sm" onclick="closeModal(\'checkout-block-modal\')">Go Back</button>';
+  html += '<button class="btn btn-primary btn-sm" onclick="resolveAndCheckout(' + res.id + ')">Resolve & Check Out</button>';
+  html += '</div></div>';
+
+  document.getElementById('checkout-block-body').innerHTML = html;
+  openModal('checkout-block-modal');
+}
+
+function resolveAndCheckout(resId) {
+  var res = getRes(resId);
+  if (!res) return;
+  res.waiverStatus = 'signed';
+  res.depositStatus = 'paid';
+  closeModal('checkout-block-modal');
+  checkOutRes(resId);
 }
 
 function checkInRes(resId) {
@@ -8663,7 +8712,7 @@ function renderGuestBookingTab() {
     var total = store.fleet.filter(function(f) { return f.typeId === vt.id; }).length;
     html +=
       '<div class="gb-card" style="background:#fff;border:2px solid var(--ink);border-radius:4px;box-shadow:4px 4px 0px var(--ink);overflow:hidden;cursor:pointer;transition:all 0.1s ease" onclick="gbOpenDetail(\'' + vt.id + '\')" onmouseover="this.style.transform=\'translate(-2px,-2px)\';this.style.boxShadow=\'6px 6px 0px var(--ink)\'" onmouseout="this.style.transform=\'\';this.style.boxShadow=\'4px 4px 0px var(--ink)\'">' +
-        '<div style="border-bottom:2px solid var(--ink);background:var(--cream);padding:0.5rem"><img src="' + vtGetImage(getVehicleType(vt.id), 'public') + '" alt="' + vt.name + '" style="width:100%;height:auto;display:block"></div>' +
+        '<div style="border-bottom:2px solid var(--ink);background:var(--cream);padding:0.5rem"><img src="' + vtGetImage(getVehicleType(vt.id), 'public') + '" alt="' + vt.name + '" loading="lazy" decoding="async" width="800" height="1236" style="width:100%;height:auto;display:block"></div>' +
         '<div style="padding:1.25rem">' +
           '<div style="font-family:var(--font-display);font-weight:700;font-size:1.15rem;margin-bottom:0.35rem">' + vt.name + '</div>' +
           '<div style="font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--ink)">' + fmtMoney(vt.rates.daily) + '<span style="font-family:var(--font-mono);font-size:0.72rem;font-weight:400;color:var(--ink-light)"> / day</span></div>' +
@@ -8728,7 +8777,7 @@ function renderGbDetail(c) {
     '<div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:280px 1fr 340px;gap:48px;align-items:start">' +
 
       // COL 1 — Poster image with glossy magazine hover
-      '<div style="border:2px solid var(--ink);border-radius:4px;overflow:visible;background:var(--cream);box-shadow:4px 4px 0px var(--ink);transition:transform 0.2s ease,box-shadow 0.2s ease;cursor:pointer" onmouseover="this.style.transform=\'scale(1.02) rotate(-1deg)\';this.style.boxShadow=\'8px 8px 0px var(--ink)\'" onmouseout="this.style.transform=\'\';this.style.boxShadow=\'4px 4px 0px var(--ink)\'"><img src="' + vtGetImage(t, 'public') + '" alt="' + t.name + '" style="width:100%;height:auto;display:block;border-radius:4px"></div>' +
+      '<div style="border:2px solid var(--ink);border-radius:4px;overflow:visible;background:var(--cream);box-shadow:4px 4px 0px var(--ink);transition:transform 0.2s ease,box-shadow 0.2s ease;cursor:pointer" onmouseover="this.style.transform=\'scale(1.02) rotate(-1deg)\';this.style.boxShadow=\'8px 8px 0px var(--ink)\'" onmouseout="this.style.transform=\'\';this.style.boxShadow=\'4px 4px 0px var(--ink)\'"><img src="' + vtGetImage(t, 'public') + '" alt="' + t.name + '" decoding="async" width="800" height="1236" style="width:100%;height:auto;display:block;border-radius:4px"></div>' +
 
       // COL 2 — Details column
       '<div>' +
