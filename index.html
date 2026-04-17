@@ -384,12 +384,6 @@
       margin-top: 48px;
     }
 
-    .hero-setup-wrap {
-      position: relative;
-      display: inline-block;
-      margin: 0 0 8px;
-    }
-
     .hero-setup {
       font-family: var(--font-display);
       font-size: var(--font-size-hero);
@@ -397,20 +391,9 @@
       letter-spacing: -0.045em;
       color: var(--ink);
       text-transform: uppercase;
-      display: inline-block;
-      margin: 0;
+      display: block;
+      margin: 0 0 8px;
       padding: 0;
-    }
-
-    .hero-strike {
-      position: absolute;
-      top: 50%;
-      left: -0.05em;
-      width: calc(100% + 0.1em);
-      height: 0.14em;
-      transform: translateY(-50%);
-      z-index: 2;
-      pointer-events: none;
     }
 
     .hero-title {
@@ -1652,13 +1635,7 @@
   <section class="hero">
     <div class="container">
       <div class="hero-block">
-        <div id="strike-container" class="hero-setup-wrap">
-          <span class="hero-setup">Stop renting your software.</span>
-          <svg id="strike-line" class="hero-strike" viewBox="0 0 400 20" preserveAspectRatio="none">
-            <clipPath id="strike-reveal"><rect id="strike-rect" x="0" y="0" width="0" height="20" /></clipPath>
-            <path d="M 0,11 Q 20,10.5 60,9.5 Q 120,8 180,7.5 Q 220,7.8 280,8.5 Q 340,9.5 380,10.5 L 400,11 L 400,12 Q 340,13.5 280,14.5 Q 220,15 180,15.2 Q 120,14.8 60,13.5 Q 20,12.5 0,12 Z" fill="var(--red)" clip-path="url(#strike-reveal)" />
-          </svg>
-        </div>
+        <span class="hero-setup">Stop renting your software.</span>
         <h1 class="hero-title">Own it<span class="hero-period">.</span></h1>
       </div>
       <div class="hero-sub">
@@ -2273,26 +2250,6 @@
       }, { passive: true });
     }
 
-    // Strikethrough scroll animation (pen pressure reveal)
-    const strikeRect = document.getElementById('strike-rect');
-    if (strikeRect) {
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReducedMotion) {
-        strikeRect.setAttribute('width', '400');
-      } else {
-        let strikeTicking = false;
-        window.addEventListener('scroll', () => {
-          if (!strikeTicking) {
-            requestAnimationFrame(() => {
-              const progress = Math.min(window.scrollY / 48, 1);
-              strikeRect.setAttribute('width', 400 * progress);
-              strikeTicking = false;
-            });
-            strikeTicking = true;
-          }
-        }, { passive: true });
-      }
-    }
   </script>
 
 </body>
