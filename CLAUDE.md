@@ -18,16 +18,16 @@ Local Praxis is a custom software business in Port Aransas, TX. This repo is the
 
 Read it before any visual, CSS, or layout work. It supersedes ALL skill files.
 
-### Current Aesthetic: Swiss Purism / Unimark International
+### Current Aesthetic: Swiss-Brutalist / Unimark-Descended
 
-The site references Vignelli's Piccolo Teatro posters, the American Airlines logotype, Heller packaging, and the National Park Service Unigrid system. Key principles:
+The site references Vignelli's Piccolo Teatro posters, Müller-Brockmann grids, the NPS Unigrid system, Klim Söhne specimen pages, and Linear docs. Key principles:
 
-- **Typography:** 3-tier system. Impact for hero monolith. Helvetica Neue for everything else. IBM Plex Mono for data/numbers. No serifs anywhere. No Instrument Serif. No Satoshi.
-- **Color:** Black + Cream + Vignelli Red (#D92B1C). No blue. Red is semantic only (logo split, service indexing, cost figures). Never in UI chrome.
-- **Logo:** LOCALPRAXIS — "LOCAL" in black, "PRAXIS" in red. No space. American Airlines split.
-- **Geometry:** `border-radius: 0` everywhere. 2px solid #111111 borders. No shadows.
-- **Interaction:** 0.1s snap transitions. Black button fills invert on hover. No fades, glows, or lifts.
-- **Layout:** Horizontal anchoring (subtext + button side by side). Information banding with horizontal rules. Tight spacing (~3-4rem sections).
+- **Typography:** 2-tier system. Archivo Black (900) for display/headlines. IBM Plex Mono (400/500/600) for body, labels, nav, buttons. No serifs. No Helvetica Neue, no Impact, no Satoshi, no Instrument Serif, no IBM Plex Sans.
+- **Color:** Paper `#D8DBD0` + Ink `#0A0A0A` + Red `#C8342E` + Cyan `#4A90B8`. Red for CTAs only. Cyan for active/in-progress states only. No gradients, no other accents.
+- **Logo:** LOCALPRAXIS — "LOCAL" in ink, "PRAXIS" in red. American Airlines split.
+- **Geometry:** `border-radius: 0` everywhere. `1.5px solid var(--ink)` borders. No shadows, no drop-shadows.
+- **Interaction:** 0.1s snap transitions on background-color and color only. Buttons invert fill on hover. No fades, glows, or lifts.
+- **Layout:** 12-column grid, generous gutters, max width ~1200px. Information banding with horizontal rules. Section vertical rhythm ~6–8rem.
 
 ---
 
@@ -53,19 +53,12 @@ All three skill files contain outdated guidance from a previous design direction
 
 ## Agent Usage Rules
 
-Agents live in `.claude/agents/`. Use them as specified:
+⚠️ `.claude/agents/` is **not present** in this repo — the agents referenced below (`design-reviewer.md`, `frontend-developer.md`, `copy-editor.md`, `ux-tester-agent.md`, `new-demo.md`) don't exist. Treat the table as aspirational until the files are created.
 
-| Task Type | BEFORE starting | AFTER completing |
-|-----------|----------------|-----------------|
-| Any CSS / styling / visual change | Read `design-brief.md` | Run `design-reviewer.md` to verify |
-| Any HTML structure change | Read `design-brief.md` | Run `design-reviewer.md` to verify |
-| Any frontend JS | Read `frontend-developer.md` | Run `ux-tester-agent.md` |
-| Any copy / content | Read `copy-editor.md` + brand skill | Run `copy-editor.md` to review |
-| New demo pages | Read `new-demo.md` | Run `design-reviewer.md` + `ux-tester-agent.md` |
-
-**Never skip agent review on visual work or copy changes.**
-
-⚠️ Agent files may also contain outdated references to the old design (Instrument Serif, terracotta, blue accent, rounded corners). When reviewing, evaluate against `design-brief.md`, not against outdated agent criteria.
+When making changes until then:
+- Read `.claude/design-brief.md` before any visual or CSS change.
+- Hold the result up against the five reference images in `/design/` (if present) or the brief's reference list (Piccolo Teatro, NPS Unigrid, Klim Söhne, Linear docs, rsms.me).
+- For copy: follow the voice guidance in `.claude/design-brief.md` (direct, plainspoken, short sentences, no em-dashes).
 
 ---
 
@@ -87,12 +80,12 @@ Agents live in `.claude/agents/`. Use them as specified:
 ### Font Imports
 
 ```html
-<!-- Helvetica Neue is a system font, no import needed -->
-<!-- Impact is a system font, no import needed -->
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 ```
 
-Remove old imports for Instrument Serif, Satoshi, and Roboto Mono.
+Never re-introduce: Instrument Serif, Satoshi, Roboto Mono, Helvetica Neue, Impact, IBM Plex Sans.
 
 ---
 

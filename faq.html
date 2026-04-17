@@ -7,7 +7,8 @@
   <meta name="description" content="Common questions about how Local Praxis works, what things cost, and what you get. Custom software for local businesses in Port Aransas, TX.">
 
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%231E5FB5'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='14' font-weight='700' fill='%23FDFAF5'>LP</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0A0A'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Archivo Black,Impact,sans-serif' font-size='14' font-weight='900' fill='%23D8DBD0'>LP</text></svg>">
+  <meta name="theme-color" content="#D8DBD0">
   <link rel="canonical" href="https://localpraxis.com/faq.html">
   <meta property="og:title" content="FAQ: Local Praxis | Port Aransas, TX">
   <meta property="og:description" content="Common questions about custom software from Local Praxis. Pricing, timelines, ownership, and how it compares to platforms like FareHarbor and Checkfront.">
@@ -23,7 +24,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -111,90 +112,98 @@
 
   <style>
     :root {
-      --warm-white: #FDFAF5;
-      --cream: #F5F0E8;
-      --ink: #111111;
-      --absolute-black: #111111;
-      --ink-mid: #57534E;
-      --ink-light: #A8A29E;
-      --accent: #1E5FB5;
-      --mta-blue: #005A9C;
-      --trigger-red: #FF0000;
-      --rule: #DDD6CC;
-      --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      --font-mono: 'IBM Plex Mono', monospace;
+      --paper: #D8DBD0;
+      --ink: #0A0A0A;
+      --red: #C8342E;
+      --cyan: #4A90B8;
+      --rule: var(--ink);
+
+      --font-display: 'Archivo Black', Impact, 'Helvetica Neue Condensed Black', sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
       --radius: 0;
+
+      /* Legacy aliases */
+      --warm-white: var(--paper);
+      --cream: var(--paper);
+      --absolute-black: var(--ink);
+      --ink-mid: rgba(10, 10, 10, 0.65);
+      --ink-light: rgba(10, 10, 10, 0.45);
+      --accent: var(--red);
+      --mta-blue: var(--cyan);
+      --trigger-red: var(--red);
+      --font-sans: var(--font-mono);
     }
 
     [data-theme="dark"] {
-      --warm-white: #1C1917;
-      --cream: #292524;
-      --ink: #E7E5E4;
-      --absolute-black: #E7E5E4;
-      --ink-mid: #A8A29E;
-      --ink-light: #78716C;
-      --rule: #44403C;
+      --paper: #0A0A0A;
+      --ink: #D8DBD0;
+      --rule: var(--ink);
+      --warm-white: var(--paper);
+      --cream: var(--paper);
+      --absolute-black: var(--ink);
+      --ink-mid: rgba(216, 219, 208, 0.7);
+      --ink-light: rgba(216, 219, 208, 0.5);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      background-color: var(--warm-white);
+      background-color: var(--paper);
       color: var(--ink);
-      font-family: var(--font-sans);
+      font-family: var(--font-mono);
       font-size: 1rem;
-      line-height: 1.6;
+      line-height: 1.5;
       overflow-x: hidden;
     }
     body::before {
       content: '';
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="4" seed="1"/></filter><rect width="256" height="256" fill="%231C1917" filter="url(%23n)"/></svg>');
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="4" seed="1"/></filter><rect width="256" height="256" fill="%230A0A0A" filter="url(%23n)"/></svg>');
       opacity: 0.025; pointer-events: none; z-index: 1;
     }
-    ::selection { background-color: var(--ink); color: var(--warm-white); }
+    ::selection { background-color: var(--ink); color: var(--paper); }
 
     /* Nav */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background-color: rgba(253, 250, 245, 0.95);
+      background-color: color-mix(in srgb, var(--paper) 95%, transparent);
       backdrop-filter: blur(10px);
-      border-bottom: 2px solid var(--absolute-black);
+      border-bottom: 1.5px solid var(--ink);
       padding: 1rem 0;
-    }
-    [data-theme="dark"] nav {
-      background-color: rgba(28, 25, 23, 0.95);
     }
     .nav-container {
       max-width: 1080px; margin: 0 auto; padding: 0 2rem;
       display: flex; justify-content: space-between; align-items: center;
     }
     .logo {
-      font-family: var(--font-sans);
+      font-family: var(--font-mono);
       font-size: 1.5rem;
-      font-weight: 900;
+      font-weight: 600;
       color: var(--ink);
-      letter-spacing: -0.02em;
+      letter-spacing: 0.02em;
       text-decoration: none;
       text-transform: uppercase;
     }
-    .logo-accent { color: var(--mta-blue); }
+    .logo-accent { color: var(--red); }
     nav ul { list-style: none; display: flex; gap: 2rem; align-items: center; }
     .nav-phone {
+      font-family: var(--font-mono);
       font-size: 0.875rem; color: var(--ink-mid); text-decoration: none;
       font-weight: 500; transition: color 0.1s ease; white-space: nowrap;
     }
-    .nav-phone:hover { color: var(--ink); }
+    .nav-phone:hover { color: var(--red); }
     @media (max-width: 768px) { .nav-phone { display: none; } }
     nav a {
       color: var(--ink); text-decoration: none;
+      font-family: var(--font-mono);
       font-size: 0.875rem; font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.14em;
       transition: color 0.1s ease;
     }
-    nav a:hover { color: var(--ink-mid); }
-    nav a.active { color: var(--ink); border-bottom: 2px solid var(--ink); padding-bottom: 2px; }
+    nav a:hover { color: var(--red); }
+    nav a.active { color: var(--red); border-bottom: 1.5px solid var(--red); padding-bottom: 2px; }
     nav a::after { display: none; }
 
     /* Container */
@@ -207,35 +216,35 @@
     .back-link {
       display: inline-block;
       font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 0.8rem;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--absolute-black);
+      letter-spacing: 0.24em;
+      color: var(--ink);
       text-decoration: none;
       margin-bottom: 2rem;
       transition: color 0.1s ease;
     }
-    .back-link:hover { color: var(--ink-mid); }
+    .back-link:hover { color: var(--red); }
 
     .page-title {
-      font-family: Impact, 'Helvetica Neue Condensed Black', sans-serif;
+      font-family: var(--font-display);
       font-size: 15vw;
-      line-height: 0.8;
+      line-height: 0.84;
       text-transform: uppercase;
-      letter-spacing: -0.02em;
-      color: var(--absolute-black);
+      letter-spacing: -0.045em;
+      color: var(--ink);
       margin-bottom: 32px;
       margin-left: -0.3vw;
     }
     .page-subtitle {
       font-family: var(--font-mono);
       text-transform: uppercase;
-      font-size: 12px;
-      letter-spacing: 0.05em;
-      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.24em;
+      font-weight: 500;
       max-width: 400px;
-      line-height: 1.5;
+      line-height: 1.6;
       color: var(--ink-mid);
     }
 
@@ -249,18 +258,18 @@
       width: 100%;
       max-width: 1000px;
       margin-top: 80px;
-      border-top: 4px solid var(--absolute-black);
+      border-top: 1.5px solid var(--ink);
     }
     .faq-list details {
-      border-bottom: 4px solid var(--absolute-black);
+      border-bottom: 1.5px solid var(--ink);
     }
     .faq-list details summary {
-      font-family: var(--font-sans);
-      font-size: 20px;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: -0.02em;
-      color: var(--absolute-black);
+      letter-spacing: -0.045em;
+      color: var(--ink);
       padding: 1.75rem 0;
       cursor: pointer;
       list-style: none;
@@ -268,17 +277,19 @@
       align-items: center;
       gap: 0;
       user-select: none;
+      line-height: 1.1;
     }
     .faq-list details summary::-webkit-details-marker { display: none; }
 
     .faq-number {
       font-family: var(--font-mono);
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--absolute-black);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink);
       margin-right: 32px;
       flex-shrink: 0;
       min-width: 48px;
+      letter-spacing: 0.1em;
     }
 
     .faq-question-text {
@@ -287,9 +298,9 @@
 
     .faq-toggle {
       font-family: var(--font-mono);
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--trigger-red);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--red);
       flex-shrink: 0;
       line-height: 1;
       margin-left: 24px;
@@ -300,63 +311,66 @@
     }
 
     .faq-answer {
-      font-family: var(--font-sans);
-      font-size: 16px;
-      font-weight: 500;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 400;
       line-height: 1.6;
       color: var(--ink);
       padding: 0 0 48px 80px;
       max-width: 68ch;
     }
     .faq-answer p + p { margin-top: 1rem; }
-    .faq-answer strong { color: var(--absolute-black); font-weight: 700; }
+    .faq-answer strong { color: var(--ink); font-weight: 600; }
 
     /* CTA block */
     .faq-cta {
       margin-top: 80px;
       padding: 3rem;
-      background: var(--cream);
-      border: 4px solid var(--absolute-black);
+      background: var(--paper);
+      border: 1.5px solid var(--ink);
       border-radius: 0;
       max-width: 1000px;
     }
     .faq-cta h2 {
-      font-family: var(--font-sans);
-      font-size: 1.5rem;
+      font-family: var(--font-display);
+      font-size: 2rem;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.045em;
+      line-height: 0.9;
       margin-bottom: 0.75rem;
     }
     .faq-cta p {
-      color: var(--ink-mid);
+      color: var(--ink);
       margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-family: var(--font-mono);
+      line-height: 1.5;
     }
     .cta-button {
       display: inline-block;
-      background-color: var(--absolute-black);
-      color: var(--warm-white);
+      background-color: var(--red);
+      color: var(--paper);
       padding: 0.875rem 1.75rem;
       text-decoration: none;
-      font-weight: 700;
+      font-family: var(--font-mono);
+      font-weight: 600;
       font-size: 0.875rem;
       text-transform: uppercase;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.14em;
       border-radius: 0;
-      border: 2px solid var(--absolute-black);
-      transition: all 0.1s ease;
+      border: 1.5px solid var(--ink);
+      transition: background-color 0.1s ease, color 0.1s ease;
     }
     .cta-button:hover {
-      background-color: transparent;
-      color: var(--absolute-black);
+      background-color: var(--paper);
+      color: var(--red);
     }
 
     /* Footer */
     footer {
-      background-color: var(--cream);
-      border-top: 2px solid var(--absolute-black);
+      background-color: var(--ink);
+      border-top: 1.5px solid var(--ink);
       padding: 3rem 0;
     }
     .footer-content {
@@ -364,17 +378,17 @@
       display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
     }
     .footer-left {
-      font-family: var(--font-sans);
+      font-family: var(--font-mono);
       font-size: 0.875rem;
-      font-weight: 700;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.02em;
-      color: var(--ink);
+      letter-spacing: 0.14em;
+      color: var(--paper);
     }
     .footer-right {
       text-align: right;
       font-size: 0.8rem;
-      color: var(--ink-light);
+      color: rgba(216, 219, 208, 0.6);
       font-family: var(--font-mono);
     }
 
@@ -567,7 +581,7 @@
   <footer>
     <div class="footer-content">
       <div class="footer-left">Local Praxis. Port Aransas, Texas.</div>
-      <div class="footer-right"><a href="/privacy.html" style="color:var(--ink-light);text-decoration:none;">Privacy</a> &middot; &copy; 2026 James Johnson</div>
+      <div class="footer-right"><a href="/privacy.html" style="color:rgba(216, 219, 208, 0.6);text-decoration:none;">Privacy</a> &middot; &copy; 2026 James Johnson</div>
     </div>
   </footer>
 
