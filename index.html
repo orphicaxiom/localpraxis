@@ -137,7 +137,7 @@
     }
 
     .highlight-pain { color: var(--red) !important; font-weight: 700; }
-    .highlight-solution { color: var(--cyan) !important; font-weight: 700; }
+    .highlight-solution { color: var(--red) !important; font-weight: 700; }
 
     [data-theme="dark"] {
       --paper: #0A0A0A;
@@ -319,7 +319,7 @@
       transition: color 0.1s ease;
       white-space: nowrap;
     }
-    .nav-phone:hover { color: var(--red); }
+    .nav-phone:hover { color: var(--cyan); }
     @media (max-width: 768px) { .nav-phone { font-size: var(--font-size-sm); } }
 
     .theme-toggle-btn {
@@ -357,11 +357,11 @@
     }
 
     nav a:hover {
-      color: var(--red);
+      color: var(--cyan);
     }
 
     nav a.active {
-      color: var(--red);
+      color: var(--cyan);
     }
 
     /* Hero */
@@ -374,19 +374,56 @@
       50% { transform: scale(1.015); }
     }
 
+    .hero-block {
+      margin-top: 48px;
+    }
+
+    .hero-setup-wrap {
+      position: relative;
+      display: inline-block;
+      margin: 0 0 8px;
+    }
+
+    .hero-setup {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 8rem);
+      line-height: 0.88;
+      letter-spacing: -0.045em;
+      color: var(--ink);
+      text-transform: uppercase;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero-strike {
+      position: absolute;
+      top: 50%;
+      left: -0.05em;
+      width: calc(100% + 0.1em);
+      height: 0.14em;
+      transform: translateY(-50%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
     .hero-title {
       font-family: var(--font-display);
-      font-size: 18vw;
-      line-height: 0.84;
+      font-size: clamp(2rem, 5.5vw, 6rem);
+      line-height: 0.88;
       letter-spacing: -0.045em;
       color: var(--ink);
       margin: 0;
-      margin-left: -0.5vw;
       padding: 0;
-      white-space: nowrap;
       text-transform: uppercase;
       transform-origin: left bottom;
       animation: breathe 12s ease-in-out infinite;
+    }
+
+    .hero-period {
+      color: var(--red);
+      font-size: 0.5em;
+      vertical-align: baseline;
     }
 
     .hero-sub {
@@ -394,7 +431,7 @@
       flex-direction: row;
       align-items: flex-end;
       gap: 12vw;
-      margin-top: 24px;
+      margin-top: 48px;
       margin-left: 0;
       padding-left: 0;
     }
@@ -693,10 +730,31 @@
     }
 
     .system-frame {
-      border: 1.5px solid var(--ink);
+      border: 3px solid var(--ink);
       border-radius: 0;
       overflow: hidden;
       background: var(--paper);
+    }
+
+    .plate-caption {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      padding: 0.6rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid var(--ink);
+      gap: 1rem;
+    }
+
+    .plate-title {
+      color: rgba(216, 219, 208, 0.7);
+      text-align: right;
     }
 
     .selected-system-panel.active .system-frame {
@@ -989,7 +1047,7 @@
     }
 
     .contact-value:hover {
-      color: var(--red);
+      color: var(--cyan);
     }
 
     /* Footer */
@@ -1110,12 +1168,20 @@
         padding: 1.5rem 0 2rem;
       }
 
-      .hero-title {
-        font-size: 18vw;
+      .hero-block {
+        margin-top: 24px;
       }
 
-      #strike-line {
-        display: none;
+      .hero-setup {
+        font-size: clamp(2rem, 11vw, 4.5rem);
+      }
+
+      .hero-title {
+        font-size: clamp(1.75rem, 7vw, 3rem);
+      }
+
+      .hero-sub {
+        margin-top: 32px;
       }
 
       .hero-sub {
@@ -1594,14 +1660,16 @@
   <main id="main-content">
   <section class="hero">
     <div class="container">
-      <div id="strike-container" style="position: relative; display: inline-block; margin-top: 40px; margin-bottom: 8px;">
-        <span style="font-family: var(--font-mono); font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink);">Stop renting your software.</span>
-        <svg id="strike-line" viewBox="0 0 400 20" style="position: absolute; top: 50%; left: -6px; width: calc(100% + 12px); height: 20px; margin-top: -10px; z-index: 2; pointer-events: none;" preserveAspectRatio="none">
-          <clipPath id="strike-reveal"><rect id="strike-rect" x="0" y="0" width="0" height="20" /></clipPath>
-          <path d="M 0,11 Q 20,10.5 60,9.5 Q 120,8 180,7.5 Q 220,7.8 280,8.5 Q 340,9.5 380,10.5 L 400,11 L 400,12 Q 340,13.5 280,14.5 Q 220,15 180,15.2 Q 120,14.8 60,13.5 Q 20,12.5 0,12 Z" fill="var(--red)" clip-path="url(#strike-reveal)" />
-        </svg>
+      <div class="hero-block">
+        <div id="strike-container" class="hero-setup-wrap">
+          <span class="hero-setup">Stop renting your software.</span>
+          <svg id="strike-line" class="hero-strike" viewBox="0 0 400 20" preserveAspectRatio="none">
+            <clipPath id="strike-reveal"><rect id="strike-rect" x="0" y="0" width="0" height="20" /></clipPath>
+            <path d="M 0,11 Q 20,10.5 60,9.5 Q 120,8 180,7.5 Q 220,7.8 280,8.5 Q 340,9.5 380,10.5 L 400,11 L 400,12 Q 340,13.5 280,14.5 Q 220,15 180,15.2 Q 120,14.8 60,13.5 Q 20,12.5 0,12 Z" fill="var(--red)" clip-path="url(#strike-reveal)" />
+          </svg>
+        </div>
+        <h1 class="hero-title">Own it<span class="hero-period">.</span></h1>
       </div>
-      <h1 class="hero-title">OWN IT.</h1>
       <div class="hero-sub">
         <div class="manifesto-block">
           <span class="intro-text">I build:</span>
@@ -1614,7 +1682,6 @@
           <a href="#contact" class="cta-button hero-cta">Get in touch</a>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -1692,6 +1759,10 @@
             </div>
           </div>
           <div class="system-frame">
+            <div class="plate-caption">
+              <span class="plate-number">Plate 01</span>
+              <span class="plate-title">Island Wheels</span>
+            </div>
             <div class="demo-frame-wrapper">
               <iframe src="/demos/rental.html" title="Rental fleet management system" scrolling="no" tabindex="-1"></iframe>
             </div>
@@ -1711,6 +1782,10 @@
             </div>
           </div>
           <div class="system-frame">
+            <div class="plate-caption">
+              <span class="plate-number">Plate 02</span>
+              <span class="plate-title">Redfish Run Charters</span>
+            </div>
             <div class="demo-frame-wrapper">
               <iframe src="/demos/booking.html" title="Booking system" scrolling="no" tabindex="-1"></iframe>
             </div>
@@ -1730,6 +1805,10 @@
             </div>
           </div>
           <div class="system-frame">
+            <div class="plate-caption">
+              <span class="plate-number">Plate 03</span>
+              <span class="plate-title">Salt Line Supply</span>
+            </div>
             <div class="demo-frame-wrapper">
               <iframe src="/demos/inventory.html" title="Inventory and POS system" scrolling="no" tabindex="-1"></iframe>
             </div>
@@ -1749,6 +1828,10 @@
             </div>
           </div>
           <div class="system-frame">
+            <div class="plate-caption">
+              <span class="plate-number">Plate 04</span>
+              <span class="plate-title">Island Key Properties</span>
+            </div>
             <div class="demo-frame-wrapper">
               <iframe src="/demos/portal.html" title="Client portal system" scrolling="no" tabindex="-1"></iframe>
             </div>
