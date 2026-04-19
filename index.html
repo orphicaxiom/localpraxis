@@ -961,6 +961,17 @@
       line-height: 1.6;
     }
 
+    .about-link {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: color 0.1s ease, border-color 0.1s ease;
+    }
+    .about-link:hover {
+      color: var(--red);
+      border-bottom-color: var(--red);
+    }
+
     /* Contact Form */
     .contact-content {
       max-width: 70%;
@@ -1960,6 +1971,7 @@
         <div class="about-row"><span class="about-label">FOUNDER</span><span class="about-value">James Johnson</span></div>
         <div class="about-row"><span class="about-label">LOCATION</span><span class="about-value">Port Aransas, TX</span></div>
         <div class="about-row"><span class="about-label">EXPERIENCE</span><span class="about-value">Apple, Meta, GoDaddy</span></div>
+        <div class="about-row"><span class="about-label">GITHUB</span><span class="about-value"><a href="https://github.com/orphicaxiom" target="_blank" rel="noopener" class="about-link">github.com/orphicaxiom</a></span></div>
         <div class="about-row"><span class="about-label">FEATURED BUILD</span><span class="about-value">Port A Vacation Company</span></div>
         <div class="about-row"><span class="about-label">FOCUS</span><span class="about-value">Custom operations software for small business</span></div>
         <div class="about-row"><span class="about-label">STATUS</span><span class="about-value">Accepting clients</span></div>
