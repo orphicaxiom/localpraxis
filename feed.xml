@@ -6,8 +6,18 @@
     <description>Notes on software, small business, and building things that last. From James Johnson in Port Aransas, TX.</description>
     <language>en-us</language>
     <atom:link href="https://localpraxis.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Sun, 19 Apr 2026 18:51:02 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2026 19:52:37 GMT</lastBuildDate>
     
+  <item>
+    <title><![CDATA[Notes on the design]]></title>
+    <link>https://localpraxis.com/blog/notes-on-the-design/</link>
+    <guid isPermaLink="true">https://localpraxis.com/blog/notes-on-the-design/</guid>
+    <pubDate>Mon, 20 Apr 2026 12:00:00 GMT</pubDate>
+    <description><![CDATA[Why the Local Praxis site looks like a printed design manual instead of a SaaS landing page, and what that's meant to communicate.]]></description>
+    <author>jim@localpraxis.com (James Johnson)</author>
+    <category>design</category>
+    <category>positioning</category>
+  </item>
   <item>
     <title><![CDATA[Why I'm Writing This]]></title>
     <link>https://localpraxis.com/blog/hello/</link>
