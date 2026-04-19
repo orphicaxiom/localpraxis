@@ -1,2152 +1,1586 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-view="owner">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Property Management Owner Portal Demo | Local Praxis</title>
-	<meta name="description" content="Interactive demo of a property management owner portal. Booking calendar, financial reporting, maintenance tracking, and guest messaging. Built by Local Praxis.">
-	<link rel="canonical" href="https://localpraxis.com/demos/portal.html">
-	<!-- Open Graph -->
-	<meta property="og:title" content="Property Management Owner Portal Demo | Local Praxis">
-	<meta property="og:description" content="Interactive demo of a property management owner portal. Booking calendar, financial reporting, maintenance tracking, and guest messaging. Built by Local Praxis.">
-	<meta property="og:image" content="https://localpraxis.com/og-image.png">
-	<meta property="og:url" content="https://localpraxis.com/demos/portal.html">
-	<meta property="og:type" content="website">
-	<meta property="og:site_name" content="Local Praxis">
-	<!-- Twitter Card -->
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:title" content="Property Management Owner Portal Demo | Local Praxis">
-	<meta name="twitter:description" content="Interactive demo of a property management owner portal. Booking calendar, financial reporting, maintenance tracking, and guest messaging. Built by Local Praxis.">
-	<meta name="twitter:image" content="https://localpraxis.com/og-image.png">
-	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230F172A'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='12' font-weight='700' fill='%23FFFFFF'>IK</text></svg>">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vacation Rental Portal Demo | Local Praxis</title>
+  <meta name="description" content="Three-role vacation rental portal demo. Owner statements, manager operations, guest booking. Built by Local Praxis.">
+  <link rel="canonical" href="https://localpraxis.com/demos/portal.html">
+
+  <meta property="og:title" content="Vacation Rental Portal Demo | Local Praxis">
+  <meta property="og:description" content="Three-role vacation rental portal demo. Owner statements, manager operations, guest booking. Built by Local Praxis.">
+  <meta property="og:image" content="https://localpraxis.com/og-image.png">
+  <meta property="og:url" content="https://localpraxis.com/demos/portal.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Local Praxis">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Vacation Rental Portal Demo | Local Praxis">
+  <meta name="twitter:description" content="Three-role vacation rental portal demo. Owner statements, manager operations, guest booking. Built by Local Praxis.">
+  <meta name="twitter:image" content="https://localpraxis.com/og-image.png">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23256193'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='%23F2CE72'>LP</text></svg>">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
-	<style>
-		:root {
-			--warm-white: #FDFAF5;
-			--cream: #F5F0E8;
-			--slate-100: #F5F0E8;
-			--slate-200: #DDD6CC;
-			--slate-300: #C4BBB0;
-			--slate-400: #A8A29E;
-			--slate-500: #78716C;
-			--slate-600: #57534E;
-			--slate-700: #44403C;
-			--slate-800: #292524;
-			--navy: #1C1917;
-			--success: #16A34A;
-			--success-light: rgba(22, 163, 74, 0.1);
-			--danger: #DC2626;
-			--danger-light: rgba(220, 38, 38, 0.1);
-			--warning: #F59E0B;
-			--warning-light: rgba(245, 158, 11, 0.12);
-			--blue: #1E5FB5;
-			--blue-light: rgba(30, 95, 181, 0.1);
-			--ease: cubic-bezier(0.16, 1, 0.3, 1);
-		}
-
-		* { margin: 0; padding: 0; box-sizing: border-box; }
-		html, body { height: 100%; width: 100%; }
-
-		body {
-			font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-			background-color: var(--warm-white);
-			color: var(--navy);
-			line-height: 1.5;
-			overflow: hidden;
-			-webkit-font-smoothing: antialiased;
-		}
-
-		::selection { background-color: var(--navy); color: var(--warm-white); }
-
-		/* Layout */
-		.container { display: flex; height: 100vh; overflow: hidden; }
-
-		.sidebar {
-			width: 240px;
-			background-color: var(--cream);
-			border-right: 1px solid var(--slate-200);
-			display: flex;
-			flex-direction: column;
-			overflow-y: auto;
-			position: fixed;
-			height: 100vh;
-			left: 0;
-			top: 0;
-			z-index: 100;
-		}
-
-		.sidebar-header {
-			padding: 1.75rem 1.5rem 1.25rem;
-			border-bottom: 1px solid var(--slate-200);
-		}
-
-		.brand-name {
-			font-size: 1rem;
-			font-weight: 700;
-			color: var(--navy);
-			margin-bottom: 0.15rem;
-			letter-spacing: -0.01em;
-		}
-
-		.brand-subtitle {
-			font-size: 0.65rem;
-			color: var(--slate-400);
-			letter-spacing: 0.1em;
-			text-transform: uppercase;
-			font-weight: 600;
-		}
-
-		.sidebar-user {
-			padding: 1rem 1.5rem;
-			border-bottom: 1px solid var(--slate-200);
-		}
-
-		.sidebar-user-label {
-			color: var(--slate-400);
-			letter-spacing: 0.1em;
-			text-transform: uppercase;
-			font-weight: 600;
-			margin-bottom: 0.4rem;
-			display: block;
-			font-size: 0.6rem;
-		}
-
-		.sidebar-user-name {
-			color: var(--navy);
-			font-weight: 600;
-			font-size: 0.875rem;
-		}
-
-		.sidebar-nav { flex: 1; padding: 1rem 0; }
-
-		.nav-item {
-			display: flex;
-			align-items: center;
-			gap: 0.75rem;
-			padding: 0.75rem 1.5rem;
-			color: var(--slate-500);
-			text-decoration: none;
-			font-size: 0.875rem;
-			font-weight: 500;
-			cursor: pointer;
-			transition: all 0.2s var(--ease);
-			border-left: 3px solid transparent;
-		}
-
-		.nav-item:hover { color: var(--navy); background-color: var(--slate-100); }
-
-		.nav-item.active {
-			color: var(--navy);
-			background-color: var(--slate-100);
-			border-left-color: var(--navy);
-			font-weight: 600;
-		}
-
-		.nav-icon {
-			width: 18px;
-			height: 18px;
-			opacity: 0.6;
-		}
-
-		.nav-item.active .nav-icon { opacity: 1; }
-
-		.main {
-			margin-left: 240px;
-			flex: 1;
-			display: flex;
-			flex-direction: column;
-			overflow: hidden;
-		}
-
-		.content {
-			flex: 1;
-			overflow-y: auto;
-			background-color: var(--warm-white);
-			padding: 2.5rem 3rem;
-		}
-
-		/* Headers */
-		.view-header { margin-bottom: 2rem; }
-
-		.greeting {
-			font-size: 1.5rem;
-			font-weight: 700;
-			color: var(--navy);
-			letter-spacing: -0.02em;
-			margin-bottom: 0.25rem;
-		}
-
-		.current-date { font-size: 0.8rem; color: var(--slate-400); font-weight: 500; }
-
-		/* Property Selector */
-		.property-selector { margin-bottom: 2rem; }
-
-		.field-label {
-			display: block;
-			font-size: 0.65rem;
-			color: var(--slate-400);
-			letter-spacing: 0.1em;
-			text-transform: uppercase;
-			font-weight: 600;
-			margin-bottom: 0.5rem;
-		}
-
-		.select-wrapper { position: relative; width: fit-content; }
-
-		select {
-			appearance: none;
-			background-color: var(--cream);
-			border: 1px solid var(--slate-200);
-			color: var(--navy);
-			padding: 0.6rem 2.25rem 0.6rem 0.75rem;
-			font-family: inherit;
-			font-size: 0.85rem;
-			font-weight: 500;
-			border-radius: 6px;
-			cursor: pointer;
-			transition: all 0.2s var(--ease);
-		}
-
-		select:hover { border-color: var(--slate-300); }
-		select:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08); }
-
-		.select-wrapper::after {
-			content: '\25BC';
-			position: absolute;
-			right: 0.75rem;
-			top: 50%;
-			transform: translateY(-50%);
-			pointer-events: none;
-			color: var(--slate-400);
-			font-size: 0.55rem;
-		}
-
-		/* Stats Grid */
-		.stats-grid {
-			display: grid;
-			grid-template-columns: repeat(5, 1fr);
-			gap: 1.25rem;
-			margin-bottom: 2.5rem;
-		}
-
-		.stat-card {
-			padding: 1.25rem 1.5rem;
-			background: var(--warm-white);
-			border: 1px solid var(--slate-200);
-			border-radius: 8px;
-			box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
-			cursor: pointer;
-			transition: all 0.2s var(--ease);
-		}
-
-		.stat-card:hover {
-			border-color: var(--slate-300);
-			box-shadow: 0 4px 12px rgba(0,0,0,0.07);
-			transform: translateY(-1px);
-		}
-
-		.stat-card.highlight {
-			background: var(--cream);
-			border-color: rgba(22, 163, 74, 0.2);
-		}
-
-		.stat-label {
-			font-size: 0.65rem;
-			color: var(--slate-400);
-			letter-spacing: 0.1em;
-			text-transform: uppercase;
-			font-weight: 600;
-			margin-bottom: 0.75rem;
-		}
-
-		.stat-value {
-			font-family: 'Satoshi', -apple-system, sans-serif;
-			font-size: 2rem;
-			font-weight: 700;
-			color: var(--navy);
-			line-height: 1;
-			letter-spacing: -0.02em;
-			font-variant-numeric: tabular-nums;
-		}
-
-		.stat-sub {
-			font-size: 0.75rem;
-			color: var(--slate-400);
-			margin-top: 0.5rem;
-			font-weight: 500;
-		}
-
-		/* Donut chart */
-		.donut-wrap {
-			display: flex;
-			align-items: center;
-			gap: 1rem;
-		}
-
-		.donut-chart {
-			width: 64px;
-			height: 64px;
-			flex-shrink: 0;
-		}
-
-		.donut-value {
-			font-family: 'Satoshi', sans-serif;
-			font-size: 1.75rem;
-			font-weight: 700;
-			color: var(--navy);
-			letter-spacing: -0.02em;
-			line-height: 1;
-		}
-
-		.donut-label {
-			font-size: 0.7rem;
-			color: var(--slate-400);
-			font-weight: 500;
-		}
-
-		/* Section titles */
-		.section-title {
-			font-size: 1rem;
-			font-weight: 700;
-			color: var(--navy);
-			margin-bottom: 1.25rem;
-			letter-spacing: -0.01em;
-		}
-
-		/* Dashboard Grid */
-		.dashboard-grid {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 2.5rem;
-		}
-
-		/* Tables */
-		.data-table {
-			width: 100%;
-			border-collapse: collapse;
-		}
-
-		.data-table thead { border-bottom: 1px solid var(--slate-200); }
-
-		.data-table th {
-			text-align: left;
-			padding: 0.75rem 1rem;
-			font-size: 0.65rem;
-			color: var(--slate-400);
-			letter-spacing: 0.1em;
-			text-transform: uppercase;
-			font-weight: 600;
-		}
-
-		.data-table td {
-			padding: 0.75rem 1rem;
-			border-bottom: 1px solid var(--slate-100);
-			font-size: 0.875rem;
-		}
-
-		.data-table tbody tr {
-			transition: background-color 0.15s;
-			cursor: pointer;
-		}
-
-		.data-table tbody tr:hover { background-color: var(--cream); }
-
-		/* Guest avatar */
-		.guest-cell { display: flex; align-items: center; gap: 0.75rem; }
-
-		.avatar {
-			width: 32px;
-			height: 32px;
-			border-radius: 50%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 0.65rem;
-			font-weight: 700;
-			flex-shrink: 0;
-			letter-spacing: 0.02em;
-		}
-
-		.avatar-blue { background: var(--blue-light); color: var(--blue); }
-		.avatar-green { background: var(--success-light); color: var(--success); }
-		.avatar-navy { background: rgba(15, 23, 42, 0.08); color: var(--navy); }
-
-		.guest-name { font-weight: 600; color: var(--navy); }
-		.guest-property { font-size: 0.75rem; color: var(--slate-400); }
-
-		/* Status badges */
-		.badge {
-			display: inline-block;
-			padding: 0.25rem 0.625rem;
-			border-radius: 4px;
-			font-size: 0.7rem;
-			font-weight: 600;
-			letter-spacing: 0.02em;
-		}
-
-		.badge-green { background: var(--success-light); color: var(--success); }
-		.badge-yellow { background: var(--warning-light); color: #B45309; }
-		.badge-blue { background: var(--blue-light); color: var(--blue); }
-		.badge-red { background: var(--danger-light); color: var(--danger); }
-
-		/* Amount styling */
-		.amount {
-			font-family: 'Satoshi', sans-serif;
-			font-weight: 600;
-			font-variant-numeric: tabular-nums;
-		}
-
-		.amount-positive { color: var(--navy); }
-		.amount-negative { color: var(--danger); }
-		.amount-success { color: var(--success); }
-
-		/* Activity Feed */
-		.activity-feed { display: flex; flex-direction: column; }
-
-		.activity-item {
-			padding: 1rem 0;
-			border-bottom: 1px solid var(--slate-100);
-			cursor: pointer;
-			transition: all 0.15s;
-		}
-
-		.activity-item:hover { background: var(--cream); margin: 0 -0.75rem; padding: 1rem 0.75rem; border-radius: 6px; }
-
-		.activity-title { font-weight: 600; color: var(--navy); font-size: 0.85rem; margin-bottom: 0.25rem; }
-		.activity-text { font-size: 0.8rem; color: var(--slate-500); margin-bottom: 0.25rem; }
-		.activity-time { font-size: 0.7rem; color: var(--slate-400); }
-
-		/* Buttons */
-		button {
-			font-family: inherit;
-			border: none;
-			border-radius: 6px;
-			padding: 0.6rem 1.25rem;
-			font-size: 0.85rem;
-			font-weight: 600;
-			cursor: pointer;
-			transition: all 0.2s var(--ease);
-		}
-
-		.btn-primary { background-color: var(--navy); color: var(--warm-white); }
-		.btn-primary:hover { background-color: var(--slate-800); }
-
-		.btn-secondary { background-color: transparent; border: 1px solid var(--slate-200); color: var(--navy); }
-		.btn-secondary:hover { border-color: var(--slate-400); background-color: var(--cream); }
-
-		.btn-icon {
-			display: inline-flex;
-			align-items: center;
-			gap: 0.5rem;
-		}
-
-		/* Modals */
-		.modal {
-			display: none;
-			position: fixed;
-			top: 0; left: 0;
-			width: 100%; height: 100%;
-			background-color: rgba(15, 23, 42, 0.5);
-			z-index: 1000;
-			align-items: center;
-			justify-content: center;
-			backdrop-filter: blur(4px);
-		}
-
-		.modal.active { display: flex; }
-
-		.modal-content {
-			background-color: var(--warm-white);
-			border-radius: 8px;
-			padding: 2rem;
-			max-width: 560px;
-			width: 90%;
-			max-height: 85vh;
-			overflow-y: auto;
-			box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16);
-		}
-
-		.modal-header { margin-bottom: 1.5rem; }
-
-		.modal-title { font-size: 1.25rem; font-weight: 700; color: var(--navy); }
-
-		.close-btn {
-			float: right;
-			background: none;
-			border: none;
-			font-size: 1.5rem;
-			color: var(--slate-400);
-			cursor: pointer;
-			padding: 0;
-			margin: -0.5rem 0 0 0;
-		}
-
-		.close-btn:hover { color: var(--navy); }
-
-		/* Demo Action Modal */
-		.demo-modal-overlay {
-			display: none;
-			position: fixed;
-			top: 0; left: 0;
-			width: 100%; height: 100%;
-			background-color: rgba(15, 23, 42, 0.4);
-			z-index: 2000;
-			align-items: center;
-			justify-content: center;
-			backdrop-filter: blur(4px);
-			opacity: 0;
-			transition: opacity 0.2s var(--ease);
-		}
-
-		.demo-modal-overlay.active {
-			display: flex;
-			opacity: 1;
-		}
-
-		.demo-modal {
-			background-color: var(--warm-white);
-			border-radius: 8px;
-			padding: 2rem;
-			max-width: 420px;
-			width: 90%;
-			box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16);
-			transform: scale(0.96);
-			opacity: 0;
-			transition: transform 0.2s var(--ease), opacity 0.2s var(--ease);
-		}
-
-		.demo-modal-overlay.active .demo-modal {
-			transform: scale(1);
-			opacity: 1;
-		}
-
-		.demo-modal p {
-			font-size: 0.9rem;
-			line-height: 1.6;
-			color: var(--slate-600);
-			margin-bottom: 1.5rem;
-		}
-
-		.demo-modal button {
-			width: 100%;
-		}
-
-		/* Modal Action Buttons */
-		.modal-actions {
-			display: flex;
-			gap: 0.75rem;
-			margin-top: 1.75rem;
-			padding-top: 1.5rem;
-			border-top: 1px solid var(--slate-100);
-			flex-wrap: wrap;
-		}
-
-		.modal-actions button {
-			font-size: 0.8rem;
-			padding: 0.5rem 1rem;
-		}
-
-		/* Form Elements */
-		input, textarea {
-			font-family: inherit;
-			width: 100%;
-			padding: 0.6rem 0.75rem;
-			border: 1px solid var(--slate-200);
-			border-radius: 6px;
-			font-size: 0.85rem;
-			color: var(--navy);
-			margin-bottom: 1rem;
-			transition: all 0.2s var(--ease);
-		}
-
-		input:focus, textarea:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08); }
-		textarea { resize: vertical; min-height: 100px; }
-
-		.form-group { margin-bottom: 1.25rem; }
-
-		.form-label {
-			display: block;
-			font-size: 0.65rem;
-			color: var(--slate-400);
-			letter-spacing: 0.1em;
-			text-transform: uppercase;
-			font-weight: 600;
-			margin-bottom: 0.5rem;
-		}
-
-		/* Tabs */
-		.tabs { display: flex; gap: 0; margin-bottom: 1.5rem; border-bottom: 1px solid var(--slate-200); }
-
-		.tab {
-			padding: 0.75rem 1.25rem;
-			background: none;
-			border: none;
-			border-bottom: 2px solid transparent;
-			color: var(--slate-400);
-			cursor: pointer;
-			font-size: 0.85rem;
-			font-weight: 500;
-			transition: all 0.2s var(--ease);
-		}
-
-		.tab:hover { color: var(--navy); }
-		.tab.active { color: var(--navy); border-bottom-color: var(--navy); font-weight: 600; }
-
-		/* Occupancy Calendar Grid */
-		.occ-cal {
-			border: 1px solid var(--slate-200);
-			border-radius: 8px;
-			overflow: hidden;
-			margin: 0.75rem 0 0.75rem;
-		}
-
-		.occ-cal-header {
-			display: grid;
-			grid-template-columns: repeat(7, 1fr);
-			background: var(--cream);
-			border-bottom: 1px solid var(--slate-200);
-		}
-
-		.occ-cal-header span {
-			padding: 0.4rem 0;
-			text-align: center;
-			font-size: 0.6rem;
-			font-weight: 600;
-			color: var(--slate-400);
-			text-transform: uppercase;
-			letter-spacing: 0.08em;
-		}
-
-		.occ-cal-grid {
-			display: grid;
-			grid-template-columns: repeat(7, 1fr);
-		}
-
-		.occ-day {
-			aspect-ratio: 1.4;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			border-right: 1px solid var(--slate-100);
-			border-bottom: 1px solid var(--slate-100);
-			font-size: 0.7rem;
-			font-weight: 500;
-			color: var(--slate-500);
-			position: relative;
-			cursor: default;
-			transition: background 0.15s;
-			min-height: 44px;
-		}
-
-		.occ-day:nth-child(7n) { border-right: none; }
-
-		.occ-day.empty { background: var(--cream); color: transparent; }
-
-		.occ-day.booked {
-			cursor: pointer;
-		}
-
-		.occ-day.booked:hover {
-			background: var(--slate-100);
-		}
-
-		.occ-day-num { font-size: 0.65rem; font-weight: 600; margin-bottom: 2px; }
-
-		.occ-day-guest {
-			font-size: 0.5rem;
-			font-weight: 700;
-			padding: 0.1rem 0.3rem;
-			border-radius: 3px;
-			color: var(--warm-white);
-			max-width: 90%;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			line-height: 1.3;
-		}
-
-		.occ-day-guest.status-checked-in { background: var(--success); }
-		.occ-day-guest.status-confirmed { background: var(--blue); }
-
-		.occ-legend {
-			display: flex;
-			gap: 1rem;
-			margin-top: 0.5rem;
-			font-size: 0.65rem;
-			color: var(--slate-400);
-			font-weight: 500;
-		}
-
-		.occ-legend-dot {
-			display: inline-block;
-			width: 8px;
-			height: 8px;
-			border-radius: 2px;
-			margin-right: 0.3rem;
-			vertical-align: middle;
-		}
-
-		/* Revenue Bars (horizontal) */
-		.h-bar-chart { display: flex; flex-direction: column; gap: 1.25rem; margin: 1.5rem 0; }
-
-		.h-bar-row { display: flex; flex-direction: column; gap: 0.4rem; }
-
-		.h-bar-label {
-			font-size: 0.8rem;
-			font-weight: 600;
-			color: var(--navy);
-		}
-
-		.h-bar-track {
-			height: 36px;
-			background: var(--slate-100);
-			border-radius: 6px;
-			overflow: hidden;
-			position: relative;
-		}
-
-		.h-bar-fill {
-			height: 100%;
-			background: var(--navy);
-			border-radius: 6px;
-			display: flex;
-			align-items: center;
-			justify-content: flex-end;
-			padding-right: 0.75rem;
-			transition: width 0.5s var(--ease);
-		}
-
-		.h-bar-value {
-			font-size: 0.8rem;
-			font-weight: 700;
-			color: var(--warm-white);
-			font-variant-numeric: tabular-nums;
-		}
-
-		/* Maintenance Cards */
-		.maintenance-card {
-			border: 1px solid var(--slate-200);
-			border-radius: 8px;
-			padding: 1.25rem 1.5rem;
-			margin-bottom: 1rem;
-			cursor: pointer;
-			transition: all 0.2s var(--ease);
-			background: var(--warm-white);
-		}
-
-		.maintenance-card:hover {
-			border-color: var(--slate-300);
-			box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-		}
-
-		.maint-top { display: flex; gap: 1rem; }
-
-		.maint-photo {
-			width: 56px;
-			height: 56px;
-			border-radius: 8px;
-			background: var(--slate-100);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			flex-shrink: 0;
-		}
-
-		.maint-photo svg { color: var(--slate-300); }
-
-		.maint-body { flex: 1; min-width: 0; }
-
-		.maint-header {
-			display: flex;
-			justify-content: space-between;
-			align-items: start;
-			margin-bottom: 0.4rem;
-		}
-
-		.maint-title { font-weight: 600; color: var(--navy); font-size: 0.9rem; }
-		.maint-property { color: var(--slate-500); font-size: 0.8rem; margin-bottom: 0.35rem; }
-		.maint-meta { font-size: 0.75rem; color: var(--slate-400); }
-		.maint-assignee { font-size: 0.75rem; color: var(--slate-500); font-weight: 500; margin-top: 0.25rem; }
-
-		.priority-pill {
-			display: inline-block;
-			padding: 0.2rem 0.5rem;
-			border-radius: 4px;
-			font-size: 0.65rem;
-			font-weight: 700;
-			letter-spacing: 0.05em;
-		}
-
-		.priority-high { background: var(--danger-light); color: var(--danger); }
-		.priority-medium { background: var(--warning-light); color: #B45309; }
-		.priority-low { background: var(--slate-100); color: var(--slate-500); }
-
-		/* Messages */
-		.messages-container {
-			display: grid;
-			grid-template-columns: 280px 1fr;
-			gap: 0;
-			height: calc(100vh - 200px);
-			border: 1px solid var(--slate-200);
-			border-radius: 8px;
-			overflow: hidden;
-		}
-
-		.messages-list {
-			border-right: 1px solid var(--slate-200);
-			overflow-y: auto;
-			background: var(--cream);
-		}
-
-		.message-thread {
-			padding: 1rem 1.25rem;
-			cursor: pointer;
-			transition: all 0.15s;
-			border-bottom: 1px solid var(--slate-200);
-		}
-
-		.message-thread:hover { background-color: var(--slate-100); }
-		.message-thread.active { background-color: var(--warm-white); }
-
-		.message-thread-title { font-weight: 600; color: var(--navy); font-size: 0.85rem; margin-bottom: 0.25rem; }
-		.message-thread-preview { font-size: 0.75rem; color: var(--slate-500); margin-bottom: 0.25rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-		.message-thread-date { font-size: 0.65rem; color: var(--slate-400); }
-
-		.messages-conversation { display: flex; flex-direction: column; background: var(--warm-white); }
-
-		.conversation-header {
-			padding: 1rem 1.5rem;
-			border-bottom: 1px solid var(--slate-200);
-		}
-
-		.conversation-title { font-size: 1rem; font-weight: 700; color: var(--navy); }
-
-		.conversation-messages {
-			flex: 1;
-			overflow-y: auto;
-			padding: 1.5rem;
-			display: flex;
-			flex-direction: column;
-			gap: 1rem;
-		}
-
-		.message { display: flex; align-items: flex-end; gap: 0.5rem; }
-		.message.owner { justify-content: flex-end; }
-
-		.msg-avatar {
-			width: 28px;
-			height: 28px;
-			border-radius: 50%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 0.55rem;
-			font-weight: 700;
-			flex-shrink: 0;
-		}
-
-		.msg-avatar-team { background: var(--slate-200); color: var(--slate-600); }
-		.msg-avatar-owner { background: var(--navy); color: var(--warm-white); }
-
-		.message-bubble {
-			max-width: 65%;
-			padding: 0.75rem 1rem;
-			border-radius: 8px;
-			font-size: 0.85rem;
-			line-height: 1.5;
-		}
-
-		.message:not(.owner) .message-bubble {
-			background: var(--cream);
-			color: var(--navy);
-			border-bottom-left-radius: 4px;
-		}
-
-		.message.owner .message-bubble {
-			background: var(--navy);
-			color: var(--warm-white);
-			border-bottom-right-radius: 4px;
-		}
-
-		.message-author { font-size: 0.65rem; font-weight: 600; margin-bottom: 0.2rem; opacity: 0.6; }
-		.message-time { font-size: 0.6rem; margin-top: 0.25rem; opacity: 0.5; }
-
-		.compose-area {
-			padding: 1rem 1.5rem;
-			border-top: 1px solid var(--slate-200);
-		}
-
-		.compose-wrap {
-			display: flex;
-			align-items: center;
-			border: 1px solid var(--slate-200);
-			border-radius: 8px;
-			padding: 0.25rem 0.25rem 0.25rem 1rem;
-			transition: all 0.2s var(--ease);
-		}
-
-		.compose-wrap:focus-within { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08); }
-
-		.compose-input {
-			flex: 1;
-			border: none;
-			padding: 0.5rem 0;
-			font-size: 0.85rem;
-			margin: 0;
-			background: transparent;
-		}
-
-		.compose-input:focus { outline: none; box-shadow: none; border: none; }
-
-		.send-btn {
-			width: 36px;
-			height: 36px;
-			border-radius: 50%;
-			background: var(--navy);
-			border: none;
-			cursor: pointer;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			flex-shrink: 0;
-			padding: 0;
-			transition: background 0.15s;
-		}
-
-		.send-btn:hover { background: var(--slate-700); }
-
-		/* Confirmation toast */
-		.confirmation {
-			display: none;
-			position: fixed;
-			bottom: 5rem;
-			right: 2rem;
-			background-color: var(--navy);
-			color: var(--warm-white);
-			padding: 0.75rem 1.25rem;
-			border-radius: 8px;
-			z-index: 2000;
-			font-size: 0.85rem;
-			font-weight: 500;
-			box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-			animation: slideIn 0.3s var(--ease);
-		}
-
-		.confirmation.show { display: block; }
-
-		@keyframes slideIn {
-			from { transform: translateY(12px); opacity: 0; }
-			to { transform: translateY(0); opacity: 1; }
-		}
-
-		/* Expense table */
-		.expense-table { width: 100%; border-collapse: collapse; }
-		.expense-table thead { border-bottom: 1px solid var(--slate-200); }
-
-		.expense-table th {
-			text-align: left;
-			padding: 0.75rem 1rem;
-			font-size: 0.65rem;
-			color: var(--slate-400);
-			letter-spacing: 0.1em;
-			text-transform: uppercase;
-			font-weight: 600;
-		}
-
-		.expense-table td {
-			padding: 0.75rem 1rem;
-			border-bottom: 1px solid var(--slate-100);
-			font-size: 0.85rem;
-		}
-
-		/* Views */
-		.view { display: none; }
-		.view.active { display: block; }
-
-		/* Bookings */
-		.month-selector { margin-bottom: 1.5rem; }
-
-		.property-tabs { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
-
-		.property-tab {
-			padding: 0.5rem 1rem;
-			background-color: transparent;
-			border: 1px solid var(--slate-200);
-			color: var(--navy);
-			cursor: pointer;
-			border-radius: 6px;
-			font-size: 0.8rem;
-			font-weight: 500;
-			transition: all 0.2s var(--ease);
-		}
-
-		.property-tab:hover { border-color: var(--navy); }
-		.property-tab.active { background-color: var(--navy); color: var(--warm-white); border-color: var(--navy); }
-
-		.property-booking-section {
-			margin-bottom: 2.5rem;
-			padding-bottom: 2rem;
-			border-bottom: 1px solid var(--slate-100);
-		}
-
-		.property-booking-section:last-child { border-bottom: none; }
-
-		/* Financial stats override for color coding */
-		.financial-stats { grid-template-columns: repeat(4, 1fr); }
-
-		/* Hamburger */
-		.hamburger-btn {
-			display: none;
-			position: fixed;
-			top: 0.75rem;
-			left: 0.75rem;
-			z-index: 300;
-			background: var(--warm-white);
-			border: 1px solid var(--slate-200);
-			border-radius: 6px;
-			padding: 0.5rem 0.75rem;
-			font-size: 1.1rem;
-			cursor: pointer;
-			line-height: 1;
-			box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-		}
-
-		.sidebar-close-btn {
-			display: none;
-			background: none;
-			border: none;
-			font-size: 1.25rem;
-			color: var(--slate-400);
-			cursor: pointer;
-			padding: 0;
-			position: absolute;
-			top: 1rem;
-			right: 1rem;
-		}
-
-		.sidebar-close-btn:hover { color: var(--navy); }
-
-		.sidebar-backdrop {
-			display: none;
-			position: fixed;
-			inset: 0;
-			background: rgba(15, 23, 42, 0.4);
-			z-index: 99;
-			backdrop-filter: blur(2px);
-		}
-
-		.sidebar-backdrop.open { display: block; }
-
-		/* Demo banner */
-		.demo-banner {
-			background: var(--cream);
-			border-left: 3px solid var(--navy);
-			padding: 0.75rem 1.5rem;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			font-size: 0.8rem;
-			color: var(--slate-500);
-			flex-shrink: 0;
-		}
-
-		.demo-banner button {
-			background: none;
-			border: none;
-			font-size: 0.9rem;
-			color: var(--slate-400);
-			cursor: pointer;
-			padding: 0 0 0 1rem;
-			line-height: 1;
-		}
-
-		.demo-banner button:hover { color: var(--navy); }
-
-		/* Sticky CTA */
-		.demo-footer-cta {
-			position: fixed;
-			bottom: 0;
-			left: 240px;
-			right: 0;
-			background: var(--navy);
-			color: var(--warm-white);
-			padding: 0.6rem 2rem;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			z-index: 200;
-			font-size: 0.85rem;
-			font-weight: 500;
-		}
-
-		.demo-footer-cta a { color: var(--warm-white); font-weight: 700; text-decoration: none; }
-		.demo-footer-cta a:hover { text-decoration: underline; }
-
-		/* Responsive */
-		@media (max-width: 1200px) {
-			.stats-grid { grid-template-columns: repeat(3, 1fr); }
-			.dashboard-grid { grid-template-columns: 1fr; }
-			.messages-container { grid-template-columns: 1fr; }
-			.messages-list { border-right: none; border-bottom: 1px solid var(--slate-200); max-height: 200px; }
-		}
-
-		@media (max-width: 768px) {
-			.hamburger-btn { display: block; }
-			.sidebar-close-btn { display: block; }
-			.sidebar { position: fixed; left: -100%; width: 280px; transition: left 0.3s var(--ease); }
-			.sidebar.mobile-open { left: 0; }
-			.main { margin-left: 0; }
-			.content { padding: 1.5rem 1.25rem; }
-			.stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-			.stat-value { font-size: 1.5rem; }
-			.demo-footer-cta { left: 0; }
-			.financial-stats { grid-template-columns: repeat(2, 1fr); }
-		}
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================================================================
+       TOKENS — product system (matches demos/rental.html :root)
+       ================================================================ */
+    :root {
+      --warm-white: #F2ECE4;
+      --cream:      #EAE3D8;
+      --ink:        #2C2A28;
+      --ink-mid:    #4A4745;
+      --ink-light:  #7A7572;
+
+      --accent:        #256193;
+      --accent-hover:  #1D4E76;
+      --accent-subtle: color-mix(in srgb, #256193 10%, transparent);
+
+      --yellow:        #F2CE72;
+      --yellow-hover:  #E5C060;
+
+      --rule:        #2C2A28;
+      --rule-light:  #C4BBB0;
+
+      --status-green:    #0A9C78;
+      --status-amber:    #F2CE72;
+      --status-red:      #C85A17;
+      --status-charcoal: #4A4745;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+      --font-display: 'EB Garamond', Georgia, serif;
+      --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono:    'Roboto Mono', 'Courier New', monospace;
+
+      --s1: 0.5rem;
+      --s2: 0.75rem;
+      --s3: 1rem;
+      --s4: 1.5rem;
+      --s5: 2rem;
+      --s6: 3rem;
+      --s7: 4rem;
+      --s8: 6rem;
+
+      --sidebar-w:       220px;
+      --role-bar-height: 56px;
+      --max-content:     1200px;
+
+      color-scheme: light;
+    }
+
+    [data-theme="dark"] {
+      --warm-white: #1C1917;
+      --cream:      #292524;
+      --ink:        #F2ECE4;
+      --ink-mid:    #A8A29E;
+      --ink-light:  #78716C;
+      --rule:       #5C5652;
+      --rule-light: #44403C;
+      --accent-subtle: color-mix(in srgb, var(--accent) 15%, transparent);
+      /* --accent, --accent-hover, --yellow, --yellow-hover, --status-* unchanged in dark mode */
+      color-scheme: dark;
+    }
+
+    /* ================================================================
+       RESET + BASE
+       ================================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html { -webkit-text-size-adjust: 100%; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: var(--warm-white);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    h1, h2, h3, h4, h5, h6 { margin: 0; line-height: 1.2; font-weight: 700; }
+    p, ul, ol, dl, figure, pre { margin: 0; }
+    ul, ol { padding: 0; list-style: none; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    button { background: none; border: none; padding: 0; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    hr { border: 0; border-top: 1px solid var(--rule-light); margin: 0; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    ::selection { background: var(--accent); color: #fff; }
+    [hidden] { display: none !important; }
+
+    /* ================================================================
+       NOSCRIPT — warm-white text on ink, soft warning bar
+       ================================================================ */
+    .noscript {
+      margin: var(--s5);
+      padding: var(--s4);
+      background: var(--ink);
+      color: var(--warm-white);
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      border-radius: 4px;
+    }
+
+    /* ================================================================
+       ROLE BAR (top) — warm-white surface, ink hairline divider,
+       segmented buttons. Active state matches rental.html .btn-primary
+       (mustard fill + ink text + 2px hard-edge ink shadow).
+       ================================================================ */
+    .role-bar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: var(--s4);
+      height: var(--role-bar-height);
+      padding: 0 var(--s5);
+      background: var(--warm-white);
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .role-bar-label {
+      display: flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+
+    .role-segments {
+      display: flex;
+      align-items: center;
+      gap: var(--s2);
+      margin-left: auto;
+    }
+
+    .role-btn {
+      min-height: 44px;
+      padding: 0 var(--s4);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--warm-white);
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    .role-btn:hover {
+      background: var(--cream);
+    }
+    .role-btn[aria-current="page"] {
+      background: var(--yellow);
+      color: var(--ink);
+      font-weight: 700;
+      font-style: italic;
+      box-shadow: 2px 2px 0px var(--ink);
+    }
+    .role-btn[aria-current="page"]:hover {
+      background: var(--yellow-hover);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px var(--ink);
+    }
+    .role-btn[aria-current="page"]:active {
+      transform: translate(2px, 2px);
+      box-shadow: 0px 0px 0px var(--ink);
+    }
+
+    .menu-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 var(--s3);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--warm-white);
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .menu-toggle:hover {
+      background: var(--cream);
+    }
+
+    /* ================================================================
+       LAYOUT (sidebar + main) — saturated blue sidebar per
+       rental.html, warm-white main canvas.
+       ================================================================ */
+    .layout {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      min-height: calc(100vh - var(--role-bar-height));
+    }
+
+    .sidebar {
+      position: sticky;
+      top: var(--role-bar-height);
+      align-self: start;
+      height: calc(100vh - var(--role-bar-height));
+      padding: var(--s5) 0 var(--s4);
+      background: var(--accent);
+      border-right: 2px solid var(--ink);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar h1,
+    .sidebar-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      padding: 0 1.25rem;
+      color: #fff;
+    }
+
+    .sidebar-eyebrow {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 0.35rem 1.25rem 0;
+    }
+
+    .sidebar-nav {
+      margin-top: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-link {
+      display: block;
+      padding: 0.65rem 1rem 0.65rem 1.25rem;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .sidebar-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--yellow);
+      font-style: italic;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+    }
+    .sidebar-link.active,
+    .sidebar-link[aria-current="page"] {
+      color: var(--ink);
+      background: var(--yellow);
+      font-weight: 700;
+      margin: 2px 10px;
+      border-radius: 4px;
+      padding-left: calc(1.25rem - 10px);
+    }
+
+    .sidebar-footer {
+      padding: 1rem 1.25rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      margin-top: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .main {
+      padding: var(--s5);
+      min-width: 0;
+      overflow-x: hidden;
+    }
+
+    .view-pane {
+      max-width: var(--max-content);
+      margin-inline: auto;
+    }
+
+    .placeholder {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding-block: var(--s2);
+    }
+    .view-pane .placeholder {
+      font-size: 0.85rem;
+      color: var(--ink-light);
+    }
+    .sidebar-pane .placeholder {
+      padding: 0.65rem 1.25rem;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    /* ================================================================
+       MANAGER VIEW — HEADER
+       Serif h1 (rental.html .header h1 pattern) + mono eyebrow + mono
+       right-aligned date stamp. Hairline --rule-light divider below.
+       ================================================================ */
+    .mgr-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--s4);
+      padding-bottom: var(--s4);
+      border-bottom: 1px solid var(--rule-light);
+      margin-bottom: var(--s5);
+    }
+    .mgr-eyebrow {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      margin-bottom: 0.4rem;
+    }
+    .mgr-header h1 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 2.4rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .mgr-date {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .mgr-date-year { opacity: 0.6; }
+
+    /* ================================================================
+       MANAGER VIEW — OPS STRIP
+       Matches demos/rental.html .stats-row pattern: 2px ink top + 1px
+       ink bottom row borders, transparent tiles with hairline
+       --rule-light vertical dividers, Inter tabular numerals at
+       2.6rem, mono labels at small caps.
+       ================================================================ */
+    .ops-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      padding: 1.25rem 0;
+      margin-bottom: var(--s6);
+      background: transparent;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+    .ops-tile {
+      padding: 0.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      background: transparent;
+      border-right: 1px solid var(--rule-light);
+      min-height: 96px;
+    }
+    .ops-tile:last-child { border-right: none; }
+    .ops-numeral {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 2.6rem;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+    .ops-label {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      line-height: 1.3;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+    .ops-sub {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.78rem;
+      line-height: 1.3;
+      color: var(--ink-light);
+      margin-top: 0.1rem;
+    }
+    .ops-sub.is-warn  { color: var(--accent);     font-weight: 600; }
+    .ops-sub.is-alert { color: var(--status-red); font-weight: 600; }
+
+    /* ================================================================
+       MANAGER VIEW — SECTION HEADER (reused by sections 2-4)
+       Italic serif h2 (rental.html .module-header-free pattern) +
+       small mono date stamp right-aligned. No bottom divider — the
+       section content provides its own structural top edge.
+       ================================================================ */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--s4);
+      margin: 0 0 0.85rem;
+    }
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-style: italic;
+      font-size: 1.25rem;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+    .section-meta {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ================================================================
+       MANAGER VIEW — TODAY'S OPERATIONS TIMELINE
+       Flat rows per rental.html .timeline-item pattern. No vertical
+       line, no markers. Mono time column, mono uppercase tag, Inter
+       detail. Mustard yellow row hover. In-progress events get a
+       3px accent-blue left edge stripe + accent-blue tag color
+       (substituting cyan from the marketing-system version).
+       ================================================================ */
+    .timeline {
+      margin-bottom: var(--s7);
+      border-top: 1px solid var(--rule-light);
+    }
+    .timeline-event {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: var(--s3);
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--rule-light);
+      transition: background 0.1s ease;
+    }
+    .timeline-event:hover {
+      background: var(--yellow);
+    }
+    .timeline-time {
+      flex-shrink: 0;
+      min-width: 70px;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.78rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink);
+    }
+    .timeline-tag {
+      flex-shrink: 0;
+      min-width: 84px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.66rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+    .timeline-detail {
+      flex: 1;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.88rem;
+      color: var(--ink-mid);
+    }
+    .timeline-event:hover .timeline-time,
+    .timeline-event:hover .timeline-tag,
+    .timeline-event:hover .timeline-detail {
+      color: var(--ink);
+    }
+    .timeline-event[data-state="in-progress"] {
+      box-shadow: inset 3px 0 0 var(--accent);
+      padding-left: calc(1rem + 3px);
+    }
+    .timeline-event[data-state="in-progress"] .timeline-tag {
+      color: var(--accent);
+    }
+    .timeline-event[data-state="in-progress"] .timeline-detail {
+      color: var(--ink);
+    }
+    .timeline-event[data-state="tomorrow"] {
+      opacity: 0.55;
+    }
+
+    /* ================================================================
+       MANAGER VIEW — DATA TABLE (Properties Grid)
+       Matches demos/rental.html .data-table pattern: 2px ink outer
+       border, cream-bg th with small uppercase Inter, td with hairline
+       --rule-light bottom + Inter body, mustard row hover, mono utility
+       for numeric/time columns.
+       ================================================================ */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 2px solid var(--ink);
+      margin-bottom: var(--s7);
+    }
+    .data-table th {
+      padding: 0.7rem 1rem;
+      background: var(--cream);
+      border-bottom: 2px solid var(--ink);
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      text-align: left;
+      white-space: nowrap;
+    }
+    .data-table td {
+      padding: 0.55rem 1rem;
+      border-bottom: 1px solid var(--rule-light);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: var(--ink);
+      vertical-align: middle;
+    }
+    .data-table tbody tr {
+      transition: background 0.1s ease;
+    }
+    .data-table tbody tr:hover {
+      background: var(--yellow);
+    }
+    .data-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .data-table .mono {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+    }
+    .data-table .cell-name {
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .data-table .cell-sub {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--ink-light);
+      margin-top: 0.15rem;
+      letter-spacing: 0.02em;
+    }
+    .data-table .th-alert,
+    .data-table .cell-alert { text-align: center; width: 64px; }
+
+    /* Occupancy bar — thin horizontal track + ink fill, mono N/7 nights label */
+    .occupancy {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .occupancy-bar {
+      width: 80px;
+      height: 5px;
+      background: var(--rule-light);
+      border-radius: 3px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .occupancy-fill {
+      height: 100%;
+      background: var(--ink);
+      border-radius: 3px;
+    }
+    .occupancy-meta {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.75rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink-mid);
+      white-space: nowrap;
+    }
+
+    /* Channel pills — three sync-status badges per row */
+    .channel-pills {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .channel-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      padding: 2px 6px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.58rem;
+      line-height: 1.4;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+    .channel-pill.is-active {
+      background: var(--status-green);
+      color: #fff;
+      border-color: var(--status-green);
+    }
+    .channel-pill.is-error {
+      background: var(--status-red);
+      color: #fff;
+      border-color: var(--status-red);
+    }
+    .channel-pill.is-pending {
+      background: var(--cream);
+      color: var(--ink-mid);
+      border-color: var(--rule-light);
+    }
+    .channel-pill.is-none {
+      background: transparent;
+      color: var(--rule-light);
+      border-color: transparent;
+      font-weight: 500;
+    }
+
+    /* Alert dot — terracotta circle, only rendered when property has
+       an unresolved maintenance ticket */
+    .alert-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--status-red);
+    }
+
+    /* TODAY flag — small ink stamp inline in the NEXT BOOKING cell
+       when check_in === DEMO_TODAY. Reads as a calendar marker, not
+       a status pill (deliberate visual separation from channel pills).
+       Ink + warm-white treatment matches rental.html .status-dot.completed. */
+    .today-flag {
+      display: inline-block;
+      padding: 1px 5px;
+      margin-inline: 2px 1px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--warm-white);
+      border-radius: 2px;
+      vertical-align: 1px;
+    }
+
+    /* ================================================================
+       MOBILE (≤768px)
+       sidebar collapses to fixed overlay; role-bar stays horizontal
+       ================================================================ */
+    @media (max-width: 768px) {
+      .role-bar {
+        padding: 0 var(--s3);
+        gap: var(--s2);
+      }
+      .role-bar-label { display: none; }
+      .role-segments {
+        margin-left: 0;
+        flex: 1;
+      }
+      .role-btn {
+        flex: 1;
+        padding: 0 var(--s1);
+        font-size: 0.7rem;
+        letter-spacing: 0.04em;
+      }
+      .menu-toggle { display: inline-flex; }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: var(--role-bar-height);
+        left: 0;
+        width: min(82vw, 280px);
+        height: calc(100vh - var(--role-bar-height));
+        transform: translateX(-100%);
+        z-index: 15;
+        box-shadow: 4px 0 12px rgba(0, 0, 0, 0.18);
+      }
+
+      body:has(.menu-toggle[aria-expanded="true"]) .sidebar {
+        transform: translateX(0);
+      }
+
+      .main {
+        padding: var(--s4) var(--s3);
+      }
+
+      .mgr-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--s3);
+      }
+      .mgr-header h1 { font-size: 1.75rem; }
+      .mgr-date { text-align: left; }
+
+      .ops-strip {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0.75rem 0;
+      }
+      .ops-tile {
+        padding: 0.5rem 0.85rem;
+        min-height: 84px;
+        border-bottom: 1px solid var(--rule-light);
+      }
+      .ops-tile:nth-child(2n) { border-right: none; }
+      .ops-tile:last-child { border-right: none; border-bottom: none; }
+      .ops-numeral { font-size: 2.1rem; }
+      .ops-sub { font-size: 0.72rem; }
+
+      .section-header { gap: var(--s2); }
+      .section-header h2 { font-size: 1.1rem; }
+
+      .timeline-event {
+        flex-wrap: wrap;
+        padding: 0.55rem 0.75rem;
+        gap: 0.4rem 0.85rem;
+      }
+      .timeline-time { min-width: 60px; font-size: 0.72rem; }
+      .timeline-tag  { min-width: auto; font-size: 0.6rem;  }
+      .timeline-detail {
+        font-size: 0.82rem;
+        flex-basis: 100%;
+      }
+      .timeline-event[data-state="in-progress"] {
+        padding-left: calc(0.75rem + 3px);
       }
     }
-	</style>
+
+    /* ================================================================
+       REDUCED MOTION
+       ================================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+
+  <script>
+    // Pre-paint reconciliation. Read ?view= and set <html data-view> before
+    // body parses so panes/buttons render in the correct state.
+    (function () {
+      var ALLOWED = { owner: 1, manager: 1, guest: 1 };
+      var p = new URLSearchParams(window.location.search);
+      var v = p.get('view');
+      if (!v || !ALLOWED[v]) v = 'owner';
+      document.documentElement.setAttribute('data-view', v);
+    })();
+  </script>
 </head>
 <body>
-	<button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu">&#9776;</button>
-	<div class="sidebar-backdrop" id="sidebar-backdrop"></div>
-
-	<div class="container">
-		<div class="sidebar" id="sidebar">
-			<button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close menu">&#10005;</button>
-			<div class="sidebar-header">
-				<div class="brand-name">Island Key Properties</div>
-				<div class="brand-subtitle">Owner Portal</div>
-			</div>
-
-			<div class="sidebar-user">
-				<label class="sidebar-user-label">Logged in as</label>
-				<div class="sidebar-user-name">Sarah Mitchell</div>
-			</div>
-
-			<nav class="sidebar-nav" role="navigation" aria-label="Main navigation">
-				<a class="nav-item active" data-view="overview" role="button" tabindex="0">
-					<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-					Overview
-				</a>
-				<a class="nav-item" data-view="bookings" role="button" tabindex="0">
-					<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-					Bookings
-				</a>
-				<a class="nav-item" data-view="financials" role="button" tabindex="0">
-					<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-					Financials
-				</a>
-				<a class="nav-item" data-view="maintenance" role="button" tabindex="0">
-					<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-					Maintenance
-				</a>
-				<a class="nav-item" data-view="messages" role="button" tabindex="0">
-					<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-					Messages
-				</a>
-			</nav>
-		</div>
-
-		<div class="main" role="main" style="padding-bottom: 48px;">
-			<div class="demo-banner" id="demo-banner">
-				<span>Interactive demo &mdash; explore all 5 sections using the sidebar</span>
-				<button onclick="document.getElementById('demo-banner').style.display='none'" aria-label="Dismiss">&#10005;</button>
-			</div>
-			<div class="content">
-
-				<!-- Overview View -->
-				<div class="view active" id="overview-view">
-					<div class="view-header">
-						<h1 class="greeting">Good morning, Sarah.</h1>
-						<div class="current-date" id="current-date"></div>
-					</div>
-
-					<div class="property-selector">
-						<label class="field-label">Filter by property</label>
-						<div class="select-wrapper">
-							<select id="property-filter">
-								<option value="all">All Properties</option>
-								<option value="pelicans-rest">Pelican's Rest</option>
-								<option value="sandpiper">The Sandpiper</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="stats-grid" id="stats-grid">
-						<!-- Rendered by JS -->
-					</div>
-
-					<div class="dashboard-grid">
-						<div>
-							<h2 class="section-title">Upcoming Bookings</h2>
-							<div style="overflow-x: auto;">
-								<table class="data-table">
-									<thead>
-										<tr>
-											<th>Guest</th>
-											<th>Check-in</th>
-											<th>Nights</th>
-											<th style="text-align:right;">Amount</th>
-										</tr>
-									</thead>
-									<tbody id="upcoming-bookings-body"></tbody>
-								</table>
-							</div>
-						</div>
-						<div>
-							<h2 class="section-title">Recent Activity</h2>
-							<div class="activity-feed" id="activity-feed"></div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Bookings View -->
-				<div class="view" id="bookings-view">
-					<div class="view-header">
-						<h1 class="greeting">Bookings</h1>
-					</div>
-
-					<div class="month-selector">
-						<label class="field-label">Select month</label>
-						<div class="select-wrapper">
-							<select id="month-filter">
-								<option value="2026-03">March 2026</option>
-								<option value="2026-04" selected>April 2026</option>
-								<option value="2026-05">May 2026</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="property-tabs">
-						<button class="property-tab active" data-property="all">All Properties</button>
-						<button class="property-tab" data-property="pelicans-rest">Pelican's Rest</button>
-						<button class="property-tab" data-property="sandpiper">The Sandpiper</button>
-					</div>
-
-					<div id="bookings-content"></div>
-				</div>
-
-				<!-- Financials View -->
-				<div class="view" id="financials-view">
-					<div class="view-header">
-						<h1 class="greeting">Financials</h1>
-					</div>
-
-					<div style="margin-bottom: 1.5rem;">
-						<label class="field-label">Period</label>
-						<div style="display: flex; align-items: center; gap: 0.75rem;">
-							<div class="select-wrapper">
-								<select id="financial-period">
-									<option value="month">This Month</option>
-									<option value="last-month">Last Month</option>
-									<option value="quarter">This Quarter</option>
-									<option value="ytd">Year to Date</option>
-								</select>
-							</div>
-							<span style="font-size:0.7rem; color:var(--slate-400); font-weight:500;">Live system shows real-time data</span>
-						</div>
-					</div>
-
-					<div class="stats-grid financial-stats" style="grid-template-columns: repeat(4, 1fr);">
-						<div class="stat-card">
-							<div class="stat-label">Gross Revenue</div>
-							<div class="stat-value amount amount-positive" id="gross-revenue">$8,420</div>
-						</div>
-						<div class="stat-card">
-							<div class="stat-label">Management Fee (20%)</div>
-							<div class="stat-value amount amount-negative" id="mgmt-fee">-$1,684</div>
-						</div>
-						<div class="stat-card">
-							<div class="stat-label">Expenses</div>
-							<div class="stat-value amount amount-negative" id="expenses-total">-$1,230</div>
-						</div>
-						<div class="stat-card" style="background: var(--cream); border-color: rgba(22,163,74,0.2);">
-							<div class="stat-label">Net Income</div>
-							<div class="stat-value amount amount-success" id="net-income">$5,506</div>
-						</div>
-					</div>
-
-					<div style="margin-bottom: 2.5rem;">
-						<h2 class="section-title">Revenue by Property</h2>
-						<div class="h-bar-chart" id="revenue-bars">
-							<!-- Rendered by JS -->
-						</div>
-					</div>
-
-					<div>
-						<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-							<h2 class="section-title" style="margin-bottom: 0;">Expenses</h2>
-							<button class="btn-primary btn-icon" id="download-statement">
-								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-								Download Statement
-							</button>
-						</div>
-						<div style="overflow-x: auto;">
-							<table class="expense-table">
-								<thead>
-									<tr>
-										<th>Description</th>
-										<th>Property</th>
-										<th>Date</th>
-										<th style="text-align: right;">Amount</th>
-									</tr>
-								</thead>
-								<tbody id="expenses-body"></tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-
-				<!-- Maintenance View -->
-				<div class="view" id="maintenance-view">
-					<div class="view-header">
-						<h1 class="greeting">Maintenance</h1>
-					</div>
-
-					<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-						<div>
-							<label class="field-label">Filter by status</label>
-							<div class="tabs">
-								<button class="tab active" data-filter="all">All</button>
-								<button class="tab" data-filter="open">Open</button>
-								<button class="tab" data-filter="in-progress">In Progress</button>
-								<button class="tab" data-filter="completed">Completed</button>
-							</div>
-						</div>
-						<button class="btn-primary btn-icon" id="report-issue-btn">
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-							Report Issue
-						</button>
-					</div>
-
-					<div id="maintenance-content"></div>
-				</div>
-
-				<!-- Messages View -->
-				<div class="view" id="messages-view">
-					<div class="view-header">
-						<h1 class="greeting">Messages</h1>
-					</div>
-
-					<div class="messages-container">
-						<div class="messages-list" id="messages-list"></div>
-						<div class="messages-conversation" id="conversation-area">
-							<div style="color: var(--slate-400); text-align: center; padding: 3rem; font-size: 0.85rem;">Select a conversation</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<!-- Modals -->
-	<div id="booking-detail-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-booking-title">
-		<div class="modal-content">
-			<button class="close-btn" aria-label="Close">&times;</button>
-			<div class="modal-header">
-				<h2 class="modal-title" id="modal-booking-title">Booking Details</h2>
-			</div>
-			<div id="modal-booking-body"></div>
-		</div>
-	</div>
-
-	<div id="maintenance-detail-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-maintenance-title">
-		<div class="modal-content">
-			<button class="close-btn" aria-label="Close">&times;</button>
-			<div class="modal-header">
-				<h2 class="modal-title" id="modal-maintenance-title">Maintenance Request</h2>
-			</div>
-			<div id="modal-maintenance-body"></div>
-		</div>
-	</div>
-
-	<div id="report-issue-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-report-title">
-		<div class="modal-content">
-			<button class="close-btn" aria-label="Close">&times;</button>
-			<div class="modal-header">
-				<h2 class="modal-title" id="modal-report-title">Report Issue</h2>
-			</div>
-			<form id="report-issue-form">
-				<div class="form-group">
-					<label class="form-label">Property</label>
-					<select>
-						<option>Pelican's Rest</option>
-						<option>The Sandpiper</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label class="form-label">Description</label>
-					<textarea placeholder="Describe the issue..." required></textarea>
-				</div>
-				<div class="form-group">
-					<label class="form-label">Priority</label>
-					<select>
-						<option>Low</option>
-						<option selected>Medium</option>
-						<option>High</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label class="form-label">Photo (optional)</label>
-					<input type="file" accept="image/*">
-				</div>
-				<button type="submit" class="btn-primary" style="width: 100%;">Submit Report</button>
-			</form>
-		</div>
-	</div>
-
-	<div class="confirmation" id="confirmation" aria-live="polite"></div>
-
-	<div class="demo-footer-cta">
-		<span>Like what you see?</span>
-		<a href="https://localpraxis.com#contact">Get one for your business &#8594;</a>
-	</div>
-
-	<script>
-		// Data
-		const properties = {
-			'pelicans-rest': { name: "Pelican's Rest", type: '3BR/2BA beachfront condo', address: 'Unit 204, Mustang Island Condos' },
-			'sandpiper': { name: 'The Sandpiper', type: '2BR/1BA cottage', address: '118 Station St' }
-		};
-
-		const bookings = [
-			{ id: 1, guest: 'Mike & Sarah Chen', property: 'pelicans-rest', checkIn: '2026-04-01', checkOut: '2026-04-05', nights: 4, guests: 4, total: 1680, status: 'checked-in', platform: 'Airbnb' },
-			{ id: 2, guest: 'Laura Simmons', property: 'pelicans-rest', checkIn: '2026-04-08', checkOut: '2026-04-11', nights: 3, guests: 2, total: 1260, status: 'confirmed', platform: 'VRBO' },
-			{ id: 3, guest: 'The Garza Family', property: 'pelicans-rest', checkIn: '2026-04-15', checkOut: '2026-04-20', nights: 5, guests: 6, total: 2100, status: 'confirmed', platform: 'Direct' },
-			{ id: 4, guest: 'James Whitaker', property: 'pelicans-rest', checkIn: '2026-04-24', checkOut: '2026-04-27', nights: 3, guests: 2, total: 1260, status: 'confirmed', platform: 'Airbnb' },
-			{ id: 5, guest: 'Rebecca Torres', property: 'sandpiper', checkIn: '2026-04-01', checkOut: '2026-04-04', nights: 3, guests: 3, total: 840, status: 'checked-in', platform: 'Direct' },
-			{ id: 6, guest: 'Kyle & Amy Park', property: 'sandpiper', checkIn: '2026-04-06', checkOut: '2026-04-10', nights: 4, guests: 2, total: 1120, status: 'confirmed', platform: 'Airbnb' },
-			{ id: 7, guest: 'Daniel Marsh', property: 'sandpiper', checkIn: '2026-04-12', checkOut: '2026-04-14', nights: 2, guests: 1, total: 560, status: 'confirmed', platform: 'VRBO' },
-			{ id: 8, guest: 'Emily Ross', property: 'sandpiper', checkIn: '2026-04-18', checkOut: '2026-04-21', nights: 3, guests: 4, total: 840, status: 'confirmed', platform: 'Airbnb' },
-			{ id: 9, guest: 'The Newman Family', property: 'sandpiper', checkIn: '2026-04-25', checkOut: '2026-04-30', nights: 5, guests: 5, total: 1400, status: 'confirmed', platform: 'Direct' }
-		];
-
-		const maintenance = [
-			{ id: 1, property: 'pelicans-rest', title: 'Dishwasher not draining properly', reported: '2026-04-01', status: 'open', priority: 'high', reporter: 'Mike Chen (guest)', assigned: 'Reliable Appliance Repair' },
-			{ id: 2, property: 'sandpiper', title: 'Deck railing loose on south side', reported: '2026-03-28', status: 'in-progress', priority: 'high', assigned: 'Gulf Coast Handyman', reporter: 'Island Key Team' },
-			{ id: 3, property: 'pelicans-rest', title: 'Replaced bathroom exhaust fan', reported: '2026-03-25', status: 'completed', priority: 'medium', completed: '2026-03-25', cost: 180, assigned: 'Gulf Coast Handyman' },
-			{ id: 4, property: 'sandpiper', title: 'Fixed leaking kitchen faucet', reported: '2026-03-20', status: 'completed', priority: 'medium', completed: '2026-03-20', cost: 95, assigned: 'Quick Fix Plumbing' },
-			{ id: 5, property: 'pelicans-rest', title: 'Deep clean after spring break guests', reported: '2026-03-15', status: 'completed', priority: 'low', completed: '2026-03-15', cost: 275, assigned: 'Island Cleaning Co.' }
-		];
-
-		const expenses = [
-			{ description: 'Cleaning fee', property: 'pelicans-rest', date: '2026-04-01', amount: 175 },
-			{ description: 'Cleaning fee', property: 'sandpiper', date: '2026-04-01', amount: 125 },
-			{ description: 'Pool maintenance', property: 'pelicans-rest', date: '2026-04-01', amount: 85 },
-			{ description: 'Pest control', property: 'both', date: '2026-03-28', amount: 150 },
-			{ description: 'Replaced AC filter', property: 'pelicans-rest', date: '2026-03-30', amount: 45 },
-			{ description: 'Wi-Fi service', property: 'both', date: '2026-04-01', amount: 120 },
-			{ description: 'Lawn care', property: 'sandpiper', date: '2026-03-29', amount: 65 },
-			{ description: 'Insurance premium', property: 'both', date: '2026-04-01', amount: 465 }
-		];
-
-		const messages = [
-			{ id: 1, title: 'April Bookings Update', preview: 'The Garza family asked about early check-in on the 15th. Can we accommodate 1pm instead of 3pm.', date: '2026-04-01', threads: [
-				{ author: 'Island Key Team', text: 'Hi Sarah. We have an inquiry about the April bookings.', time: '9:45 AM', owner: false },
-				{ author: 'Sarah Mitchell', text: 'Let me know what it is.', time: '10:15 AM', owner: true },
-				{ author: 'Island Key Team', text: 'The Garza family asked about early check-in on the 15th. Can we accommodate 1pm instead of 3pm.', time: '10:20 AM', owner: false }
-			] },
-			{ id: 2, title: 'Dishwasher Issue - Pelican\'s Rest', preview: 'I\'ve called Reliable Appliance. They can come out tomorrow morning.', date: '2026-04-01', threads: [
-				{ author: 'Island Key Team', text: 'Got a report from Mike Chen about the dishwasher not draining. We\'re looking into it.', time: '9:00 AM', owner: false },
-				{ author: 'Sarah Mitchell', text: 'Thanks for the quick response.', time: '9:30 AM', owner: true },
-				{ author: 'Island Key Team', text: 'I\'ve called Reliable Appliance. They can come out tomorrow morning.', time: '10:00 AM', owner: false }
-			] },
-			{ id: 3, title: 'Q1 Owner Statement', preview: 'Your Q1 statement is ready. Net income was $14,820 across both properties.', date: '2026-03-31', threads: [
-				{ author: 'Island Key Team', text: 'Your Q1 statement is ready.', time: '2:00 PM', owner: false },
-				{ author: 'Island Key Team', text: 'Net income was $14,820 across both properties. Let me know if you have questions.', time: '2:05 PM', owner: false }
-			] },
-			{ id: 4, title: 'Spring Break Recap', preview: 'Both properties made it through spring break in good shape. Minor scuff on the Sandpiper\'s front door.', date: '2026-03-22', threads: [
-				{ author: 'Island Key Team', text: 'Both properties made it through spring break in good shape.', time: '11:00 AM', owner: false },
-				{ author: 'Island Key Team', text: 'Minor scuff on the Sandpiper\'s front door, already touched up.', time: '11:05 AM', owner: false }
-			] }
-		];
-
-		const activities = [
-			{ type: 'booking', title: 'Booking Confirmed', text: 'Mike & Sarah Chen confirmed for Pelican\'s Rest, Apr 1-5', time: '1 hour ago' },
-			{ type: 'payment', title: 'Payment Received', text: '$1,680 from Airbnb for Pelican\'s Rest', time: '2 hours ago' },
-			{ type: 'maintenance', title: 'Maintenance Update', text: 'Deck railing repair in progress at The Sandpiper', time: '4 hours ago' },
-			{ type: 'booking', title: 'Check-in', text: 'Rebecca Torres checked in to The Sandpiper', time: '6 hours ago' },
-			{ type: 'message', title: 'New Message', text: 'Island Key team sent you an update on April bookings', time: 'Yesterday' }
-		];
-
-		// State
-		let currentView = 'overview';
-		let currentProperty = 'all';
-		let currentMonth = '2026-04';
-		let selectedMessage = null;
-
-		// Utilities
-		function formatDate(dateStr) {
-			return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-		}
-
-		function formatFullDate(dateStr) {
-			return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-		}
-
-		function getPropertyName(propId) {
-			return properties[propId]?.name || 'Unknown';
-		}
-
-		function getInitials(name) {
-			return name.replace(/^The\s+/i, '').split(/[\s&]+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('');
-		}
-
-		function filterByProperty(list, propId) {
-			if (propId === 'all') return list;
-			return list.filter(b => b.property === propId);
-		}
-
-		function filterByMonth(list, month) {
-			return list.filter(b => b.checkIn.startsWith(month));
-		}
-
-		function showConfirmation(msg) {
-			const el = document.getElementById('confirmation');
-			el.textContent = msg;
-			el.classList.add('show');
-			setTimeout(() => el.classList.remove('show'), 3000);
-		}
-
-		let modalOpener = null;
-
-		function openModal(modalId, triggerEl) {
-			if (triggerEl) modalOpener = triggerEl;
-			const m = document.getElementById(modalId);
-			m.classList.add('active');
-			const f = m.querySelector('button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
-			if (f) setTimeout(() => f.focus(), 50);
-		}
-
-		function closeModal(modalId) {
-			document.getElementById(modalId).classList.remove('active');
-			if (modalOpener) { modalOpener.focus(); modalOpener = null; }
-		}
-
-		// Donut SVG
-		function donutSVG(pct) {
-			const r = 24, c = 2 * Math.PI * r;
-			const fill = (pct / 100) * c;
-			return `<svg class="donut-chart" viewBox="0 0 64 64">
-				<circle cx="32" cy="32" r="${r}" fill="none" stroke="#E2E8F0" stroke-width="6"/>
-				<circle cx="32" cy="32" r="${r}" fill="none" stroke="${pct >= 70 ? '#16A34A' : pct >= 40 ? '#F59E0B' : '#DC2626'}" stroke-width="6" stroke-dasharray="${fill} ${c - fill}" stroke-dashoffset="${c * 0.25}" stroke-linecap="round" style="transition: stroke-dasharray 0.6s ease"/>
-				<text x="32" y="34" text-anchor="middle" dominant-baseline="central" font-family="Satoshi,sans-serif" font-size="13" font-weight="700" fill="#0F172A">${pct}%</text>
-			</svg>`;
-		}
-
-		// ---- OVERVIEW ----
-		function renderOverview() {
-			const filtered = filterByProperty(bookings.filter(b => b.checkIn.startsWith('2026-04')), currentProperty);
-			const sorted = [...filtered].sort((a, b) => new Date(a.checkIn) - new Date(b.checkIn)).slice(0, 5);
-
-			// Stats
-			const totalDays = 30;
-			const bookedDays = new Set();
-			filtered.forEach(b => {
-				const start = parseInt(b.checkIn.split('-')[2]);
-				const end = parseInt(b.checkOut.split('-')[2]);
-				for (let d = start; d < end; d++) bookedDays.add(d);
-			});
-
-			const occupancy = Math.round((bookedDays.size / totalDays) * 100);
-			const revenue = filtered.reduce((sum, b) => sum + b.total, 0);
-			const checkins = filtered.filter(b => new Date(b.checkIn) <= new Date('2026-04-08')).length;
-			const openMaint = maintenance.filter(m => m.status === 'open' || m.status === 'in-progress').length;
-			const feesSaved = Math.round(revenue * 0.04);
-
-			document.getElementById('stats-grid').innerHTML = `
-				<div class="stat-card" data-nav="bookings" title="View bookings">
-					<div class="stat-label">Occupancy Rate</div>
-					<div class="donut-wrap">
-						${donutSVG(occupancy)}
-						<div>
-							<div class="donut-label">this month</div>
-						</div>
-					</div>
-				</div>
-				<div class="stat-card" data-nav="financials" title="View financials">
-					<div class="stat-label">Revenue MTD</div>
-					<div class="stat-value">$${revenue.toLocaleString()}</div>
-					<div class="stat-sub">across ${currentProperty === 'all' ? 'all properties' : getPropertyName(currentProperty)}</div>
-				</div>
-				<div class="stat-card highlight" data-nav="financials" title="View financials">
-					<div class="stat-label">Platform Fees Saved</div>
-					<div class="stat-value amount-success">$${feesSaved.toLocaleString()}</div>
-					<div class="stat-sub">vs. 4% platform cut</div>
-				</div>
-				<div class="stat-card" data-nav="bookings" title="View bookings">
-					<div class="stat-label">Upcoming Check-ins</div>
-					<div class="stat-value">${checkins}</div>
-					<div class="stat-sub">next 7 days</div>
-				</div>
-				<div class="stat-card" data-nav="maintenance" title="View maintenance">
-					<div class="stat-label">Open Maintenance</div>
-					<div class="stat-value">${openMaint}</div>
-					<div class="stat-sub">requests</div>
-				</div>
-			`;
-
-			// Stat card click navigation
-			document.querySelectorAll('.stat-card[data-nav]').forEach(card => {
-				card.addEventListener('click', () => switchView(card.dataset.nav));
-			});
-
-			// Upcoming bookings table with avatars
-			const avatarColors = ['avatar-blue', 'avatar-green', 'avatar-navy'];
-			document.getElementById('upcoming-bookings-body').innerHTML = sorted.map((b, i) => `
-				<tr class="booking-row" data-booking-id="${b.id}">
-					<td>
-						<div class="guest-cell">
-							<div class="avatar ${avatarColors[i % 3]}">${getInitials(b.guest)}</div>
-							<div>
-								<div class="guest-name">${b.guest}</div>
-								<div class="guest-property">${getPropertyName(b.property)}</div>
-							</div>
-						</div>
-					</td>
-					<td>${formatDate(b.checkIn)}</td>
-					<td>${b.nights}</td>
-					<td style="text-align:right;" class="amount amount-positive">$${b.total.toLocaleString()}</td>
-				</tr>
-			`).join('');
-
-			// Activity feed
-			document.getElementById('activity-feed').innerHTML = activities.map(a => `
-				<div class="activity-item" role="button" tabindex="0">
-					<div class="activity-title">${a.title}</div>
-					<div class="activity-text">${a.text}</div>
-					<div class="activity-time">${a.time}</div>
-				</div>
-			`).join('');
-
-			// Event listeners
-			document.querySelectorAll('#upcoming-bookings-body .booking-row').forEach(row => {
-				row.addEventListener('click', () => {
-					const booking = bookings.find(b => b.id == row.dataset.bookingId);
-					if (booking) showBookingDetail(booking);
-				});
-			});
-
-			document.querySelectorAll('.activity-item').forEach(item => {
-				const handle = () => {
-					const text = item.querySelector('.activity-text').textContent;
-					if (text.includes('Booking') || text.includes('Check-in') || text.includes('confirmed')) switchView('bookings');
-					else if (text.includes('Maintenance') || text.includes('repair')) switchView('maintenance');
-					else if (text.includes('Message') || text.includes('update')) switchView('messages');
-				};
-				item.addEventListener('click', handle);
-				item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handle(); } });
-			});
-		}
-
-		function showBookingDetail(b) {
-			document.getElementById('modal-booking-title').textContent = `${b.guest}`;
-			document.getElementById('modal-booking-body').innerHTML = `
-				<div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--slate-100);">
-					<div class="avatar avatar-navy" style="width:48px;height:48px;font-size:0.9rem;">${getInitials(b.guest)}</div>
-					<div>
-						<div style="font-weight:700;font-size:1rem;">${b.guest}</div>
-						<div style="font-size:0.8rem;color:var(--slate-500);">${getPropertyName(b.property)} &middot; ${b.platform}</div>
-					</div>
-				</div>
-				<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
-					<div>
-						<div class="form-label">Check-in</div>
-						<p style="font-weight:500;font-size:0.9rem;">${formatFullDate(b.checkIn)}</p>
-					</div>
-					<div>
-						<div class="form-label">Check-out</div>
-						<p style="font-weight:500;font-size:0.9rem;">${formatFullDate(b.checkOut)}</p>
-					</div>
-					<div>
-						<div class="form-label">Guests</div>
-						<p style="font-weight:500;font-size:0.9rem;">${b.guests} ${b.guests === 1 ? 'person' : 'people'}</p>
-					</div>
-					<div>
-						<div class="form-label">Total</div>
-						<p class="amount amount-positive" style="font-size:1.1rem;font-weight:700;">$${b.total.toLocaleString()}</p>
-					</div>
-					<div>
-						<div class="form-label">Status</div>
-						<span class="badge ${b.status === 'checked-in' ? 'badge-green' : b.status === 'confirmed' ? 'badge-blue' : 'badge-yellow'}">${b.status.charAt(0).toUpperCase() + b.status.slice(1)}</span>
-					</div>
-					<div>
-						<div class="form-label">Payment</div>
-						<span class="badge badge-green">Paid</span>
-					</div>
-				</div>
-				<div class="modal-actions">
-					<button class="btn-primary" onclick="showDemoModal('In the live version, this texts the guest a check-in guide with door codes, WiFi password, and house rules.')">Send Check-in Instructions</button>
-					<button class="btn-secondary" onclick="showDemoModal('In the live version, this prints a booking summary for your records.')">Print Summary</button>
-					<button class="btn-secondary" onclick="showDemoModal('In the live version, this emails a stay receipt to the guest with a link to leave a review.')">Email Receipt</button>
-				</div>
-			`;
-			openModal('booking-detail-modal', document.activeElement);
-		}
-
-		// ---- BOOKINGS ----
-		function renderBookings() {
-			const filtered = filterByMonth(bookings, currentMonth);
-			let html = '';
-
-			if (currentProperty === 'all') {
-				['pelicans-rest', 'sandpiper'].forEach(propId => {
-					html += renderPropertySection(propId, filtered.filter(b => b.property === propId));
-				});
-			} else {
-				html += renderPropertySection(currentProperty, filtered.filter(b => b.property === currentProperty));
-			}
-
-			document.getElementById('bookings-content').innerHTML = html;
-
-			document.querySelectorAll('#bookings-content .booking-row, #bookings-content .occ-day.booked').forEach(el => {
-				el.addEventListener('click', () => {
-					const booking = bookings.find(b => b.id == el.dataset.bookingId);
-					if (booking) showBookingDetail(booking);
-				});
-			});
-		}
-
-		function renderPropertySection(propId, propBookings) {
-			const propName = getPropertyName(propId);
-			const [yearStr, monthStr] = currentMonth.split('-');
-			const year = parseInt(yearStr);
-			const month = parseInt(monthStr) - 1;
-			const daysInMonth = new Date(year, month + 1, 0).getDate();
-			const firstDow = new Date(year, month, 1).getDay(); // 0=Sun
-			const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-			const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
-			// Build a map: day number -> booking info
-			const dayMap = {};
-			propBookings.forEach(b => {
-				const start = parseInt(b.checkIn.split('-')[2]);
-				const end = Math.min(parseInt(b.checkOut.split('-')[2]), daysInMonth + 1);
-				const shortName = b.guest.split(/[\s&]/)[0];
-				for (let d = start; d < end; d++) {
-					dayMap[d] = { guest: shortName, status: b.status, id: b.id, fullGuest: b.guest };
-				}
-			});
-
-			// Calendar grid
-			let calHtml = `<div class="occ-cal">`;
-			calHtml += `<div class="occ-cal-header">`;
-			dayNames.forEach(d => calHtml += `<span>${d}</span>`);
-			calHtml += `</div><div class="occ-cal-grid">`;
-
-			// Empty cells before the 1st
-			for (let i = 0; i < firstDow; i++) calHtml += `<div class="occ-day empty"></div>`;
-
-			for (let d = 1; d <= daysInMonth; d++) {
-				const info = dayMap[d];
-				if (info) {
-					const statusCls = info.status === 'checked-in' ? 'status-checked-in' : 'status-confirmed';
-					calHtml += `<div class="occ-day booked" data-booking-id="${info.id}" title="${info.fullGuest}">
-						<div class="occ-day-num">${d}</div>
-						<div class="occ-day-guest ${statusCls}">${info.guest}</div>
-					</div>`;
-				} else {
-					calHtml += `<div class="occ-day"><div class="occ-day-num">${d}</div></div>`;
-				}
-			}
-
-			calHtml += `</div></div>`;
-			calHtml += `<div class="occ-legend">
-				<span><span class="occ-legend-dot" style="background:var(--success);"></span>Checked in</span>
-				<span><span class="occ-legend-dot" style="background:var(--blue);"></span>Confirmed</span>
-				<span><span class="occ-legend-dot" style="background:var(--slate-100);border:1px solid var(--slate-200);"></span>Available</span>
-			</div>`;
-
-			const avatarColors = ['avatar-blue', 'avatar-green', 'avatar-navy'];
-			const rows = propBookings.map((b, i) => `
-				<tr class="booking-row" data-booking-id="${b.id}">
-					<td>
-						<div class="guest-cell">
-							<div class="avatar ${avatarColors[i % 3]}">${getInitials(b.guest)}</div>
-							<div class="guest-name">${b.guest}</div>
-						</div>
-					</td>
-					<td>${formatDate(b.checkIn)}</td>
-					<td>${formatDate(b.checkOut)}</td>
-					<td>${b.nights}</td>
-					<td style="text-align:right;" class="amount amount-positive">$${b.total.toLocaleString()}</td>
-					<td><span class="badge ${b.status === 'checked-in' ? 'badge-green' : b.status === 'confirmed' ? 'badge-blue' : 'badge-yellow'}">${b.status.charAt(0).toUpperCase() + b.status.slice(1)}</span></td>
-				</tr>
-			`).join('');
-
-			return `
-				<div class="property-booking-section">
-					<h3 style="font-weight:700;font-size:1rem;margin-bottom:0.5rem;">${propName}</h3>
-					<div style="margin-bottom:1.5rem;">
-						<div class="field-label" style="margin-bottom:0.5rem;">${monthNames[month]} Occupancy</div>
-						${calHtml}
-					</div>
-					<div style="overflow-x:auto;">
-						<table class="data-table">
-							<thead><tr><th>Guest</th><th>Check-in</th><th>Check-out</th><th>Nights</th><th style="text-align:right;">Total</th><th>Status</th></tr></thead>
-							<tbody>${rows || '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--slate-400);">No bookings</td></tr>'}</tbody>
-						</table>
-					</div>
-				</div>
-			`;
-		}
-
-		// ---- FINANCIALS ----
-		function renderFinancials() {
-			// Revenue bars
-			const pelicanRev = 5600, sandpiperRev = 2820;
-			const maxRev = Math.max(pelicanRev, sandpiperRev);
-
-			document.getElementById('revenue-bars').innerHTML = `
-				<div class="h-bar-row">
-					<div class="h-bar-label">Pelican's Rest</div>
-					<div class="h-bar-track">
-						<div class="h-bar-fill" style="width:${(pelicanRev / maxRev) * 100}%;">
-							<span class="h-bar-value">$${pelicanRev.toLocaleString()}</span>
-						</div>
-					</div>
-				</div>
-				<div class="h-bar-row">
-					<div class="h-bar-label">The Sandpiper</div>
-					<div class="h-bar-track">
-						<div class="h-bar-fill" style="width:${(sandpiperRev / maxRev) * 100}%;">
-							<span class="h-bar-value">$${sandpiperRev.toLocaleString()}</span>
-						</div>
-					</div>
-				</div>
-			`;
-
-			// Expense table
-			document.getElementById('expenses-body').innerHTML = expenses.map(e => `
-				<tr>
-					<td style="font-weight:500;">${e.description}</td>
-					<td style="color:var(--slate-500);">${e.property === 'both' ? 'Both Properties' : getPropertyName(e.property)}</td>
-					<td style="color:var(--slate-500);">${formatDate(e.date)}</td>
-					<td style="text-align:right;" class="amount amount-negative">-$${e.amount.toLocaleString()}</td>
-				</tr>
-			`).join('');
-		}
-
-		// ---- MAINTENANCE ----
-		function renderMaintenance() {
-			let filtered = maintenance;
-			const activeTab = document.querySelector('.tab.active')?.dataset.filter || 'all';
-			if (activeTab !== 'all') filtered = filtered.filter(m => m.status === activeTab);
-
-			const cameraIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`;
-
-			document.getElementById('maintenance-content').innerHTML = filtered.map(m => {
-				const statusBadge = m.status === 'open' ? 'badge-red' : m.status === 'in-progress' ? 'badge-yellow' : 'badge-green';
-				const priorityCls = m.priority === 'high' ? 'priority-high' : m.priority === 'medium' ? 'priority-medium' : 'priority-low';
-
-				return `
-				<div class="maintenance-card" data-maintenance-id="${m.id}" role="button" tabindex="0">
-					<div class="maint-top">
-						<div class="maint-photo">${cameraIcon}</div>
-						<div class="maint-body">
-							<div class="maint-header">
-								<div class="maint-title">${m.title}</div>
-								<span class="priority-pill ${priorityCls}">${m.priority.toUpperCase()}</span>
-							</div>
-							<div class="maint-property">${getPropertyName(m.property)}</div>
-							<div class="maint-meta">
-								Reported ${formatFullDate(m.reported)}
-								<span class="badge ${statusBadge}" style="margin-left:0.5rem;">${m.status.charAt(0).toUpperCase() + m.status.slice(1).replace('-', ' ')}</span>
-							</div>
-							${m.assigned ? `<div class="maint-assignee">Assigned to: ${m.assigned}</div>` : ''}
-							${m.cost ? `<div class="maint-assignee">Cost: <span class="amount amount-negative">$${m.cost}</span></div>` : ''}
-						</div>
-					</div>
-				</div>`;
-			}).join('') || '<p style="color:var(--slate-400);padding:1rem;">No maintenance requests</p>';
-
-			document.querySelectorAll('.maintenance-card').forEach(card => {
-				const handle = () => {
-					const m = maintenance.find(x => x.id == card.dataset.maintenanceId);
-					if (m) showMaintenanceDetail(m);
-				};
-				card.addEventListener('click', handle);
-				card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handle(); } });
-			});
-		}
-
-		function showMaintenanceDetail(m) {
-			const priorityCls = m.priority === 'high' ? 'priority-high' : m.priority === 'medium' ? 'priority-medium' : 'priority-low';
-			const statusBadge = m.status === 'open' ? 'badge-red' : m.status === 'in-progress' ? 'badge-yellow' : 'badge-green';
-
-			let html = `
-				<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
-					<div>
-						<div class="form-label">Property</div>
-						<p style="font-weight:500;font-size:0.9rem;">${getPropertyName(m.property)}</p>
-					</div>
-					<div>
-						<div class="form-label">Priority</div>
-						<span class="priority-pill ${priorityCls}">${m.priority.toUpperCase()}</span>
-					</div>
-					<div style="grid-column:1/-1;">
-						<div class="form-label">Issue</div>
-						<p style="font-weight:500;font-size:0.9rem;">${m.title}</p>
-					</div>
-					<div>
-						<div class="form-label">Reported</div>
-						<p style="font-size:0.85rem;">${formatFullDate(m.reported)}</p>
-					</div>
-					<div>
-						<div class="form-label">Status</div>
-						<span class="badge ${statusBadge}">${m.status.charAt(0).toUpperCase() + m.status.slice(1).replace('-', ' ')}</span>
-					</div>
-			`;
-			if (m.assigned) html += `<div><div class="form-label">Assigned To</div><p style="font-weight:500;font-size:0.85rem;">${m.assigned}</p></div>`;
-			if (m.reporter) html += `<div><div class="form-label">Reported By</div><p style="font-size:0.85rem;">${m.reporter}</p></div>`;
-			if (m.cost) html += `<div><div class="form-label">Cost</div><p class="amount amount-negative" style="font-weight:600;">$${m.cost.toLocaleString()}</p></div>`;
-			if (m.completed) html += `<div><div class="form-label">Completed</div><p style="font-size:0.85rem;">${formatFullDate(m.completed)}</p></div>`;
-			html += `</div>`;
-			html += `<div class="modal-actions">
-				<button class="btn-secondary" onclick="showDemoModal('In the live version, this prints a maintenance work order for your records or to hand to the vendor.')">Print Work Order</button>
-				<button class="btn-secondary" onclick="showDemoModal('In the live version, this emails the maintenance report to the property owner with photos and cost details.')">Email Report</button>
-			</div>`;
-
-			document.getElementById('modal-maintenance-body').innerHTML = html;
-			openModal('maintenance-detail-modal', document.activeElement);
-		}
-
-		// ---- MESSAGES ----
-		function renderMessages() {
-			document.getElementById('messages-list').innerHTML = messages.map(m => `
-				<div class="message-thread ${selectedMessage === m.id ? 'active' : ''}" data-message-id="${m.id}" role="button" tabindex="0">
-					<div class="message-thread-title">${m.title}</div>
-					<div class="message-thread-preview">${m.preview}</div>
-					<div class="message-thread-date">${m.date}</div>
-				</div>
-			`).join('');
-
-			if (selectedMessage === null && messages.length > 0) {
-				selectedMessage = messages[0].id;
-				renderConversation(messages[0]);
-			} else if (selectedMessage) {
-				const msg = messages.find(m => m.id === selectedMessage);
-				if (msg) renderConversation(msg);
-			}
-
-			document.querySelectorAll('.message-thread').forEach(thread => {
-				const handle = () => { selectedMessage = parseInt(thread.dataset.messageId); renderMessages(); };
-				thread.addEventListener('click', handle);
-				thread.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handle(); } });
-			});
-		}
-
-		function renderConversation(msg) {
-			const area = document.getElementById('conversation-area');
-			const msgHtml = msg.threads.map(t => `
-				<div class="message ${t.owner ? 'owner' : ''}">
-					${!t.owner ? `<div class="msg-avatar msg-avatar-team">IK</div>` : ''}
-					<div class="message-bubble">
-						<div class="message-author">${t.author}</div>
-						<div class="message-text">${t.text}</div>
-						<div class="message-time">${t.time}</div>
-					</div>
-					${t.owner ? `<div class="msg-avatar msg-avatar-owner">SM</div>` : ''}
-				</div>
-			`).join('');
-
-			area.innerHTML = `
-				<div class="conversation-header">
-					<h3 class="conversation-title">${msg.title}</h3>
-				</div>
-				<div class="conversation-messages">${msgHtml}</div>
-				<div class="compose-area">
-					<div class="compose-wrap">
-						<input type="text" class="compose-input" placeholder="Type a message..." style="border:none;margin:0;padding:0.4rem 0;">
-						<button class="send-btn" id="send-btn" aria-label="Send">
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-						</button>
-					</div>
-				</div>
-			`;
-
-			document.getElementById('send-btn').addEventListener('click', () => {
-				const input = area.querySelector('.compose-input');
-				if (input.value.trim()) {
-					msg.threads.push({ author: 'Sarah Mitchell', text: input.value, time: 'Just now', owner: true });
-					input.value = '';
-					renderConversation(msg);
-					showConfirmation('Message sent');
-				}
-			});
-
-			area.querySelector('.compose-input').addEventListener('keydown', e => {
-				if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('send-btn').click(); }
-			});
-		}
-
-		// ---- VIEW SWITCHING ----
-		function switchView(view) {
-			document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-			document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-			document.getElementById(`${view}-view`).classList.add('active');
-			document.querySelector(`[data-view="${view}"]`).classList.add('active');
-			currentView = view;
-
-			if (view === 'overview') renderOverview();
-			else if (view === 'bookings') renderBookings();
-			else if (view === 'financials') renderFinancials();
-			else if (view === 'maintenance') renderMaintenance();
-			else if (view === 'messages') renderMessages();
-		}
-
-		// Event listeners
-		document.querySelectorAll('.nav-item').forEach(item => {
-			item.addEventListener('click', () => switchView(item.dataset.view));
-			item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); } });
-		});
-
-		document.getElementById('property-filter').addEventListener('change', e => {
-			currentProperty = e.target.value;
-			renderOverview();
-		});
-
-		document.getElementById('month-filter').addEventListener('change', e => {
-			currentMonth = e.target.value;
-			renderBookings();
-		});
-
-		document.querySelectorAll('.property-tab').forEach(tab => {
-			tab.addEventListener('click', e => {
-				document.querySelectorAll('.property-tab').forEach(t => t.classList.remove('active'));
-				e.target.classList.add('active');
-				currentProperty = e.target.dataset.property;
-				renderBookings();
-			});
-		});
-
-		document.querySelectorAll('.tab').forEach(tab => {
-			tab.addEventListener('click', e => {
-				document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-				e.target.classList.add('active');
-				renderMaintenance();
-			});
-		});
-
-		document.getElementById('download-statement').addEventListener('click', () => {
-			const rows = [
-				['Island Key Properties - Owner Statement'],
-				['Period', 'This Month (April 2026)'], [''],
-				['Summary'],
-				['Gross Revenue', '$8,420'],
-				['Management Fee (20%)', '-$1,684'],
-				['Expenses', '-$1,230'],
-				['Net Income', '$5,506'], [''],
-				['Expense Detail'],
-				['Description', 'Property', 'Date', 'Amount'],
-				...expenses.map(e => [e.description, e.property === 'both' ? 'Both Properties' : getPropertyName(e.property), e.date, '-$' + e.amount.toLocaleString()])
-			];
-			const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
-			const blob = new Blob([csv], { type: 'text/csv' });
-			const url = URL.createObjectURL(blob);
-			const a = document.createElement('a');
-			a.href = url; a.download = 'statement-april-2026.csv';
-			document.body.appendChild(a); a.click(); document.body.removeChild(a);
-			URL.revokeObjectURL(url);
-			showConfirmation('Statement downloaded');
-		});
-
-		document.getElementById('report-issue-btn').addEventListener('click', e => openModal('report-issue-modal', e.currentTarget));
-
-		document.getElementById('report-issue-form').addEventListener('submit', e => {
-			e.preventDefault();
-			closeModal('report-issue-modal');
-			showConfirmation('Issue reported successfully');
-			e.target.reset();
-		});
-
-		document.querySelectorAll('.close-btn').forEach(btn => {
-			btn.addEventListener('click', e => {
-				e.target.closest('.modal').classList.remove('active');
-				if (modalOpener) { modalOpener.focus(); modalOpener = null; }
-			});
-		});
-
-		document.querySelectorAll('.modal').forEach(modal => {
-			modal.addEventListener('click', e => {
-				if (e.target === modal) { modal.classList.remove('active'); if (modalOpener) { modalOpener.focus(); modalOpener = null; } }
-			});
-		});
-
-		document.addEventListener('keydown', e => {
-			if (e.key === 'Escape') document.querySelectorAll('.modal.active').forEach(m => { m.classList.remove('active'); if (modalOpener) { modalOpener.focus(); modalOpener = null; } });
-		});
-
-		// Mobile sidebar
-		const hamburgerBtn = document.getElementById('hamburger-btn');
-		const sidebarEl = document.getElementById('sidebar');
-		const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-
-		hamburgerBtn.addEventListener('click', () => { sidebarEl.classList.add('mobile-open'); sidebarBackdrop.classList.add('open'); });
-		document.getElementById('sidebar-close-btn').addEventListener('click', closeSidebar);
-		sidebarBackdrop.addEventListener('click', closeSidebar);
-
-		function closeSidebar() { sidebarEl.classList.remove('mobile-open'); sidebarBackdrop.classList.remove('open'); }
-
-		document.querySelectorAll('.nav-item').forEach(item => {
-			item.addEventListener('click', () => { if (window.innerWidth < 768) closeSidebar(); });
-		});
-
-		// Init
-		document.getElementById('current-date').textContent = formatFullDate('2026-04-01');
-		renderOverview();
-	</script>
-
-	<div class="demo-modal-overlay" id="demo-modal-overlay">
-		<div class="demo-modal">
-			<p id="demo-modal-message"></p>
-			<button class="btn-primary" id="demo-modal-dismiss">Got it</button>
-		</div>
-	</div>
-
-	<script>
-		function showDemoModal(message) {
-			const overlay = document.getElementById('demo-modal-overlay');
-			document.getElementById('demo-modal-message').textContent = message;
-			overlay.style.display = 'flex';
-			requestAnimationFrame(() => {
-				overlay.classList.add('active');
-			});
-			document.getElementById('demo-modal-dismiss').focus();
-		}
-
-		function closeDemoModal() {
-			const overlay = document.getElementById('demo-modal-overlay');
-			overlay.classList.remove('active');
-			setTimeout(() => { overlay.style.display = 'none'; }, 200);
-		}
-
-		document.getElementById('demo-modal-dismiss').addEventListener('click', closeDemoModal);
-
-		document.getElementById('demo-modal-overlay').addEventListener('click', function(e) {
-			if (e.target === this) closeDemoModal();
-		});
-
-		document.addEventListener('keydown', function(e) {
-			if (e.key === 'Escape' && document.getElementById('demo-modal-overlay').classList.contains('active')) {
-				closeDemoModal();
-			}
-		});
-	</script>
-
-	<a class="lp-back" href="https://localpraxis.com" style="position:fixed;top:1rem;right:1rem;z-index:9999;display:inline-flex;align-items:center;gap:0.4em;padding:0.5em 1em;background:#1C1917;color:#FDFAF5;border-radius:5px;font-family:'Satoshi',system-ui,sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.02em;text-decoration:none;transition:opacity 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.18);">&#8592; localpraxis.com</a>
+  <nav class="role-bar" aria-label="Portal role">
+    <div class="role-bar-label">PORTAL</div>
+    <div class="role-segments" role="group" aria-label="Select portal role">
+      <button type="button" class="role-btn" data-role="owner" aria-current="false">OWNER</button>
+      <button type="button" class="role-btn" data-role="manager" aria-current="false">MANAGER</button>
+      <button type="button" class="role-btn" data-role="guest" aria-current="false">GUEST</button>
+    </div>
+    <button type="button" class="menu-toggle" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="false">MENU</button>
+  </nav>
+
+  <noscript>
+    <p class="noscript">JavaScript is required to run this portal demo.</p>
+  </noscript>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar" aria-label="Section navigation">
+      <div class="sidebar-pane" data-view="owner" hidden>
+        <p class="placeholder">OWNER NAV — scaffolding only</p>
+      </div>
+      <div class="sidebar-pane" data-view="manager" hidden>
+        <p class="placeholder">MANAGER NAV — scaffolding only</p>
+      </div>
+      <div class="sidebar-pane" data-view="guest" hidden>
+        <p class="placeholder">GUEST NAV — scaffolding only</p>
+      </div>
+    </aside>
+    <main class="main" id="main">
+      <section class="view-pane" data-view="owner" hidden>
+        <p class="placeholder">OWNER DASHBOARD — scaffolding only</p>
+      </section>
+      <section class="view-pane" data-view="manager" hidden>
+        <header class="mgr-header">
+          <div>
+            <p class="mgr-eyebrow">COASTAL STAYS HQ</p>
+            <h1>Operations</h1>
+          </div>
+          <div class="mgr-date" aria-label="Today">
+            <span class="mgr-date-day">SUN APR 19</span>
+            <span class="mgr-date-year">2026</span>
+          </div>
+        </header>
+
+        <section class="ops-strip" aria-label="Operational metrics">
+          <div class="ops-tile">
+            <div class="ops-numeral">24</div>
+            <div class="ops-label">Total Properties</div>
+          </div>
+          <div class="ops-tile">
+            <div class="ops-numeral">3</div>
+            <div class="ops-label">Active Bookings</div>
+            <div class="ops-sub">3 occupied tonight</div>
+          </div>
+          <div class="ops-tile">
+            <div class="ops-numeral">3</div>
+            <div class="ops-label">Check-ins Today</div>
+            <div class="ops-sub">all by 3:00 PM</div>
+          </div>
+          <div class="ops-tile">
+            <div class="ops-numeral">1</div>
+            <div class="ops-label">Cleanings Pending</div>
+            <div class="ops-sub is-warn">1 in progress</div>
+          </div>
+          <div class="ops-tile">
+            <div class="ops-numeral">4</div>
+            <div class="ops-label">Open Maintenance</div>
+            <div class="ops-sub is-alert">1 high severity</div>
+          </div>
+        </section>
+
+        <section aria-labelledby="mgr-today-heading">
+          <header class="section-header">
+            <h2 id="mgr-today-heading">Today&rsquo;s Operations</h2>
+            <p class="section-meta">SUN APR 19 &middot; 2026</p>
+          </header>
+          <ol class="timeline">
+            <li class="timeline-event">
+              <span class="timeline-time">9:00 AM</span>
+              <span class="timeline-tag">Cleaning</span>
+              <span class="timeline-detail">Sea Breeze Cottage &middot; Bay Area Cleaning</span>
+            </li>
+            <li class="timeline-event">
+              <span class="timeline-time">10:00 AM</span>
+              <span class="timeline-tag">Cleaning</span>
+              <span class="timeline-detail">Driftwood House &middot; Island Clean Co.</span>
+            </li>
+            <li class="timeline-event">
+              <span class="timeline-time">11:00 AM</span>
+              <span class="timeline-tag">Check-out</span>
+              <span class="timeline-detail">Harold Patel &middot; Island Pines</span>
+            </li>
+            <li class="timeline-event">
+              <span class="timeline-time">11:00 AM</span>
+              <span class="timeline-tag">Cleaning</span>
+              <span class="timeline-detail">Marlin&rsquo;s Rest &middot; Bay Area Cleaning</span>
+            </li>
+            <li class="timeline-event" data-state="in-progress">
+              <span class="timeline-time">12:00 PM</span>
+              <span class="timeline-tag">Cleaning</span>
+              <span class="timeline-detail">Island Pines &middot; Island Clean Co. &middot; turnover for r48</span>
+            </li>
+            <li class="timeline-event" data-state="in-progress">
+              <span class="timeline-time">2:00 PM</span>
+              <span class="timeline-tag">Onsite</span>
+              <span class="timeline-detail">Sandcastle 412 &middot; Coastal Maintenance &middot; AC compressor</span>
+            </li>
+            <li class="timeline-event" data-state="in-progress">
+              <span class="timeline-time">2:30 PM</span>
+              <span class="timeline-tag">Onsite</span>
+              <span class="timeline-detail">Tide Pool House &middot; Coastal Maintenance &middot; roof leak repair</span>
+            </li>
+            <li class="timeline-event">
+              <span class="timeline-time">3:00 PM</span>
+              <span class="timeline-tag">Check-in</span>
+              <span class="timeline-detail">Samuel Adeyemi &middot; Sea Breeze Cottage</span>
+            </li>
+            <li class="timeline-event">
+              <span class="timeline-time">3:00 PM</span>
+              <span class="timeline-tag">Check-in</span>
+              <span class="timeline-detail">Julia Ferreira &middot; Driftwood House</span>
+            </li>
+            <li class="timeline-event">
+              <span class="timeline-time">3:00 PM</span>
+              <span class="timeline-tag">Check-in</span>
+              <span class="timeline-detail">Monica Bell &middot; Marlin&rsquo;s Rest</span>
+            </li>
+          </ol>
+        </section>
+
+        <section aria-labelledby="mgr-properties-heading">
+          <header class="section-header">
+            <h2 id="mgr-properties-heading">Properties</h2>
+            <p class="section-meta">24 across 16 owners</p>
+          </header>
+          <table class="data-table data-table-properties">
+            <thead>
+              <tr>
+                <th scope="col">Property</th>
+                <th scope="col">Owner</th>
+                <th scope="col">Occupancy &middot; This Week</th>
+                <th scope="col">Channels</th>
+                <th scope="col">Next Booking</th>
+                <th scope="col" class="th-alert">Alert</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Sandcastle 412</div>
+                  <div class="cell-sub">412 Beach Ave</div>
+                </td>
+                <td>Sarah Whitaker</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:57%"></div></div>
+                    <span class="occupancy-meta">4/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">APR 22 &middot; F. Obi</td>
+                <td class="cell-alert"><span class="alert-dot" aria-label="Open maintenance ticket"></span></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Mustang Towers 7B</div>
+                  <div class="cell-sub">700 Access Rd</div>
+                </td>
+                <td>Sarah Whitaker</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:29%"></div></div>
+                    <span class="occupancy-meta">2/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-active" title="Synced">Booking</span>
+                  </div>
+                </td>
+                <td class="mono">APR 24 &middot; M. Bell</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Sea Breeze Cottage</div>
+                  <div class="cell-sub">118 Cotter Ave</div>
+                </td>
+                <td>Sarah Whitaker</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:57%"></div></div>
+                    <span class="occupancy-meta">4/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">APR 19 <span class="today-flag">Today</span> &middot; S. Adeyemi</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Gulf View 201</div>
+                  <div class="cell-sub">201 Station St</div>
+                </td>
+                <td>Sarah Whitaker</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:0%"></div></div>
+                    <span class="occupancy-meta">0/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">APR 26 &middot; X. Fontaine</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Pelican Perch</div>
+                  <div class="cell-sub">845 Padre Blvd</div>
+                </td>
+                <td>Marcus Chen</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:14%"></div></div>
+                    <span class="occupancy-meta">1/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-active" title="Synced">Booking</span>
+                  </div>
+                </td>
+                <td class="mono">APR 25 &middot; B. Cole</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Tarpon Flats</div>
+                  <div class="cell-sub">302 Cut Off Rd</div>
+                </td>
+                <td>Marcus Chen</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:57%"></div></div>
+                    <span class="occupancy-meta">4/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">APR 22 &middot; G. Leblanc</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Driftwood House</div>
+                  <div class="cell-sub">56 W Cotter Ave</div>
+                </td>
+                <td>Diane Kowalski</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:71%"></div></div>
+                    <span class="occupancy-meta">5/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-active" title="Synced">Booking</span>
+                  </div>
+                </td>
+                <td class="mono">APR 19 <span class="today-flag">Today</span> &middot; J. Ferreira</td>
+                <td class="cell-alert"><span class="alert-dot" aria-label="Open maintenance ticket"></span></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Blue Heron Bungalow</div>
+                  <div class="cell-sub">29 Alister St</div>
+                </td>
+                <td>Diane Kowalski</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:0%"></div></div>
+                    <span class="occupancy-meta">0/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">MAY 8 &middot; N. Owens</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Port Royal 305</div>
+                  <div class="cell-sub">305 N Station St</div>
+                </td>
+                <td>Robert Tran</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:0%"></div></div>
+                    <span class="occupancy-meta">0/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">APR 27 &middot; C. Reyes</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Tide Pool House</div>
+                  <div class="cell-sub">77 Rincon Dr</div>
+                </td>
+                <td>Robert Tran</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:0%"></div></div>
+                    <span class="occupancy-meta">0/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-pending" title="Sync pending">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-active" title="Synced">Booking</span>
+                  </div>
+                </td>
+                <td class="mono">MAY 15 &middot; F. Obi</td>
+                <td class="cell-alert"><span class="alert-dot" aria-label="Open maintenance ticket"></span></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Island Pines</div>
+                  <div class="cell-sub">114 S Alister St</div>
+                </td>
+                <td>Linda Okafor</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:0%"></div></div>
+                    <span class="occupancy-meta">0/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">APR 26 &middot; I. Thornton</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Sand Dollar Suite</div>
+                  <div class="cell-sub">501 E Ave G</div>
+                </td>
+                <td>James Harrington</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:43%"></div></div>
+                    <span class="occupancy-meta">3/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">APR 21 &middot; K. Simmons</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Marlin&rsquo;s Rest</div>
+                  <div class="cell-sub">88 N Cut Off Rd</div>
+                </td>
+                <td>James Harrington</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:71%"></div></div>
+                    <span class="occupancy-meta">5/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-error" title="Sync error">Booking</span>
+                  </div>
+                </td>
+                <td class="mono">APR 19 <span class="today-flag">Today</span> &middot; M. Bell</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Lighthouse Landing</div>
+                  <div class="cell-sub">222 Cutter St</div>
+                </td>
+                <td>Patricia Nguyen</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:0%"></div></div>
+                    <span class="occupancy-meta">0/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">MAY 9 &middot; R. Soto</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Bayside Retreat</div>
+                  <div class="cell-sub">19 Conn Brown Harbor Rd</div>
+                </td>
+                <td>David Ruiz</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:86%"></div></div>
+                    <span class="occupancy-meta">6/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-active" title="Synced">Booking</span>
+                  </div>
+                </td>
+                <td class="mono">APR 20 &middot; T. Holloway</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Salty Dog Cottage</div>
+                  <div class="cell-sub">43 W Ave A</div>
+                </td>
+                <td>David Ruiz</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:0%"></div></div>
+                    <span class="occupancy-meta">0/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">MAY 4 &middot; V. Marsh</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Osprey&rsquo;s Nest</div>
+                  <div class="cell-sub">67 Trout St</div>
+                </td>
+                <td>Karen Stevenson</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:57%"></div></div>
+                    <span class="occupancy-meta">4/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">APR 22 &middot; X. Fontaine</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Breakwater 202</div>
+                  <div class="cell-sub">202 Whitman Dr</div>
+                </td>
+                <td>Thomas Belfort</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:0%"></div></div>
+                    <span class="occupancy-meta">0/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">APR 28 &middot; Z. Caldwell</td>
+                <td class="cell-alert"><span class="alert-dot" aria-label="Open maintenance ticket"></span></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Palmetto Place</div>
+                  <div class="cell-sub">91 S Station St</div>
+                </td>
+                <td>Angela Morales</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:0%"></div></div>
+                    <span class="occupancy-meta">0/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-active" title="Synced">Booking</span>
+                  </div>
+                </td>
+                <td class="mono">MAY 17 &middot; B. Cole</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Surfside 8</div>
+                  <div class="cell-sub">8 Surfside Dr</div>
+                </td>
+                <td>Greg Sutton</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:29%"></div></div>
+                    <span class="occupancy-meta">2/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">APR 24 &middot; D. Hutchins</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Shell Seeker</div>
+                  <div class="cell-sub">33 Ave C</div>
+                </td>
+                <td>Michelle Park</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:0%"></div></div>
+                    <span class="occupancy-meta">0/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">MAY 20 &middot; F. Walsh</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Coastal Cove</div>
+                  <div class="cell-sub">155 Ave H</div>
+                </td>
+                <td>Frank Delacroix</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:14%"></div></div>
+                    <span class="occupancy-meta">1/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-active" title="Synced">Booking</span>
+                  </div>
+                </td>
+                <td class="mono">APR 25 &middot; H. Pittman</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Sunrise Suite</div>
+                  <div class="cell-sub">410 E Ave B</div>
+                </td>
+                <td>Joyce Andersen</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:0%"></div></div>
+                    <span class="occupancy-meta">0/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                    <span class="channel-pill is-none" title="Not listed">&mdash;</span>
+                  </div>
+                </td>
+                <td class="mono">MAY 12 &middot; J. Ferreira</td>
+                <td class="cell-alert"></td>
+              </tr>
+              <tr>
+                <td class="cell-property">
+                  <div class="cell-name">Deckhouse at Horace Caldwell</div>
+                  <div class="cell-sub">11 Bob Hall Pier Rd</div>
+                </td>
+                <td>Carl Washington</td>
+                <td>
+                  <div class="occupancy">
+                    <div class="occupancy-bar"><div class="occupancy-fill" style="width:43%"></div></div>
+                    <span class="occupancy-meta">3/7 nights</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="channel-pills">
+                    <span class="channel-pill is-active" title="Synced">Airbnb</span>
+                    <span class="channel-pill is-active" title="Synced">VRBO</span>
+                    <span class="channel-pill is-active" title="Synced">Booking</span>
+                  </div>
+                </td>
+                <td class="mono">APR 23 &middot; L. Mendez</td>
+                <td class="cell-alert"></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+      <section class="view-pane" data-view="guest" hidden>
+        <p class="placeholder">GUEST BOOKING FLOW — scaffolding only</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var ALLOWED_VIEWS = ['owner', 'manager', 'guest'];
+      var DEFAULT_VIEW = 'owner';
+
+      function resolveView(raw) {
+        return ALLOWED_VIEWS.indexOf(raw) >= 0 ? raw : DEFAULT_VIEW;
+      }
+
+      function getActiveView() {
+        return resolveView(document.documentElement.getAttribute('data-view'));
+      }
+
+      function applyView(view) {
+        document.documentElement.setAttribute('data-view', view);
+
+        var btns = document.querySelectorAll('.role-btn');
+        for (var i = 0; i < btns.length; i++) {
+          var active = btns[i].dataset.role === view;
+          btns[i].setAttribute('aria-current', active ? 'page' : 'false');
+        }
+
+        var panes = document.querySelectorAll('.view-pane, .sidebar-pane');
+        for (var j = 0; j < panes.length; j++) {
+          panes[j].hidden = (panes[j].dataset.view !== view);
+        }
+
+        var toggle = document.querySelector('.menu-toggle');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      }
+
+      function setView(view) {
+        view = resolveView(view);
+        applyView(view);
+        var url = new URL(window.location.href);
+        url.searchParams.set('view', view);
+        window.history.replaceState({ view: view }, '', url.toString());
+      }
+
+      applyView(getActiveView());
+
+      var roleBtns = document.querySelectorAll('.role-btn');
+      for (var k = 0; k < roleBtns.length; k++) {
+        roleBtns[k].addEventListener('click', function (e) {
+          setView(e.currentTarget.dataset.role);
+        });
+      }
+
+      var menuToggle = document.querySelector('.menu-toggle');
+      if (menuToggle) {
+        menuToggle.addEventListener('click', function () {
+          var open = menuToggle.getAttribute('aria-expanded') === 'true';
+          menuToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+        });
+      }
+
+      var mq = window.matchMedia('(min-width: 769px)');
+      var onMqChange = function (e) {
+        if (e.matches && menuToggle) {
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }
+      };
+      if (mq.addEventListener) mq.addEventListener('change', onMqChange);
+      else if (mq.addListener) mq.addListener(onMqChange);
+
+      if (typeof DATA !== 'undefined') {
+        console.info('[portal] data.js loaded. DEMO_TODAY=' + (typeof DEMO_TODAY !== 'undefined' ? DEMO_TODAY : '?') +
+          '; collections: ' +
+          Object.keys(DATA).map(function (k) { return k + '(' + DATA[k].length + ')'; }).join(', '));
+      } else {
+        console.warn('[portal] data.js did not load — DATA is undefined.');
+      }
+      console.info('[portal] initial view: ' + getActiveView());
+    })();
+  </script>
 </body>
 </html>
