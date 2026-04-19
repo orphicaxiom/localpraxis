@@ -1,6 +1,6 @@
 ---
 title: Texas HOT tax, split right
-date: 2026-04-22
+date: 2026-04-15
 slug: texas-hot-tax-owner-portal
 description: Port Aransas STR owners owe two different occupancy taxes to two different agencies, collected two different ways. Here is what custom software that understands that looks like.
 tags: [case-study, str, port-aransas, texas]

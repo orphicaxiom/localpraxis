@@ -1,6 +1,6 @@
 ---
 title: The quiet tax on local businesses
-date: 2026-04-21
+date: 2026-03-17
 slug: the-quiet-tax-on-local-businesses
 description: A percentage-of-revenue SaaS fee is not a line item. It is a variable tax that scales against your business. Running the math on a Port Aransas charter operation.
 tags: [economics, saas, port-aransas]

@@ -1,6 +1,6 @@
 ---
 title: Notes on the design
-date: 2026-04-20
+date: 2026-02-11
 slug: notes-on-the-design
 description: Why the Local Praxis site looks like a printed design manual instead of a SaaS landing page, and what that's meant to communicate.
 tags: [design, positioning]

@@ -6,13 +6,25 @@
     <description>Notes on software, small business, and building things that last. From James Johnson in Port Aransas, TX.</description>
     <language>en-us</language>
     <atom:link href="https://localpraxis.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Sun, 19 Apr 2026 19:55:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2026 20:36:01 GMT</lastBuildDate>
     
+  <item>
+    <title><![CDATA[Texas HOT tax, split right]]></title>
+    <link>https://localpraxis.com/blog/texas-hot-tax-owner-portal/</link>
+    <guid isPermaLink="true">https://localpraxis.com/blog/texas-hot-tax-owner-portal/</guid>
+    <pubDate>Wed, 15 Apr 2026 12:00:00 GMT</pubDate>
+    <description><![CDATA[Port Aransas STR owners owe two different occupancy taxes to two different agencies, collected two different ways. Here is what custom software that understands that looks like.]]></description>
+    <author>jim@localpraxis.com (James Johnson)</author>
+    <category>case-study</category>
+    <category>str</category>
+    <category>port-aransas</category>
+    <category>texas</category>
+  </item>
   <item>
     <title><![CDATA[The quiet tax on local businesses]]></title>
     <link>https://localpraxis.com/blog/the-quiet-tax-on-local-businesses/</link>
     <guid isPermaLink="true">https://localpraxis.com/blog/the-quiet-tax-on-local-businesses/</guid>
-    <pubDate>Tue, 21 Apr 2026 12:00:00 GMT</pubDate>
+    <pubDate>Tue, 17 Mar 2026 12:00:00 GMT</pubDate>
     <description><![CDATA[A percentage-of-revenue SaaS fee is not a line item. It is a variable tax that scales against your business. Running the math on a Port Aransas charter operation.]]></description>
     <author>jim@localpraxis.com (James Johnson)</author>
     <category>economics</category>
@@ -23,7 +35,7 @@
     <title><![CDATA[Notes on the design]]></title>
     <link>https://localpraxis.com/blog/notes-on-the-design/</link>
     <guid isPermaLink="true">https://localpraxis.com/blog/notes-on-the-design/</guid>
-    <pubDate>Mon, 20 Apr 2026 12:00:00 GMT</pubDate>
+    <pubDate>Wed, 11 Feb 2026 12:00:00 GMT</pubDate>
     <description><![CDATA[Why the Local Praxis site looks like a printed design manual instead of a SaaS landing page, and what that's meant to communicate.]]></description>
     <author>jim@localpraxis.com (James Johnson)</author>
     <category>design</category>
@@ -33,7 +45,7 @@
     <title><![CDATA[Why I'm Writing This]]></title>
     <link>https://localpraxis.com/blog/hello/</link>
     <guid isPermaLink="true">https://localpraxis.com/blog/hello/</guid>
-    <pubDate>Sun, 19 Apr 2026 12:00:00 GMT</pubDate>
+    <pubDate>Wed, 14 Jan 2026 12:00:00 GMT</pubDate>
     <description><![CDATA[A short note on why a one-person software shop in Port Aransas, TX is starting a blog.]]></description>
     <author>jim@localpraxis.com (James Johnson)</author>
     <category>meta</category>
