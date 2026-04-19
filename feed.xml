@@ -6,8 +6,20 @@
     <description>Notes on software, small business, and building things that last. From James Johnson in Port Aransas, TX.</description>
     <language>en-us</language>
     <atom:link href="https://localpraxis.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Sun, 19 Apr 2026 19:55:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2026 19:59:40 GMT</lastBuildDate>
     
+  <item>
+    <title><![CDATA[Texas HOT tax, split right]]></title>
+    <link>https://localpraxis.com/blog/texas-hot-tax-owner-portal/</link>
+    <guid isPermaLink="true">https://localpraxis.com/blog/texas-hot-tax-owner-portal/</guid>
+    <pubDate>Wed, 22 Apr 2026 12:00:00 GMT</pubDate>
+    <description><![CDATA[Port Aransas STR owners owe two different occupancy taxes to two different agencies, collected two different ways. Here is what custom software that understands that looks like.]]></description>
+    <author>jim@localpraxis.com (James Johnson)</author>
+    <category>case-study</category>
+    <category>str</category>
+    <category>port-aransas</category>
+    <category>texas</category>
+  </item>
   <item>
     <title><![CDATA[The quiet tax on local businesses]]></title>
     <link>https://localpraxis.com/blog/the-quiet-tax-on-local-businesses/</link>
