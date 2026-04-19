@@ -2,30 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://localpraxis.com/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
     <loc>https://localpraxis.com/faq.html</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
     <loc>https://localpraxis.com/privacy.html</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-19</lastmod>
+  </url>
+  <url>
+    <loc>https://localpraxis.com/blog/</loc>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
     <loc>https://localpraxis.com/demos/booking.html</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
     <loc>https://localpraxis.com/demos/inventory.html</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
     <loc>https://localpraxis.com/demos/portal.html</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
     <loc>https://localpraxis.com/demos/rental.html</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-19</lastmod>
+  </url>
+  <url>
+    <loc>https://localpraxis.com/blog/hello/</loc>
+    <lastmod>2026-04-19</lastmod>
   </url>
 </urlset>

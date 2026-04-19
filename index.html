@@ -26,74 +26,104 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Local Praxis",
-    "url": "https://localpraxis.com",
-    "logo": "https://localpraxis.com/og-image.png",
-    "image": "https://localpraxis.com/og-image.png",
-    "description": "Custom software for local businesses. Booking systems, inventory management, client portals. Built for you, owned by you forever.",
-    "telephone": "+13613322725",
-    "email": "jim@localpraxis.com",
-    "foundingDate": "2025",
-    "founder": {
-      "@type": "Person",
-      "name": "James Johnson",
-      "jobTitle": "Founder & Developer",
-      "url": "https://localpraxis.com",
-      "knowsAbout": ["Custom Software Development", "Booking Systems", "Inventory Management", "Client Portals", "Small Business Technology"],
-      "sameAs": ["https://github.com/orphicaxiom"]
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Port Aransas",
-      "addressRegion": "TX",
-      "postalCode": "78373",
-      "addressCountry": "US"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 27.8339,
-      "longitude": -97.0611
-    },
-    "areaServed": [
-      { "@type": "Place", "name": "Coastal Bend", "addressRegion": "TX" },
-      { "@type": "City", "name": "Port Aransas", "addressRegion": "TX" },
-      { "@type": "City", "name": "Corpus Christi", "addressRegion": "TX" },
-      { "@type": "City", "name": "Rockport", "addressRegion": "TX" },
-      { "@type": "State", "name": "Texas" },
-      { "@type": "Country", "name": "US" }
-    ],
-    "priceRange": "$$",
-    "sameAs": ["https://github.com/orphicaxiom"],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Software Development Services",
-      "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Booking Systems", "description": "Custom booking and scheduling for charters, rentals, and service businesses." } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Inventory & POS", "description": "Real-time inventory tracking, point-of-sale, and reorder alerts for local retail." } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Client Portals", "description": "Secure client and tenant portals for property management and professional services." } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Rental Fleet Management", "description": "Fleet management with availability calendars, dynamic pricing, and digital waivers." } }
-      ]
-    }
-  }
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Local Praxis",
-    "url": "https://localpraxis.com",
-    "description": "Custom software for local businesses. Booking systems, inventory management, client portals.",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Local Praxis"
-    }
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://localpraxis.com/#business",
+        "name": "Local Praxis",
+        "url": "https://localpraxis.com",
+        "logo": "https://localpraxis.com/og-image.png",
+        "image": "https://localpraxis.com/og-image.png",
+        "description": "Custom software for local businesses. Booking systems, inventory management, client portals. Built for you, owned by you forever.",
+        "telephone": "+13613322725",
+        "email": "jim@localpraxis.com",
+        "foundingDate": "2025-01-01",
+        "founder": { "@id": "https://localpraxis.com/#founder" },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Port Aransas",
+          "addressRegion": "TX",
+          "postalCode": "78373",
+          "addressCountry": "US"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 27.8339,
+          "longitude": -97.0611
+        },
+        "areaServed": [
+          { "@type": "Place", "name": "Coastal Bend", "addressRegion": "TX" },
+          { "@type": "City", "name": "Port Aransas", "addressRegion": "TX" },
+          { "@type": "City", "name": "Corpus Christi", "addressRegion": "TX" },
+          { "@type": "City", "name": "Rockport", "addressRegion": "TX" },
+          { "@type": "State", "name": "Texas" },
+          { "@type": "Country", "name": "United States" }
+        ],
+        "priceRange": "$$",
+        "sameAs": ["https://github.com/orphicaxiom"],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Software Development Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Booking Systems", "description": "Custom booking and scheduling for charters, rentals, and service businesses." },
+              "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "description": "Custom build fee plus $25–50/month maintenance" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Inventory & POS", "description": "Real-time inventory tracking, point-of-sale, and reorder alerts for local retail." },
+              "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "description": "Custom build fee plus $25–50/month maintenance" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Client Portals", "description": "Secure client and tenant portals for property management and professional services." },
+              "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "description": "Custom build fee plus $25–50/month maintenance" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Rental Fleet Management", "description": "Fleet management with availability calendars, dynamic pricing, and digital waivers." },
+              "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "description": "Custom build fee plus $25–50/month maintenance" }
+            }
+          ]
+        },
+        "review": {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Alistair Lallier" },
+          "reviewBody": "James saved us hundreds of dollars a month by building out our booking and property management platform from scratch. Reservation engine, owner portal, automated guest messaging, unified checkout. It replaced four separate tools we were paying for monthly.",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5",
+          "reviewCount": "1",
+          "bestRating": "5"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://localpraxis.com/#founder",
+        "name": "James Johnson",
+        "jobTitle": "Founder & Developer",
+        "url": "https://localpraxis.com",
+        "worksFor": { "@id": "https://localpraxis.com/#business" },
+        "knowsAbout": ["Custom Software Development", "Booking Systems", "Inventory Management", "Client Portals", "Small Business Technology"],
+        "sameAs": ["https://github.com/orphicaxiom"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://localpraxis.com/#website",
+        "name": "Local Praxis",
+        "url": "https://localpraxis.com",
+        "description": "Custom software for local businesses. Booking systems, inventory management, client portals.",
+        "publisher": { "@id": "https://localpraxis.com/#business" }
+      }
+    ]
   }
   </script>
 
@@ -532,7 +562,7 @@
     }
 
     #calculator,
-    #work,
+    #demos,
     #process,
     #about,
     #contact {
@@ -541,7 +571,7 @@
     }
 
     #calculator,
-    #work,
+    #demos,
     #process,
     #about,
     #contact {
@@ -549,7 +579,7 @@
     }
 
     #calculator > .container,
-    #work > .container,
+    #demos > .container,
     #process > .container,
     #about > .container,
     #contact > .container {
@@ -1206,7 +1236,7 @@
       }
 
       #calculator,
-      #work,
+      #demos,
       #process,
       #about,
       #contact {
@@ -1660,10 +1690,11 @@
         <span></span><span></span><span></span>
       </button>
       <ul>
-        <li><a href="#work">Work</a></li>
+        <li><a href="#demos">Demos</a></li>
         <li><a href="#process">Process</a></li>
-        <li><a href="/faq.html">FAQ</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="/blog/">Writing</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="tel:+13613322725" class="nav-phone">(361) 332-2725</a></li>
         <li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">DARK</button></li>
@@ -1757,7 +1788,7 @@
   </section>
 
   <!-- Selected Systems -->
-  <section id="work">
+  <section id="demos">
     <div class="container">
       <h2>Selected Systems</h2>
       <p class="systems-intro reveal-card reveal-stagger-1">Production systems and working prototypes for Gulf Coast businesses. Each solves a real operational problem.</p>

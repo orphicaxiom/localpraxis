@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Local Praxis — Writing</title>
+    <link>https://localpraxis.com</link>
+    <description>Notes on software, small business, and building things that last. From James Johnson in Port Aransas, TX.</description>
+    <language>en-us</language>
+    <atom:link href="https://localpraxis.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Sun, 19 Apr 2026 18:47:51 GMT</lastBuildDate>
+    
+  <item>
+    <title><![CDATA[Why I'm Writing This]]></title>
+    <link>https://localpraxis.com/blog/hello/</link>
+    <guid isPermaLink="true">https://localpraxis.com/blog/hello/</guid>
+    <pubDate>Sun, 19 Apr 2026 12:00:00 GMT</pubDate>
+    <description><![CDATA[A short note on why a one-person software shop in Port Aransas, TX is starting a blog.]]></description>
+    <author>jim@localpraxis.com (James Johnson)</author>
+    <category>meta</category>
+  </item>
+  </channel>
+</rss>

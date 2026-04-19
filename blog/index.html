@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing — Local Praxis</title>
+  <meta name="description" content="Notes on software, small business, and building things that last. From James Johnson at Local Praxis in Port Aransas, TX.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0A0A'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Archivo Black,Impact,sans-serif' font-size='14' font-weight='900' fill='%23D8DBD0'>LP</text></svg>">
+  <meta name="theme-color" content="#D8DBD0">
+  <meta property="og:title" content="Writing — Local Praxis">
+  <meta property="og:description" content="Notes on software, small business, and building things that last. From James Johnson at Local Praxis in Port Aransas, TX.">
+  <meta property="og:url" content="https://localpraxis.com/blog/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Local Praxis">
+  <meta property="og:image" content="https://localpraxis.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://localpraxis.com/blog/">
+  <link rel="alternate" type="application/rss+xml" title="Local Praxis Writing" href="https://localpraxis.com/feed.xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    
+  :root {
+    --paper: #D8DBD0;
+    --ink: #0A0A0A;
+    --red: #C8342E;
+    --cyan: #4A90B8;
+    --rule: var(--ink);
+    --ink-mid: rgba(10, 10, 10, 0.65);
+    --ink-light: rgba(10, 10, 10, 0.45);
+    --font-display: 'Archivo Black', Impact, 'Helvetica Neue Condensed Black', sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-size-section: clamp(2rem, 5vw, 5rem);
+    --font-size-subsection: clamp(1.125rem, 2vw, 1.5rem);
+    --font-size-body: 1rem;
+    --font-size-xs: 0.65rem;
+    --font-size-sm: 0.75rem;
+    --font-size-md: 1rem;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-theme="dark"] {
+    --paper: #0A0A0A;
+    --ink: #D8DBD0;
+    --rule: var(--ink);
+    --ink-mid: rgba(216, 219, 208, 0.7);
+    --ink-light: rgba(216, 219, 208, 0.5);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--font-size-body);
+    line-height: 1.65;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection { background-color: var(--red); color: var(--paper); }
+  @keyframes pageIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pageOut {
+    from { opacity: 1; transform: scale(1); }
+    to   { opacity: 0; transform: scale(1.04); }
+  }
+  body { animation: pageIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; transform-origin: center top; }
+  body.page-leaving { animation: pageOut 0.28s cubic-bezier(0.4, 0, 1, 1) forwards; pointer-events: none; }
+  .skip-link {
+    position: absolute; top: -100%; left: 1rem;
+    background: var(--ink); color: var(--paper);
+    padding: 0.5rem 1rem; font-family: var(--font-mono);
+    font-size: 0.85rem; z-index: 9999; transition: top 0.1s ease;
+  }
+  .skip-link:focus { top: 0; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background-color: var(--paper);
+    border-bottom: 2px solid var(--ink);
+    padding: 1rem 0;
+  }
+  .nav-container {
+    max-width: 1080px; margin: 0 auto; padding: 0 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo {
+    font-family: var(--font-mono); font-size: 1.5rem; font-weight: 900;
+    color: var(--ink); letter-spacing: -0.02em; text-decoration: none; text-transform: uppercase;
+  }
+  .logo-accent { color: var(--red); }
+  nav ul { list-style: none; display: flex; gap: 2rem; align-items: center; }
+  nav a {
+    color: var(--ink); text-decoration: none; font-size: 13px;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+    transition: color 0.1s ease;
+  }
+  nav a:hover { color: var(--cyan); }
+  nav a.active { color: var(--cyan); }
+  .nav-phone {
+    font-size: 13px; color: var(--ink-mid); text-decoration: none;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+    transition: color 0.1s ease; white-space: nowrap;
+  }
+  .nav-phone:hover { color: var(--cyan); }
+  .theme-toggle-btn {
+    background: none; font-family: var(--font-mono) !important;
+    font-size: 11px !important; font-weight: 600 !important;
+    color: var(--ink) !important; border: 1.5px solid var(--ink) !important;
+    padding: 4px 8px !important; border-radius: 0; cursor: pointer;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    transition: background-color 0.1s ease, color 0.1s ease;
+  }
+  .theme-toggle-btn:hover { background-color: var(--ink) !important; color: var(--paper) !important; }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; z-index: 1001; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); margin: 5px 0; transition: transform 0.1s ease, opacity 0.1s ease; }
+  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  @media (max-width: 768px) {
+    .hamburger { display: block; }
+    nav ul { display: none; }
+    .nav-container { padding: 0 1.5rem; }
+    .container { padding: 0 1.5rem; }
+    nav.menu-open {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      width: 100%; height: 100dvh; background-color: var(--paper);
+      border-bottom: none; z-index: 9999;
+    }
+    nav.menu-open .nav-container { height: 100%; flex-direction: column; justify-content: center; }
+    nav.menu-open ul { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+    nav.menu-open ul li a { font-size: 1.2rem; }
+    nav.menu-open .hamburger { position: absolute; top: 1rem; right: 1.5rem; }
+    nav.menu-open .logo { position: absolute; top: 1rem; left: 1.5rem; }
+  }
+  body > footer { background-color: var(--ink); padding: 3rem 0; }
+  .footer-content {
+    max-width: 1080px; margin: 0 auto; padding: 0 2rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+  }
+  .footer-left { font-family: var(--font-mono); font-size: var(--font-size-md); color: var(--paper); font-weight: 500; }
+  .footer-right { text-align: right; font-family: var(--font-mono); font-size: var(--font-size-sm); color: rgba(216, 219, 208, 0.6); }
+  @media (max-width: 600px) {
+    .footer-content { grid-template-columns: 1fr; gap: 1rem; }
+    .footer-right { text-align: left; }
+  }
+
+    /* Blog index */
+    .blog-section {
+      padding: clamp(3rem, 8vh, 5rem) 0 clamp(4rem, 10vh, 8rem);
+    }
+    .blog-headline {
+      font-family: var(--font-display);
+      font-size: var(--font-size-section);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.9;
+      letter-spacing: -0.045em;
+      margin-bottom: clamp(2.5rem, 6vh, 4rem);
+    }
+    .blog-headline .red-period { color: var(--red); }
+    .post-list { list-style: none; }
+    .post-entry {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 2.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1.5px solid var(--ink);
+      align-items: start;
+    }
+    .post-entry:first-child { border-top: 1.5px solid var(--ink); }
+    .post-date {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      padding-top: 0.25rem;
+      display: block;
+    }
+    .post-info { display: flex; flex-direction: column; }
+    .post-title-link {
+      font-family: var(--font-display);
+      font-size: var(--font-size-subsection);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      transition: color 0.1s ease;
+    }
+    .post-title-link:hover { color: var(--red); }
+    .post-desc {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--ink-mid);
+      line-height: 1.55;
+      margin-top: 0.4rem;
+    }
+    .no-posts {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      padding: 2rem 0;
+      border-top: 1.5px solid var(--ink);
+    }
+    @media (max-width: 600px) {
+      .post-entry { grid-template-columns: 1fr; gap: 0.4rem; padding: 1.25rem 0; }
+      .post-date { padding-top: 0; }
+      .blog-headline { margin-bottom: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="/" class="logo">Local<span class="logo-accent">Praxis</span></a>
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul>
+        <li><a href="/#demos">Demos</a></li>
+        <li><a href="/#process">Process</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/blog/" class="active">Writing</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="tel:+13613322725" class="nav-phone">(361) 332-2725</a></li>
+        <li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">DARK</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <section class="blog-section">
+      <div class="container">
+        <h1 class="blog-headline">Writing<span class="red-period">.</span></h1>
+        <ul class="post-list" role="list">
+        
+        <li class="post-entry">
+          <time class="post-date" datetime="2026-04-19">APR 19 2026</time>
+          <div class="post-info">
+            <a href="/blog/hello/" class="post-title-link">Why I'm Writing This</a>
+            <p class="post-desc">A short note on why a one-person software shop in Port Aransas, TX is starting a blog.</p>
+          </div>
+        </li>
+      </ul>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">Local Praxis. Based in Port Aransas, TX.</div>
+      <div class="footer-right"><a href="/privacy.html" style="color:rgba(216,219,208,0.6);text-decoration:none;">Privacy</a> &middot; &copy; 2026 James Johnson</div>
+    </div>
+  </footer>
+
+  
+  <script>
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && !href.startsWith('#') && !href.startsWith('tel:') && !href.startsWith('mailto:') && !href.startsWith('http') && !link.getAttribute('target')) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          document.body.classList.add('page-leaving');
+          setTimeout(() => { window.location = href; }, 280);
+        });
+      }
+    });
+    window.addEventListener('pageshow', e => {
+      if (e.persisted) document.body.classList.remove('page-leaving');
+    });
+    const hamburger = document.querySelector('.hamburger');
+    const navEl = document.querySelector('nav');
+    const navUl = document.querySelector('nav ul');
+    if (hamburger && navEl) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navEl.classList.toggle('menu-open');
+        const isOpen = navEl.classList.contains('menu-open');
+        hamburger.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+      navUl.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navEl.classList.remove('menu-open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('lp-theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeToggle.textContent = 'LIGHT';
+    }
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        themeToggle.textContent = 'DARK';
+        localStorage.setItem('lp-theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = 'LIGHT';
+        localStorage.setItem('lp-theme', 'dark');
+      }
+    });
+  </script>
+
+</body>
+</html>
