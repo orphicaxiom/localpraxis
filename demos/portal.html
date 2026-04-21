@@ -71,6 +71,7 @@
       --sidebar-w:       220px;
       --role-bar-height: 56px;
       --max-content:     1200px;
+      --panel-w:         420px;
 
       color-scheme: light;
     }
@@ -445,6 +446,64 @@
     .ops-sub.is-warn  { color: var(--accent);     font-weight: 600; }
     .ops-sub.is-alert { color: var(--status-red); font-weight: 600; }
 
+    .ops-tile[data-filter] {
+      cursor: pointer;
+      transition: background 0.1s ease;
+    }
+    .ops-tile[data-filter]:hover { background: var(--cream); }
+    .ops-tile[data-filter].is-active-filter {
+      background: var(--yellow);
+    }
+
+    /* Filter chip — appears above the Properties Grid when an ops-tile
+       filter is applied. Mustard pill with hard-edge ink shadow + clear
+       button. Mirrors rental.html action-pill treatment for consistency. */
+    .filter-chip-host {
+      min-height: 0;
+    }
+    .filter-chip-host:not(:empty) {
+      margin-bottom: var(--s3);
+    }
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.4rem 0.85rem;
+      background: var(--yellow);
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      box-shadow: 2px 2px 0px var(--ink);
+      line-height: 1.4;
+    }
+    .filter-chip-count {
+      font-weight: 500;
+      opacity: 0.7;
+    }
+    .filter-chip-clear {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      background: none;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      line-height: 1;
+      color: var(--ink);
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.1s ease;
+    }
+    .filter-chip-clear:hover { background: var(--ink); color: var(--yellow); }
+
     /* ================================================================
        MANAGER VIEW — SECTION HEADER (reused by sections 2-4)
        Italic serif h2 (rental.html .module-header-free pattern) +
@@ -712,6 +771,1009 @@
     }
 
     /* ================================================================
+       MANAGER VIEW — CHANNEL SYNC STATUS PANEL (Section 4)
+       Small ~400px bordered card per rental.html .action-items-box
+       pattern. 2px ink border + 3px hard-edge ink shadow. Four
+       label/value rows + footer link to a deferred sub-view.
+       ================================================================ */
+    .sync-panel {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      border: 2px solid var(--ink);
+      box-shadow: 3px 3px 0px var(--ink);
+      margin-bottom: var(--s7);
+    }
+    [data-theme="dark"] .sync-panel { background: var(--cream); }
+
+    .sync-panel-body {
+      padding: 0.35rem 0;
+    }
+    .sync-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--s3);
+      padding: 0.5rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+    }
+    .sync-row + .sync-row {
+      border-top: 1px solid var(--rule-light);
+    }
+    .sync-row-label {
+      color: var(--ink-mid);
+    }
+    .sync-row-value {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.88rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+    .sync-row-value-muted {
+      color: var(--ink-light);
+      font-weight: 400;
+    }
+    .sync-row.is-warn  .sync-row-value { color: var(--accent);     }
+    .sync-row.is-alert .sync-row-value { color: var(--status-red); }
+
+    .sync-panel-footer {
+      padding: 0.65rem 1rem;
+      border-top: 1px solid var(--ink);
+      background: var(--warm-white);
+    }
+    .sync-panel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.1s ease;
+    }
+    .sync-panel-link:hover { color: var(--accent); }
+
+    /* ================================================================
+       OWNER VIEW — Portfolio overview tile grid (Sarah's 4 properties).
+       Each tile = bordered card with hard-edge ink shadow, hovers with
+       lift. Same chrome family as .sync-panel + .action-items-box.
+       ================================================================ */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: var(--s7);
+    }
+    .portfolio-tile {
+      background: #fff;
+      border: 2px solid var(--ink);
+      box-shadow: 3px 3px 0px var(--ink);
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    [data-theme="dark"] .portfolio-tile { background: var(--cream); }
+    .portfolio-tile:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0px var(--ink);
+    }
+    .portfolio-tile:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .portfolio-tile-header {
+      margin-bottom: 1rem;
+    }
+    .portfolio-tile-name {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .portfolio-tile-street {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--ink-light);
+      margin-top: 0.3rem;
+      letter-spacing: 0.04em;
+    }
+    .portfolio-tile-metric {
+      margin-bottom: 0.85rem;
+    }
+    .portfolio-tile-metric-label {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      margin-bottom: 0.25rem;
+    }
+    .portfolio-tile-metric-value {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1.4rem;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.05;
+    }
+    .portfolio-tile-metric-sub {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--ink-light);
+      margin-top: 0.2rem;
+      letter-spacing: 0.02em;
+    }
+    .portfolio-tile-status {
+      margin-top: auto;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--rule-light);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.7rem;
+      color: var(--ink-light);
+      letter-spacing: 0.02em;
+    }
+    .portfolio-tile-status.has-alert {
+      color: var(--status-red);
+      font-weight: 600;
+    }
+    .portfolio-tile-status .alert-dot {
+      cursor: default;
+    }
+
+    @media (max-width: 768px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Maintenance card list — used in Owner view to show open tickets
+       across the portfolio. Same chrome family as portfolio-tile. */
+    .maintenance-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: var(--s7);
+    }
+    .maintenance-card {
+      background: #fff;
+      border: 2px solid var(--ink);
+      box-shadow: 3px 3px 0px var(--ink);
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    [data-theme="dark"] .maintenance-card { background: var(--cream); }
+    .maintenance-card:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0px var(--ink);
+    }
+    .maintenance-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .maintenance-card-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .maintenance-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--ink-mid);
+      margin-bottom: 0.5rem;
+    }
+    .maintenance-card-meta-divider {
+      color: var(--rule-light);
+    }
+    .maintenance-card-detail {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--ink-light);
+      letter-spacing: 0.02em;
+    }
+    .maintenance-empty {
+      padding: 1.25rem;
+      background: var(--cream);
+      border: 1px dashed var(--rule-light);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--ink-mid);
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    /* ================================================================
+       GUEST VIEW — public-facing booking flow.
+       Hero (large editorial headline), search form (date/guests),
+       results list (built in 7b), property detail (built in 7c).
+       Sidebar repurposed as "Why book direct?" brand pitch.
+       ================================================================ */
+    .guest-hero {
+      margin-bottom: var(--s5);
+      padding-bottom: var(--s4);
+      border-bottom: 1px solid var(--rule-light);
+    }
+    .guest-hero h1 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 2.6rem;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin: 0.3rem 0 0.6rem;
+    }
+    .guest-hero-tagline {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.1rem;
+      line-height: 1.4;
+      color: var(--ink-mid);
+      max-width: 50ch;
+    }
+
+    .guest-search {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 1rem;
+      align-items: end;
+      padding: 1.5rem;
+      background: var(--cream);
+      border: 1px solid var(--ink);
+      margin-bottom: var(--s5);
+    }
+    .guest-search-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .guest-search-label {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+    .guest-search-input {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.6rem 0.8rem;
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      min-height: 44px;
+    }
+    [data-theme="dark"] .guest-search-input { background: var(--cream); }
+    .guest-search-input:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: -1px;
+    }
+    .guest-search-btn {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-style: italic;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0 1.5rem;
+      min-height: 44px;
+      background: var(--yellow);
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px var(--ink);
+      transition: background 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    .guest-search-btn:hover {
+      background: var(--yellow-hover);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px var(--ink);
+    }
+    .guest-search-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 0px 0px 0px var(--ink);
+    }
+
+    @media (max-width: 768px) {
+      .guest-hero h1 { font-size: 1.85rem; }
+      .guest-hero-tagline { font-size: 0.95rem; }
+      .guest-search {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 1rem;
+      }
+      .guest-search-btn { width: 100%; }
+    }
+
+    /* Sidebar pitch (guest-only content inside the sidebar pane) */
+    .sidebar-pitch {
+      padding: 1.5rem 1.25rem;
+      flex: 1;
+    }
+    .sidebar-pitch-headline {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1.3;
+      color: var(--yellow);
+      margin: 0 0 1rem;
+    }
+    .sidebar-pitch-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .sidebar-pitch-list li {
+      position: relative;
+      padding-left: 1.2rem;
+      color: rgba(255, 255, 255, 0.85);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .sidebar-pitch-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--yellow);
+      font-weight: 700;
+    }
+
+    /* Guest results header (above property list) */
+    .guest-results-header {
+      margin-bottom: var(--s4);
+    }
+    .guest-results-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+    .guest-results-meta {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-mid);
+    }
+
+    /* Property card list — horizontal cards, photo placeholder + body
+       + price block. Same chrome family as portfolio-tile. */
+    .property-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: var(--s7);
+    }
+    .property-card {
+      display: grid;
+      grid-template-columns: 200px 1fr 200px;
+      gap: 1.5rem;
+      padding: 1.25rem;
+      background: #fff;
+      border: 2px solid var(--ink);
+      box-shadow: 3px 3px 0px var(--ink);
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    [data-theme="dark"] .property-card { background: var(--cream); }
+    .property-card:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0px var(--ink);
+    }
+    .property-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .property-card-photo {
+      width: 100%;
+      min-height: 140px;
+      background: var(--accent);
+      color: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      padding: 0.5rem;
+      border-radius: 2px;
+      line-height: 1.2;
+    }
+    .property-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      min-width: 0;
+    }
+    .property-card-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      line-height: 1.15;
+      margin: 0;
+    }
+    .property-card-address {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-light);
+      margin: 0.2rem 0 0;
+    }
+    .property-card-specs {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-mid);
+    }
+    .property-card-amenities {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      line-height: 1.5;
+    }
+    .property-card-price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 0.6rem;
+      padding-left: 1rem;
+      border-left: 1px solid var(--rule-light);
+      text-align: right;
+    }
+    .property-card-price-meta {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+    .property-card-price-meta.is-warn {
+      color: var(--status-red);
+      font-weight: 700;
+    }
+    .property-card-price-total {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1.6rem;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .property-card-price-base {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1.05rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink);
+    }
+    .property-card-price-period {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-light);
+      max-width: 180px;
+    }
+    .property-card-reserve {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-style: italic;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.1rem;
+      background: var(--yellow);
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px var(--ink);
+      transition: background 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    .property-card-reserve:hover {
+      background: var(--yellow-hover);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px var(--ink);
+    }
+    .property-card-reserve:disabled {
+      background: var(--cream);
+      color: var(--ink-light);
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    @media (max-width: 768px) {
+      .property-card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .property-card-photo { min-height: 100px; }
+      .property-card-price {
+        padding-left: 0;
+        padding-top: 1rem;
+        border-left: none;
+        border-top: 1px solid var(--rule-light);
+        align-items: flex-start;
+        text-align: left;
+      }
+    }
+
+    /* Guest multi-step flow — detail / review / confirmed */
+    .guest-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      cursor: pointer;
+      padding: 0.4rem 0;
+      margin-bottom: var(--s4);
+      transition: color 0.1s ease;
+      background: none;
+      border: none;
+    }
+    .guest-back-link:hover { color: var(--accent); }
+    .guest-detail-hero {
+      width: 100%;
+      min-height: 220px;
+      background: var(--accent);
+      color: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 2rem;
+      border-radius: 2px;
+      margin-bottom: var(--s4);
+    }
+    .guest-detail-header {
+      margin-bottom: var(--s5);
+      padding-bottom: var(--s4);
+      border-bottom: 1px solid var(--rule-light);
+    }
+    .guest-detail-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+      line-height: 1.15;
+    }
+    .guest-detail-address {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-mid);
+      margin-bottom: 0.5rem;
+    }
+    .guest-detail-specs {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-mid);
+    }
+    .guest-amenity-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem 1.5rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .guest-amenity-list li {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: var(--ink);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .guest-amenity-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .price-summary {
+      background: var(--cream);
+      border: 1px solid var(--ink);
+      padding: 1.5rem;
+      margin-bottom: var(--s5);
+    }
+    .price-summary .detail-section-title {
+      margin-bottom: 1rem;
+    }
+    .price-summary-period {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--rule-light);
+    }
+    .guest-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-style: italic;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.75rem;
+      background: var(--yellow);
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0px var(--ink);
+      transition: background 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
+      min-height: 50px;
+    }
+    .guest-cta-btn:hover {
+      background: var(--yellow-hover);
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0px var(--ink);
+    }
+    .guest-cta-btn:active {
+      transform: translate(3px, 3px);
+      box-shadow: 0px 0px 0px var(--ink);
+    }
+    .guest-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 480px;
+      margin-bottom: var(--s5);
+    }
+    .guest-form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .guest-form-policy {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--ink-light);
+      max-width: 540px;
+      margin-bottom: var(--s4);
+    }
+    .guest-confirm {
+      text-align: center;
+      padding: var(--s7) var(--s5);
+      background: #fff;
+      border: 2px solid var(--ink);
+      box-shadow: 4px 4px 0px var(--ink);
+      margin: 0 auto;
+      max-width: 560px;
+    }
+    [data-theme="dark"] .guest-confirm { background: var(--cream); }
+    .guest-confirm-check {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto var(--s4);
+      background: var(--status-green);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      border-radius: 50%;
+      font-weight: 700;
+    }
+    .guest-confirm-headline {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      line-height: 1.15;
+    }
+    .guest-confirm-id {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-mid);
+      margin-bottom: var(--s4);
+    }
+    .guest-confirm-summary {
+      text-align: left;
+      margin: var(--s4) auto;
+      max-width: 380px;
+    }
+    .guest-confirm-prose {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      line-height: 1.5;
+      margin: var(--s4) auto var(--s5);
+      max-width: 420px;
+    }
+
+    /* ================================================================
+       DETAIL PANEL — slide-in from right, ~420px wide.
+       Reusable infrastructure for Manager / Owner / Calendar views.
+       Pattern adapted from rental.html .slide-panel + .panel-backdrop.
+       ================================================================ */
+    .detail-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: var(--panel-w);
+      max-width: 100vw;
+      height: 100vh;
+      background: var(--warm-white);
+      border-left: 2px solid var(--ink);
+      transform: translateX(100%);
+      transition: transform 220ms var(--ease);
+      z-index: 200;
+      overflow-y: auto;
+      padding: 1.75rem 1.75rem 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+    [data-panel-open] .detail-panel {
+      transform: translateX(0);
+    }
+
+    .detail-panel-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.18);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms;
+      z-index: 190;
+    }
+    [data-theme="dark"] .detail-panel-backdrop {
+      background: rgba(0, 0, 0, 0.45);
+    }
+    [data-panel-open] .detail-panel-backdrop {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    [data-panel-open] body {
+      overflow: hidden;
+    }
+
+    .detail-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--s3);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule-light);
+    }
+    .detail-panel-eyebrow {
+      display: block;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      margin-bottom: 0.4rem;
+    }
+    .detail-panel-header h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+    .detail-panel-close {
+      flex-shrink: 0;
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--ink-light);
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.1s ease, color 0.1s ease, border-color 0.1s ease;
+    }
+    .detail-panel-close:hover {
+      background: var(--cream);
+      color: var(--ink);
+      border-color: var(--rule-light);
+    }
+    .detail-panel-close:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    .detail-panel-body { flex: 1; min-height: 0; }
+
+    /* Inner content patterns — used by 5c entity templates and any
+       future panel content. Mirror the rental.html .panel-section /
+       .panel-row vocabulary. */
+    .detail-section { margin-bottom: 1.5rem; }
+    .detail-section:last-child { margin-bottom: 0; }
+    .detail-section-title {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.6rem;
+    }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--s3);
+      padding: 0.45rem 0;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+    }
+    .detail-row + .detail-row {
+      border-top: 1px solid var(--rule-light);
+    }
+    .detail-row-label {
+      color: var(--ink-mid);
+      flex-shrink: 0;
+    }
+    .detail-row-value {
+      font-weight: 500;
+      color: var(--ink);
+      text-align: right;
+      min-width: 0;
+    }
+    .detail-row-value.mono {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.85rem;
+    }
+    .detail-divider {
+      border: 0;
+      border-top: 1px solid var(--rule-light);
+      margin: 1.25rem 0;
+    }
+
+    /* Inline link inside panel content. Used by cleaning template
+       to link to its triggering reservation, channel template to
+       link to its property, etc. Click delegation on the panel body
+       routes these to openPanel. */
+    .panel-link {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+      transition: color 0.1s ease;
+    }
+    .panel-link:hover { color: var(--accent-hover); }
+    .panel-link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+      border-radius: 2px;
+    }
+    .panel-prose {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    /* Status pill — used inside detail panels for status/severity.
+       Matches rental.html .status-dot family but standalone (no
+       channel-coupling). Mono small-caps with colored fill. */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+    .status-pill.is-confirmed,
+    .status-pill.is-resolved   { background: var(--status-green); color: #fff; border-color: var(--status-green); }
+    .status-pill.is-completed  { background: var(--ink);          color: var(--warm-white); border-color: var(--ink); }
+    .status-pill.is-cancelled  { background: var(--ink-light);    color: #fff; border-color: var(--ink-light); }
+    .status-pill.is-open       { background: var(--status-red);   color: #fff; border-color: var(--status-red); }
+    .status-pill.is-progress   { background: var(--accent);       color: #fff; border-color: var(--accent); }
+    .status-pill.is-low        { background: transparent;         color: var(--ink-mid); border-color: var(--rule-light); }
+    .status-pill.is-medium     { background: var(--cream);        color: var(--ink); border-color: var(--ink); }
+    .status-pill.is-high       { background: var(--status-red);   color: #fff; border-color: var(--status-red); }
+
+    /* Clickable affordance for entities that open the detail panel.
+       Mustard hover already provides feedback for table rows + timeline
+       events; cursor pointer makes the affordance explicit. */
+    .data-table tbody tr,
+    .timeline-event,
+    .alert-dot { cursor: pointer; }
+    .channel-pill:not(.is-none) { cursor: pointer; }
+    .channel-pill.is-none { cursor: default; }
+
+    @media (max-width: 768px) {
+      .detail-panel {
+        padding: 1.25rem 1.25rem 1.5rem;
+      }
+    }
+
+    /* ================================================================
        MOBILE (≤768px)
        sidebar collapses to fixed overlay; role-bar stays horizontal
        ================================================================ */
@@ -809,14 +1871,26 @@
   </style>
 
   <script>
-    // Pre-paint reconciliation. Read ?view= and set <html data-view> before
-    // body parses so panes/buttons render in the correct state.
+    // Pre-paint reconciliation. Read ?view= and ?panel= and set
+    // <html data-view> + <html data-panel-open> before body parses
+    // so panes/buttons/panel render in the correct state without flash.
     (function () {
-      var ALLOWED = { owner: 1, manager: 1, guest: 1 };
+      var ALLOWED_VIEWS  = { owner: 1, manager: 1, guest: 1 };
+      var ALLOWED_PANELS = { reservation: 1, property: 1, maintenance: 1, cleaning: 1, channel: 1, statement: 1 };
+      var html = document.documentElement;
       var p = new URLSearchParams(window.location.search);
+
       var v = p.get('view');
-      if (!v || !ALLOWED[v]) v = 'owner';
-      document.documentElement.setAttribute('data-view', v);
+      if (!v || !ALLOWED_VIEWS[v]) v = 'owner';
+      html.setAttribute('data-view', v);
+
+      var panel = p.get('panel');
+      if (panel) {
+        var parts = panel.split(':');
+        if (parts.length === 2 && ALLOWED_PANELS[parts[0]] && parts[1]) {
+          html.setAttribute('data-panel-open', '');
+        }
+      }
     })();
   </script>
 </head>
@@ -838,18 +1912,289 @@
   <div class="layout">
     <aside class="sidebar" id="sidebar" aria-label="Section navigation">
       <div class="sidebar-pane" data-view="owner" hidden>
-        <p class="placeholder">OWNER NAV — scaffolding only</p>
+        <h1 class="sidebar-title">Coastal Stays</h1>
+        <span class="sidebar-eyebrow">Owner Portal</span>
+        <nav class="sidebar-nav" aria-label="Owner sections">
+          <a class="sidebar-link active" aria-current="page">Dashboard</a>
+          <a class="sidebar-link">Statements</a>
+          <a class="sidebar-link">Bookings</a>
+          <a class="sidebar-link">Maintenance</a>
+          <a class="sidebar-link">Documents</a>
+        </nav>
+        <div class="sidebar-footer">
+          Sarah Whitaker<br>
+          512-555-0101
+        </div>
       </div>
       <div class="sidebar-pane" data-view="manager" hidden>
         <p class="placeholder">MANAGER NAV — scaffolding only</p>
       </div>
       <div class="sidebar-pane" data-view="guest" hidden>
-        <p class="placeholder">GUEST NAV — scaffolding only</p>
+        <h1 class="sidebar-title">Coastal Stays</h1>
+        <span class="sidebar-eyebrow">Direct Booking</span>
+        <div class="sidebar-pitch">
+          <p class="sidebar-pitch-headline">Skip the platforms.<br>Book direct, save 14&ndash;20%.</p>
+          <ul class="sidebar-pitch-list">
+            <li>No Airbnb service fee</li>
+            <li>Local owner support</li>
+            <li>Free cancellation 7+ days out</li>
+            <li>Same property, lower total</li>
+          </ul>
+        </div>
+        <div class="sidebar-footer">
+          Questions?<br>
+          bookings@coastalstays.com
+        </div>
       </div>
     </aside>
     <main class="main" id="main">
       <section class="view-pane" data-view="owner" hidden>
-        <p class="placeholder">OWNER DASHBOARD — scaffolding only</p>
+        <header class="mgr-header">
+          <div>
+            <p class="mgr-eyebrow">OWNER PORTFOLIO</p>
+            <h1>Sarah Whitaker</h1>
+          </div>
+          <div class="mgr-date" aria-label="Portfolio summary">
+            <span class="mgr-date-day">4 PROPERTIES</span>
+            <span class="mgr-date-year">Q1 net $23,250.30</span>
+          </div>
+        </header>
+
+        <section aria-labelledby="owner-portfolio-heading">
+          <header class="section-header">
+            <h2 id="owner-portfolio-heading">Portfolio</h2>
+            <p class="section-meta">April projected · 4 properties</p>
+          </header>
+          <div class="portfolio-grid">
+            <article class="portfolio-tile" data-entity-type="property" data-entity-id="p1" tabindex="0" role="button" aria-label="Open Sandcastle 412 detail">
+              <header class="portfolio-tile-header">
+                <div class="portfolio-tile-name">Sandcastle 412</div>
+                <div class="portfolio-tile-street">412 Beach Ave</div>
+              </header>
+              <div class="portfolio-tile-metric">
+                <div class="portfolio-tile-metric-label">April occupancy</div>
+                <div class="portfolio-tile-metric-value">30%</div>
+                <div class="portfolio-tile-metric-sub">9 / 30 nights</div>
+              </div>
+              <div class="portfolio-tile-metric">
+                <div class="portfolio-tile-metric-label">April payout (projected)</div>
+                <div class="portfolio-tile-metric-value">$1,931.64</div>
+              </div>
+              <div class="portfolio-tile-status has-alert">
+                <span class="alert-dot"></span> AC compressor in progress
+              </div>
+            </article>
+
+            <article class="portfolio-tile" data-entity-type="property" data-entity-id="p2" tabindex="0" role="button" aria-label="Open Mustang Towers 7B detail">
+              <header class="portfolio-tile-header">
+                <div class="portfolio-tile-name">Mustang Towers 7B</div>
+                <div class="portfolio-tile-street">700 Access Rd</div>
+              </header>
+              <div class="portfolio-tile-metric">
+                <div class="portfolio-tile-metric-label">April occupancy</div>
+                <div class="portfolio-tile-metric-value">37%</div>
+                <div class="portfolio-tile-metric-sub">11 / 30 nights</div>
+              </div>
+              <div class="portfolio-tile-metric">
+                <div class="portfolio-tile-metric-label">April payout (projected)</div>
+                <div class="portfolio-tile-metric-value">$3,095.60</div>
+              </div>
+              <div class="portfolio-tile-status">
+                No open issues
+              </div>
+            </article>
+
+            <article class="portfolio-tile" data-entity-type="property" data-entity-id="p3" tabindex="0" role="button" aria-label="Open Sea Breeze Cottage detail">
+              <header class="portfolio-tile-header">
+                <div class="portfolio-tile-name">Sea Breeze Cottage</div>
+                <div class="portfolio-tile-street">118 Cotter Ave</div>
+              </header>
+              <div class="portfolio-tile-metric">
+                <div class="portfolio-tile-metric-label">April occupancy</div>
+                <div class="portfolio-tile-metric-value">13%</div>
+                <div class="portfolio-tile-metric-sub">4 / 30 nights</div>
+              </div>
+              <div class="portfolio-tile-metric">
+                <div class="portfolio-tile-metric-label">April payout (projected)</div>
+                <div class="portfolio-tile-metric-value">$648.96</div>
+              </div>
+              <div class="portfolio-tile-status">
+                Guest checking in today
+              </div>
+            </article>
+
+            <article class="portfolio-tile" data-entity-type="property" data-entity-id="p4" tabindex="0" role="button" aria-label="Open Gulf View 201 detail">
+              <header class="portfolio-tile-header">
+                <div class="portfolio-tile-name">Gulf View 201</div>
+                <div class="portfolio-tile-street">201 Station St</div>
+              </header>
+              <div class="portfolio-tile-metric">
+                <div class="portfolio-tile-metric-label">April occupancy</div>
+                <div class="portfolio-tile-metric-value">13%</div>
+                <div class="portfolio-tile-metric-sub">4 / 30 nights</div>
+              </div>
+              <div class="portfolio-tile-metric">
+                <div class="portfolio-tile-metric-label">April payout (projected)</div>
+                <div class="portfolio-tile-metric-value">$509.76</div>
+              </div>
+              <div class="portfolio-tile-status">
+                No open issues
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section aria-labelledby="owner-statements-heading">
+          <header class="section-header">
+            <h2 id="owner-statements-heading">Recent statements</h2>
+            <p class="section-meta">Q1 2026 &middot; $23,250.30 net</p>
+          </header>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th scope="col">Period</th>
+                <th scope="col">Gross Revenue</th>
+                <th scope="col">Net Payout</th>
+                <th scope="col">Status</th>
+                <th scope="col">Payout Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-entity-type="statement" data-entity-id="stmt_o1_2026-01">
+                <td>January 2026</td>
+                <td class="mono">$10,650.00</td>
+                <td class="mono"><strong>$7,300.80</strong></td>
+                <td><span class="status-pill is-confirmed">Paid</span></td>
+                <td class="mono">Feb 10</td>
+              </tr>
+              <tr data-entity-type="statement" data-entity-id="stmt_o1_2026-02">
+                <td>February 2026</td>
+                <td class="mono">$13,280.00</td>
+                <td class="mono"><strong>$8,851.16</strong></td>
+                <td><span class="status-pill is-confirmed">Paid</span></td>
+                <td class="mono">Mar 10</td>
+              </tr>
+              <tr data-entity-type="statement" data-entity-id="stmt_o1_2026-03">
+                <td>March 2026</td>
+                <td class="mono">$10,635.00</td>
+                <td class="mono"><strong>$7,098.34</strong></td>
+                <td><span class="status-pill is-progress">Sent</span></td>
+                <td class="mono">Apr 10 &middot; scheduled</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section aria-labelledby="owner-bookings-heading">
+          <header class="section-header">
+            <h2 id="owner-bookings-heading">Upcoming bookings</h2>
+            <p class="section-meta">10 confirmed &middot; across 4 properties</p>
+          </header>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th scope="col">Check-in</th>
+                <th scope="col">Nights</th>
+                <th scope="col">Guest</th>
+                <th scope="col">Property</th>
+                <th scope="col">Owner Payout</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-entity-type="reservation" data-entity-id="r18">
+                <td class="mono">APR 19 <span class="today-flag">Today</span></td>
+                <td class="mono">4</td>
+                <td>S. Adeyemi</td>
+                <td>Sea Breeze Cottage</td>
+                <td class="mono"><strong>$648.96</strong></td>
+              </tr>
+              <tr data-entity-type="reservation" data-entity-id="r6">
+                <td class="mono">APR 22</td>
+                <td class="mono">5</td>
+                <td>F. Obi</td>
+                <td>Sandcastle 412</td>
+                <td class="mono"><strong>$1,102.20</strong></td>
+              </tr>
+              <tr data-entity-type="reservation" data-entity-id="r13">
+                <td class="mono">APR 24</td>
+                <td class="mono">6</td>
+                <td>M. Bell</td>
+                <td>Mustang Towers 7B</td>
+                <td class="mono"><strong>$1,644.80</strong></td>
+              </tr>
+              <tr data-entity-type="reservation" data-entity-id="r23">
+                <td class="mono">APR 26</td>
+                <td class="mono">4</td>
+                <td>X. Fontaine</td>
+                <td>Gulf View 201</td>
+                <td class="mono"><strong>$509.76</strong></td>
+              </tr>
+              <tr data-entity-type="reservation" data-entity-id="r19">
+                <td class="mono">MAY 3</td>
+                <td class="mono">5</td>
+                <td>T. Holloway</td>
+                <td>Sea Breeze Cottage</td>
+                <td class="mono"><strong>$765.12</strong></td>
+              </tr>
+              <tr data-entity-type="reservation" data-entity-id="r7">
+                <td class="mono">MAY 10</td>
+                <td class="mono">7</td>
+                <td>G. Kim</td>
+                <td>Sandcastle 412</td>
+                <td class="mono"><strong>$1,546.24</strong></td>
+              </tr>
+              <tr data-entity-type="reservation" data-entity-id="r24">
+                <td class="mono">MAY 17</td>
+                <td class="mono">3</td>
+                <td>Y. Okonkwo</td>
+                <td>Gulf View 201</td>
+                <td class="mono"><strong>$382.20</strong></td>
+              </tr>
+              <tr data-entity-type="reservation" data-entity-id="r14">
+                <td class="mono">MAY 23</td>
+                <td class="mono">7</td>
+                <td>N. Cruz</td>
+                <td>Mustang Towers 7B</td>
+                <td class="mono"><strong>$2,035.04</strong></td>
+              </tr>
+              <tr data-entity-type="reservation" data-entity-id="r8">
+                <td class="mono">JUN 6</td>
+                <td class="mono">7</td>
+                <td>H. Patel</td>
+                <td>Sandcastle 412</td>
+                <td class="mono"><strong>$1,458.72</strong></td>
+              </tr>
+              <tr data-entity-type="reservation" data-entity-id="r20">
+                <td class="mono">JUN 20</td>
+                <td class="mono">7</td>
+                <td>U. Jensen</td>
+                <td>Sea Breeze Cottage</td>
+                <td class="mono"><strong>$1,139.11</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section aria-labelledby="owner-maintenance-heading">
+          <header class="section-header">
+            <h2 id="owner-maintenance-heading">Open maintenance</h2>
+            <p class="section-meta">1 active &middot; across portfolio</p>
+          </header>
+          <ul class="maintenance-list">
+            <li class="maintenance-card" data-entity-type="maintenance" data-entity-id="mt1" tabindex="0" role="button" aria-label="Open AC compressor ticket">
+              <div class="maintenance-card-title">AC not cooling below 78&deg;F</div>
+              <div class="maintenance-card-meta">
+                <span>Sandcastle 412</span>
+                <span class="maintenance-card-meta-divider">&middot;</span>
+                <span class="status-pill is-progress">In progress</span>
+                <span class="status-pill is-high">High</span>
+              </div>
+              <div class="maintenance-card-detail">
+                Coastal Maintenance &middot; reported Apr 17 &middot; est. $485.00
+              </div>
+            </li>
+          </ul>
+        </section>
       </section>
       <section class="view-pane" data-view="manager" hidden>
         <header class="mgr-header">
@@ -864,26 +2209,26 @@
         </header>
 
         <section class="ops-strip" aria-label="Operational metrics">
-          <div class="ops-tile">
+          <div class="ops-tile" data-filter="all" role="button" tabindex="0" aria-label="Show all properties">
             <div class="ops-numeral">24</div>
             <div class="ops-label">Total Properties</div>
           </div>
-          <div class="ops-tile">
+          <div class="ops-tile" data-filter="occupied" role="button" tabindex="0" aria-label="Filter to currently occupied">
             <div class="ops-numeral">3</div>
             <div class="ops-label">Active Bookings</div>
             <div class="ops-sub">3 occupied tonight</div>
           </div>
-          <div class="ops-tile">
+          <div class="ops-tile" data-filter="checkins" role="button" tabindex="0" aria-label="Filter to today's check-ins">
             <div class="ops-numeral">3</div>
             <div class="ops-label">Check-ins Today</div>
             <div class="ops-sub">all by 3:00 PM</div>
           </div>
-          <div class="ops-tile">
+          <div class="ops-tile" data-filter="cleanings" role="button" tabindex="0" aria-label="Filter to properties with pending cleanings">
             <div class="ops-numeral">1</div>
             <div class="ops-label">Cleanings Pending</div>
             <div class="ops-sub is-warn">1 in progress</div>
           </div>
-          <div class="ops-tile">
+          <div class="ops-tile" data-filter="maintenance" role="button" tabindex="0" aria-label="Filter to properties with open maintenance">
             <div class="ops-numeral">4</div>
             <div class="ops-label">Open Maintenance</div>
             <div class="ops-sub is-alert">1 high severity</div>
@@ -896,52 +2241,52 @@
             <p class="section-meta">SUN APR 19 &middot; 2026</p>
           </header>
           <ol class="timeline">
-            <li class="timeline-event">
+            <li class="timeline-event" data-entity-type="cleaning" data-entity-id="ct2">
               <span class="timeline-time">9:00 AM</span>
               <span class="timeline-tag">Cleaning</span>
               <span class="timeline-detail">Sea Breeze Cottage &middot; Bay Area Cleaning</span>
             </li>
-            <li class="timeline-event">
+            <li class="timeline-event" data-entity-type="cleaning" data-entity-id="ct3">
               <span class="timeline-time">10:00 AM</span>
               <span class="timeline-tag">Cleaning</span>
               <span class="timeline-detail">Driftwood House &middot; Island Clean Co.</span>
             </li>
-            <li class="timeline-event">
+            <li class="timeline-event" data-entity-type="reservation" data-entity-id="r48">
               <span class="timeline-time">11:00 AM</span>
               <span class="timeline-tag">Check-out</span>
               <span class="timeline-detail">Harold Patel &middot; Island Pines</span>
             </li>
-            <li class="timeline-event">
+            <li class="timeline-event" data-entity-type="cleaning" data-entity-id="ct4">
               <span class="timeline-time">11:00 AM</span>
               <span class="timeline-tag">Cleaning</span>
               <span class="timeline-detail">Marlin&rsquo;s Rest &middot; Bay Area Cleaning</span>
             </li>
-            <li class="timeline-event" data-state="in-progress">
+            <li class="timeline-event" data-state="in-progress" data-entity-type="cleaning" data-entity-id="ct1">
               <span class="timeline-time">12:00 PM</span>
               <span class="timeline-tag">Cleaning</span>
               <span class="timeline-detail">Island Pines &middot; Island Clean Co. &middot; turnover for r48</span>
             </li>
-            <li class="timeline-event" data-state="in-progress">
+            <li class="timeline-event" data-state="in-progress" data-entity-type="maintenance" data-entity-id="mt1">
               <span class="timeline-time">2:00 PM</span>
               <span class="timeline-tag">Onsite</span>
               <span class="timeline-detail">Sandcastle 412 &middot; Coastal Maintenance &middot; AC compressor</span>
             </li>
-            <li class="timeline-event" data-state="in-progress">
+            <li class="timeline-event" data-state="in-progress" data-entity-type="maintenance" data-entity-id="mt4">
               <span class="timeline-time">2:30 PM</span>
               <span class="timeline-tag">Onsite</span>
               <span class="timeline-detail">Tide Pool House &middot; Coastal Maintenance &middot; roof leak repair</span>
             </li>
-            <li class="timeline-event">
+            <li class="timeline-event" data-entity-type="reservation" data-entity-id="r18">
               <span class="timeline-time">3:00 PM</span>
               <span class="timeline-tag">Check-in</span>
               <span class="timeline-detail">Samuel Adeyemi &middot; Sea Breeze Cottage</span>
             </li>
-            <li class="timeline-event">
+            <li class="timeline-event" data-entity-type="reservation" data-entity-id="r35">
               <span class="timeline-time">3:00 PM</span>
               <span class="timeline-tag">Check-in</span>
               <span class="timeline-detail">Julia Ferreira &middot; Driftwood House</span>
             </li>
-            <li class="timeline-event">
+            <li class="timeline-event" data-entity-type="reservation" data-entity-id="r53">
               <span class="timeline-time">3:00 PM</span>
               <span class="timeline-tag">Check-in</span>
               <span class="timeline-detail">Monica Bell &middot; Marlin&rsquo;s Rest</span>
@@ -954,6 +2299,7 @@
             <h2 id="mgr-properties-heading">Properties</h2>
             <p class="section-meta">24 across 16 owners</p>
           </header>
+          <div class="filter-chip-host" data-filter-chip-host aria-live="polite"></div>
           <table class="data-table data-table-properties">
             <thead>
               <tr>
@@ -966,7 +2312,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p1">
                 <td class="cell-property">
                   <div class="cell-name">Sandcastle 412</div>
                   <div class="cell-sub">412 Beach Ave</div>
@@ -988,7 +2334,7 @@
                 <td class="mono">APR 22 &middot; F. Obi</td>
                 <td class="cell-alert"><span class="alert-dot" aria-label="Open maintenance ticket"></span></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p2">
                 <td class="cell-property">
                   <div class="cell-name">Mustang Towers 7B</div>
                   <div class="cell-sub">700 Access Rd</div>
@@ -1010,7 +2356,7 @@
                 <td class="mono">APR 24 &middot; M. Bell</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p3">
                 <td class="cell-property">
                   <div class="cell-name">Sea Breeze Cottage</div>
                   <div class="cell-sub">118 Cotter Ave</div>
@@ -1032,7 +2378,7 @@
                 <td class="mono">APR 19 <span class="today-flag">Today</span> &middot; S. Adeyemi</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p4">
                 <td class="cell-property">
                   <div class="cell-name">Gulf View 201</div>
                   <div class="cell-sub">201 Station St</div>
@@ -1054,7 +2400,7 @@
                 <td class="mono">APR 26 &middot; X. Fontaine</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p5">
                 <td class="cell-property">
                   <div class="cell-name">Pelican Perch</div>
                   <div class="cell-sub">845 Padre Blvd</div>
@@ -1076,7 +2422,7 @@
                 <td class="mono">APR 25 &middot; B. Cole</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p6">
                 <td class="cell-property">
                   <div class="cell-name">Tarpon Flats</div>
                   <div class="cell-sub">302 Cut Off Rd</div>
@@ -1098,7 +2444,7 @@
                 <td class="mono">APR 22 &middot; G. Leblanc</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p7">
                 <td class="cell-property">
                   <div class="cell-name">Driftwood House</div>
                   <div class="cell-sub">56 W Cotter Ave</div>
@@ -1120,7 +2466,7 @@
                 <td class="mono">APR 19 <span class="today-flag">Today</span> &middot; J. Ferreira</td>
                 <td class="cell-alert"><span class="alert-dot" aria-label="Open maintenance ticket"></span></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p8">
                 <td class="cell-property">
                   <div class="cell-name">Blue Heron Bungalow</div>
                   <div class="cell-sub">29 Alister St</div>
@@ -1142,7 +2488,7 @@
                 <td class="mono">MAY 8 &middot; N. Owens</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p9">
                 <td class="cell-property">
                   <div class="cell-name">Port Royal 305</div>
                   <div class="cell-sub">305 N Station St</div>
@@ -1164,7 +2510,7 @@
                 <td class="mono">APR 27 &middot; C. Reyes</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p10">
                 <td class="cell-property">
                   <div class="cell-name">Tide Pool House</div>
                   <div class="cell-sub">77 Rincon Dr</div>
@@ -1186,7 +2532,7 @@
                 <td class="mono">MAY 15 &middot; F. Obi</td>
                 <td class="cell-alert"><span class="alert-dot" aria-label="Open maintenance ticket"></span></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p11">
                 <td class="cell-property">
                   <div class="cell-name">Island Pines</div>
                   <div class="cell-sub">114 S Alister St</div>
@@ -1208,7 +2554,7 @@
                 <td class="mono">APR 26 &middot; I. Thornton</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p12">
                 <td class="cell-property">
                   <div class="cell-name">Sand Dollar Suite</div>
                   <div class="cell-sub">501 E Ave G</div>
@@ -1230,7 +2576,7 @@
                 <td class="mono">APR 21 &middot; K. Simmons</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p13">
                 <td class="cell-property">
                   <div class="cell-name">Marlin&rsquo;s Rest</div>
                   <div class="cell-sub">88 N Cut Off Rd</div>
@@ -1252,7 +2598,7 @@
                 <td class="mono">APR 19 <span class="today-flag">Today</span> &middot; M. Bell</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p14">
                 <td class="cell-property">
                   <div class="cell-name">Lighthouse Landing</div>
                   <div class="cell-sub">222 Cutter St</div>
@@ -1274,7 +2620,7 @@
                 <td class="mono">MAY 9 &middot; R. Soto</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p15">
                 <td class="cell-property">
                   <div class="cell-name">Bayside Retreat</div>
                   <div class="cell-sub">19 Conn Brown Harbor Rd</div>
@@ -1296,7 +2642,7 @@
                 <td class="mono">APR 20 &middot; T. Holloway</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p16">
                 <td class="cell-property">
                   <div class="cell-name">Salty Dog Cottage</div>
                   <div class="cell-sub">43 W Ave A</div>
@@ -1318,7 +2664,7 @@
                 <td class="mono">MAY 4 &middot; V. Marsh</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p17">
                 <td class="cell-property">
                   <div class="cell-name">Osprey&rsquo;s Nest</div>
                   <div class="cell-sub">67 Trout St</div>
@@ -1340,7 +2686,7 @@
                 <td class="mono">APR 22 &middot; X. Fontaine</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p18">
                 <td class="cell-property">
                   <div class="cell-name">Breakwater 202</div>
                   <div class="cell-sub">202 Whitman Dr</div>
@@ -1362,7 +2708,7 @@
                 <td class="mono">APR 28 &middot; Z. Caldwell</td>
                 <td class="cell-alert"><span class="alert-dot" aria-label="Open maintenance ticket"></span></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p19">
                 <td class="cell-property">
                   <div class="cell-name">Palmetto Place</div>
                   <div class="cell-sub">91 S Station St</div>
@@ -1384,7 +2730,7 @@
                 <td class="mono">MAY 17 &middot; B. Cole</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p20">
                 <td class="cell-property">
                   <div class="cell-name">Surfside 8</div>
                   <div class="cell-sub">8 Surfside Dr</div>
@@ -1406,7 +2752,7 @@
                 <td class="mono">APR 24 &middot; D. Hutchins</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p21">
                 <td class="cell-property">
                   <div class="cell-name">Shell Seeker</div>
                   <div class="cell-sub">33 Ave C</div>
@@ -1428,7 +2774,7 @@
                 <td class="mono">MAY 20 &middot; F. Walsh</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p22">
                 <td class="cell-property">
                   <div class="cell-name">Coastal Cove</div>
                   <div class="cell-sub">155 Ave H</div>
@@ -1450,7 +2796,7 @@
                 <td class="mono">APR 25 &middot; H. Pittman</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p23">
                 <td class="cell-property">
                   <div class="cell-name">Sunrise Suite</div>
                   <div class="cell-sub">410 E Ave B</div>
@@ -1472,7 +2818,7 @@
                 <td class="mono">MAY 12 &middot; J. Ferreira</td>
                 <td class="cell-alert"></td>
               </tr>
-              <tr>
+              <tr data-entity-type="property" data-entity-id="p24">
                 <td class="cell-property">
                   <div class="cell-name">Deckhouse at Horace Caldwell</div>
                   <div class="cell-sub">11 Bob Hall Pier Rd</div>
@@ -1497,12 +2843,106 @@
             </tbody>
           </table>
         </section>
+
+        <section aria-labelledby="mgr-sync-heading">
+          <header class="section-header">
+            <h2 id="mgr-sync-heading">Channel Sync Status</h2>
+            <p class="section-meta">75 listings &middot; 4 channels</p>
+          </header>
+          <div class="sync-panel">
+            <div class="sync-panel-body">
+              <div class="sync-row">
+                <span class="sync-row-label">Last sync</span>
+                <span class="sync-row-value">14 min ago</span>
+              </div>
+              <div class="sync-row">
+                <span class="sync-row-label">Channels healthy</span>
+                <span class="sync-row-value">73<span class="sync-row-value-muted"> / 75</span></span>
+              </div>
+              <div class="sync-row is-alert">
+                <span class="sync-row-label">Conflicts</span>
+                <span class="sync-row-value">1</span>
+              </div>
+              <div class="sync-row is-warn">
+                <span class="sync-row-label">Pending</span>
+                <span class="sync-row-value">1</span>
+              </div>
+            </div>
+            <div class="sync-panel-footer">
+              <a class="sync-panel-link" href="#">View details &rarr;</a>
+            </div>
+          </div>
+        </section>
       </section>
       <section class="view-pane" data-view="guest" hidden>
-        <p class="placeholder">GUEST BOOKING FLOW — scaffolding only</p>
+        <header class="guest-hero">
+          <p class="mgr-eyebrow">PORT ARANSAS &middot; TEXAS GULF COAST</p>
+          <h1>Find your beach stay.</h1>
+          <p class="guest-hero-tagline">Book direct with local owners. No middleman, no surprises &mdash; just the property and the price.</p>
+        </header>
+
+        <form class="guest-search" id="guest-search" aria-label="Search availability">
+          <div class="guest-search-field">
+            <label class="guest-search-label" for="g-checkin">Check-in</label>
+            <input type="date" class="guest-search-input" id="g-checkin" value="2026-05-15" min="2026-04-19">
+          </div>
+          <div class="guest-search-field">
+            <label class="guest-search-label" for="g-checkout">Check-out</label>
+            <input type="date" class="guest-search-input" id="g-checkout" value="2026-05-22" min="2026-04-20">
+          </div>
+          <div class="guest-search-field">
+            <label class="guest-search-label" for="g-guests">Guests</label>
+            <select class="guest-search-input" id="g-guests">
+              <option value="1">1 guest</option>
+              <option value="2">2 guests</option>
+              <option value="3">3 guests</option>
+              <option value="4" selected>4 guests</option>
+              <option value="5">5 guests</option>
+              <option value="6">6 guests</option>
+              <option value="7">7 guests</option>
+              <option value="8">8 guests</option>
+              <option value="10">10 guests</option>
+            </select>
+          </div>
+          <button type="submit" class="guest-search-btn">Search</button>
+        </form>
+
+        <div id="guest-results" data-guest-results data-guest-step="list">
+          <p class="placeholder">Submit search to see properties.</p>
+        </div>
+
+        <div id="guest-detail" data-guest-step="detail" hidden></div>
+        <div id="guest-review" data-guest-step="review" hidden></div>
+        <div id="guest-confirmed" data-guest-step="confirmed" hidden></div>
       </section>
     </main>
   </div>
+
+  <div class="detail-panel-backdrop" data-panel-backdrop></div>
+  <aside
+    class="detail-panel"
+    id="detail-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="detail-panel-title"
+    aria-hidden="true"
+  >
+    <header class="detail-panel-header">
+      <div>
+        <span class="detail-panel-eyebrow" data-panel-eyebrow>&nbsp;</span>
+        <h3 id="detail-panel-title" data-panel-title>&nbsp;</h3>
+      </div>
+      <button
+        type="button"
+        class="detail-panel-close"
+        data-panel-close
+        aria-label="Close detail panel"
+      >&times;</button>
+    </header>
+    <div class="detail-panel-body" data-panel-body>
+      <p class="placeholder">Panel content loads here.</p>
+    </div>
+  </aside>
 
   <script src="data.js"></script>
   <script>
@@ -1580,6 +3020,1191 @@
         console.warn('[portal] data.js did not load — DATA is undefined.');
       }
       console.info('[portal] initial view: ' + getActiveView());
+
+      // ============================================================
+      // RATE RESOLUTION (session 7) — looks up the effective nightly
+      // rate + min-stay + period label for a property × check-in date.
+      // Property-specific overrides win over market-wide periods.
+      // ============================================================
+      function resolveRate(property_id, check_in) {
+        var prop = DATA.properties.find(function (p) { return p.id === property_id; });
+        if (!prop) return null;
+
+        // Property-specific override (e.g., Mustang Towers 7B summer premium)
+        var propSpecific = DATA.rate_periods.find(function (rp) {
+          return rp.property_id === property_id
+              && check_in >= rp.start_date
+              && check_in <= rp.end_date;
+        });
+        if (propSpecific) {
+          return {
+            nightly_rate: propSpecific.nightly_rate_override,
+            min_stay:     propSpecific.min_stay,
+            label:        propSpecific.label,
+            base_rate:    prop.nightly_rate,
+            premium_pct:  Math.round(((propSpecific.nightly_rate_override - prop.nightly_rate) / prop.nightly_rate) * 100),
+          };
+        }
+
+        // Market-wide period (Spring Break, Summer Peak, etc.)
+        var marketPeriod = DATA.rate_periods.find(function (rp) {
+          return rp.property_id === null
+              && check_in >= rp.start_date
+              && check_in <= rp.end_date;
+        });
+        if (marketPeriod) {
+          return {
+            nightly_rate: prop.nightly_rate,
+            min_stay:     marketPeriod.min_stay,
+            label:        marketPeriod.label,
+            base_rate:    prop.nightly_rate,
+            premium_pct:  0,
+          };
+        }
+
+        // Off-peak default
+        return {
+          nightly_rate: prop.nightly_rate,
+          min_stay:     1,
+          label:        null,
+          base_rate:    prop.nightly_rate,
+          premium_pct:  0,
+        };
+      }
+
+      function computeGuestPrice(property_id, check_in, check_out, channel_id) {
+        var prop = DATA.properties.find(function (p) { return p.id === property_id; });
+        var rate = resolveRate(property_id, check_in);
+        var ch   = DATA.channels.find(function (c) { return c.id === (channel_id || 'ch4'); });
+        if (!prop || !rate || !ch) return null;
+        // Synthesize a property with the resolved rate for computeFinancials
+        var propWithRate = Object.assign({}, prop, { nightly_rate: rate.nightly_rate });
+        var fakeRes = { check_in: check_in, check_out: check_out };
+        var fin = computeFinancials(fakeRes, propWithRate, ch);
+        return {
+          nights:           fin.nights,
+          nightly_rate:     rate.nightly_rate,
+          base_rate:        rate.base_rate,
+          premium_pct:      rate.premium_pct,
+          rate_period:      rate.label,
+          min_stay:         rate.min_stay,
+          nightly_revenue:  fin.nightly_revenue,
+          cleaning_fee:     fin.cleaning_fee,
+          state_hot:        fin.state_hot,
+          city_hot:         fin.city_hot,
+          taxes:            fin.taxes,
+          guest_total:      fin.guest_total,
+        };
+      }
+
+      // Expose helpers for testing
+      window.__portal = window.__portal || {};
+      window.__portal.resolveRate       = resolveRate;
+      window.__portal.computeGuestPrice = computeGuestPrice;
+
+      // ============================================================
+      // GUEST BOOKING FLOW (session 7)
+      // 7a: skeleton (this section). 7b: results list (below). 7c:
+      // detail step + review/confirm (deferred).
+      // ============================================================
+      function renderGuestResults() {
+        var checkInEl  = document.getElementById('g-checkin');
+        var checkOutEl = document.getElementById('g-checkout');
+        var guestsEl   = document.getElementById('g-guests');
+        var resultsEl  = document.querySelector('[data-guest-results]');
+        if (!checkInEl || !checkOutEl || !guestsEl || !resultsEl) return;
+
+        var checkIn  = checkInEl.value;
+        var checkOut = checkOutEl.value;
+        var guests   = parseInt(guestsEl.value, 10) || 1;
+
+        if (!checkIn || !checkOut || checkOut <= checkIn) {
+          resultsEl.innerHTML = '<p class="placeholder">Please pick valid check-in and check-out dates.</p>';
+          return;
+        }
+
+        var matching = DATA.properties.filter(function (p) { return p.sleeps >= guests; });
+        if (matching.length === 0) {
+          resultsEl.innerHTML = '<p class="placeholder">No properties accommodate ' + guests + ' guests.</p>';
+          return;
+        }
+
+        var enriched = matching.map(function (p) {
+          return { property: p, price: computeGuestPrice(p.id, checkIn, checkOut) };
+        }).sort(function (a, b) {
+          // Sort by guest_total ascending (cheapest first), with
+          // min-stay-failing properties demoted to the bottom.
+          var aFails = a.price.nights < a.price.min_stay;
+          var bFails = b.price.nights < b.price.min_stay;
+          if (aFails !== bFails) return aFails ? 1 : -1;
+          return a.price.guest_total - b.price.guest_total;
+        });
+
+        var nights = enriched[0].price.nights;
+        var html =
+          '<header class="guest-results-header">' +
+            '<h2 class="guest-results-title">' + matching.length + ' propert' + (matching.length === 1 ? 'y' : 'ies') + ' available</h2>' +
+            '<p class="guest-results-meta">' + nights + ' nights &middot; ' + guests + ' guests &middot; ' +
+              formatDate(checkIn).split(' · ')[1] + ' &rarr; ' + formatDate(checkOut).split(' · ')[1] +
+            '</p>' +
+          '</header>' +
+          '<div class="property-list">';
+
+        enriched.forEach(function (e) {
+          html += renderPropertyCard(e.property, e.price);
+        });
+
+        html += '</div>';
+        resultsEl.innerHTML = html;
+      }
+
+      function renderPropertyCard(prop, price) {
+        var amenityShort = prop.amenities.slice(0, 3).join(' · ');
+        var photoLabel = prop.name.toUpperCase();
+        var minStayFail = price.nights < price.min_stay;
+
+        var priceBlock;
+        if (minStayFail) {
+          priceBlock =
+            '<div>' +
+              '<div class="property-card-price-meta is-warn">' + price.min_stay + '-night minimum</div>' +
+              '<div class="property-card-price-period">' + (price.rate_period ? escapeHtml(price.rate_period) : 'These dates') + '</div>' +
+            '</div>' +
+            '<div class="property-card-price-base">' + formatMoney(price.nightly_rate) + ' / night</div>' +
+            '<button type="button" class="property-card-reserve" disabled>Adjust dates</button>';
+        } else {
+          priceBlock =
+            '<div>' +
+              '<div class="property-card-price-meta">Total &middot; ' + price.nights + ' nights</div>' +
+              '<div class="property-card-price-total">' + formatMoney(price.guest_total) + '</div>' +
+            '</div>' +
+            '<div class="property-card-price-period">' +
+              (price.rate_period ? escapeHtml(price.rate_period) : 'All-in pricing &middot; no fees') +
+            '</div>' +
+            '<button type="button" class="property-card-reserve" data-guest-action="reserve" data-property-id="' +
+              escapeHtml(prop.id) + '">Reserve</button>';
+        }
+
+        return '' +
+          '<article class="property-card" data-property-id="' + escapeHtml(prop.id) + '" tabindex="0" role="button" aria-label="View ' + escapeHtml(prop.name) + ' detail">' +
+            '<div class="property-card-photo" aria-hidden="true">' + escapeHtml(photoLabel) + '</div>' +
+            '<div class="property-card-body">' +
+              '<header class="property-card-header">' +
+                '<h3 class="property-card-name">' + escapeHtml(prop.name) + '</h3>' +
+                '<p class="property-card-address">' + escapeHtml(prop.address.split(',')[0]) + ' &middot; Port Aransas</p>' +
+              '</header>' +
+              '<div class="property-card-specs">' +
+                prop.beds + ' BR &middot; ' + prop.baths + ' BA &middot; Sleeps ' + prop.sleeps +
+              '</div>' +
+              '<div class="property-card-amenities">' + escapeHtml(amenityShort) + '</div>' +
+            '</div>' +
+            '<div class="property-card-price">' + priceBlock + '</div>' +
+          '</article>';
+      }
+
+      var guestSearchForm = document.getElementById('guest-search');
+      if (guestSearchForm) {
+        guestSearchForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          renderGuestResults();
+        });
+        // Live re-render on input change for snappy feedback
+        ['g-checkin', 'g-checkout', 'g-guests'].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.addEventListener('change', renderGuestResults);
+        });
+      }
+
+      // Initial render with default search (May 15-22, 4 guests)
+      if (document.querySelector('[data-guest-results]')) {
+        renderGuestResults();
+      }
+
+      // ── Guest multi-step state machine ──────────────────────────
+      var GUEST_STEPS = ['list', 'detail', 'review', 'confirmed'];
+      var guestState = {
+        step: 'list',
+        propertyId: null,
+        contact: { name: '', email: '', phone: '' },
+        reservationId: null,
+      };
+
+      function setGuestStep(step) {
+        if (GUEST_STEPS.indexOf(step) === -1) return;
+        guestState.step = step;
+        var stepEls = document.querySelectorAll('[data-guest-step]');
+        for (var i = 0; i < stepEls.length; i++) {
+          stepEls[i].hidden = stepEls[i].dataset.guestStep !== step;
+        }
+        // Hide search form on confirmed step (booking is locked)
+        var searchForm = document.getElementById('guest-search');
+        if (searchForm) searchForm.hidden = (step === 'confirmed');
+        // Scroll back to top of view
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      }
+
+      function getCurrentSearch() {
+        return {
+          checkIn:  document.getElementById('g-checkin').value,
+          checkOut: document.getElementById('g-checkout').value,
+          guests:   parseInt(document.getElementById('g-guests').value, 10) || 1,
+        };
+      }
+
+      function priceBreakdownRows(price) {
+        return [
+          row(formatMoney(price.nightly_rate) + ' × ' + price.nights + ' nights',
+              formatMoney(price.nightly_revenue), { mono: true }),
+          row('Cleaning fee',  formatMoney(price.cleaning_fee), { mono: true }),
+          row('State HOT (6%)', formatMoney(price.state_hot),    { mono: true }),
+          row('City HOT (9%)',  formatMoney(price.city_hot),     { mono: true }),
+          '<hr class="detail-divider">',
+          row('Total',          formatMoney(price.guest_total),  { mono: true, bold: true }),
+        ];
+      }
+
+      function renderGuestDetail(propertyId) {
+        var prop = DATA.properties.find(function (p) { return p.id === propertyId; });
+        if (!prop) return;
+        guestState.propertyId = propertyId;
+        var s = getCurrentSearch();
+        var price = computeGuestPrice(propertyId, s.checkIn, s.checkOut);
+        if (!price) return;
+
+        var minStayFail = price.nights < price.min_stay;
+        var detailEl = document.getElementById('guest-detail');
+
+        var ciLabel = formatDate(s.checkIn);
+        var coLabel = formatDate(s.checkOut);
+
+        var html =
+          '<button type="button" class="guest-back-link" data-guest-back>&larr; Back to results</button>' +
+          '<div class="guest-detail-hero" aria-hidden="true">' + escapeHtml(prop.name.toUpperCase()) + '</div>' +
+          '<header class="guest-detail-header">' +
+            '<h2 class="guest-detail-name">' + escapeHtml(prop.name) + '</h2>' +
+            '<p class="guest-detail-address">' + escapeHtml(prop.address) + '</p>' +
+            '<p class="guest-detail-specs">' + prop.beds + ' BR &middot; ' + prop.baths + ' BA &middot; Sleeps ' + prop.sleeps + '</p>' +
+          '</header>' +
+          '<section class="detail-section">' +
+            '<p class="detail-section-title">Amenities</p>' +
+            '<ul class="guest-amenity-list">' +
+              prop.amenities.map(function (a) { return '<li>' + escapeHtml(a) + '</li>'; }).join('') +
+            '</ul>' +
+          '</section>' +
+          '<section class="detail-section">' +
+            '<p class="detail-section-title">Your stay</p>' +
+            row('Check-in',  ciLabel, { mono: true }) +
+            row('Check-out', coLabel, { mono: true }) +
+            row('Nights',    String(price.nights), { mono: true }) +
+            row('Channel',   'Direct booking · no platform fees') +
+          '</section>' +
+          '<section class="price-summary">' +
+            '<p class="detail-section-title">Pricing</p>' +
+            priceBreakdownRows(price).join('') +
+            (price.rate_period
+              ? '<div class="price-summary-period">' + escapeHtml(price.rate_period) +
+                ' &middot; ' + price.min_stay + '-night minimum</div>'
+              : '') +
+          '</section>' +
+          (minStayFail
+            ? '<p class="guest-form-policy" style="color:var(--status-red);font-weight:600;">' +
+                'These dates require a minimum ' + price.min_stay + '-night stay (' +
+                price.nights + ' selected). Adjust check-out to continue.' +
+              '</p>'
+            : '') +
+          '<button type="button" class="guest-cta-btn" data-guest-action="reserve" ' +
+            (minStayFail ? 'disabled' : '') + '>' +
+            (minStayFail ? 'Adjust dates to continue' : 'Reserve this stay  &rarr;') +
+          '</button>';
+
+        detailEl.innerHTML = html;
+        setGuestStep('detail');
+      }
+
+      function renderGuestReview() {
+        var prop = DATA.properties.find(function (p) { return p.id === guestState.propertyId; });
+        if (!prop) return;
+        var s = getCurrentSearch();
+        var price = computeGuestPrice(guestState.propertyId, s.checkIn, s.checkOut);
+        if (!price) return;
+
+        var reviewEl = document.getElementById('guest-review');
+        var c = guestState.contact;
+        var html =
+          '<button type="button" class="guest-back-link" data-guest-back-detail>&larr; Back to property</button>' +
+          '<header class="guest-detail-header">' +
+            '<p class="mgr-eyebrow">REVIEW &amp; CONFIRM</p>' +
+            '<h2 class="guest-detail-name">Almost there.</h2>' +
+            '<p class="guest-detail-address">' + escapeHtml(prop.name) + ' &middot; ' + escapeHtml(prop.address.split(',')[0]) + '</p>' +
+          '</header>' +
+          '<section class="price-summary">' +
+            '<p class="detail-section-title">Your stay</p>' +
+            row('Check-in',  formatDate(s.checkIn),  { mono: true }) +
+            row('Check-out', formatDate(s.checkOut), { mono: true }) +
+            row('Nights',    String(price.nights), { mono: true }) +
+            row('Guests',    String(s.guests), { mono: true }) +
+            '<hr class="detail-divider">' +
+            priceBreakdownRows(price).join('') +
+          '</section>' +
+          '<form class="guest-form" id="guest-contact-form">' +
+            '<p class="detail-section-title">Guest contact</p>' +
+            '<div class="guest-form-field">' +
+              '<label class="guest-search-label" for="gf-name">Full name</label>' +
+              '<input type="text" class="guest-search-input" id="gf-name" required value="' + escapeHtml(c.name) + '" placeholder="Jane Doe">' +
+            '</div>' +
+            '<div class="guest-form-field">' +
+              '<label class="guest-search-label" for="gf-email">Email</label>' +
+              '<input type="email" class="guest-search-input" id="gf-email" required value="' + escapeHtml(c.email) + '" placeholder="jane@example.com">' +
+            '</div>' +
+            '<div class="guest-form-field">' +
+              '<label class="guest-search-label" for="gf-phone">Phone</label>' +
+              '<input type="tel" class="guest-search-input" id="gf-phone" required value="' + escapeHtml(c.phone) + '" placeholder="555-555-1234">' +
+            '</div>' +
+          '</form>' +
+          '<p class="guest-form-policy">Free cancellation up to 7 days before check-in. ' +
+            'No payment is processed in this demo &mdash; clicking confirm shows a mock confirmation page.</p>' +
+          '<button type="button" class="guest-cta-btn" data-guest-action="confirm">Confirm reservation  &rarr;</button>';
+
+        reviewEl.innerHTML = html;
+        setGuestStep('review');
+      }
+
+      function renderGuestConfirmed() {
+        var prop = DATA.properties.find(function (p) { return p.id === guestState.propertyId; });
+        if (!prop) return;
+        var s = getCurrentSearch();
+        var price = computeGuestPrice(guestState.propertyId, s.checkIn, s.checkOut);
+        if (!price) return;
+
+        // Mock reservation ID — pseudo-random but deterministic for demo
+        var ridSeed = Math.abs((guestState.propertyId + s.checkIn + s.checkOut).split('').reduce(function (a, c) {
+          return ((a << 5) - a) + c.charCodeAt(0);
+        }, 0));
+        guestState.reservationId = 'BK-' + (ridSeed % 90000 + 10000).toString();
+
+        var confirmEl = document.getElementById('guest-confirmed');
+        var c = guestState.contact;
+        var html =
+          '<div class="guest-confirm">' +
+            '<div class="guest-confirm-check">&check;</div>' +
+            '<h2 class="guest-confirm-headline">Reservation confirmed</h2>' +
+            '<p class="guest-confirm-id">' + escapeHtml(guestState.reservationId) + '</p>' +
+            '<div class="guest-confirm-summary">' +
+              row('Property',  prop.name) +
+              row('Check-in',  formatDate(s.checkIn).split(' · ')[1], { mono: true }) +
+              row('Check-out', formatDate(s.checkOut).split(' · ')[1], { mono: true }) +
+              row('Nights',    String(price.nights), { mono: true }) +
+              row('Guests',    String(s.guests), { mono: true }) +
+              row('Total paid', formatMoney(price.guest_total), { mono: true, bold: true }) +
+            '</div>' +
+            '<p class="guest-confirm-prose">A confirmation email has been sent to ' +
+              '<strong>' + escapeHtml(c.email || 'your inbox') + '</strong>. ' +
+              'You\'ll get keypad codes 24 hours before check-in.</p>' +
+            '<button type="button" class="guest-cta-btn" data-guest-action="restart">Book another stay</button>' +
+          '</div>';
+
+        confirmEl.innerHTML = html;
+        setGuestStep('confirmed');
+      }
+
+      // Click delegation on guest pane (property card, back, reserve, confirm, restart)
+      var guestPane = document.querySelector('.view-pane[data-view="guest"]');
+      if (guestPane) {
+        guestPane.addEventListener('click', function (e) {
+          // Back to results
+          if (e.target.closest('[data-guest-back]')) {
+            e.preventDefault();
+            setGuestStep('list');
+            return;
+          }
+          // Back to detail (from review)
+          if (e.target.closest('[data-guest-back-detail]')) {
+            e.preventDefault();
+            renderGuestDetail(guestState.propertyId);
+            return;
+          }
+          // Reserve → review
+          var reserveBtn = e.target.closest('[data-guest-action="reserve"]');
+          if (reserveBtn && !reserveBtn.disabled) {
+            e.preventDefault();
+            renderGuestReview();
+            return;
+          }
+          // Confirm → confirmed
+          if (e.target.closest('[data-guest-action="confirm"]')) {
+            e.preventDefault();
+            // Capture form values
+            var nameEl  = document.getElementById('gf-name');
+            var emailEl = document.getElementById('gf-email');
+            var phoneEl = document.getElementById('gf-phone');
+            // Light validation — just check non-empty for demo
+            if (!nameEl.value.trim() || !emailEl.value.trim() || !phoneEl.value.trim()) {
+              alert('Please fill in name, email, and phone to continue.');
+              return;
+            }
+            guestState.contact = {
+              name:  nameEl.value.trim(),
+              email: emailEl.value.trim(),
+              phone: phoneEl.value.trim(),
+            };
+            renderGuestConfirmed();
+            return;
+          }
+          // Restart (from confirmed)
+          if (e.target.closest('[data-guest-action="restart"]')) {
+            e.preventDefault();
+            guestState.propertyId = null;
+            guestState.reservationId = null;
+            guestState.contact = { name: '', email: '', phone: '' };
+            renderGuestResults();
+            setGuestStep('list');
+            return;
+          }
+          // Property card → detail
+          var card = e.target.closest('.property-card[data-property-id]');
+          if (card) {
+            // Don't trigger on the "Reserve" button inside the card (handled above)
+            if (e.target.closest('[data-guest-action]')) {
+              // Quick-reserve from list: open detail then immediately review
+              renderGuestDetail(card.dataset.propertyId);
+              renderGuestReview();
+              return;
+            }
+            e.preventDefault();
+            renderGuestDetail(card.dataset.propertyId);
+          }
+        });
+        // Keyboard activation for property cards
+        guestPane.addEventListener('keydown', function (e) {
+          if (e.key !== 'Enter' && e.key !== ' ') return;
+          var card = e.target.closest('.property-card[data-property-id]');
+          if (card) {
+            e.preventDefault();
+            renderGuestDetail(card.dataset.propertyId);
+          }
+        });
+      }
+
+      // ============================================================
+      // DETAIL PANEL — chrome (5b) + entity templates (5c)
+      // openPanel(type, id) / closePanel() — reusable across views.
+      // URL persists as ?panel=type:id; ESC + backdrop close.
+      // 5c: reservation / property / maintenance get full templates;
+      //     cleaning / channel get stubs (full content in session 6).
+      // ============================================================
+      var ALLOWED_PANEL_TYPES = ['reservation', 'property', 'maintenance', 'cleaning', 'channel', 'statement'];
+      var TYPE_LABELS = {
+        reservation: 'Reservation',
+        property:    'Property',
+        maintenance: 'Maintenance Ticket',
+        cleaning:    'Cleaning Task',
+        channel:     'Channel Listing',
+        statement:   'Statement',
+      };
+      var DAY_NAMES   = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      var MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+      var panelEl        = document.getElementById('detail-panel');
+      var panelBackdrop  = document.querySelector('[data-panel-backdrop]');
+      var panelEyebrow   = document.querySelector('[data-panel-eyebrow]');
+      var panelTitle     = document.querySelector('[data-panel-title]');
+      var panelBody      = document.querySelector('[data-panel-body]');
+      var panelCloseBtn  = document.querySelector('[data-panel-close]');
+      var lastFocused    = null;
+
+      function isValidPanelType(type) {
+        return ALLOWED_PANEL_TYPES.indexOf(type) >= 0;
+      }
+
+      function parsePanelParam(raw) {
+        if (!raw) return null;
+        var parts = raw.split(':');
+        if (parts.length !== 2) return null;
+        if (!isValidPanelType(parts[0])) return null;
+        if (!parts[1]) return null;
+        return { type: parts[0], id: parts[1] };
+      }
+
+      // ── Format helpers ──────────────────────────────────────────
+      function formatDate(iso) {
+        if (!iso) return '—';
+        var p = iso.split('T')[0].split('-');
+        var d = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
+        return DAY_NAMES[d.getDay()] + ' · ' + MONTH_NAMES[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+      }
+      function formatMoney(n) {
+        var parts = (n || 0).toFixed(2).split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return '$' + parts.join('.');
+      }
+      function escapeHtml(s) {
+        if (s == null) return '';
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      // ── Markup helpers ──────────────────────────────────────────
+      function row(label, value, opts) {
+        opts = opts || {};
+        var valCls = opts.mono ? ' mono' : '';
+        var labelHtml = opts.bold ? '<strong>' + label + '</strong>' : label;
+        var valueHtml = opts.html ? value : escapeHtml(value);
+        if (opts.bold && !opts.html) valueHtml = '<strong>' + valueHtml + '</strong>';
+        return '<div class="detail-row">' +
+          '<span class="detail-row-label">' + labelHtml + '</span>' +
+          '<span class="detail-row-value' + valCls + '">' + valueHtml + '</span>' +
+        '</div>';
+      }
+      function section(title, rows) {
+        var html = '<section class="detail-section">';
+        if (title) html += '<p class="detail-section-title">' + escapeHtml(title) + '</p>';
+        html += rows.join('');
+        html += '</section>';
+        return html;
+      }
+      function statusPill(label, kind) {
+        return '<span class="status-pill ' + kind + '">' + escapeHtml(label) + '</span>';
+      }
+      var STATUS_KINDS = {
+        confirmed:   'is-confirmed',
+        completed:   'is-completed',
+        cancelled:   'is-cancelled',
+        open:        'is-open',
+        in_progress: 'is-progress',
+        resolved:    'is-resolved',
+        scheduled:   'is-progress',
+        complete:    'is-completed',
+      };
+      var SEVERITY_KINDS = { low: 'is-low', medium: 'is-medium', high: 'is-high' };
+
+      // ── Entity templates ────────────────────────────────────────
+      function renderReservation(id) {
+        var res = DATA.reservations.find(function (r) { return r.id === id; });
+        if (!res) return null;
+        var guest = DATA.guests.find(function (g) { return g.id === res.guest_id; });
+        var prop  = DATA.properties.find(function (p) { return p.id === res.property_id; });
+        var ch    = DATA.channels.find(function (c) { return c.id === res.channel_id; });
+        var owner = prop ? DATA.owners.find(function (o) { return o.id === prop.owner_id; }) : null;
+        if (!guest || !prop || !ch || !owner) return null;
+        var fin = computeFinancials(res, prop, ch);
+
+        var status = res.status.replace(/_/g, ' ');
+        var statusKind = STATUS_KINDS[res.status] || 'is-completed';
+
+        var body =
+          section(null, [
+            row('Status', statusPill(status, statusKind), { html: true }),
+          ]) +
+          section('Guest', [
+            row('Name',  guest.name),
+            row('Email', guest.email, { mono: true }),
+            row('Phone', guest.phone, { mono: true }),
+          ]) +
+          section('Property', [
+            row('Name',    prop.name),
+            row('Address', prop.address),
+            row('Owner',   owner.name),
+          ]) +
+          section('Stay', [
+            row('Check-in',  formatDate(res.check_in),  { mono: true }),
+            row('Check-out', formatDate(res.check_out), { mono: true }),
+            row('Nights',    String(fin.nights),         { mono: true }),
+            row('Channel',   ch.name),
+          ]) +
+          section('Financials', [
+            row('Nightly revenue',     formatMoney(fin.nightly_revenue), { mono: true }),
+            row('Cleaning fee',        formatMoney(fin.cleaning_fee),    { mono: true }),
+            row('State HOT (6%)',      formatMoney(fin.state_hot),       { mono: true }),
+            row('City HOT (9%)',       formatMoney(fin.city_hot),        { mono: true }),
+            row('Guest total',         formatMoney(fin.guest_total),     { mono: true, bold: true }),
+            '<hr class="detail-divider">',
+            row('Channel fee (' + Math.round(ch.fee_pct * 100) + '%)', '−' + formatMoney(fin.channel_fee), { mono: true }),
+            row('Cleaning passthrough', '−' + formatMoney(fin.cleaning_passthrough), { mono: true }),
+            row('Mgmt fee (' + Math.round(prop.mgmt_fee_pct * 100) + '%)', '−' + formatMoney(fin.mgmt_fee), { mono: true }),
+            row('Owner payout', formatMoney(fin.owner_payout), { mono: true, bold: true }),
+          ]);
+
+        return {
+          eyebrow: 'RESERVATION · ' + id.toUpperCase(),
+          title:   guest.name,
+          body:    body,
+        };
+      }
+
+      function renderProperty(id) {
+        var prop = DATA.properties.find(function (p) { return p.id === id; });
+        if (!prop) return null;
+        var owner = DATA.owners.find(function (o) { return o.id === prop.owner_id; });
+        var listings = DATA.channel_listings.filter(function (cl) { return cl.property_id === id; });
+        var recent = DATA.reservations
+          .filter(function (r) { return r.property_id === id && r.check_out < DEMO_TODAY; })
+          .sort(function (a, b) { return b.check_out.localeCompare(a.check_out); })
+          .slice(0, 3);
+        var upcoming = DATA.reservations
+          .filter(function (r) { return r.property_id === id && r.check_in >= DEMO_TODAY; })
+          .sort(function (a, b) { return a.check_in.localeCompare(b.check_in); })
+          .slice(0, 3);
+        var openTickets = DATA.maintenance_tickets.filter(function (mt) {
+          return mt.property_id === id && mt.status !== 'resolved';
+        });
+
+        function resLine(r) {
+          var g = DATA.guests.find(function (gg) { return gg.id === r.guest_id; });
+          var c = DATA.channels.find(function (cc) { return cc.id === r.channel_id; });
+          var initial = g ? (g.name.split(' ')[0].charAt(0) + '. ' + g.name.split(' ').slice(1).join(' ')) : '—';
+          return formatDate(r.check_in).split(' · ')[1] + ' → ' + formatDate(r.check_out).split(' · ')[1] + ' · ' + initial + ' · ' + (c ? c.name : '');
+        }
+
+        function channelLine(cl) {
+          var c = DATA.channels.find(function (cc) { return cc.id === cl.channel_id; });
+          var statusKind = cl.sync_status === 'error' ? 'is-open'
+                         : cl.sync_status === 'pending' ? 'is-progress'
+                         : 'is-confirmed';
+          return statusPill(cl.sync_status, statusKind) + ' &nbsp; ' + escapeHtml(cl.listing_id);
+        }
+
+        var body =
+          section('Address', [
+            row('Street',  prop.address),
+          ]) +
+          section('Specs', [
+            row('Beds',         String(prop.beds),   { mono: true }),
+            row('Baths',        String(prop.baths),  { mono: true }),
+            row('Sleeps',       String(prop.sleeps), { mono: true }),
+            row('Nightly rate', formatMoney(prop.nightly_rate), { mono: true }),
+            row('Cleaning fee', formatMoney(prop.cleaning_fee), { mono: true }),
+            row('Mgmt fee',     Math.round(prop.mgmt_fee_pct * 100) + '%', { mono: true }),
+          ]) +
+          section('Owner', [
+            row('Name',  owner ? owner.name  : '—'),
+            row('Email', owner ? owner.email : '—', { mono: true }),
+            row('Phone', owner ? owner.phone : '—', { mono: true }),
+          ]) +
+          section('Channels', listings.length
+            ? listings.map(function (cl) {
+                var c = DATA.channels.find(function (cc) { return cc.id === cl.channel_id; });
+                return row(c ? c.name : cl.channel_id, channelLine(cl), { html: true });
+              })
+            : [row('—', 'No channel listings')]
+          ) +
+          section('Upcoming bookings', upcoming.length
+            ? upcoming.map(function (r) { return row(r.id, resLine(r), { mono: false }); })
+            : [row('—', 'None scheduled')]
+          ) +
+          section('Recent bookings', recent.length
+            ? recent.map(function (r) { return row(r.id, resLine(r), { mono: false }); })
+            : [row('—', 'No recent stays')]
+          ) +
+          section('Open maintenance', openTickets.length
+            ? openTickets.map(function (mt) {
+                var sev = statusPill(mt.severity, SEVERITY_KINDS[mt.severity] || 'is-low');
+                var st  = statusPill(mt.status.replace(/_/g, ' '), STATUS_KINDS[mt.status] || 'is-open');
+                return row(mt.title, sev + ' &nbsp; ' + st, { html: true });
+              })
+            : [row('—', 'No open tickets')]
+          );
+
+        return {
+          eyebrow: 'PROPERTY · ' + id.toUpperCase(),
+          title:   prop.name,
+          body:    body,
+        };
+      }
+
+      function renderMaintenance(id) {
+        var mt = DATA.maintenance_tickets.find(function (m) { return m.id === id; });
+        if (!mt) return null;
+        var prop = DATA.properties.find(function (p) { return p.id === mt.property_id; });
+        var vendor = DATA.vendors.find(function (v) { return v.id === mt.vendor_id; });
+
+        var sevPill    = statusPill(mt.severity,           SEVERITY_KINDS[mt.severity] || 'is-low');
+        var statusPi   = statusPill(mt.status.replace(/_/g, ' '), STATUS_KINDS[mt.status] || 'is-open');
+
+        var body =
+          section(null, [
+            row('Severity', sevPill,  { html: true }),
+            row('Status',   statusPi, { html: true }),
+          ]) +
+          section('Description', [
+            '<p style="font-size:0.88rem;line-height:1.5;color:var(--ink);margin:0;">' + escapeHtml(mt.description) + '</p>',
+          ]) +
+          section('Property', [
+            row('Name',    prop ? prop.name    : '—'),
+            row('Address', prop ? prop.address : '—'),
+          ]) +
+          section('Vendor', [
+            row('Name',  vendor ? vendor.name  : '—'),
+            row('Phone', vendor ? vendor.phone : '—', { mono: true }),
+            row('Email', vendor ? vendor.email : '—', { mono: true }),
+          ]) +
+          section('Timeline', [
+            row('Reported', formatDate(mt.reported_at), { mono: true }),
+            row('Resolved', mt.resolved_at ? formatDate(mt.resolved_at) : '—', { mono: true }),
+            row('Cost',     formatMoney(mt.cost), { mono: true, bold: true }),
+          ]);
+
+        return {
+          eyebrow: 'MAINTENANCE · ' + id.toUpperCase(),
+          title:   mt.title,
+          body:    body,
+        };
+      }
+
+      function renderCleaning(id) {
+        var task = DATA.cleaning_tasks.find(function (t) { return t.id === id; });
+        if (!task) return null;
+        var prop    = DATA.properties.find(function (p) { return p.id === task.property_id; });
+        var vendor  = DATA.vendors.find(function (v) { return v.id === task.vendor_id; });
+        var linkedRes = task.reservation_id
+          ? DATA.reservations.find(function (r) { return r.id === task.reservation_id; })
+          : null;
+        var linkedGuest = linkedRes
+          ? DATA.guests.find(function (g) { return g.id === linkedRes.guest_id; })
+          : null;
+        var statusPi = statusPill(task.status.replace(/_/g, ' '), STATUS_KINDS[task.status] || 'is-progress');
+
+        var resLink = '—';
+        if (linkedRes && linkedGuest) {
+          resLink =
+            '<a href="#" class="panel-link" data-entity-type="reservation" data-entity-id="' +
+            escapeHtml(linkedRes.id) + '">' +
+            escapeHtml(linkedRes.id) + ' · ' + escapeHtml(linkedGuest.name) +
+            '</a>';
+        }
+        var propLink = prop
+          ? '<a href="#" class="panel-link" data-entity-type="property" data-entity-id="' +
+            escapeHtml(prop.id) + '">' + escapeHtml(prop.name) + '</a>'
+          : '—';
+
+        var body =
+          section(null, [
+            row('Status',    statusPi, { html: true }),
+            row('Scheduled', formatDate(task.scheduled_for), { mono: true }),
+          ]) +
+          section('Property', [
+            row('Name',    propLink, { html: true }),
+            row('Address', prop ? prop.address : '—'),
+          ]) +
+          section('Vendor', [
+            row('Name',  vendor ? vendor.name  : '—'),
+            row('Phone', vendor ? vendor.phone : '—', { mono: true }),
+            row('Email', vendor ? vendor.email : '—', { mono: true }),
+          ]) +
+          section('Reservation', [
+            row('Linked',     resLink, { html: true }),
+            row('Type', task.reservation_id ? 'Pre-arrival or post-checkout clean' : 'Standalone (post-repair, deep clean, etc.)'),
+          ]) +
+          (task.notes
+            ? section('Notes', ['<p class="panel-prose">' + escapeHtml(task.notes) + '</p>'])
+            : '');
+
+        return {
+          eyebrow: 'CLEANING TASK · ' + id.toUpperCase(),
+          title:   prop ? prop.name : id,
+          body:    body,
+        };
+      }
+
+      function renderChannel(id) {
+        var cl = DATA.channel_listings.find(function (c) { return c.id === id; });
+        if (!cl) return null;
+        var prop = DATA.properties.find(function (p) { return p.id === cl.property_id; });
+        var ch   = DATA.channels.find(function (c) { return c.id === cl.channel_id; });
+        var statusKind = cl.sync_status === 'error' ? 'is-open'
+                       : cl.sync_status === 'pending' ? 'is-progress'
+                       : 'is-confirmed';
+        var pill = statusPill(cl.sync_status, statusKind);
+        var lastSync = cl.last_synced_at
+          ? formatDate(cl.last_synced_at) + ' · ' + cl.last_synced_at.split('T')[1].slice(0, 5)
+          : '—';
+
+        // Mock listing URL by channel
+        var listingUrl = '';
+        if (ch) {
+          var domain = {
+            'Airbnb':      'airbnb.com/rooms/',
+            'VRBO':        'vrbo.com/listing/',
+            'Booking.com': 'booking.com/hotel/',
+            'Direct':      'localpraxis.com/book/',
+          }[ch.name] || '';
+          if (domain) listingUrl = 'https://' + domain + cl.listing_id.replace(/^[A-Z]+-/, '');
+        }
+
+        // Synthesized error / pending detail (no real error_reason in seed data)
+        var statusDetail = '';
+        if (cl.sync_status === 'error') {
+          statusDetail =
+            '<div class="detail-section">' +
+              '<p class="detail-section-title">Error detail</p>' +
+              '<p class="panel-prose"><strong>Rate sync failed</strong> · API returned 503 on last attempt at ' +
+              escapeHtml(lastSync) + '. Listing remains visible to guests but rate updates are not propagating. Manual retry required.</p>' +
+            '</div>';
+        } else if (cl.sync_status === 'pending') {
+          statusDetail =
+            '<div class="detail-section">' +
+              '<p class="detail-section-title">Pending detail</p>' +
+              '<p class="panel-prose">Initial sync queued at ' + escapeHtml(lastSync) +
+              '. Channel platform processing typically completes within 6 hours. No guest-facing impact during sync.</p>' +
+            '</div>';
+        }
+
+        var propLink = prop
+          ? '<a href="#" class="panel-link" data-entity-type="property" data-entity-id="' +
+            escapeHtml(prop.id) + '">' + escapeHtml(prop.name) + '</a>'
+          : '—';
+
+        var listingUrlCell = listingUrl
+          ? '<a href="' + escapeHtml(listingUrl) + '" target="_blank" rel="noopener" class="panel-link">' +
+            escapeHtml(listingUrl.replace(/^https?:\/\//, '')) + '</a>'
+          : '—';
+
+        var body =
+          section(null, [
+            row('Channel',     ch ? ch.name : '—'),
+            row('Sync status', pill,        { html: true }),
+            row('Last synced', lastSync,    { mono: true }),
+          ]) +
+          statusDetail +
+          section('Property', [
+            row('Name',    propLink, { html: true }),
+            row('Address', prop ? prop.address : '—'),
+          ]) +
+          section('Listing', [
+            row('Listing ID', cl.listing_id, { mono: true }),
+            row('Public URL', listingUrlCell, { html: true, mono: true }),
+          ]);
+
+        return {
+          eyebrow: 'CHANNEL LISTING · ' + id.toUpperCase(),
+          title:   (ch ? ch.name : 'Channel') + (prop ? ' · ' + prop.name : ''),
+          body:    body,
+        };
+      }
+
+      function renderStatement(id) {
+        var stmt = DATA.statements.find(function (s) { return s.id === id; });
+        if (!stmt) return null;
+        var owner = DATA.owners.find(function (o) { return o.id === stmt.owner_id; });
+        var payout = DATA.payouts.find(function (p) { return p.statement_id === id; });
+        var adjustments = DATA.adjustments.filter(function (a) { return a.statement_id === id; });
+
+        // Period label
+        var periodParts = stmt.period.split('-');
+        var periodLabel = MONTH_NAMES[parseInt(periodParts[1], 10) - 1] + ' ' + periodParts[0];
+
+        var statusKind = STATUS_KINDS[stmt.status] || 'is-completed';
+        var pill = statusPill(stmt.status, statusKind);
+
+        var payoutKind = payout && payout.status ? (STATUS_KINDS[payout.status] || 'is-progress') : 'is-progress';
+        var payoutPill = payout ? statusPill(payout.status, payoutKind) : '—';
+
+        var adjAbs = (stmt.adjustments_total || 0);
+        var adjLabel = adjAbs >= 0 ? formatMoney(adjAbs) : '−' + formatMoney(Math.abs(adjAbs));
+
+        var adjList = adjustments.length
+          ? section('Adjustments', adjustments.map(function (a) {
+              var amt = a.amount >= 0 ? '+' + formatMoney(a.amount) : '−' + formatMoney(Math.abs(a.amount));
+              return row(formatDate(a.date) + ' · ' + a.category.replace(/_/g, ' '), amt, { mono: true });
+            }))
+          : '';
+
+        var ownerLink = owner
+          ? '<a href="#" class="panel-link">' + escapeHtml(owner.name) + '</a>'
+          : '—';
+
+        var body =
+          section(null, [
+            row('Period',  periodLabel),
+            row('Status',  pill, { html: true }),
+            row('Owner',   owner ? owner.name : '—'),
+          ]) +
+          section('Summary', [
+            row('Gross revenue',         formatMoney(stmt.gross_revenue),        { mono: true }),
+            row('Channel fees',          '−' + formatMoney(stmt.channel_fees),   { mono: true }),
+            row('Cleaning passthrough',  '−' + formatMoney(stmt.cleaning_passthrough), { mono: true }),
+            row('Management fee',        '−' + formatMoney(stmt.mgmt_fee),       { mono: true }),
+            row('Adjustments',           adjLabel,                                { mono: true }),
+            '<hr class="detail-divider">',
+            row('Net to owner',          formatMoney(stmt.net_to_owner),         { mono: true, bold: true }),
+          ]) +
+          adjList +
+          section('Payout', payout ? [
+            row('Method',         (payout.method || 'ach').toUpperCase()),
+            row('Status',         payoutPill, { html: true }),
+            row('Scheduled',      payout.scheduled_date ? formatDate(payout.scheduled_date) : '—', { mono: true }),
+            row('Sent',           payout.sent_date      ? formatDate(payout.sent_date)      : '—', { mono: true }),
+            row('ACH reference',  payout.ach_ref || '—', { mono: true }),
+            row('Amount',         formatMoney(payout.amount), { mono: true, bold: true }),
+          ] : [row('—', 'No payout record')]);
+
+        return {
+          eyebrow: 'STATEMENT · ' + periodLabel.toUpperCase(),
+          title:   formatMoney(stmt.net_to_owner) + ' net',
+          body:    body,
+        };
+      }
+
+      var RENDERERS = {
+        reservation: renderReservation,
+        property:    renderProperty,
+        maintenance: renderMaintenance,
+        cleaning:    renderCleaning,
+        channel:     renderChannel,
+        statement:   renderStatement,
+      };
+
+      function openPanel(type, id) {
+        if (!isValidPanelType(type) || !id) {
+          console.warn('[portal] openPanel: invalid type/id', type, id);
+          return;
+        }
+        var fn = RENDERERS[type];
+        var rendered = fn ? fn(id) : null;
+        if (!rendered) {
+          console.warn('[portal] openPanel: entity not found', type, id);
+          return;
+        }
+        lastFocused = document.activeElement;
+
+        panelEyebrow.textContent = rendered.eyebrow;
+        panelTitle.textContent   = rendered.title;
+        panelBody.innerHTML      = rendered.body;
+
+        document.documentElement.setAttribute('data-panel-open', '');
+        panelEl.setAttribute('aria-hidden', 'false');
+
+        var url = new URL(window.location.href);
+        url.searchParams.set('panel', type + ':' + id);
+        window.history.replaceState({ view: getActiveView(), panel: type + ':' + id }, '', url.toString());
+
+        if (panelCloseBtn) panelCloseBtn.focus();
+      }
+
+      function closePanel() {
+        if (!document.documentElement.hasAttribute('data-panel-open')) return;
+        document.documentElement.removeAttribute('data-panel-open');
+        panelEl.setAttribute('aria-hidden', 'true');
+
+        var url = new URL(window.location.href);
+        url.searchParams.delete('panel');
+        window.history.replaceState({ view: getActiveView() }, '', url.toString());
+
+        if (lastFocused && typeof lastFocused.focus === 'function') {
+          try { lastFocused.focus(); } catch (e) { /* element may have been removed */ }
+        }
+        lastFocused = null;
+      }
+
+      // ── Click delegation ────────────────────────────────────────
+      // One listener on the manager view-pane. Walks up from event.target
+      // looking for entity-typed ancestors. Special-cases alert-dot and
+      // channel-pill (which derive their entity ID from the parent row
+      // rather than carrying it directly in markup).
+      function findClickTarget(start) {
+        var el = start;
+        while (el && el.nodeType === 1) {
+          // Alert dot → maintenance ticket on parent row's property
+          if (el.classList && el.classList.contains('alert-dot')) {
+            var aRow = el.closest('[data-entity-type="property"]');
+            if (aRow) {
+              var ticket = DATA.maintenance_tickets.find(function (mt) {
+                return mt.property_id === aRow.dataset.entityId && mt.status !== 'resolved';
+              });
+              if (ticket) return { type: 'maintenance', id: ticket.id, stop: true };
+            }
+            return { type: null, stop: true };
+          }
+          // Channel pill → channel listing for (property × channel-by-position)
+          if (el.classList && el.classList.contains('channel-pill')) {
+            if (el.classList.contains('is-none')) return { type: null, stop: true };
+            var pRow = el.closest('[data-entity-type="property"]');
+            if (pRow && el.parentElement) {
+              var idx = Array.prototype.indexOf.call(el.parentElement.children, el);
+              var chMap = ['ch1', 'ch2', 'ch3'];
+              var chId = chMap[idx];
+              if (chId) {
+                var cl = DATA.channel_listings.find(function (c) {
+                  return c.property_id === pRow.dataset.entityId && c.channel_id === chId;
+                });
+                if (cl) return { type: 'channel', id: cl.id, stop: true };
+              }
+            }
+            return { type: null, stop: true };
+          }
+          // Direct entity attribute (timeline events, table rows)
+          if (el.dataset && el.dataset.entityType && el.dataset.entityId) {
+            return { type: el.dataset.entityType, id: el.dataset.entityId, stop: false };
+          }
+          el = el.parentElement;
+        }
+        return null;
+      }
+
+      // ── Properties Grid filter (Ops Strip tile clicks) ─────────
+      // Click an Ops Strip tile to filter the Properties Grid below.
+      // Filter chip appears above the table with a clear button. URL
+      // persists as ?filter=name. Hardcoded id sets — when seed data
+      // changes, these need to update alongside the ops-strip values
+      // (same declarative-static cost).
+      var FILTERS = {
+        all:         { label: 'All properties',       ids: null },
+        occupied:    { label: 'Currently occupied',   ids: ['p3', 'p7', 'p13'] },
+        checkins:    { label: 'Check-ins today',      ids: ['p3', 'p7', 'p13'] },
+        cleanings:   { label: 'Cleanings pending',    ids: ['p11'] },
+        maintenance: { label: 'Open maintenance',     ids: ['p1', 'p7', 'p10', 'p18'] },
+      };
+
+      function applyFilter(name) {
+        var filter = FILTERS[name];
+        if (!filter) { console.warn('[portal] applyFilter: unknown filter', name); return; }
+
+        var rows = document.querySelectorAll('.data-table-properties tbody tr');
+        for (var i = 0; i < rows.length; i++) {
+          rows[i].hidden = filter.ids ? filter.ids.indexOf(rows[i].dataset.entityId) === -1 : false;
+        }
+
+        var host = document.querySelector('[data-filter-chip-host]');
+        if (host) {
+          if (!filter.ids) {
+            host.innerHTML = '';
+          } else {
+            host.innerHTML =
+              '<span class="filter-chip">' +
+                escapeHtml(filter.label) +
+                ' <span class="filter-chip-count">' + filter.ids.length + ' / 24</span>' +
+                ' <button type="button" class="filter-chip-clear" data-filter-clear aria-label="Clear filter">&times;</button>' +
+              '</span>';
+          }
+        }
+
+        var tiles = document.querySelectorAll('.ops-tile[data-filter]');
+        for (var j = 0; j < tiles.length; j++) {
+          if (tiles[j].dataset.filter === name && filter.ids) {
+            tiles[j].classList.add('is-active-filter');
+          } else {
+            tiles[j].classList.remove('is-active-filter');
+          }
+        }
+
+        var url = new URL(window.location.href);
+        if (!filter.ids) {
+          url.searchParams.delete('filter');
+        } else {
+          url.searchParams.set('filter', name);
+        }
+        window.history.replaceState({ view: getActiveView() }, '', url.toString());
+      }
+
+      function clearFilter() { applyFilter('all'); }
+
+      var managerPane = document.querySelector('.view-pane[data-view="manager"]');
+      if (managerPane) {
+        managerPane.addEventListener('click', function (e) {
+          // Filter chip clear button
+          if (e.target.closest('[data-filter-clear]')) {
+            e.preventDefault();
+            clearFilter();
+            return;
+          }
+          // Ops Strip tile click → apply filter
+          var tile = e.target.closest('.ops-tile[data-filter]');
+          if (tile) {
+            e.preventDefault();
+            applyFilter(tile.dataset.filter);
+            return;
+          }
+          // Ignore clicks on the sync panel "View details" link (href="#")
+          if (e.target.closest('.sync-panel-link')) return;
+          // Entity click → open detail panel
+          var hit = findClickTarget(e.target);
+          if (hit && hit.type) {
+            e.preventDefault();
+            openPanel(hit.type, hit.id);
+          }
+        });
+
+        // Keyboard accessibility for ops tiles (role=button + tabindex=0)
+        managerPane.addEventListener('keydown', function (e) {
+          if (e.key !== 'Enter' && e.key !== ' ') return;
+          var tile = e.target.closest('.ops-tile[data-filter]');
+          if (tile) {
+            e.preventDefault();
+            applyFilter(tile.dataset.filter);
+          }
+        });
+      }
+
+      // Hydrate filter from URL on load
+      var initialFilter = new URLSearchParams(window.location.search).get('filter');
+      if (initialFilter && FILTERS[initialFilter]) {
+        applyFilter(initialFilter);
+      }
+
+      // Owner view click delegation (entity clicks only — no filter
+      // chips or ops tiles in this view). Same handler shape would
+      // work for any future view that's just clickable entities.
+      var ownerPane = document.querySelector('.view-pane[data-view="owner"]');
+      if (ownerPane) {
+        ownerPane.addEventListener('click', function (e) {
+          var hit = findClickTarget(e.target);
+          if (hit && hit.type) {
+            e.preventDefault();
+            openPanel(hit.type, hit.id);
+          }
+        });
+        // Keyboard activation for portfolio tiles (role=button + tabindex=0)
+        ownerPane.addEventListener('keydown', function (e) {
+          if (e.key !== 'Enter' && e.key !== ' ') return;
+          var hit = findClickTarget(e.target);
+          if (hit && hit.type) {
+            e.preventDefault();
+            openPanel(hit.type, hit.id);
+          }
+        });
+      }
+
+      // Panel-internal click delegation. Allows cross-entity links
+      // inside panel content (e.g., cleaning task → its reservation,
+      // channel listing → its property). External anchors with
+      // target="_blank" pass through normally (no data-entity-type).
+      if (panelBody) {
+        panelBody.addEventListener('click', function (e) {
+          var hit = findClickTarget(e.target);
+          if (hit && hit.type) {
+            e.preventDefault();
+            openPanel(hit.type, hit.id);
+          }
+        });
+      }
+
+      // ESC closes
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && document.documentElement.hasAttribute('data-panel-open')) {
+          e.stopPropagation();
+          closePanel();
+        }
+      });
+
+      // Backdrop click closes
+      if (panelBackdrop) panelBackdrop.addEventListener('click', closePanel);
+
+      // Close button
+      if (panelCloseBtn) panelCloseBtn.addEventListener('click', closePanel);
+
+      // Restore from URL on load (head pre-paint already set
+      // data-panel-open; render content now that DATA is available).
+      var initialPanel = parsePanelParam(new URLSearchParams(window.location.search).get('panel'));
+      if (initialPanel) {
+        openPanel(initialPanel.type, initialPanel.id);
+      }
+
+      // Expose for testing + external triggers
+      window.__portal = window.__portal || {};
+      window.__portal.openPanel  = openPanel;
+      window.__portal.closePanel = closePanel;
+
+      console.info('[portal] panel module ready (5c). Click any timeline event, property row, alert dot, or channel pill.');
     })();
   </script>
 </body>
