@@ -121,6 +121,58 @@
     [hidden] { display: none !important; }
 
     /* ================================================================
+       DEMO CHROME — banner + back button (ported from rental.html
+       for cross-demo aesthetic cohesion).
+       ================================================================ */
+    .demo-banner {
+      position: relative;
+      padding: 0.5rem var(--s5);
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--ink-light);
+      border-bottom: 1px solid var(--rule-light);
+      background: var(--cream);
+      margin: 0 calc(-1 * var(--s5)) var(--s5);
+    }
+    .demo-banner a { color: var(--accent); text-decoration: none; }
+    .demo-banner a:hover { text-decoration: underline; }
+
+    .lp-back {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: 0.5em 1em;
+      background: var(--ink);
+      color: #FFFFFF;
+      border-radius: 5px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    }
+    .lp-back:hover { opacity: 0.8; }
+
+    .lp-back-sidebar {
+      display: none;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.75rem 0 0;
+      transition: color 0.15s;
+    }
+    .lp-back-sidebar:hover { color: #fff; }
+
+    /* ================================================================
        NOSCRIPT — warm-white text on ink, soft warning bar
        ================================================================ */
     .noscript {
@@ -1818,6 +1870,13 @@
         padding: var(--s4) var(--s3);
       }
 
+      .demo-banner {
+        padding: 0.5rem var(--s3);
+        margin: 0 calc(-1 * var(--s3)) var(--s4);
+      }
+      .lp-back { display: none !important; }
+      .lp-back-sidebar { display: block; }
+
       .mgr-header {
         flex-direction: column;
         align-items: flex-start;
@@ -1924,6 +1983,7 @@
         <div class="sidebar-footer">
           Sarah Whitaker<br>
           512-555-0101
+          <a class="lp-back-sidebar" href="https://localpraxis.com">&larr; localpraxis.com</a>
         </div>
       </div>
       <div class="sidebar-pane" data-view="manager" hidden>
@@ -1943,6 +2003,7 @@
         <div class="sidebar-footer">
           Signed in as<br>
           Demo Manager &middot; Operations
+          <a class="lp-back-sidebar" href="https://localpraxis.com">&larr; localpraxis.com</a>
         </div>
       </div>
       <div class="sidebar-pane" data-view="guest" hidden>
@@ -1960,10 +2021,14 @@
         <div class="sidebar-footer">
           Questions?<br>
           bookings@coastalstays.com
+          <a class="lp-back-sidebar" href="https://localpraxis.com">&larr; localpraxis.com</a>
         </div>
       </div>
     </aside>
     <main class="main" id="main">
+      <div class="demo-banner">
+        Demo. <a href="https://localpraxis.com">Built by LocalPraxis</a>
+      </div>
       <section class="view-pane" data-view="owner" hidden>
         <header class="mgr-header">
           <div>
@@ -2933,6 +2998,8 @@
       </section>
     </main>
   </div>
+
+  <a class="lp-back" href="https://localpraxis.com">&larr; localpraxis.com</a>
 
   <div class="detail-panel-backdrop" data-panel-backdrop></div>
   <aside
