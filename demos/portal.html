@@ -125,14 +125,12 @@
        for cross-demo aesthetic cohesion).
        ================================================================ */
     .demo-banner {
-      position: relative;
       padding: 0.5rem var(--s5);
       text-align: center;
       font-size: 0.75rem;
       color: var(--ink-light);
       border-bottom: 1px solid var(--rule-light);
       background: var(--cream);
-      margin: 0 calc(-1 * var(--s5)) var(--s5);
     }
     .demo-banner a { color: var(--accent); text-decoration: none; }
     .demo-banner a:hover { text-decoration: underline; }
@@ -1872,7 +1870,6 @@
 
       .demo-banner {
         padding: 0.5rem var(--s3);
-        margin: 0 calc(-1 * var(--s3)) var(--s4);
       }
       .lp-back { display: none !important; }
       .lp-back-sidebar { display: block; }
@@ -1954,6 +1951,9 @@
   </script>
 </head>
 <body>
+  <div class="demo-banner">
+    Demo. <a href="https://localpraxis.com">Built by LocalPraxis</a>
+  </div>
   <nav class="role-bar" aria-label="Portal role">
     <div class="role-bar-label">PORTAL</div>
     <div class="role-segments" role="group" aria-label="Select portal role">
@@ -2026,9 +2026,6 @@
       </div>
     </aside>
     <main class="main" id="main">
-      <div class="demo-banner">
-        Demo. <a href="https://localpraxis.com">Built by LocalPraxis</a>
-      </div>
       <section class="view-pane" data-view="owner" hidden>
         <header class="mgr-header">
           <div>
