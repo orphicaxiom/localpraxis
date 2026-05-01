@@ -1,6 +1,6 @@
 # localpraxis
 
-Source for [localpraxis.com](https://localpraxis.com), the marketing site for Local Praxis — a one-person custom-software practice in Port Aransas, TX. Built for clarity, not for tracking.
+Source for [localpraxis.com](https://localpraxis.com), the marketing site for Local Praxis, a one-person custom-software practice in Port Aransas, TX. Built for clarity, not for tracking.
 
 ## Stack
 
