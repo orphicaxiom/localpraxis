@@ -593,10 +593,6 @@
       padding-bottom: clamp(3rem, 8vh, 5rem);
     }
 
-    .testimonials-section {
-      padding: clamp(5rem, 12vh, 8rem) 0;
-    }
-
     section h2 {
       font-family: var(--font-display);
       font-size: var(--font-size-h2);
@@ -1379,57 +1375,6 @@
     }
     .skip-link:focus { top: 0; }
 
-    /* Testimonials */
-    .testimonials-section {
-        padding: 3rem 0;
-        background: var(--paper);
-    }
-    .testimonials-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2.5rem;
-        margin-top: 3rem;
-    }
-    .testimonial-card {
-        background: var(--paper);
-        border: 1.5px solid var(--ink);
-        border-radius: 0;
-        padding: 2rem;
-        margin: 0;
-    }
-    .testimonial-text {
-        font-family: var(--font-mono);
-        font-size: var(--font-size-md);
-        line-height: 1.5;
-        color: var(--ink);
-        font-style: normal;
-        margin-bottom: 1.5rem;
-    }
-    .testimonial-attribution {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        padding-top: 1rem;
-        border-top: 1.5px solid var(--ink);
-    }
-    .testimonial-name {
-        font-family: var(--font-mono);
-        font-weight: 600;
-        font-size: var(--font-size-base);
-        color: var(--ink);
-    }
-    .testimonial-business {
-        font-family: var(--font-mono);
-        font-size: 0.8rem;
-        color: var(--ink-mid);
-        text-transform: uppercase;
-        letter-spacing: 0.24em;
-        font-weight: 500;
-    }
-    @media (max-width: 768px) {
-        .testimonials-grid { grid-template-columns: 1fr; }
-    }
-
     /* ─── Fee Calculator ───────────── */
     .calc-intro {
       color: var(--ink-mid);
@@ -1935,29 +1880,6 @@
           <p>Hosting, bug fixes, updates, and support. One flat fee. No per-user pricing, no surprise invoices.</p>
           <p class="pricing-note">Most projects run <span class="highlight-solution">$25 to $50/month</span>.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section class="testimonials-section">
-    <div class="container">
-      <h2>References</h2>
-      <div class="testimonials-grid">
-        <blockquote class="testimonial-card reveal-card reveal-stagger-1">
-          <p class="testimonial-text">"James saved us hundreds of dollars a month by building out our booking and property management platform from scratch. Reservation engine, owner portal, automated guest messaging, unified checkout. It replaced four separate tools we were paying for monthly."</p>
-          <div class="testimonial-attribution">
-            <span class="testimonial-name">Alistair Lallier</span>
-            <span class="testimonial-business">Port A Vacation Company</span>
-          </div>
-        </blockquote>
-        <blockquote class="testimonial-card reveal-card reveal-stagger-2">
-          <p class="testimonial-text">"PAVC has launched portavacation.co, a custom-built website that went live in February... allowing visitors to book a vacation rental, reserve a Jeep or e-bike, and book Port Aransas activities."</p>
-          <div class="testimonial-attribution">
-            <span class="testimonial-name">The South Jetty</span>
-            <span class="testimonial-business">Port Aransas News</span>
-          </div>
-        </blockquote>
       </div>
     </div>
   </section>
